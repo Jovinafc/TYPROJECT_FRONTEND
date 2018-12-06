@@ -1,0 +1,72 @@
+.Sell {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.Label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin:15px;
+}
+
+.select {
+    width:150px;
+    display: inline-block;
+}
+
+.Input  {
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: inline-block;
+    width: 200px;
+    
+}
+
+
+.InputDet {
+    border: 1px solid #ccc;
+    background-color: white;
+    width: 200px;
+
+}
+
+.Image {
+    width: 100px;
+    height: 100px;
+
+}
+
+.Box {
+    border: 3px solid black;
+    padding: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 20px;
+    
+}
+
+.divs {
+    border: 1px solid black;
+    
+}
+
+.span1 {
+    display: block;
+    margin-bottom: -4px;
+    
+}
+
+.or {
+    font-size: 0.8em;
+}
+.other {
+    width: 200px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
