@@ -1,4 +1,5 @@
-import * as actionTypes from './actionTypes/';
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
 export const authStart = () => {
     return {
@@ -24,11 +25,12 @@ export const authFail = (error) => {
 
 
 export const logout = () => {
-    //  localStorage.removeItem('token');
-    //  localStorage.removeItem('expirationDate');
-    //  localStorage.removeItem('userId'); 
+      localStorage.removeItem('token');
+      localStorage.removeItem('expirationDate');
+      localStorage.removeItem('userId'); 
       return {
-          type: actionTypes.AUTH_INITITATE_LOGOUT
+          type: actionTypes.AUTH_LOGOUT
+        
       };
   };
   
@@ -45,25 +47,22 @@ export const logout = () => {
       };
   };
   
-  export const auth = (email, password, isSignup) => {
+  export const auth = (email, password) => {
         return dispatch => {
           dispatch(authStart()); 
-          const authData = {
+          const users = {
               email: email,
               password: password,
-              returnSecureToken: true
           }
-          let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyCZW5kpqqTluUlYODQI5XR0f8Pxwmvs4NA'
-          if(!isSignup){
-              url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyCZW5kpqqTluUlYODQI5XR0f8Pxwmvs4NA'
-          }
-          axios.post(url, authData)
+          
+          axios.post('http://localhost:3001/sign-in', {users: users})
           .then(response => {
+              console.log(response.data);
               const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-              localStorage.setItem('token', response.data.idToken);
+              localStorage.setItem('token', response.data.token);
               localStorage.setItem('expirationDate', expirationDate);
-              localStorage.setItem('userId', response.data.localId);
-              dispatch(authSuccess(response.data.idToken, response.data.localId));
+              localStorage.setItem('userId', response.data.user_id);
+              dispatch(authSuccess(response.data.token, response.data.user_id));
               dispatch(checkAuthTimeout(response.data.expiresIn));
           })
           .catch(err => {

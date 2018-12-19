@@ -468,31 +468,49 @@ class SellVehicle extends Component {
                         <br />
                         <br />
                         <br />
-
+                        <br />
                         <span className={classes.Span}>
 
-                        <label htmlFor="number" className={classes.Label}> Vehicle Number:</label>
-                        <TextField label="Vehicle Number" className={classes.other} placeholder="Enter your vehicle number" id="number" name="number" onChange={this.selectChangedHandlerName} />
+
+                        <table>
+                            <tbody>
+                            <tr>
+                                 <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
+                                 <td><TextField label="Vehicle Number" className={classes.other} placeholder="Enter your vehicle number" id="number" name="number" onChange={this.selectChangedHandlerName} /></td>
                         
-                        <br/>
-                        <br />
-                        <label htmlFor="image" className={classes.Label}>Vehicle Image:</label>
-                        <TextField className={classes.other} id="image" type="file" onChange={this.handleImageChange} /> 
-                        <br />
-                        { imagePreview }
-                        <br/>
-                        <label htmlFor="document" className={classes.Label}>Vehicle Document:</label>
-                        <TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} />         
+                            </tr>
                         
-                        <br />
-                        <br />
-                        <label htmlFor="price" className={classes.Label}>Price:</label>
-                        <TextField className={classes.other} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} />
-                        <br/><br/>
+                            </tbody>
+                            <tbody>
+                        <tr>
+                            <td><label htmlFor="image" className={classes.Label}>Vehicle Image:</label></td>
+                            <td><TextField className={classes.other} id="image" type="file" onChange={this.handleImageChange} /></td> 
+                            { imagePreview }
+                        
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            
+                        <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
+                        <td><TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
+                        </tr>         
+                        </tbody>
+                        
+                        <tbody>
+                        <tr>
+                             <td><label htmlFor="price" className={classes.Label}>Price:</label></td>
+                             <td><TextField className={classes.other} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
+                         </tr>
+                         </tbody>
+                        
+
+                        </table>
                         <button  className="btn btn-primary" onClick={this.formSubmit}>
                             Submit
                         </button>
-                        
+
+
 
                         </span>
 

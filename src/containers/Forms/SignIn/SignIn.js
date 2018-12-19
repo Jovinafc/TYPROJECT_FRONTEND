@@ -2,9 +2,11 @@ import React, { Component} from 'react';
 import Input from '../../../components/UI/Input/Input'
 import classes from './SignIn.module.css';
 import {updateObject, checkValidity} from '../../../../src/shared/utility';
-import axios from 'axios';
 import Button from '../../../components/UI/FormComponents/Button';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/auth';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 class SignIn extends Component {
     state = {
@@ -66,23 +68,25 @@ class SignIn extends Component {
 
    handleFormSubmit = (event) => {
     event.preventDefault();
-   const user = {};
+    this.props.onAuth(this.state.signInForm.email.value, this.state.signInForm.password.value);
+   }
+//    const user = {};
 
-for(let formElementIdentifier in this.state.signInForm){
-    user[formElementIdentifier] = this.state.signInForm[formElementIdentifier].value
+// for(let formElementIdentifier in this.state.signInForm){
+//     user[formElementIdentifier] = this.state.signInForm[formElementIdentifier].value
     
-}
-console.log(user);
+// }
+// console.log(user);
 
-axios.post('https://jsonplaceholder.typicode.com/users', user)
-.then((post)=>{
-    alert('Data Sent');
-    console.log('Res',post);
-}).catch(e => {
-    console.log(e);
-    alert('Some Error...');
-})
-}
+// axios.post('https://jsonplaceholder.typicode.com/users', user)
+// .then((post)=>{
+//     alert('Data Sent');
+//     console.log('Res',post);
+// }).catch(e => {
+//     console.log(e);
+//     alert('Some Error...');
+// })
+// }
 
 
 
@@ -128,10 +132,24 @@ axios.post('https://jsonplaceholder.typicode.com/users', user)
                     </NavLink>
             </form>
         );
+
+        if(this.props.loading){
+            form = <Spinner />
+        }
+
+        let errorMessage = null;
+
+        if(this.props.error) {
+            errorMessage = (
+                <p>{this.props.error.message}</p>
+            )
+        }
     
         return (
             <div className={classes.SignIn}> 
-                <h2 style={{padding:'10px', textAlign:'center'}}>Sign In</h2>    
+                <h2 style={{padding:'10px', textAlign:'center'}}>Sign In</h2>
+                {errorMessage}
+    
                 {form}
                 
             </div>
@@ -140,10 +158,24 @@ axios.post('https://jsonplaceholder.typicode.com/users', user)
 
 }
 
+const mapStateToProps = state => {
+    return {
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        loading: state.auth.loading
+
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email,password) => dispatch(actions.auth(email,password))
+    };
+};
 
 const buttonStyle = {
     margin: "10px 10px 10px 10px",
 
 }
 
-export default SignIn;
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);

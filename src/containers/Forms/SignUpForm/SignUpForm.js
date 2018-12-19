@@ -9,7 +9,7 @@ import Button from '../../../components/UI/FormComponents/Button';
 class SignUp extends Component {
     state = {
         signUpForm: {
-            fname: {
+            first_name: {
                 elementType: 'input',
                 label: 'First Name',
                 elementConfig: {
@@ -18,7 +18,7 @@ class SignUp extends Component {
                 },
                 value: ''
             },
-            lname: {
+            last_name: {
                 elementType: 'input',
                 label: 'Last Name',
                 elementConfig: {
@@ -27,7 +27,7 @@ class SignUp extends Component {
                 },
                 value: ''
             },
-            number: {
+            phone_number: {
                 elementType: 'input',
                 label: 'Phone Number',
                 elementConfig: {
@@ -36,7 +36,7 @@ class SignUp extends Component {
                 },
                 value: ''
             },
-            dob: {
+            DOB: {
                 elementType: 'date',
                 label: 'DOB',
                 elementConfig: {
@@ -62,23 +62,23 @@ class SignUp extends Component {
                     placeholder: 'Enter Your Password'
                 },
                 value: ''
-            },
-            confirmpassword: {
-                elementType: 'input',
-                label: 'Confirm Password',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Enter your password again'
-                },
-                value: ''
             }
+   //         confirmpassword: {
+   //             elementType: 'input',
+   //             label: 'Confirm Password',
+   //             elementConfig: {
+   //                 type: 'password',
+   //                 placeholder: 'Enter your password again'
+   //             },
+   //             value: ''
+   //         }
         }
 }
 
 inputChangedHandler = (event, inputIdentifier) => {
     let updatedFormElement;
     
-    if(inputIdentifier === 'dob'){
+    if(inputIdentifier === 'DOB'){
         updatedFormElement = updateObject(this.state.signUpForm[inputIdentifier], {
             value: event
         })
@@ -100,15 +100,15 @@ inputChangedHandler = (event, inputIdentifier) => {
 
 handleFormSubmit = (event) => {
     event.preventDefault();
-   const user = {};
+   const users = {};
 
 for(let formElementIdentifier in this.state.signUpForm){
-    user[formElementIdentifier] = this.state.signUpForm[formElementIdentifier].value
+    users[formElementIdentifier] = this.state.signUpForm[formElementIdentifier].value
     
 }
-console.log(user);
+console.log(users);
 
-axios.post('https://jsonplaceholder.typicode.com/users', user)
+axios.post('http://localhost:3001/sign-up', {users: users})
 .then((post)=>{
     alert('Data Sent');
     console.log('Res',post);
