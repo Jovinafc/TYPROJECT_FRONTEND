@@ -7,6 +7,7 @@ import classes from './Layout.module.css'
 import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
+import TopToolbar from '../../components/TopToolbar/TopToolbar';
 
 class Layout extends Component {
     state = {
@@ -28,6 +29,9 @@ class Layout extends Component {
     render () {
         return (
             <Aux>
+                <TopToolbar 
+                 isAuth = {this.props.isAuthenticated}
+                 />
                 <Toolbar 
                 isAuth = {this.props.isAuthenticated}
                 drawerToggleClicked={this.sideDrawerToggleHandler}
@@ -39,15 +43,7 @@ class Layout extends Component {
                 <main   className={classes.Content}>
                         {this.props.children}
                 </main>
-          {/*  <div>
-                <h1 style={{textAlign: 'center', backgroundColor: '#336699'}}>Header Section</h1>
-                <h4 style={{textAlign: 'center', backgroundColor: '#5288DB' }}>
-                <NavigationItems
-                 />
 
-                </h4>
-                
-          </div>*/}
             </Aux>
     );
     }

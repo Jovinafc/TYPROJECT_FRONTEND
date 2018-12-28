@@ -16,7 +16,7 @@ class Login extends Component {
 
     emailHandler = (e) => {
         this.setState({
-            username: e.target.value
+            email: e.target.value
         })
     }
 

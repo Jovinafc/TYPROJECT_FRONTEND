@@ -3,7 +3,7 @@ import Input from '../../../components/UI/Input/Input'
 import classes from './SignIn.module.css';
 import {updateObject, checkValidity} from '../../../../src/shared/utility';
 import Button from '../../../components/UI/FormComponents/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/auth';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -44,6 +44,12 @@ class SignIn extends Component {
         },
         formIsValid: false
 
+    }
+
+    componentDidMount() {
+        if(this.props.authRedirectPath !== '/'){
+            this.props.onSetAuthRedirectPath();
+        }
     }
 
     
@@ -144,14 +150,22 @@ class SignIn extends Component {
                 <p>{this.props.error.message}</p>
             )
         }
+
+        let authRedirect = null;
+        // if(this.props.isAuthenticated){
+        //     authRedirect = <Redirect to={this.props.authRedirect}/>
+        // }
     
         return (
             <div className={classes.SignIn}> 
+                {authRedirect}
+                <div className={classes.margin}>
+
                 <h2 style={{padding:'10px', textAlign:'center'}}>Sign In</h2>
                 {errorMessage}
     
                 {form}
-                
+                </div>
             </div>
         );
     }
@@ -162,14 +176,15 @@ const mapStateToProps = state => {
     return {
         error: state.auth.error,
         isAuthenticated: state.auth.token !== null,
-        loading: state.auth.loading
-
+        loading: state.auth.loading,
+        authRedirectPath: state.auth.authRedirectPath
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email,password) => dispatch(actions.auth(email,password))
+        onAuth: (email,password) => dispatch(actions.auth(email,password)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     };
 };
 
