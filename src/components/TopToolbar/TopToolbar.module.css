@@ -21,15 +21,15 @@
 .sign {
     margin-left: auto;
     height: 100%;
-    width: 10%;
+    width: 15%;
     margin-right: 0.5%;
-    
 }
 
 
 .afterlogin {
     height: 60px;
     width: 60px;
+    margin-left: 60%;
     margin-top: 5px;
     border: 1px solid black;
     border-radius: 50%;

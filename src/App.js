@@ -12,6 +12,12 @@ import {connect} from 'react-redux';
 import * as actions from './store/actions/auth';
 import Homepage from './containers/HomePage/HomePage';
 import Profile from './containers/Profile/Profile';
+import MyVehicle from './containers/MyVehicle/MyVehicle';
+import AccountInfo from './containers/Profile/AccountInfo/AccountInfo';
+import Photo from './containers/Profile/Photo/Photo';
+import Delete from './containers/Profile/Delete/Delete';
+import VehicleHistory from './containers/VehicleHistory/VehicleHistory';
+
 
 class App extends Component {
   
@@ -24,7 +30,7 @@ class App extends Component {
     let routes = (
       <Switch>
           <Route path="/" exact component={Homepage} />
-          <Route  exact path="/signin" exact component={SignIn}/>
+          <Route path="/signin" exact component={SignIn}/>
           <Route path="/display" exact component={Cards} />
           <Route path="/signUp" exact component={SignUpForm} />
           <Route path="/sell" exact component={SellVehicle} />
@@ -34,14 +40,18 @@ class App extends Component {
     if(this.props.isAuthenticated){
       routes = (
         <Switch>
-            <Route exact path="/signin" exact component={SignIn}/>
             <Route path="/" exact component={Homepage} />
             <Route path="/display" exact component={Cards} />
-            <Route path="/signUp" exact component={SignUpForm} />
             <Route path="/sell" exact component={SellVehicle} />
             <Route path="/logout" exact component={Logout}/>
             <Route path="/profile" exact component={Profile} />
-        </Switch>
+            <Route path="/myvehicles" exact component={MyVehicle} />
+            <Route path="/account" exact component={AccountInfo} />
+            <Route path="/photo" exact component={Photo} />
+            <Route path="/delete" exact component={Delete} />
+            <Route path="/history" exact component={VehicleHistory} />
+
+         </Switch>
              
       )
     }

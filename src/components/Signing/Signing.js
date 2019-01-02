@@ -4,7 +4,6 @@ import { NavLink} from 'react-router-dom';
 import Login from '../../containers/Forms/Login/Login';
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../../hoc/Auxilary';
-import SignIn from '../../containers/Forms/SignIn/SignIn';
 
 class Signing extends Component {
 
@@ -30,13 +29,12 @@ class Signing extends Component {
                     {log}
                 </Modal>
 
-                    <div>
-                        <button onClick={this.logHandler} className={classes.Log}>
+                    <div className={classes.container}>    
+                        <button onClick={this.logHandler} className="btn btn-primary btn-xs">
                                 Log In
                         </button>  
-              <br/>
-              <br />
-                     <button className={classes.Sign}>
+                        <div style={{width: "10px"}}></div>
+                     <button className={classes.signup}>
                          <NavLink to="/SignUp" exact>Sign Up</NavLink>
                      </button>
                 </div>

@@ -13,10 +13,10 @@ class TopToolbar extends Component {
             {/* <QuickAccess className={classes.dropdown-content} />     */}
             <div className={classes.dropdowncontent}>
                 <a href="/Profile">My Profile</a>
-                <a>My Vehicles</a>
-                <a>Vehicle HIstory</a>
-                <a>Help</a>
-                <a>Logout</a>
+                <a href="/myvehicles">My Vehicles</a>
+                <a href="/history">Vehicle History</a>
+                <a href="/help">Help</a>
+                <a href="/logout">Logout</a>
             </div>
             </div>
         }

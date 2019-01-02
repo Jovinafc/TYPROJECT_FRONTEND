@@ -20,30 +20,19 @@
 }
 
 .b2 {
+    width: 250px;
 
 }
 
 .b3 {
+    width: 250px;
 
 }
 
 .b4 {
+    width: 250px;
 
 }
-
-.tabs {
-    position: absolute;
-    z-index: 1000;
-    background-color: azure;
-    float: left;
-       left: 0px;
-       top: 0px;
-       z-index: 1000;
-       padding: 5px;
-       color: #FFFFFF;
-       font-weight: bold;
-}
-
 .img {
     width: 100%;
     height: 500px;

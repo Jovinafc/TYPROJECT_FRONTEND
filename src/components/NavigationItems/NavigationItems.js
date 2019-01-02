@@ -1,15 +1,22 @@
 import React from 'react';
 import classes from './NavigationItems.module.css'
 import NavigationItem from './NavigationItem/NavigationItem';
+import Radium, {StyleRoot } from 'radium';
 
-const navigationItems = (props) =>  (
-  
+
+const navigationItems = (props) =>  {
+            const style = {
+               '@media (min-width: 500px)': {
+                  display: 'none'
+               }
+            }
   
     //    let login = null;
-
+         
       //  login = <Login />
-        
-            
+            return (
+            <StyleRoot >
+
             <ul className={classes.NavigationItems}>
             <NavigationItem  exact link="/">Home </NavigationItem>
             {/* <NavigationItem  link="/signin"> Sign In </NavigationItem>
@@ -25,6 +32,7 @@ const navigationItems = (props) =>  (
                 ? <NavigationItem link="/signin">Sign In</NavigationItem>
                 : null }
 
+
              {props.isAuthenticated 
                 ? <NavigationItem link="/sell">Sell/Lend Vehicle</NavigationItem> 
                 : null}
@@ -32,9 +40,18 @@ const navigationItems = (props) =>  (
                 ? <NavigationItem link="/logout">Logout</NavigationItem> 
                 : null}
              
+             <span style={style}>
+             {props.isAuthenticated
+               ? <NavigationItem  link="/profile">My Profile</NavigationItem>
+               : null}
+             </span>     
 
         </ul>   
-);
+        </StyleRoot>
+
+            )
+
+   };
                 
       //  <Modal show={this.state.show} modalClosed={this.cancelHandler}>
       //      {login}
