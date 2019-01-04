@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './NavigationItems.module.css'
 import NavigationItem from './NavigationItem/NavigationItem';
-import Radium, {StyleRoot } from 'radium';
+import {StyleRoot } from 'radium';
 
 
 const navigationItems = (props) =>  {
@@ -21,6 +21,13 @@ const navigationItems = (props) =>  {
             <NavigationItem  exact link="/">Home </NavigationItem>
             {/* <NavigationItem  link="/signin"> Sign In </NavigationItem>
              */}
+
+             <span style={style} className={classes.span}>
+             {props.isAuthenticated
+               ? <NavigationItem  link="/profile">My Profile</NavigationItem>
+               : null}
+             </span>
+
             <NavigationItem link="/display" >Buy/Rent Vehicle 
                 </NavigationItem>
             {/*     
@@ -40,11 +47,7 @@ const navigationItems = (props) =>  {
                 ? <NavigationItem link="/logout">Logout</NavigationItem> 
                 : null}
              
-             <span style={style}>
-             {props.isAuthenticated
-               ? <NavigationItem  link="/profile">My Profile</NavigationItem>
-               : null}
-             </span>     
+                  
 
         </ul>   
         </StyleRoot>

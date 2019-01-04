@@ -1,11 +1,12 @@
 import React, { Component} from 'react';
 import classes from './HomePage.module.css';
 import Image from './Vehicle.v1.jpg';
+import ImageSlider from '../../components/ImageSlider/ImageSlider';
 
 class HomePage extends Component {
     render () {
         return (
-            <div>
+
                 <div className={classes.container}>
                 <img className={classes.img} src={Image} alt="Vehicle"/>
 
@@ -17,8 +18,7 @@ class HomePage extends Component {
                         <button className={classes.b4}>Buy Now</button>
                     </div>                    
                 </div>
-            </div>
-        )
+                )
     }
 }
 

@@ -67,10 +67,7 @@ class App extends Component {
 
         </Layout>
 
-        <div style={{textAlign: 'center', height: '200px', backgroundColor: 'grey'}}>
-            <h2>Footer Section </h2>
-        </div>
-
+        
 
       </div>
       </Aux>

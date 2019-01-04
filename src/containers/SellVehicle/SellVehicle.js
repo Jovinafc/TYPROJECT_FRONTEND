@@ -235,6 +235,19 @@ class SellVehicle extends Component {
     formSubmit = (event) => {
         event.preventDefault();
         console.log(this.state.formdata)
+        const fd = new FormData();
+        fd.append("type",this.state.formdata.type);
+        fd.append("brand",this.state.formdata.brand);
+        fd.append("model",this.state.formdata.model);
+        fd.append("registration_state",this.state.formdata.registration_state);
+        fd.append("fuel",this.state.formdata.fuel);
+        fd.append("image",this.state.formdata.image);
+        fd.append("document",this.state.formdata.documents);
+        fd.append("price",this.state.formdata.price);
+        fd.append("year",this.state.formdata.price);
+        fd.append("km_driven",this.state.formdata.km_driven);
+        fd.append("number_plate",this.state.formdata.number_plate);
+
         axios.post('http://localhost:3001/store-vehicle-details', {vehicles: this.state.formdata})
         .then((post) => {
              alert('Data Sent')
@@ -281,7 +294,9 @@ class SellVehicle extends Component {
                 ...this.state.formdata,
                 image: file
             }
+           
           });
+          console.log(this.state.formdata.image)
         }
     
         reader.readAsDataURL(file)

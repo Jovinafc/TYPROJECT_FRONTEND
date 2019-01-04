@@ -8,6 +8,7 @@ import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
+import Headroom from 'react-headroom';
 
 class Layout extends Component {
     state = {
@@ -40,9 +41,17 @@ class Layout extends Component {
                 isAuth = {this.props.isAuthenticated}
                 open={this.state.showSideDrawer } 
                 closed={this.sideDrawerClosedHandler} />
+
                 <main   className={classes.Content}>
                         {this.props.children}
                 </main>
+
+                <div style={{textAlign: 'center', height: '200px', backgroundColor: 'grey'}}>
+                    <h2>Footer Section </h2>
+                </div>
+
+
+
 
             </Aux>
     );

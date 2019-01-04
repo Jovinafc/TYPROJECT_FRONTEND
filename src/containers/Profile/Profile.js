@@ -1,11 +1,6 @@
 import React, {Component} from 'react'
 import classes from './Profile.module.css';
 import Aux from '../../hoc/Auxilary';
-import { NavLink} from 'react-router-dom';
-import {withRouter, Route, Switch} from 'react-router-dom';
-import AccountInfo from './AccountInfo/AccountInfo';
-import Delete from './Delete/Delete';
-import Photo from './Photo/Photo';
 import ProfInfo from './ProfInfo/ProfInfo';
 import ProfNav from './ProfNav/ProfNav';
 
