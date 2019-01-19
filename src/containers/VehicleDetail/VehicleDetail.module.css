@@ -1,0 +1,66 @@
+.Container {
+    padding-top: 100px;
+    margin-bottom: 200px;
+}
+
+.InnerContainer {
+    /* border: 1px solid blue; */
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 20px;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    padding-left: 10%;
+    padding-top: 3%;
+    height: 1200px;
+} 
+
+.DateContainer {
+    border: 1px solid black;
+    margin-right: 15%; 
+    height: 250px;
+    padding-top: 6%; 
+    text-align: center;
+}
+
+
+.Img {
+    width: 60%;
+    height: 30%;
+    border-radius: 2%;
+}
+
+.Details {
+    margin-top: 2%;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    width: 80%;
+    
+}
+
+.but {
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-bottom: 10%;
+}
+
+.tables {
+    width: 90%;
+    margin: 5%;
+}
+
+.tables {
+    border: 1px solid black;
+    border: 1; 
+    border-collapse: collapse;
+}
+
+.trs{
+    border: 1px solid black;
+    border: 1; 
+}
+
+.tds{
+    border: 1px solid black;
+    border: 1; 
+}

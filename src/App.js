@@ -17,12 +17,16 @@ import AccountInfo from './containers/Profile/AccountInfo/AccountInfo';
 import Photo from './containers/Profile/Photo/Photo';
 import Delete from './containers/Profile/Delete/Delete';
 import VehicleHistory from './containers/VehicleHistory/VehicleHistory';
-
+import VehicleDetail from './containers/VehicleDetail/VehicleDetail';
+import Lend from './containers/SellVehicle/Lend/Lend';
 
 class App extends Component {
   
   componentDidMount = () => {
+
     this.props.onTryAutoSignUp();
+
+
   }
 
   render() {
@@ -33,7 +37,10 @@ class App extends Component {
           <Route path="/signin" exact component={SignIn}/>
           <Route path="/display" exact component={Cards} />
           <Route path="/signUp" exact component={SignUpForm} />
-          <Route path="/sell" exact component={SellVehicle} />
+          <Route path="/sell/sell" exact component={SellVehicle} />
+          <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
+
+          
       </Switch>
     );
 
@@ -42,7 +49,7 @@ class App extends Component {
         <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/display" exact component={Cards} />
-            <Route path="/sell" exact component={SellVehicle} />
+            <Route path="/sell/sell" exact component={SellVehicle} />
             <Route path="/logout" exact component={Logout}/>
             <Route path="/profile" exact component={Profile} />
             <Route path="/myvehicles" exact component={MyVehicle} />
@@ -50,7 +57,8 @@ class App extends Component {
             <Route path="/photo" exact component={Photo} />
             <Route path="/delete" exact component={Delete} />
             <Route path="/history" exact component={VehicleHistory} />
-
+            <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
+            <Route path="/sell/lend" component={Lend} />
          </Switch>
              
       )
@@ -59,6 +67,7 @@ class App extends Component {
    
     return (
       <Aux>
+
       <div style={{backgroundColor: 'white'}}> 
         
        
@@ -70,6 +79,7 @@ class App extends Component {
         
 
       </div>
+
       </Aux>
     );
   }
@@ -77,13 +87,17 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    user_id: state.auth.userId,
+    upload: state.auth.photoadd
+
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignUp: () => dispatch(actions.authCheckState())
+    onTryAutoSignUp: () => dispatch(actions.authCheckState()),
+    getUserData: (user_id) => dispatch(actions.userData(user_id))
   }
 }
 

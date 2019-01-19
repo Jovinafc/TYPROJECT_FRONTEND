@@ -6,7 +6,15 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
-    authRedirectPath: '/'
+    authRedirectPath: '/',
+    first_name: '',
+    last_name: '',
+    phone_number: '',
+    dob: '',
+    email: '',
+    password: '',
+    image: '',
+    photoadd: false
 };
 
 const authStart = (state, action) => {
@@ -37,6 +45,37 @@ const setAuthRedirectPath = (state, action) => {
     return updateObject(state, {authRedirectPath: action.path});
 };
 
+const photoStart = (state,action) => {
+    return updateObject(state, {photoadd: true})  
+};
+
+const photoFinish = (state, action) => {
+    return updateObject(state, {photoadd: false})
+};
+
+const saveUserData = (state,action) => {
+    return updateObject(state, 
+        {
+            first_name: action.first_name,
+            last_name: action.last_name,
+            phone_number: action.phone_number,
+            dob: action.dob,
+            email: action.email,
+            image: action.image
+    })
+};
+
+export const deleteUserData = (state, action) => {
+    return updateObject(state, {
+        first_name: '',
+        last_name: null,
+        phone_number: null,
+        dob: null,
+        email: null,
+        image: null
+    })
+}
+
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
@@ -44,6 +83,10 @@ const reducer = (state=initialState, action) => {
         case actionTypes.AUTH_FAIL: return authFail(state,action);
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
         case actionTypes.SET_AUTH_REDIRECT_PATH: return setAuthRedirectPath(state, action);
+        case actionTypes.SAVE_USER_DATA: return saveUserData(state,action);
+        case actionTypes.DELETE_USER_DATA: return deleteUserData(state,action);
+        case actionTypes.PHOTO_START: return photoStart(state,action);
+        case actionTypes.PHOTO_FINISH: return photoFinish(state,action);
         default: return state;        
     }
 };

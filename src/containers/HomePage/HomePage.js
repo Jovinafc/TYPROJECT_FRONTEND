@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import classes from './HomePage.module.css';
 import Image from './Vehicle.v1.jpg';
-import ImageSlider from '../../components/ImageSlider/ImageSlider';
+// import ImageSlider from '../../components/ImageSlider/ImageSlider';
 
 class HomePage extends Component {
     render () {

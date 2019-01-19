@@ -2,10 +2,10 @@ import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import v1 from '../../Images/vehicle1.jpg';
 import v2 from '../../Images/vehicle2.jpg';
-import v3 from '../../Images/vehicle3.jpg';
+// import v3 from '../../Images/vehicle3.jpg';
 import v4 from '../../Images/Vehicle.v1.jpg';
 
-import Image from '../../containers/HomePage/Vehicle.v1.jpg'
+// import Image from '../../containers/HomePage/Vehicle.v1.jpg'
 import classes from './ImageSlider.module.css';
 
 const slideImages = [

@@ -5,12 +5,13 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-
+import Tabs from './Tabs/Tabs';
+import { connect} from 'react-redux';
 
 class SellVehicle extends Component {
     state = {
         formdata: {
-            
+            user_id: this.props.user_id,
             type: '',
             brand: '',
             model: '',
@@ -231,50 +232,44 @@ class SellVehicle extends Component {
             }
         })
     }
-
     formSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.formdata)
+
         const fd = new FormData();
-        fd.append("type",this.state.formdata.type);
-        fd.append("brand",this.state.formdata.brand);
-        fd.append("model",this.state.formdata.model);
-        fd.append("registration_state",this.state.formdata.registration_state);
-        fd.append("fuel",this.state.formdata.fuel);
-        fd.append("image",this.state.formdata.image);
-        fd.append("document",this.state.formdata.documents);
-        fd.append("price",this.state.formdata.price);
-        fd.append("year",this.state.formdata.price);
-        fd.append("km_driven",this.state.formdata.km_driven);
-        fd.append("number_plate",this.state.formdata.number_plate);
+        fd.append('image',this.state.formdata.image);
+        axios.post('http://localhost:3001/image',fd).then(()=>{
+            console.log('Image Sent');
+           
 
-        axios.post('http://localhost:3001/store-vehicle-details', {vehicles: this.state.formdata})
-        .then((post) => {
-             alert('Data Sent')
-            console.log("Data Sent", post);
-            this.setState({
-                formdata: {
-                    type: '',
-                    brand: '',
-                    model: '',
-                    registration_state: '',
-                    fuel: '',
-                    image: '',
-                    document: '',
-                    price: ' ',
-                    year: '',
-                    km_driven: '',
-                    number_plate: ' '
+    
+    }).catch(e=>console.log(e));
+    
+    axios.post('http://localhost:3001/store-vehicle-details',{vehicles:this.state.formdata})
+    .then((post) => {
+         alert('Data Sent')
+        console.log("Data Sent", post);
 
-                  }
-            }) 
-                
-            
-        }).catch(e => {
-            console.log(e);
-            alert('Invalid Data')
-        });
+        this.setState({
+            formdata: {
+                type: '',
+                brand: '',
+                model: '',
+                registration_state: '',
+                fuel: '',
+                image: '',
+                document: '',
+                price: '',
+                year: '',
+                km_driven: '',
+                number_plate: '',
+                user_id: this.props.user_id
+              }
+        }) 
 
+    }).catch(e=>{
+        console.log(e)
+
+    })
 
     }
 
@@ -300,10 +295,7 @@ class SellVehicle extends Component {
         }
     
         reader.readAsDataURL(file)
-        console.log(file);
-        console.log(this.state.sample);
-        console.log(this.state.imagePrev);
-      } 
+     } 
     
       inputChangedHandlerBrand = (e) => {
           e.preventDefault();
@@ -325,7 +317,6 @@ class SellVehicle extends Component {
         })
       }
   render () {
-    console.log(this.state.formdata);  
     let {imagePrev} = this.state;
     let imagePreview = null;
     if (imagePrev) {
@@ -382,7 +373,11 @@ class SellVehicle extends Component {
     return (
         
         <div  className={classes.Box} >
-            <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Enter your vehicle details</h2>
+
+            <Tabs />
+
+        <div>
+            <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell</h2>
             <Form className={classes.Sell}>
                        <div className={classes.divs}> 
                       <label htmlFor="type" className={classes.Label}>Vehicle Type:</label>  
@@ -491,7 +486,14 @@ class SellVehicle extends Component {
                             <tbody>
                             <tr>
                                  <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
-                                 <td><TextField label="Vehicle Number" className={classes.other} placeholder="Enter your vehicle number" id="number" name="number" onChange={this.selectChangedHandlerName} /></td>
+                                 <td><TextField 
+                                 label="Vehicle Number" 
+                                 className={classes.other} 
+                                 placeholder="Enter your vehicle number" 
+                                 id="number" 
+                                 name="number" 
+                                 value={this.state.formdata.number_plate}
+                                 onChange={this.selectChangedHandlerName} /></td>
                         
                             </tr>
                         
@@ -499,7 +501,7 @@ class SellVehicle extends Component {
                             <tbody>
                         <tr>
                             <td><label htmlFor="image" className={classes.Label}>Vehicle Image:</label></td>
-                            <td><TextField className={classes.other} id="image" type="file" onChange={this.handleImageChange} /></td> 
+                            <td><TextField className={classes.other}  value={this.state.formdata.image} id="image" type="file" onChange={this.handleImageChange} /></td> 
                             { imagePreview }
                         
                         </tr>
@@ -508,14 +510,14 @@ class SellVehicle extends Component {
                         <tr>
                             
                         <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
-                        <td><TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
+                        <td><TextField className={classes.other} value={this.state.formdata.documents} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
                         </tr>         
                         </tbody>
                         
                         <tbody>
                         <tr>
                              <td><label htmlFor="price" className={classes.Label}>Price:</label></td>
-                             <td><TextField className={classes.other} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
+                             <td><TextField className={classes.other} value={this.state.formdata.price} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
                          </tr>
                          </tbody>
                         
@@ -532,9 +534,16 @@ class SellVehicle extends Component {
                         <br />
                         <br /> 
             </Form>
+            </div>
         </div>
     );
   };
 }
 
-export default SellVehicle;
+const mapStateToProps = state => {
+    return {
+        user_id: state.auth.userId
+    }
+}
+
+export default connect(mapStateToProps, null)(SellVehicle);

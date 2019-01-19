@@ -1,37 +1,53 @@
-import React from 'react';
+import React,{Component} from 'react';
 import classes from './Card.module.css'
+import {NavLink} from 'react-router-dom';
+import { connect} from 'react-redux';
+import * as actions from '../../../store/actions/vehicle_click';
 
-const card = (props) => {
-    return (
-        <div className={classes.CardContainer}>
-            <div className={classes.Card}>
-                <div className={classes.Image}>
-                    {props.image}
+class card extends Component {
+
+
+    
+    render () {
+
+        let pd = <p className={classes.pd}>per day</p>
+        
+        let sell = <div className={classes.sell}>Sale</div>
+
+        let rent = <div className={classes.rent}>Rent</div>
+        return (
+            
+        
+            <div className={classes.CardContainer}>
+                <div className={classes.Card}>
+                    <div className={classes.ImageContainer}>
+                        <img className={classes.Image}src={this.props.image} alt="Im"/>
+                    </div>
+                    <div  className={classes.content}>
+                        <h5 onClick={() => this.props.onCardClick(this.props.vehicle_id)}><NavLink to={'/vehicledetail/:'+this.props.vehicle_id}><strong>{this.props.name}</strong> {this.props.model}</NavLink></h5>
+                        <div className={classes.price}>
+                            <div className={classes.prices}>
+                             <h6 >&#x20B9; {this.props.price === null ? this.props.price_per_day : this.props.price} 
+                                  <span className={classes.divider}></span>  
+                            </h6>
+                            {this.props.price_per_day !== null ? pd : null}
+
+                            </div>
+                            {this.props.price === null ? rent : sell }
+
+                         
+                        </div>
+                    </div>
                 </div>
-                <div className={classes.content}>
-                    <h5><strong>{props.name}</strong>{props.model}</h5>
-                    <h6>&#x20B9;{props.price}</h6>
-                </div>
-                {props.image}
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default card;    
+const mapDispactchToProps = dispatch => {
+    return {
+        onCardClick: (id) => dispatch(actions.onCard(id))
+    }
+}
 
-//import React from 'react';
-//import classes from './Card.module.css';
-//
-//const card = (props) => {
-//    return (
-//        <div className={classes.card}>
-//                
-//                <div className={classes.img}>Image</div>
-//                <div className={classes.vehicledetails}></div>    
-//        </div>
-//    )
-//};
-//
-//export default card;
-//
+export default connect(null,mapDispactchToProps)(card);    

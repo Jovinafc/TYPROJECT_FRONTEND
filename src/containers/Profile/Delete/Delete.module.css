@@ -18,6 +18,10 @@
     padding: 2%;
   }
 
+  .form {
+    text-align: center;
+  }
+
   
 @media(max-width:500px) {
   .Container {

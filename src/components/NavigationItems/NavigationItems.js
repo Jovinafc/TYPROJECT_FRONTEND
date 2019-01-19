@@ -41,7 +41,7 @@ const navigationItems = (props) =>  {
 
 
              {props.isAuthenticated 
-                ? <NavigationItem link="/sell">Sell/Lend Vehicle</NavigationItem> 
+                ? <NavigationItem link="/sell/sell">Sell/Lend Vehicle</NavigationItem> 
                 : null}
              {props.isAuthenticated 
                 ? <NavigationItem link="/logout">Logout</NavigationItem> 

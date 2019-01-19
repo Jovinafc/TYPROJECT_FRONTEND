@@ -1,5 +1,5 @@
 .Container {
     padding-top: 120px;
-  height: 800px;
+    height: minmax(1000px, auto);
   
 }

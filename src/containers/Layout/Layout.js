@@ -8,7 +8,6 @@ import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
-import Headroom from 'react-headroom';
 
 class Layout extends Component {
     state = {

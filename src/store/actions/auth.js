@@ -29,8 +29,7 @@ export const logout = () => {
       localStorage.removeItem('expirationDate');
       localStorage.removeItem('userId'); 
       return {
-          type: actionTypes.AUTH_LOGOUT
-        
+        type: actionTypes.AUTH_LOGOUT
       };
   };
   
@@ -63,6 +62,7 @@ export const logout = () => {
               localStorage.setItem('expirationDate', expirationDate);
               localStorage.setItem('userId', response.data.user_id);
               dispatch(authSuccess(response.data.token, response.data.user_id));
+              dispatch(userData(response.data.user_id));
               dispatch(checkAuthTimeout(response.data.expiresIn));
           })
           .catch(err => {
@@ -88,6 +88,7 @@ export const logout = () => {
   };
   
   export const authCheckState = () => {
+      console.log('Checking Logout State')
       return dispatch => {
           const token = localStorage.getItem('token');
           if(!token){
@@ -97,6 +98,7 @@ export const logout = () => {
               if(expirationDate > new Date()) {
                   const userId = localStorage.getItem('userId');
                   dispatch(authSuccess(token, userId));
+                  dispatch(userData(userId));
                   dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime() )/ 1000));
               }else{
                  dispatch(logout());
@@ -111,3 +113,67 @@ export const logout = () => {
 //          type: actionTypes.AUTH_CHECK_STATE   
 //      }
 //  };
+
+export const saveUserData = (first_name,last_name,phone_number,dob,email,image) => {
+        return {
+            type: actionTypes.SAVE_USER_DATA,
+            first_name: first_name,
+            last_name: last_name,
+            phone_number: phone_number,
+            dob: dob,
+            email: email,
+            image: image
+        };
+};
+
+export const deleteUserData = () => {
+    return {
+        type: actionTypes.DELETE_USER_DATA,
+        // first_name: first_name,
+        // last_name: last_name,
+        // phone_number: phone_number,
+        // dob: dob,
+        // email: email,
+        // image: image
+
+    }
+}
+
+export const userData = (user_id) => {
+    console.log('Getting User Info');
+    return dispatch => {
+        console.log(user_id);
+        axios.post('http://localhost:3001/fetch-user', {user_id: user_id})
+        .then(res => {
+            console.log(res.data);
+            dispatch(saveUserData(res.data.first_name,
+                res.data.last_name,
+                res.data.phone_number,
+                res.data.DOB,
+                res.data.email,
+                res.data.image));
+
+        })
+    }
+}
+
+export const photoStart = () => {
+    return {
+        type: actionTypes.PHOTO_START
+    }
+}
+
+export const photoFinish = () => {
+    return {
+        type: actionTypes.PHOTO_FINISH
+    }
+}
+
+
+
+export const photoProcess = (user_id) => {
+    return dispatch => {
+        dispatch(photoStart());
+        dispatch(userData(user_id));
+    }
+}
