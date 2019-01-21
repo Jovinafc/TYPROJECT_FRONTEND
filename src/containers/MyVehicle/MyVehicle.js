@@ -11,6 +11,7 @@ class MyVehicle extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props.user_id);
         axios.post('http://localhost:3001/fetch-specific-user-vehicles', {user_id: this.props.user_id})
         .then(res => {
             console.log(res.data);
@@ -27,7 +28,7 @@ class MyVehicle extends Component {
 
     render () {
         console.log(this.state.myvehicle);
-
+        console.log(this.props.user_id);
         let display; 
         if(this.state.myvehicle === null) {
             display =  <h4>Nothing to Show </h4>

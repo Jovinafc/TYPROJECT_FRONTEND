@@ -19,14 +19,19 @@ class VehicleDetail extends Component {
         enddatetime: ''
     }
 
-    buyVehicleHandler = (e) => {
-        if(!this.props.user_id){
-            this.setState({
-                user: false,
-                show: true    
-            })
+
+    buyVehicleHandler = () => {
+        console.log(this.props.user_id);
+        if(this.props.user_id === null){
+            alert("Kindly Login")
+            // this.setState({
+            //     user: false,
+            //     show: true    
+            // })
         }
     }
+
+    
 
     lendHandler = (e) => {
         this.setState(oldState => ({showDate: !oldState.showDate}));
@@ -42,6 +47,7 @@ class VehicleDetail extends Component {
         a = a.substring(1);
         console.log(a);
 
+        
          axios.post(`http://localhost:3001/fetch-specific-vehicle/${a}`)
          .then(response => {
             console.log(response);
@@ -63,11 +69,10 @@ class VehicleDetail extends Component {
  
     proceedHandler = (e) => {
         e.preventDefault();
-        axios.post('', {client_id: this.props.user_id, 
-                        owner_id: this.state.vehicles.user_id,
+        axios.post('http://localhost:3001/rent-now', {user_client_id: this.props.user_id, 
                         vehicle_id: this.state.vehicles.vehicle_id,
-                        startDate: this.state.startdatetime,
-                        endDate: this.state.enddatetime})
+                        start_date: this.state.startdatetime,
+                        end_date: this.state.enddatetime})
         .then(response => {
             console.log(response);
         })
@@ -75,7 +80,10 @@ class VehicleDetail extends Component {
  
     render () {
 
-        console.log(this.state.startdatetime);
+        let log = null;
+        log = <Login />
+        
+
         let dc = <div className={classes.DateContainer}>
         <form className="form-horizontal">
         <div className="form-group" >
@@ -93,8 +101,6 @@ class VehicleDetail extends Component {
             
         </div>
 
-
-        let log = <Login />
         
         let vehicleDetail = (
             <div className={classes.InnerContainer}>
@@ -157,10 +163,11 @@ class VehicleDetail extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.show} modalClosed={this.cancel} >
+                
+            <div className={classes.Container}>
+            <Modal show={this.state.show} modalClosed={this.cancel} >
                     {log}
                 </Modal>
-            <div className={classes.Container}>
                    <h2>Vehicle Details</h2> 
                    {vehicleDetail}
             </div>
@@ -183,4 +190,4 @@ const mapStateToProps = state => {
 //     }
 // }
 
-export default connect(mapStateToProps)(VehicleDetail);
+export default connect(mapStateToProps, null)(VehicleDetail);

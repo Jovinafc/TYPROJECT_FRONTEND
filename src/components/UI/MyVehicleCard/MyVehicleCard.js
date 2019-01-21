@@ -14,8 +14,11 @@ const MyVehicleCard = (props) => {
             <div className={classes.div2}>
                    Posted On: {props.details.createdAt.substring(0,10)}
                 <br/>
-                
                    Vehicle Number {props.details.number_plate}
+
+            </div>
+            <div>
+                Vehicle Status : {props.details.status}
             </div>
         </div>
     );

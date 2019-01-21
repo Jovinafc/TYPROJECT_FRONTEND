@@ -3,10 +3,19 @@ import classes from './TopToolbar.module.css'
 import Signing from '../Signing/Signing';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-// import Cart from '../../Images/Cart.png';
+import Cart from '../../Images/Cart.png';
 import * as actions from '../../store/actions/auth';
 
+const style = {
+    height: '95%',
+    width: '5%',
+    marginRight: '2%',
+    textAlign: 'center'
+}
+
 class TopToolbar extends Component {
+
+    
 
     state = {
         ppimage: this.props.image
@@ -29,7 +38,7 @@ class TopToolbar extends Component {
         if(this.props.isAuthenticated){
             sign = <div className={classes.afterlogin}>
             {this.props.image 
-            ? <img className={classes.pp} src={this.state.ppimage} alt="pp"/> 
+            ? <NavLink to="/Profile"><img className={classes.pp} src={this.state.ppimage} alt="pp"/> </NavLink>
             : <h4 style={{textAlign: "center"}}>{a}</h4> }
             <div className={classes.dropdowncontent}>
                 
@@ -51,19 +60,35 @@ class TopToolbar extends Component {
             </div>
 {/* 
             <div className={classes.cartCont}>
-                <img className={classes.cart} src={Cart} alt="Cart"/>
             </div> */}
 
-            <div className={classes.sign}>
-                {/* <img className={classes.Cart} src={Cart} alt="Cart"/> */}
-                {sign}
+            <div className={classes.cartCont}>
+                <NavLink to="/cart">
+
+                <img src={Cart} alt="Cart" className={classes.cart}/>
+                </NavLink>
+
+                <div className={classes.dropdowndiv}>
+                    Your Cart is Empty 
+                    <br />
+                    Keep Shopping
+                </div>
             </div>
+
+            {this.props.isAuthenticated 
+            ? 
+            <div style={style}>
+                {sign}
+            </div> 
+            : <div className={classes.sign}> {sign} </div>}
         </div>
 
         );
     }
 
 }
+
+
 
 const mapStateToProps = state => {
     return {

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import Card from '../../components/UI/Card/Card';
 import classes from './Cards.module.css';
 import { connect} from 'react-redux';
-import * as actions from '../../store/actions/vehicle_click';
+import * as actions from '../../store/actions/auth';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import CheckBox from '@material-ui/core/Checkbox';
 import Collapsible from 'react-collapsible';
 import 'react-accessible-accordion/dist/minimal-example.css';
 import 'react-accessible-accordion/dist/fancy-example.css';
-import Aux from '../../hoc/Auxilary';
+import axios from 'axios';
+// import Aux from '../../hoc/Auxilary';
 import {
     Accordion,
     AccordionItem,
@@ -23,15 +24,44 @@ function searchingFor(term) {
 }
 
 class Cards extends Component {
-    state = {
-        display: [],
-        vehicles: this.props.vehicles,
-        user_id: this.props.user_id,
-        term: ''
+    constructor (props){
+        super(props);
+        this.getVehicleDetails = this.getVehicleDetails.bind(this);
+
+        this.state = {
+            display: [],
+            vehicles: [],
+            user_id: this.props.user_id,
+            term: ''
+        }
     }
 
-    componentDidMount () {
-        this.props.onFetchVehicles(this.props.user_id);
+    
+
+    getVehicleDetails = () => {
+        axios.post('http://localhost:3001/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
+            const fetchedValues = [];
+            for(let key in result.data){
+                fetchedValues.push({
+                    ...result.data[key],
+                    id: key
+                });
+            }
+            this.setState({vehicles: fetchedValues})
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    componentDidMount = () => {
+        console.log(this.props.user_id);
+        // this.getVehicleDetails()
+        setTimeout(
+            this.getVehicleDetails, 0
+        );
+        // this.props.onFetchVehicles(this.props.user_id);
+       
     }
 
     searchHandler = (e) => {
@@ -41,11 +71,11 @@ class Cards extends Component {
     
    
     render () {
+
      //   let displayNav = this.state.display.map(dis => (
      //       <Card name={dis.User_Name} userid={dis.UserId} key={dis.id}/>
      //   ));
 
-        console.log(this.props.vehicles);
         console.log(this.props.user_id);
 
         // let filter = this.state.vehicles => {
@@ -89,7 +119,7 @@ class Cards extends Component {
                
         //     });
 
-        let displayVehicle = this.props.vehicles
+        let displayVehicle = this.state.vehicles
         .filter(searchingFor(this.state.term))
         .map(dis => {
             
@@ -111,7 +141,7 @@ class Cards extends Component {
       
         return (
 
-            <Aux>
+            <div>
 
             <div className={classes.search}>
             <form>
@@ -166,7 +196,8 @@ class Cards extends Component {
                 </div>
             </div>
 
-            </Aux>
+            </div>
+            
         )
 
     }
@@ -174,15 +205,14 @@ class Cards extends Component {
 
 const mapStateToProps = state => {
     return {
-    loading: state.vehicle.loading,
-    vehicles: state.vehicle.vehicles,
-    user_id: state.auth.userId
+     user_id: state.auth.userId,
+     loading: state.vehicle.loading,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchVehicles: (user_id) => dispatch(actions.fetchVehicles(user_id))
+        authCheckState: () => dispatch(actions.authCheckState())
     };
 }
 

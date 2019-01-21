@@ -14,6 +14,10 @@
     margin-left: -68%;
 }
 
+.span1 {
+    display: block;
+    margin-left: -78%;
+}
 
 
 @media (min-width: 500px){

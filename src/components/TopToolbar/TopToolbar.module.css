@@ -20,27 +20,24 @@
 
 
 .sign {
-    margin-left: auto;
     height: 100%;
-    display: flex;
-    width: 18%;
-    margin-right: 0.5%;
-    padding: -5%;
+    padding: -30px;
+    width: 14%;
 }
 
-.Cart {
+.cart {
     height: 80%;
-    width: 15%;
-    margin-top: 2%;
+    width: 50%;
+    margin-top: 10%;
 }
-/* 
-.afterlogin {
-    width:70%;
-    height: 80%;
-    border: 1px solid green;
-    margin-bottom: 30%;
-} */
 
+.cartCont {
+    margin-left: auto;
+    width: 5%;
+    margin-right: 1%;
+    position: relative;
+    display: inline-block;
+}
 
 .pp {
     max-width: 100%;
@@ -54,10 +51,8 @@
 }
 
 .afterlogin {
-    height: 60px;
-    width: 60px;
-    margin-left: 60%;
-    margin-top: 5px;
+    height: 100%;
+    width: 100%;
     border: 1px solid black;
     border-radius: 50%;
     position: relative;
@@ -65,7 +60,7 @@
     }
 
 .dropdowncontent {
-    display: none;
+  display: none;
   position: absolute;
   margin-right: 2%;
   background-color: #f1f1f1;
@@ -82,9 +77,24 @@
   display: block;
 }
 
+.dropdowndiv {
+    display: none;
+    position: absolute;
+    margin-right: 2%;
+    background-color: #f1f1f1;
+    width: 200px;
+    height: 100px;
+    text-align: center;  
+    right: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
 .dropdowncontent a:hover {background-color: #ddd;}
 
 .afterlogin:hover .dropdowncontent {display: block;}
+
+.cartCont:hover .dropdowndiv {display: block;}
 
 
 /* .Logo {
