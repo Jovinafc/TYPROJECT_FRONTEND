@@ -39,7 +39,7 @@ class Cards extends Component {
     
 
     getVehicleDetails = () => {
-        axios.post('http://localhost:3001/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
+        axios.post('/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
             const fetchedValues = [];
             for(let key in result.data){
                 fetchedValues.push({
@@ -138,7 +138,8 @@ class Cards extends Component {
         if(this.props.loading){
             displayVehicle = <Spinner />
         }
-      
+
+
         return (
 
             <div>

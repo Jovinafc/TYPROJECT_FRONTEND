@@ -14,6 +14,9 @@ const initialState = {
     email: '',
     password: '',
     image: '',
+    state: '',
+    city: '',
+    pincode: '',
     photoadd: false
 };
 
@@ -61,7 +64,11 @@ const saveUserData = (state,action) => {
             phone_number: action.phone_number,
             dob: action.dob,
             email: action.email,
-            image: action.image
+            image: action.image,
+            address: action.address,
+            state: action.state,
+            city: action.city,
+            pincode: action.pincode
     })
 };
 
@@ -72,7 +79,11 @@ export const deleteUserData = (state, action) => {
         phone_number: null,
         dob: null,
         email: null,
-        image: null
+        image: null,
+        address: null,
+        state: null,
+        city: null,
+        pincode: null
     })
 }
 

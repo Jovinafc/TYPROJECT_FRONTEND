@@ -9,6 +9,29 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import vehicleReducer from './store/reducers/vehicle_click';
+import axios from 'axios';
+
+
+axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
+axios.defaults.headers.post['Content-Type'] = 'application/json';   
+
+
+axios.interceptors.request.use(request => {
+    console.log(request);
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    console.log(response);
+    return response;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+})
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
@@ -22,6 +45,8 @@ const store = createStore(rootReducer, composeEnhancers(
 ));
 
 
+
+
 const app = (
     <Provider store={store}>
         <BrowserRouter> 
@@ -29,6 +54,7 @@ const app = (
         </BrowserRouter>
     </Provider>
 );
+
 
 ReactDOM.render(app, document.getElementById('root'));
 

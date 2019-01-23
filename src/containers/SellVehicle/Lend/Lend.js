@@ -43,23 +43,23 @@ class Lend extends Component {
     }
 
     details = () => {
-        axios.get('http://localhost:3001/fetch-year').then(result => {
+        axios.get('/fetch-year').then(result => {
             this.setState({year: result.data})
         });
 
         
-        axios.get('http://localhost:3001/fetch-registration-state').then(result => {
+        axios.get('/fetch-registration-state').then(result => {
             this.setState({reg_state: result.data})
         });
 
-        axios.get('http://localhost:3001/fetch-km_driven').then(result => {
+        axios.get('/fetch-km_driven').then(result => {
             this.setState({km_driven: result.data})
         });
 
     }
 
     componentDidMount () {
-        axios.get('http://localhost:3001/fetch-vehicle-type').then(result => {
+        axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
         });
 
@@ -93,21 +93,21 @@ class Lend extends Component {
        })
 
        if(e.target.value === 'Two-Wheelers'){
-           axios.get('http://localhost:3001/fetch-twoWheeler-brand').then(result => {
+           axios.get('/fetch-twoWheeler-brand').then(result => {
                 this.setState({brands: result.data});
            });
 
-           axios.get('http://localhost:3001/fetch-twoWheeler-fuel').then(result =>{
+           axios.get('/fetch-twoWheeler-fuel').then(result =>{
                 this.setState({fuels: result.data})
            });
 
            this.details();
         }
         else {
-            axios.get('http://localhost:3001/fetch-fourWheeler-brand').then(result => {
+            axios.get('/fetch-fourWheeler-brand').then(result => {
                 this.setState({brands: result.data});
            });
-           axios.get('http://localhost:3001/fetch-fourWheeler-fuel').then(result =>{
+           axios.get('/fetch-fourWheeler-fuel').then(result =>{
             this.setState({fuels: result.data})
        });
 
@@ -138,7 +138,7 @@ class Lend extends Component {
         });
 
         if(this.state.tempType === 'Four-Wheelers'){
-             axios.post('http://localhost:3001/fetch-fourWheeler-model', {brand: e.target.value})
+             axios.post('/fetch-fourWheeler-model', {brand: e.target.value})
              .then((result) => {
                  this.setState({models: result.data})
              }).catch(e => {
@@ -146,7 +146,7 @@ class Lend extends Component {
              })
         }
         else if(this.state.tempType === 'Two-Wheelers'){
-            axios.post('http://localhost:3001/fetch-twoWheeler-model', {brand: e.target.value})
+            axios.post('/fetch-twoWheeler-model', {brand: e.target.value})
             .then((result) => {
                 this.setState({models: result.data})
             }).catch(e => {
@@ -240,7 +240,7 @@ class Lend extends Component {
 
         const fd = new FormData();
         fd.append('image',this.state.formdata.image);
-        axios.post('http://localhost:3001/image',fd).then(()=>{
+        axios.post('/image',fd).then(()=>{
             console.log('Image Sent');
             // this.setState({
             //     formdata:{
@@ -255,7 +255,7 @@ class Lend extends Component {
 
 
 
-        axios.post('http://localhost:3001/store-vehicle-details',{vehicles:this.state.formdata})
+        axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
         .then((post) => {
              alert('Data Sent')
             console.log("Data Sent", post);
@@ -520,7 +520,7 @@ class Lend extends Component {
                             <tbody>
                         <tr>
                             <td><label htmlFor="image" className={classes.Label}>Vehicle Image:</label></td>
-                            <td><TextField className={classes.other} value={this.state.formdata.image} id="image" type="file" onChange={this.handleImageChange} /></td> 
+                            <td><TextField className={classes.other} id="image" type="file" onChange={this.handleImageChange} /></td> 
                             { imagePreview }
                         
                         </tr>
@@ -529,7 +529,7 @@ class Lend extends Component {
                         <tr>
                             
                         <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
-                        <td><TextField className={classes.other} value={this.state.formdata.documents} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
+                        <td><TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
                         </tr>         
                         </tbody>
                         

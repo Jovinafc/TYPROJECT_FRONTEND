@@ -29,6 +29,17 @@ class VehicleDetail extends Component {
             //     show: true    
             // })
         }
+
+        let vehicles = {
+            client_id: this.props.user_id, 
+            vehicle_id: this.state.vehicles.vehicle_id,
+        }
+
+        axios.post('/buy-now' , {vehicles: vehicles})
+        .then(res => {
+            console.log(res);
+            alert("Sold")
+        });
     }
 
     
@@ -38,7 +49,8 @@ class VehicleDetail extends Component {
     }
     
      componentDidMount () {
-         console.log(this.props.vehicle_id);
+        window.scrollTo(0, 0);
+        console.log(this.props.vehicle_id);
         const {match: {params}} = this.props;
         console.log(params);
         console.log(params.vehicle_id);
@@ -47,8 +59,8 @@ class VehicleDetail extends Component {
         a = a.substring(1);
         console.log(a);
 
-        
-         axios.post(`http://localhost:3001/fetch-specific-vehicle/${a}`)
+        //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
+         axios.post(`/fetch-specific-vehicle/${a}`, {user_id: this.props.user_id})
          .then(response => {
             console.log(response);
             this.setState({vehicles: response.data});
@@ -61,15 +73,18 @@ class VehicleDetail extends Component {
 
     startDateHandler = (e) => {
         this.setState({startdatetime: e});
+        console.log(e);
+    
     }
 
     endDateHandler = e => {
         this.setState({enddatetime: e});
+        console.log(e);
     }
  
     proceedHandler = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/rent-now', {user_client_id: this.props.user_id, 
+        axios.post('/rent-now', {user_client_id: this.props.user_id, 
                         vehicle_id: this.state.vehicles.vehicle_id,
                         start_date: this.state.startdatetime,
                         end_date: this.state.enddatetime})
@@ -158,7 +173,6 @@ class VehicleDetail extends Component {
 
             </div>
         );
-
 
 
         return (

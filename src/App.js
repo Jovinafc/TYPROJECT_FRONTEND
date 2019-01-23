@@ -19,6 +19,7 @@ import Delete from './containers/Profile/Delete/Delete';
 import VehicleHistory from './containers/VehicleHistory/VehicleHistory';
 import VehicleDetail from './containers/VehicleDetail/VehicleDetail';
 import Lend from './containers/SellVehicle/Lend/Lend';
+import SignUp from './containers/Forms/SignUp/SignUp';
 
 class App extends Component {
   
@@ -34,7 +35,7 @@ class App extends Component {
     let routes = (
       <Switch>
           <Route path="/" exact component={Homepage} />
-          <Route path="/signin" exact component={SignIn}/>
+          <Route path="/signin" exact component={SignUp}/>
           <Route path="/display" exact component={Cards} />
           <Route path="/signUp" exact component={SignUpForm} />
           <Route path="/sell/sell" exact component={SellVehicle} />

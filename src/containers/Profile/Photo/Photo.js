@@ -16,7 +16,7 @@ class Photo extends Component {
     }
 
     componentDidMount = () => {
-        axios.post('http://localhost:3001/fetch-user', {user_id: this.props.user_id})
+        axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
             if(res.data.image){
                 this.setState({
@@ -32,11 +32,11 @@ class Photo extends Component {
         this.props.photoProcess(this.props.user_id);
         const fd = new FormData();
         fd.append('profileImage',this.state.file);
-        axios.post('http://localhost:3001/profileImage',fd).then(()=>{
+        axios.post('/profileImage',fd).then(()=>{
             console.log('Image Sent');
             
 
-            axios.post('http://localhost:3001/update-profile-image', {user_id:this.props.user_id})
+            axios.post('/update-profile-image', {user_id:this.props.user_id})
             .then(res => {
                 console.log('Uploaded Profile Image');
                 this.props.user_data(this.props.user_id);

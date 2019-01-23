@@ -1,7 +1,7 @@
 .Container {
   width: 90%;
   padding-top: 120px;
-  height: 800px;
+  height: 1200px;
   border: 1px solid black;
   margin: 5%;
   display: flex;
@@ -21,7 +21,7 @@
 @media(max-width:500px) {
    .Container {
      width:90%;
-     height: 800px;
+     height: 1200px;
      border: 1px solid black;
      margin: 5%;
      display: flex;
@@ -45,7 +45,7 @@
   .Container {
     width: 90%;
     padding-top: 120px;
-    height: 800px;
+    height: 1200px;
     border: 1px solid black;
     margin: 5%;
     display: flex;

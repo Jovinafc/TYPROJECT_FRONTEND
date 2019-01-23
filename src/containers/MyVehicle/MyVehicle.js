@@ -12,7 +12,7 @@ class MyVehicle extends Component {
 
     componentDidMount = () => {
         console.log(this.props.user_id);
-        axios.post('http://localhost:3001/fetch-specific-user-vehicles', {user_id: this.props.user_id})
+        axios.post('/fetch-specific-user-vehicles', {user_id: this.props.user_id})
         .then(res => {
             console.log(res.data);
             const vehicles = [];

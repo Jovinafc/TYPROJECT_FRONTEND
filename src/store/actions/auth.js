@@ -54,7 +54,7 @@ export const logout = () => {
               password: password,
           }
           
-          axios.post('http://localhost:3001/sign-in', {users: users})
+          axios.post('/sign-in', {users: users})
           .then(response => {
               console.log(response.data);
               const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
@@ -66,7 +66,10 @@ export const logout = () => {
               dispatch(checkAuthTimeout(response.data.expiresIn));
           })
           .catch(err => {
-              dispatch(authFail(err.response.data.error));
+              console.log(err);
+              console.log(err.response.data);
+              console.log(err.message.toString());
+              dispatch(authFail(err.response.data));
           });
         };
   }
@@ -143,7 +146,7 @@ export const userData = (user_id) => {
     console.log('Getting User Info');
     return dispatch => {
         console.log(user_id);
-        axios.post('http://localhost:3001/fetch-user', {user_id: user_id})
+        axios.post('/fetch-user', {user_id: user_id})
         .then(res => {
             console.log(res.data);
             dispatch(saveUserData(res.data.first_name,
@@ -151,7 +154,11 @@ export const userData = (user_id) => {
                 res.data.phone_number,
                 res.data.DOB,
                 res.data.email,
-                res.data.image));
+                res.data.image,
+                res.data.address,
+                res.data.state,
+                res.data.city,
+                res.data.pincode));
 
         })
     }

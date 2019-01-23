@@ -108,7 +108,7 @@ for(let formElementIdentifier in this.state.signUpForm){
 }
 console.log(users);
 
-axios.post('http://localhost:3001/sign-up', {users: users})
+axios.post('/sign-up', {users: users})
 .then((post)=>{
     alert('Data Sent');
     console.log('Res',post);

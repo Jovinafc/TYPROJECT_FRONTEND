@@ -49,7 +49,7 @@ class Delete extends Component {
     
     submitHandler = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/delete-account', {email: this.state.email, password: this.state.password, user_id: this.state.user_id})
+        axios.post('/delete-account', {email: this.state.email, password: this.state.password, user_id: this.state.user_id})
         .then(res =>{
             console.log(res);
             this.props.onLogout();

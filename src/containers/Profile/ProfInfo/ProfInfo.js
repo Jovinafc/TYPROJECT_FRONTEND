@@ -15,11 +15,14 @@ class ProfInfo extends Component {
         phone_number: '',
         DOB: '',
         address: '',
+        state: '',
+        city: '',
+        pincode: '',
         user_id: this.props.user_id
     }
 
     componentDidMount() {
-        axios.post('http://localhost:3001/fetch-user', {user_id: this.props.user_id})
+        axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
             console.log(res.data);
             this.setState({
@@ -27,7 +30,10 @@ class ProfInfo extends Component {
                 last_name: res.data.last_name,
                 phone_number: res.data.phone_number,
                 DOB:res.data.DOB,
-                address:res.data.address
+                address:res.data.address,
+                state: res.data.state,
+                city: res.data.city,
+                pincode: res.data.pincode
             });         
             
         })
@@ -48,17 +54,31 @@ class ProfInfo extends Component {
     }
 
     addressHandler = (e) => {
-        this.setState({address: e.target.value})
+        this.setState({address: e.target.value});
     }
 
     dobHandler = (e) => {
-        this.setState({DOB: e})
+        this.setState({DOB: e});
+    }
+
+    stateHandler = (e) => {
+        this.setState({state: e.target.value});
+    }
+
+    cityHandler = (e) => {
+        this.setState({
+            city : e.target.value
+        })
+    }
+
+    pincodeHandler = (e) => {
+        this.setState({pincode : e.target.value});
     }
 
     submitHandler = (e) => {
         console.log('Initiated')
         e.preventDefault();
-        axios.post('http://localhost:3001/update-user-profile', {users: this.state })
+        axios.post('/update-user-profile', {users: this.state })
         .then( res => {
             console.log(res);
             console.log('Success');
@@ -101,8 +121,29 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="address" className="col-sm-2 control-label">Address</label>
                     <div className="col-sm-10">
-                    <textarea className="form-control" type="text" rows="3" id="address" onChange={this.addressHandler} value={this.state.address}/>    
+                    <textarea className="form-control" type="text" rows="3" id="address" onChange={this.addressHandler} value={this.state.address || ''}/>    
                         </div>    
+                        </div>
+
+                        <div className="form-group">
+                    <label htmlFor="state" className="col-sm-2 control-label">State</label>
+                    <div className="col-sm-10">
+                    <select className="form-control" onChange={this.stateHandler} type="select" id="state" onChange={this.stateHandler} value={this.state.state} ></select>    
+                        </div>    
+                        </div>
+
+                        <div className="form-group">
+                    <label htmlFor="city" className="col-sm-2 control-label">City</label>
+                    <div className="col-sm-10">
+                    <select className="form-control" onChange={this.cityHandler} type="select" id="city" onChange={this.cityHandler} value={this.state.city} ></select>    
+                        </div>    
+                        </div>
+
+                        <div className="form-group">
+                    <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code</label>
+                    <div className="col-sm-10">
+                    <input type="number" className="form-control" id="pincode" onChange={this.pincodeHandler} value={this.state.pincode || ''}/>        
+                    </div>    
                         </div>
 
                         <div>

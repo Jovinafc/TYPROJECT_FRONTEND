@@ -24,7 +24,7 @@ export const FetchAllVehiclesFail = (error) => {
 export const fetchVehicles = (user_id) => {
     return dispatch=> {
         dispatch(FetchAllVehiclesStart);
-        axios.post('http://localhost:3001/fetch-vehicles-except-current-user', {user_id: user_id}).then(result => {
+        axios.post('/fetch-vehicles-except-current-user', {user_id: user_id}).then(result => {
             const fetchedValues = [];
             for(let key in result.data){
                 fetchedValues.push({

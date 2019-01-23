@@ -22,10 +22,12 @@
     "react-scripts": "^2.1.3",
     "react-slick": "^0.23.2",
     "react-slideshow-image": "^1.0.10",
+    "react-validation": "^3.0.7",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "shineout": "^1.1.6",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "validator": "^10.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
