@@ -4,9 +4,10 @@ import { connect} from 'react-redux';
 // import * as actions from '../../store/actions/vehicle_click';
 import axios from 'axios';
 import Modal from '../../components/UI/Modal/Modal';
-import Login from '../Forms/Login/Login';
+// import Login from '../Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
 import {DatePicker} from 'shineout';
+import { NavLink} from 'react-router-dom';
 
 class VehicleDetail extends Component {
 
@@ -16,7 +17,9 @@ class VehicleDetail extends Component {
         user: false,
         showDate: false,
         startdatetime: '',
-        enddatetime: ''
+        enddatetime: '',
+        Invalid: false
+
     }
 
 
@@ -29,6 +32,7 @@ class VehicleDetail extends Component {
             //     show: true    
             // })
         }
+        
 
         let vehicles = {
             client_id: this.props.user_id, 
@@ -60,11 +64,25 @@ class VehicleDetail extends Component {
         console.log(a);
 
         //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
-         axios.post(`/fetch-specific-vehicle/${a}`, {user_id: this.props.user_id})
+         axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
          .then(response => {
             console.log(response);
+           if(response===null)
+           {
+
+           }
+           else
+           {
             this.setState({vehicles: response.data});
+           }
+         })
+         .catch(err => {
+             console.log(err);
+             this.setState({Invalid: true})
          });
+
+         
+
      }
 
      cancel = () => {
@@ -89,39 +107,54 @@ class VehicleDetail extends Component {
                         start_date: this.state.startdatetime,
                         end_date: this.state.enddatetime})
         .then(response => {
+            
             console.log(response);
+            alert("Rented")
+            this.setState({
+                startdatetime : '',
+                enddatetime: ''
+            })
         })
+    }
+
+    logHandler = () => {
+        this.setState({show: true});
+    }
+
+    cancel = () => {
+        this.setState({show: false});
     }
  
     render () {
 
-        let log = null;
-        log = <Login />
+        // let log = null;
+        // log = <Login />
         
 
-        let dc = <div className={classes.DateContainer}>
-        <form className="form-horizontal">
-        <div className="form-group" >
-            <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
-            <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
-            </div>
-            <div className="form-group">
-            <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
-            <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
-            </div>                    
-            <br /> <br /> 
+        // let dc = <div className={classes.DateContainer}>
+        // <form className="form-horizontal">
+        // <div className="form-group" >
+        //     <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
+        //     <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
+        //     </div>
+        //     <div className="form-group">
+        //     <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
+        //     <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
+        //     </div>                    
+        //     <br /> <br /> 
             
-            <button onClick={this.proceedHandler} className="btn btn-danger">Proceed To Payment</button>
-        </form>
+        //     <button onClick={this.proceedHandler} className="btn btn-danger">Proceed To Payment</button>
+        // </form>
             
-        </div>
-
+        // </div>
+        
         
         let vehicleDetail = (
             <div className={classes.InnerContainer}>
                 
                 <h3>{this.state.vehicles.brand} {this.state.vehicles.model}</h3> 
-                <h6>Price:{this.state.vehicles.price}</h6>
+                {this.state.vehicles.price ? 
+                <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
                 <img className={classes.Img} src={this.state.vehicles.image} alt="Vehicle"/>
                 
                 <div className={classes.Details}>
@@ -161,30 +194,58 @@ class VehicleDetail extends Component {
                         
                     </table>
                 </div>
-                <div className={classes.but}>
-                <button onClick={this.buyVehicleHandler} className="btn btn-primary">Buy Vehicle</button>
-                <div style={{width:'10px', height: 'auto', display: 'inline-block'}}></div>
-                <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
-                </div>
 
-                {
-                    this.state.showDate === true ? dc : null
+                {/* <div className={classes.but}>
+                    {this.state.vehicles.price 
+                        ? <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                        : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                        }
+                  </div> */}
+                 
+                 {localStorage.getItem('token') === null
+                 ? <div className={classes.but}>
+                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
+                   </div>  
+                : <div className={classes.but}>
+                     {this.state.vehicles.price 
+                         ? <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                         : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                         }
+                  </div> }                
+
+                {/* <div className={classes.but}>
+                {this.state.vehicles.price 
+                ? <button onClick={this.buyVehicleHandler} className="btn btn-primary">Buy Vehicle</button> 
+                : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
+  
                 }
+                </div> */}
+
+
+                {/* {
+                    this.state.showDate === true ? dc : null
+                } */}
 
             </div>
         );
 
+        
 
         return (
             <Aux>
-                
-            <div className={classes.Container}>
-            <Modal show={this.state.show} modalClosed={this.cancel} >
-                    {log}
-                </Modal>
-                   <h2>Vehicle Details</h2> 
-                   {vehicleDetail}
-            </div>
+         
+
+            {this.state.Invalid === true 
+            ?  <div className={classes.Container}> <h2> Error 404</h2> </div> 
+            : <div className={classes.Container}>
+                             
+                <h2>Vehicle Details</h2> 
+                {vehicleDetail} 
+                {/* {this.props.user_id === null 
+                ? <div className={classes.but}>
+                </div>
+                 } */}
+            </div> }
             </Aux>
         );
     };
@@ -194,7 +255,8 @@ const mapStateToProps = state => {
     return {
         vehicle_id: state.vehicle.vehicle_id,
         vehicles: state.vehicle.vehicles,
-        user_id: state.auth.userId
+        user_id: state.auth.userId,
+        isAuthenticated: state.auth.token !== null,
     };
 }
 

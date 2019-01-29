@@ -11,13 +11,19 @@ import authReducer from './store/reducers/auth';
 import vehicleReducer from './store/reducers/vehicle_click';
 import axios from 'axios';
 
-
 axios.defaults.baseURL = 'http://localhost:3001';
+// console.log(localStorage.getItem('token'));
+// axios.defaults.headers.get['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
-axios.defaults.headers.post['Content-Type'] = 'application/json';   
+// axios.defaults.headers.post['x-auth'] = localStorage.getItem('token');   
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.headers.common['Content-Type'] = 'application/json';
+// axios.defaults.headers.get['Content-Type'] = 'application/json';
+
 
 
 axios.interceptors.request.use(request => {
+    request.headers.authorization = localStorage.getItem('token');
     console.log(request);
     return request;
 }, error => {
@@ -43,6 +49,8 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
+
+console.log(store.getState());
 
 
 

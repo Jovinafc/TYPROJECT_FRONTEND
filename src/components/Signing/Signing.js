@@ -25,18 +25,17 @@ class Signing extends Component {
         return (
             <Aux>
                <div> 
-                <Modal show={this.state.show} modalClosed={this.cancel}>
+                {/* <Modal show={this.state.show} modalClosed={this.cancel}>
                     {log}
-                </Modal>
+                </Modal> */}
 
                     <div className={classes.container}>    
-                        <button onClick={this.logHandler} className="btn btn-primary btn-xs">
+                        {/* <button onClick={this.logHandler} className="btn btn-primary btn-xs">
                                 Log In
-                        </button>  
+                        </button>   */}
+                        <NavLink to="/login"><button className="btn btn-primary btn-xs" >Login</button></NavLink>
                         <div style={{width: "10px"}}></div>
-                     <button className={classes.signup}>
-                         <NavLink to="/SignUp" exact>Sign Up</NavLink>
-                     </button>
+                        <NavLink to="/Signup" exact> <button className="btn btn-success btn-xs">Sign Up</button></NavLink>
                 </div>
         
 

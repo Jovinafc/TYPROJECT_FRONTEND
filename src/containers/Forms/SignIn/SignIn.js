@@ -3,7 +3,7 @@ import Input from '../../../components/UI/Input/Input'
 import classes from './SignIn.module.css';
 import {updateObject, checkValidity} from '../../../../src/shared/utility';
 import Button from '../../../components/UI/FormComponents/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/auth';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -152,9 +152,9 @@ class SignIn extends Component {
         }
 
         let authRedirect = null;
-        // if(this.props.isAuthenticated){
-        //     authRedirect = <Redirect to={this.props.authRedirect}/>
-        // }
+        if(this.props.isAuthenticated){
+            authRedirect = <Redirect to={this.props.authRedirect}/>
+        }
     
         return (
             <div className={classes.SignIn}> 

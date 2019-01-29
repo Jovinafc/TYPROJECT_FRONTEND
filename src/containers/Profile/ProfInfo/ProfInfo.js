@@ -39,6 +39,8 @@ class ProfInfo extends Component {
         })
     }
 
+
+
     fnameHandler = (e) => {
         this.setState({first_name: e.target.value});
     }
@@ -75,15 +77,106 @@ class ProfInfo extends Component {
         this.setState({pincode : e.target.value});
     }
 
+    validate = () =>  {
+        let isError = false;
+        let errors = {};
+
+//First Name
+        if(this.state.first_name === '') {
+            isError = true;
+            this.setState({
+                ...this.state,
+                firstNameError: "Please Enter Name"
+            })
+            errors.firstNameError = "Please Enter First Name"
+        }
+
+
+// Last Name   
+        if(this.state.last_name === '') {
+            isError = true;
+            this.setState({
+                ...this.state,
+                lastNameError: "Please Enter Last Name"
+            })
+            errors.lastNameError = "Please Enter Last Name"
+
+        }
+
+//Phone Number
+        if(this.state.phone_number === '') {
+            isError = true;
+            this.setState({
+                ...this.state,
+                phone_numberError: "Please Enter Phone Number"
+            })
+            errors.phone_numberError = "Please Enter Phone Number"
+
+        }
+
+        let v = false;
+        let phoneno = /^\d{10}$/;
+        if((this.state.phone_number.match(phoneno))){
+            v = true;
+        }
+        
+        if(v === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                phone_numberError: 'Please Enter Valid Number(10 digits)'
+            })
+            errors.phone_numberError = 'Enter Valid Number'
+        }
+
+//DOB
+
+        if(this.state.DOB === '') {
+            isError = true;
+            this.setState({
+                ...this.state,
+                DOBError: "Please Enter Correct DOB"
+            })
+            errors.DOBError = "Please Enter Correct DOB"
+        }
+
+        if(isError){
+            
+            this.setState({
+                ...this.state,
+                ...errors
+            })  
+            }
+    
+            return isError;
+    
+    }
+
+
+
     submitHandler = (e) => {
-        console.log('Initiated')
-        e.preventDefault();
-        axios.post('/update-user-profile', {users: this.state })
+        const error = this.validate();
+        if(!error){
+            e.preventDefault();
+            const users = {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                phone_number: this.state.phone_number,
+                DOB: this.state.DOB,
+                address: this.state.address,
+                state: this.state.state,
+                city: this.state.city,
+                pincode: this.state.pincode,
+                user_id: this.state.user_id
+            }
+        axios.post('/update-user-profile', {users: users })
         .then( res => {
             console.log(res);
             console.log('Success');
         })
         console.log('Completed')
+        }
+              
     }
 
     render () {
@@ -128,14 +221,14 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
-                    <select className="form-control" onChange={this.stateHandler} type="select" id="state" onChange={this.stateHandler} value={this.state.state} ></select>    
+                    <select className="form-control" onChange={this.stateHandler} type="select" id="state" onChange={this.stateHandler} value={this.state.state || ''} ></select>    
                         </div>    
                         </div>
 
                         <div className="form-group">
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
-                    <select className="form-control" onChange={this.cityHandler} type="select" id="city" onChange={this.cityHandler} value={this.state.city} ></select>    
+                    <select className="form-control" onChange={this.cityHandler} type="select" id="city" onChange={this.cityHandler} value={this.state.city || ''} ></select>    
                         </div>    
                         </div>
 

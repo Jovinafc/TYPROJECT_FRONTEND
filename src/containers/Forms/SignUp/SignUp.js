@@ -3,7 +3,8 @@ import classes from './SignUp.module.css';
 import {DatePicker} from 'shineout';
 import Input from 'react-validation/build/input';
 import Form from 'react-validation/build/form';
-import axios from 'axios';
+import axios from '../../../axios';
+import { timingSafeEqual } from 'crypto';
 
 
 class SignUp extends Component {
@@ -197,6 +198,7 @@ class SignUp extends Component {
         let isError = false;
         let errors = {};
 
+//First Name
         if(this.state.first_name === '') {
             isError = true;
             this.setState({
@@ -206,6 +208,8 @@ class SignUp extends Component {
             errors.firstNameError = "Please Enter First Name"
         }
 
+
+// Last Name   
         if(this.state.last_name === '') {
             isError = true;
             this.setState({
@@ -216,6 +220,7 @@ class SignUp extends Component {
 
         }
 
+//Phone Number
         if(this.state.phone_number === '') {
             isError = true;
             this.setState({
@@ -240,6 +245,8 @@ class SignUp extends Component {
             })
             errors.phone_numberError = 'Enter Valid Number'
         }
+
+//DOB
 
         if(this.state.DOB === '') {
             isError = true;
@@ -365,6 +372,16 @@ class SignUp extends Component {
 
 
     render () {
+        let disable = true;
+        if(this.state.first_name !== '' && 
+            this.state.last_name !== '' &&
+            this.state.phone_number !== '' &&
+            this.state.DOB !== '' &&
+            this.state.email !== '' &&
+            this.state.old_password !== ''){
+                disable = false;
+            }
+
         console.log(this.state);
         return (
             <div className={classes.Container}>
@@ -436,7 +453,7 @@ class SignUp extends Component {
 
  
                          <div style={{textAlign: 'center', marginTop: '15px'}}>
-                         <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
+                         <button disabled={disable} type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
                          </div>
                   </Form>
             </div>  

@@ -11,7 +11,7 @@ import { connect} from 'react-redux';
 class SellVehicle extends Component {
     state = {
         formdata: {
-            user_id: this.props.user_id,
+            user_id: localStorage.getItem('userId'),
             type: '',
             brand: '',
             model: '',
@@ -33,7 +33,9 @@ class SellVehicle extends Component {
         reg_state : [],
         km_driven: [],
         file: '',
+        docfile: '',
         imagePrev: '',
+        documentPrev: '',
         tempBrand: '',
         tempModel: '',
         tempType: '',
@@ -56,13 +58,21 @@ class SellVehicle extends Component {
 
     }
 
+
     componentDidMount () {
+        console.log(localStorage.getItem('token'));
+        const header = {
+            'x-auth' : localStorage.getItem('token')
+        }
         axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err.response.data);
         });
 
-        this.details();
-        
+        this.details(); 
     }
 
    selectChangedHandlerType = (e) => {
@@ -85,7 +95,9 @@ class SellVehicle extends Component {
            km_driven: [],
            tempType: e.target.value,
            file: '',
+           docfile: '',
            imagePrev: '',
+           documentPrev: '',
            tempBrand: '',
            tempModel: ''
        })
@@ -239,7 +251,7 @@ class SellVehicle extends Component {
         fd.append('image',this.state.formdata.image);
         axios.post('/image',fd).then(()=>{
             console.log('Image Sent');
-           
+           this.setState({imagePrev:''});
 
     
     }).catch(e=>console.log(e));
@@ -278,10 +290,13 @@ class SellVehicle extends Component {
 
         let reader = new FileReader();
         let file = e.target.files[0];
-    
+        console.log(file)
+        if(file===undefined)
+        {
+            this.setState({imagePrev:null,})
+        }
+
         reader.onload = (e) => {
-            console.log('Img Data',e.target.result);
-            console.log('file' ,file);
           this.setState({
             file: file,
             sample: e.target.result,
@@ -294,9 +309,40 @@ class SellVehicle extends Component {
           });
           console.log(this.state.formdata.image)
         }
-    
-        reader.readAsDataURL(file)
-     } 
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+            this.setState({
+                imagePrev: ''
+            })
+        }
+        
+     }
+     
+     handleDocumentChange = (e) => {
+         e.preventDefault();
+        
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        if(file === undefined) {
+            this.setState({ documentPrev: null})
+        }
+        reader.onload = (e) => {
+            this.setState({
+                docfile: file,
+                documentPrev: reader.result,
+                formdata: {
+                    ...this.state.formdata,
+                    documents: file
+                }
+            });
+        }
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+            this.setState({
+                documentPrev: ''
+            })
+        }
+     }
     
       inputChangedHandlerBrand = (e) => {
           e.preventDefault();
@@ -317,12 +363,22 @@ class SellVehicle extends Component {
             }
         })
       }
+
   render () {
+      console.log(this.state);
+      console.log(this.state.imagePrev + "image preview");
     let {imagePrev} = this.state;
     let imagePreview = null;
     if (imagePrev) {
       imagePreview = (<img alt="" className={classes.Image} src={imagePrev} />);
     }
+
+    let {documentPrev} = this.state;
+    let documentPreview = null;
+    if(documentPrev) {
+        documentPreview = (<img alt="document" className={classes.Image} src={documentPrev} />);
+    }
+    
 
     let alternate = null;
     if(this.state.tempBrand === 'Others') {
@@ -513,7 +569,8 @@ class SellVehicle extends Component {
                         <tr>
                             
                         <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
-                        <td><TextField className={classes.other}  type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
+                        <td><TextField className={classes.other}  type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td> 
+                        { documentPreview }   
                         </tr>         
                         </tbody>
                         

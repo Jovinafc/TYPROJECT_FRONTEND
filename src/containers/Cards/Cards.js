@@ -16,6 +16,7 @@ import {
     AccordionItemTitle,
     AccordionItemBody,
 } from 'react-accessible-accordion';
+import store from '../../store/reducers/auth';
 
 function searchingFor(term) {
     return function(x) {
@@ -55,8 +56,9 @@ class Cards extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props.user_id);
-        // this.getVehicleDetails()
+
+        
+        this.getVehicleDetails()
         setTimeout(
             this.getVehicleDetails, 0
         );

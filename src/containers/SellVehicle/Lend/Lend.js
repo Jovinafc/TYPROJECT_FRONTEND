@@ -35,7 +35,9 @@ class Lend extends Component {
         reg_state : [],
         km_driven: [],
         file: '',
+        docfile: '',
         imagePrev: '',
+        documentPrev: '',
         tempBrand: '',
         tempModel: '',
         tempType: '',
@@ -87,7 +89,9 @@ class Lend extends Component {
            km_driven: [],
            tempType: e.target.value,
            file: '',
+           docfile: '',
            imagePrev: '',
+           documentPrev: '',
            tempBrand: '',
            tempModel: ''
        })
@@ -294,7 +298,9 @@ class Lend extends Component {
 
         let reader = new FileReader();
         let file = e.target.files[0];
-    
+        if(file === undefined){
+            this.setState({imagePrev: null})
+        }
         reader.onload = (e) => {
             console.log('Img Data',e.target.result);
           this.setState({
@@ -309,12 +315,42 @@ class Lend extends Component {
           });
           console.log(this.state.formdata.image)
         }
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+            this.setState({
+                imagePrev: ''
+            })
+        }
+        
+        
+      }
+      
+      handleDocumentChange = (e) => {
+        e.preventDefault();
+       
+       let reader = new FileReader();
+       let file = e.target.files[0];
+       if(file === undefined) {
+           this.setState({ documentPrev: null})
+       }
+       reader.onload = (e) => {
+           this.setState({
+               docfile: file,
+               documentPrev: reader.result,
+               formdata: {
+                   ...this.state.formdata,
+                   documents: file
+               }
+           });
+       }
+       if(e.target.files[0]){
+        reader.readAsDataURL(e.target.files[0]);
+        this.setState({
+            documentPrev: ''
+        })
+    }
     
-        reader.readAsDataURL(file)
-        console.log(file);
-        console.log(this.state.sample);
-        console.log(this.state.imagePrev);
-      } 
+    }
     
       inputChangedHandlerBrand = (e) => {
           e.preventDefault();
@@ -341,6 +377,12 @@ class Lend extends Component {
     let imagePreview = null;
     if (imagePrev) {
       imagePreview = (<img alt="" className={classes.Image} src={imagePrev} />);
+    }
+
+    let {documentPrev} = this.state;
+    let documentPreview = null;
+    if(documentPrev) {
+        documentPreview = (<img alt="document" className={classes.Image} src={documentPrev} />);
     }
 
     let alternate = null;
@@ -530,6 +572,7 @@ class Lend extends Component {
                             
                         <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
                         <td><TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
+                        {documentPreview}
                         </tr>         
                         </tbody>
                         

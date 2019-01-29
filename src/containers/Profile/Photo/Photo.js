@@ -13,6 +13,7 @@ class Photo extends Component {
     state = {
         file: '',
         imagePreviewUrl: '',
+        dis: true
     }
 
     componentDidMount = () => {
@@ -56,14 +57,25 @@ class Photo extends Component {
         let reader = new FileReader();
         let file = e.target.files[0];
 
+        if(file===undefined)
+        {
+            this.setState({imagePreviewUrl:null,
+            dis: true})
+        }
         reader.onload = (e) => {
             this.setState({
                 file: file,
-                imagePreviewUrl: reader.result
+                imagePreviewUrl: reader.result,
+                dis: false
             });
         }
-
-        reader.readAsDataURL(file)
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+            this.setState({
+                imagePreviewUrl: ''
+            });    
+        };
+        
     }
 
     
@@ -94,16 +106,16 @@ class Photo extends Component {
 
                     <div>
                         <div className={classes.ImageCont}>
-                            {this.state.imagePreviewUrl !== ''
-                            ? imagePreview
-                            : preImage } 
+                            {this.state.imagePreviewUrl === ''
+                            ? preImage
+                            : imagePreview } 
                         </div>
 
                         <form className={classes.Form} onSubmit={this.handleSubmit} >
                             <input type="file" onChange={this.handleChange} />
                             <br />
                             <br />
-                            <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Upload Image</button>
+                            <button disabled={this.state.dis} className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Upload Image</button>
                         </form>
                         
 

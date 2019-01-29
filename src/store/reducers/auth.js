@@ -56,6 +56,7 @@ const photoFinish = (state, action) => {
     return updateObject(state, {photoadd: false})
 };
 
+
 const saveUserData = (state,action) => {
     return updateObject(state, 
         {

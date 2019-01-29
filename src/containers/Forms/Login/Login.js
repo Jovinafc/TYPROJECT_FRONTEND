@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../../../hoc/Auxilary';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import classes from './Login.module.css';
 import { connect } from 'react-redux';
@@ -25,20 +24,10 @@ class Login extends Component {
             this.props.onSetAuthRedirectPath();
         }
 
+
     }
 
-    // componentWillMount() {
-    //     if(this.props.error === 'User Does Not Exist'){
-    //         this.setState({emailError: 'User Does Not Exist'})
-    //     }
-
-    //     if(this.props.error === 'Invalid Password'){
-            
-    //         this.setState({passwordError: 'Invalid Password'})
-    //     }
-       
-    // }
-
+    
     emailHandler = (e) => {
         
         this.setState({
@@ -60,11 +49,17 @@ class Login extends Component {
 
         if(this.state.email === '') {
             isError = true;
-            
+        
         }
 
         if(this.state.password === ''){
             isError = true;
+        }
+
+        if(this.state.password !== '' && this.state.email !== ''){
+            this.setState({
+                valid: false
+            })
         }
 
         return isError;
@@ -126,9 +121,14 @@ class Login extends Component {
             )
         }
 
+        let authRedirect = null;
+        if(this.props.isAuthenticated){
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
+        console.log('Login.js')
         console.log(this.state);
         return (
-            <Aux>
+            
                 <div>
                 <h3 style={{textAlign: 'center'}}> Login </h3>
                 {errorMessage}
@@ -138,9 +138,11 @@ class Login extends Component {
 
                 </form>
                 
+                {authRedirect}    
+
                     
                 </div>
-            </Aux>
+            
         )
     }
 }
@@ -159,7 +161,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email,password) => dispatch(actions.auth(email,password)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath( '/' ))
 
     };
 };

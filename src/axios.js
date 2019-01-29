@@ -5,7 +5,7 @@ const instance = axios.create({
     baseURL : 'http://localhost:3001'
 });
 
-// instance.defaults.headers.common['Authorization'] = this.props.token;
+// instance.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 
 const mapStateToProps = state => {
     return {
