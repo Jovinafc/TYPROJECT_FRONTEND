@@ -2,12 +2,13 @@ import React,{Component} from 'react';
 import classes from './VehicleDetail.module.css';
 import { connect} from 'react-redux';
 // import * as actions from '../../store/actions/vehicle_click';
-import axios from 'axios';
+import axios from '../../axios';
 import Modal from '../../components/UI/Modal/Modal';
 // import Login from '../Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
 import {DatePicker} from 'shineout';
-import { NavLink} from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import * as actions from '../../store/actions/auth';
 
 class VehicleDetail extends Component {
 
@@ -54,7 +55,27 @@ class VehicleDetail extends Component {
     
      componentDidMount () {
         window.scrollTo(0, 0);
-        console.log(this.props.vehicle_id);
+
+        // if(localStorage.getItem('token')){
+        //     const expiry = localStorage.getItem('expirationDate');
+        //   let d1 = new Date(expiry);
+        //   let d2 = new Date();
+          
+          
+        //   let d3 = d1.getTime();
+        //   let d4 = d2.getTime();
+        //   let d5 = d3-d4;
+        //   //305000
+        //   if(d5<3405000)
+        //   {
+        //       console.log("LogOut")
+        //       console.log(localStorage.getItem('userId'));
+        //       this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('userId'))
+        //       // setTimeout(this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('token')), 0)
+        //       // this.props.getTokens(this.props.email, this.props.user_id);
+        //   }
+        // }
+        // console.log(this.props.vehicle_id);
         const {match: {params}} = this.props;
         console.log(params);
         console.log(params.vehicle_id);
@@ -82,7 +103,11 @@ class VehicleDetail extends Component {
          });
 
          
-
+         console.log(this.props.address);
+         console.log(this.props.number);
+         console.log(this.props.state);
+         console.log(this.props.city);
+         console.log(this.props.pincode);
      }
 
      cancel = () => {
@@ -124,8 +149,11 @@ class VehicleDetail extends Component {
     cancel = () => {
         this.setState({show: false});
     }
+
+    
  
     render () {
+        
 
         // let log = null;
         // log = <Login />
@@ -202,7 +230,7 @@ class VehicleDetail extends Component {
                         }
                   </div> */}
                  
-                 {localStorage.getItem('token') === null
+                 {/* {localStorage.getItem('token') === null
                  ? <div className={classes.but}>
                      <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
                    </div>  
@@ -211,7 +239,52 @@ class VehicleDetail extends Component {
                          ? <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
                          : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
                          }
-                  </div> }                
+                  </div> }                 */}
+
+                {
+                    localStorage.getItem('token') === null
+                 
+                 ? <div className={classes.but}>
+                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
+                   </div>  
+               
+                 : <div className={classes.but}>
+                     {
+                         this.state.vehicles.price 
+                         
+                         ? <div>
+                             
+                             {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+
+                             ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
+
+                             : <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                              
+                             }  
+                           </div> 
+                           
+                          : <div>
+
+                               {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+
+                               ? <button className="btn btn-success">Rent Vehicle</button> 
+
+                               : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+
+                                }
+                            </div> 
+                         
+                        //  <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                         
+                        //  : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                         
+                     }
+                 
+                  </div> 
+               
+               }                
+       
+
 
                 {/* <div className={classes.but}>
                 {this.state.vehicles.price 
@@ -257,13 +330,19 @@ const mapStateToProps = state => {
         vehicles: state.vehicle.vehicles,
         user_id: state.auth.userId,
         isAuthenticated: state.auth.token !== null,
+        address: state.auth.address,
+        state: state.auth.state,
+        city: state.auth.city,
+        pincode: state.auth.pincode,
+        number : state.auth.phone_number
     };
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onFetchVehicleDetails: () => dispatch()
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        getTokens: (email,user_id) => dispatch(actions.authRefresh(email,user_id)),
 
-export default connect(mapStateToProps, null)(VehicleDetail);
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleDetail);

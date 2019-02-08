@@ -10,21 +10,21 @@ import {
     formatCVC,
     formatExpirationDate
   } from './cardUtils'
+import { connect} from 'react-redux';
+
 
 class SellPaymentPage extends Component {
     state = {
         vehicles: {},
-        Invalid: false,
+        Invalid: true,
         number: '',
         name: '',
         cvc: '',
         expiry: '',
-        focused: ''
+        focused: '',
+        otp: '',
+        otpdisplay: false
     }
-
-    
-    
-
     componentDidMount() {
         window.scrollTo(0,0);
         const {match: {params}} = this.props
@@ -51,86 +51,97 @@ class SellPaymentPage extends Component {
         });   
     }
 
-    numberHandler = (e) => {
-        this.setState({number: e.target.value})
+    setOtp = (e) => {
+      e.preventDefault();
+      this.setState({
+          otp: e.target.value
+      })
     }
 
-    nameHandler = (e) => {
-        this.setState({name: e.target.value})
-    }
-    
-    
-    expiryHandler = (e) => {
-        this.setState({expiry: e.target.value})
-    }
-    cvcHandler = (e) => {
-        this.setState({cvc: e.target.value})
+    otpsender = (e) => {
+      e.preventDefault();
+
+      axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
+      .then(response => {
+        console.log(response);
+        alert("Success");
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
 
     render () {
-
+        console.log(this.state)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 
      const onSubmit = async values => {
+       console.log(values);
         await sleep(300)
-        window.alert(JSON.stringify(values, 0, 2))
+        const cardDetails = {
+          name: values.name,
+          card_no: values.number,
+          cvv: values.cvc,
+          expiry_date: values.expiry,
+          amount: this.state.vehicles.price
+        }
+        axios.post('/pay-now', {card_details: cardDetails})
+        .then(response => {
+          console.log(response.data);
+          if(response.data === 'VALID'){
+            console.log(this.props.email);
+            axios.post('/request-otp', {email: this.props.email})
+            this.setState({
+              otpdisplay: true
+            })
+          }
+
+        })
+        .catch(err => {
+          console.log(err.response.data);
+        })
+        
+        // window.alert(JSON.stringify(values, 0, 2))
       }
 
+      let otp = null
+      if(this.state.otpdisplay){
+        otp = <div>
+                OTP <input onChange={this.setOtp} value={this.state.otp} type="number" />
+                <br />
+                <button onClick={this.otpsender}>Confirm</button>
+            </div>
+
+      }
+      
+      
 
 
         return (
             <div className={classes.Container}>
                 <h3> Payment Page </h3>
                 <div>
-                    Sell Page
+                    
 
 
-                    {/* <Cards
-                   number={this.state.number}
-                   name={this.state.name}
-                   expiry={this.state.expiry}
-                   cvc={this.state.cvc}
-                   focused={this.state.focused}
-                     />
-            
-                    <form>
-                        Number<input value={this.state.number} onChange={this.numberHandler} type="number" /> 
-                        Name <input value={this.state.name} onChange={this.nameHandler} type="text" />
-                        expiry <input value={this.state.expiry} onChange={this.expiryHandler} type="number" />
-                        cvc <input value={this.state.cvc} onChange={this.cvcHandler} type="number" />
 
-
-                    </form>
-                     */}
-
-(
   <Styles>
-    <h1>🏁 React Final Form</h1>
-    <h2>Credit Card Example</h2>
-    <a href="https://github.com/erikras/react-final-form#-react-final-form">
-      Read Docs
-    </a>
-    <p>
-      This example demonstrates how to use the amazing{' '}
-      <a
-        href="https://github.com/amarofashion/react-credit-cards"
-        target="_blank"
-      >
-        React Credit Cards
-      </a>{' '}
-      library with your form.
-    </p>
     <Form
       onSubmit={onSubmit}
-      render={({
+      render={
+        ({
         handleSubmit,
         reset,
         submitting,
         pristine,
         values,
-        active
+        active,
+        disable = true
       }) => {
+        console.log(values);
+         disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
+         console.log(disable);
         return (
           <form onSubmit={handleSubmit}>
              <Card
@@ -145,6 +156,7 @@ class SellPaymentPage extends Component {
                 name="number"
                 component="input"
                 type="text"
+                value={this.state.number}
                 pattern="[\d| ]{16,22}"
                 placeholder="Card Number"
                 format={formatCreditCardNumber}
@@ -177,29 +189,27 @@ class SellPaymentPage extends Component {
               />
             </div>
             <div className="buttons">
-              <button type="submit" disabled={submitting}>
-                Submit
-              </button>
-              <button
-                type="button"
-                onClick={reset}
-                disabled={submitting || pristine}
-              >
-                Reset
+              <button type="submit" disabled={disable}>
+                Pay {this.state.vehicles.price}
               </button>
             </div>
-            <h2>Values</h2>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
-          </form>
+            </form>
         )
       }}
     />
   </Styles>
-)
+
                 </div>
+                {otp}
             </div>
         );
     }
 }
 
-export default SellPaymentPage;
+const mapStateToProps = state => {
+  return {
+    email: state.auth.email
+  }
+}
+
+export default connect(mapStateToProps, null)(SellPaymentPage);

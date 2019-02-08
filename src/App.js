@@ -23,32 +23,34 @@ import Lend from './containers/SellVehicle/Lend/Lend';
 import SignUp from './containers/Forms/SignUp/SignUp';
 import SellPaymentPage from './containers/PaymentPage/SellPaymentPage';
 import RentPaymentPage from './containers/PaymentPage/RentPaymentPage';
+import { setTimeout } from 'timers';
+import Accessories from './containers/Accessories/Accessories';
+
 
 class App extends Component {
   
   componentDidMount = () => {
-    const expiry = localStorage.getItem('expirationDate');
+
+    
+    this.props.onTryAutoSignUp();
+
+    if(localStorage.getItem('token')){
+      const expiry = localStorage.getItem('expirationDate');
     let d1 = new Date(expiry);
     let d2 = new Date();
     
-    // let d1GetHours = d1.getHours().toString();
-    // let d1GetMins = d1.getMinutes().toString();
-
-    // let d2GetHours = d2.getHours().toString();
-    // let d2GetMins = d2.getMinutes().toString();
-
-
-
-    // let finald1 = d1GetHours+d1GetMins
-    // let finald2 = d2GetHours+d2GetMins
-
+    
     let d3 = d1.getTime();
     let d4 = d2.getTime();
     let d5 = d3-d4;
-    if(d5<305000)
+    //305000
+    if(d5<3405000)
     {
         console.log("LogOut")
-        this.props.getTokens(this.props.email, this.props.user_id);
+        console.log(localStorage.getItem('userId'));
+        this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('userId'))
+        // setTimeout(this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('token')), 0)
+        // this.props.getTokens(this.props.email, this.props.user_id);
     }
 
     console.log(d3);
@@ -56,9 +58,10 @@ class App extends Component {
     console.log(d5);    
   console.log(d2.getHours());
 
-    this.props.onTryAutoSignUp();
 
 
+    }
+    
   }
 
   render() {
@@ -72,7 +75,7 @@ class App extends Component {
           {/* <Route path="/signUp" exact component={SignUpForm} /> */}
           <Route path="/sell/sell" exact component={SellVehicle} />
           <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
-          
+          <Route path="/accessories" component={Accessories} />
       </Switch>
     );
 
@@ -93,6 +96,7 @@ class App extends Component {
             <Route path="/delete" exact component={Delete} />
             <Route path="/history" exact component={VehicleHistory} />
             <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
+            <Route path="/accessories" component={Accessories} />
             <Route path="/sell/lend" component={Lend} />
          </Switch>
              

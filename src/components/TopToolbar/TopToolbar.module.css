@@ -26,9 +26,14 @@
 }
 
 .cart {
-    height: 80%;
-    width: 50%;
-    margin-top: 10%;
+    height: 75%;
+    width: 60%;
+    
+}
+
+.items {
+    height: 20%;
+    margin-bottom: 0px;
 }
 
 .cartCont {

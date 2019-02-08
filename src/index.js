@@ -6,10 +6,12 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import vehicleReducer from './store/reducers/vehicle_click';
 import axios from 'axios';
+import { func } from 'prop-types';
 
 axios.defaults.baseURL = 'http://localhost:3001';
 // console.log(localStorage.getItem('token'));
@@ -46,13 +48,38 @@ const rootReducer = combineReducers({
     vehicle: vehicleReducer
 })
 
-const store = createStore(rootReducer, composeEnhancers(
+function saveToLocalStorage(state) {
+    try {
+        const serializedState = JSON.stringify(state)
+        localStorage.setItem('state', serializedState)
+    }
+    catch(e) {
+        console.log(e);
+    }
+}
+
+function loadFromStorage() {
+    try {
+        const serializedState = localStorage.getItem('state');
+        if(serializedState === null) return undefined
+        return JSON.parse(serializedState);
+    }
+    catch (e) {
+        console.log(e);
+        return undefined
+    }
+} 
+
+const persistedState = loadFromStorage()
+
+const store = createStore(rootReducer, persistedState, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
 console.log(store.getState());
+// persistStore(store);
 
-
+store.subscribe(() => saveToLocalStorage(store.getState()))
 
 
 const app = (

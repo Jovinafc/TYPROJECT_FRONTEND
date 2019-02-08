@@ -4,6 +4,7 @@ import cx from 'classnames';
 import globalStyles from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import { DatePicker} from 'shineout';
 import axios from 'axios';
+import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
 
 class ProfInfo extends Component {
@@ -22,6 +23,8 @@ class ProfInfo extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
+
         axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
             console.log(res.data);
@@ -116,9 +119,9 @@ class ProfInfo extends Component {
 
         let v = false;
         let phoneno = /^\d{10}$/;
-        if((this.state.phone_number.match(phoneno))){
-            v = true;
-        }
+        // if((this.state.phone_number.match(phoneno))){
+        //     v = true;
+        // }
         
         if(v === false) {
             isError = true;
@@ -155,8 +158,10 @@ class ProfInfo extends Component {
 
 
     submitHandler = (e) => {
+        console.log('before validate');
         const error = this.validate();
-        if(!error){
+        console.log('after validate');
+        if(error){
             e.preventDefault();
             const users = {
                 first_name: this.state.first_name,
@@ -173,9 +178,17 @@ class ProfInfo extends Component {
         .then( res => {
             console.log(res);
             console.log('Success');
+            alert('Saved')
+            this.props.fetchUser(this.state.user_id);
         })
-        console.log('Completed')
+        .catch(err => {
+            console.log(err);
+        })
         }
+        else {
+            console.log('Declined');
+        }
+        
               
     }
 
@@ -221,14 +234,14 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
-                    <select className="form-control" onChange={this.stateHandler} type="select" id="state" onChange={this.stateHandler} value={this.state.state || ''} ></select>    
+                    <input className="form-control" onChange={this.stateHandler} type="text" id="state" onChange={this.stateHandler} value={this.state.state || ''} />   
                         </div>    
                         </div>
 
                         <div className="form-group">
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
-                    <select className="form-control" onChange={this.cityHandler} type="select" id="city" onChange={this.cityHandler} value={this.state.city || ''} ></select>    
+                    <input className="form-control" onChange={this.cityHandler} type="text" id="city" onChange={this.cityHandler} value={this.state.city || ''} />    
                         </div>    
                         </div>
 
@@ -267,5 +280,12 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchUser: (user_id) => dispatch(actions.userData(user_id)) 
 
-export default connect(mapStateToProps,null)(ProfInfo);
+    }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(ProfInfo);

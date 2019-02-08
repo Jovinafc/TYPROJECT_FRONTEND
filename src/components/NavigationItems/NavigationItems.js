@@ -30,6 +30,8 @@ const navigationItems = (props) =>  {
 
             <NavigationItem link="/display" >Buy/Rent Vehicle 
                 </NavigationItem>
+
+                
             {/*     
             <NavigationItem link="/sell">Sell/Lend Vehicle</NavigationItem> 
              <NavigationItem  link="/logout">Logout</NavigationItem> 
@@ -44,10 +46,15 @@ const navigationItems = (props) =>  {
                 ? <NavigationItem link="/sell/sell"  >Sell/Lend Vehicle</NavigationItem> 
                 : null}
 
+               <NavigationItem link="/accessories" >Accessories 
+                </NavigationItem>
+               
+
              <span style={style} className={classes.span1}>
              {props.isAuthenticated 
                 ? <NavigationItem link="/logout">Logout</NavigationItem> 
                 : null}
+             
              
              </span>   
              

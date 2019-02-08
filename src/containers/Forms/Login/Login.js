@@ -34,14 +34,34 @@ class Login extends Component {
             email: e.target.value,
             
         })
+
+        // if(this.state.password !== '' && this.state.email !== ''){
+        //     this.setState({
+        //         valid: false
+        //     })
+        // }
     }
 
     passwordHandler = (e) => {
         
         this.setState({
             password: e.target.value,
-            valid: false
+        
         })
+
+        // if(this.state.email !== '' && this.state.password !== ''){
+        //     this.setState({
+        //         valid: false
+        //     })
+        // }
+    }
+
+    checkAll = (email,password) => {
+        if(this.state.email !== '' && this.state.password !== ''){
+            this.setState({
+                valid: false
+            });
+        }
     }
 
     validate = () => {
@@ -79,6 +99,9 @@ class Login extends Component {
 
     render () {
 
+        const {email, password} = this.state;
+
+        const enabled = email.length > 0 && password.length > 0;
        
 
         let form = (
@@ -104,7 +127,7 @@ class Login extends Component {
             onChange={this.passwordHandler}/>
             <br />
             </div>
-            <button disabled={this.state.valid} className="btn btn-primary" > Login</button>
+            <button disabled={!enabled} className="btn btn-primary" > Login</button>
             <p>Not Registered?<NavLink to="/SignUp">Sign Up Here</NavLink></p>
             </div>
     );
@@ -131,7 +154,6 @@ class Login extends Component {
             
                 <div>
                 <h3 style={{textAlign: 'center'}}> Login </h3>
-                {errorMessage}
                 <form className={classes.form} onSubmit={this.submitHandler} >
                     {form}
                 

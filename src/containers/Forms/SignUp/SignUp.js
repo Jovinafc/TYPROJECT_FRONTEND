@@ -4,7 +4,6 @@ import {DatePicker} from 'shineout';
 import Input from 'react-validation/build/input';
 import Form from 'react-validation/build/form';
 import axios from '../../../axios';
-import { timingSafeEqual } from 'crypto';
 
 
 class SignUp extends Component {

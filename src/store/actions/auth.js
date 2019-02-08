@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
+import { stat } from 'fs';
 
 export const authStart = () => {
     return {
@@ -103,6 +104,7 @@ export const logout = () => {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('expirationDate', expirationDate);
           localStorage.setItem('userId', response.data.user_id);
+          localStorage.setItem('email', email);
           dispatch(authSuccess(response.data.token, response.data.user_id));
           dispatch(userData(response.data.user_id));
           dispatch(checkAuthTimeout(response.data.expiresIn));
@@ -117,6 +119,7 @@ export const logout = () => {
 }
 
 export const authRefresh = (email, user_id) => {
+    console.log(user_id +" "+email )
     return dispatch => {
         axios.get(`/getToken/${user_id}/${email}`)
         .then(response => {
@@ -194,7 +197,7 @@ export const authRefresh = (email, user_id) => {
 //      }
 //  };
 
-export const saveUserData = (first_name,last_name,phone_number,dob,email,image) => {
+export const saveUserData = (first_name,last_name,phone_number,dob,email,image,address,state,city,pincode) => {
         return {
             type: actionTypes.SAVE_USER_DATA,
             first_name: first_name,
@@ -202,7 +205,11 @@ export const saveUserData = (first_name,last_name,phone_number,dob,email,image) 
             phone_number: phone_number,
             dob: dob,
             email: email,
-            image: image
+            image: image,
+            address: address,
+            state: state,
+            city: city,
+            pincode: pincode
         };
 };
 

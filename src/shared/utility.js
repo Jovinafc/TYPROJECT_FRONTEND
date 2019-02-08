@@ -5,6 +5,8 @@ export const updateObject = (oldObject, updatedProperties) => {
    };
 };
 
+
+
 export const updateSelect = (valueSelected, prevSelectvalue) => {
     let newArray = [];
     if(valueSelected === 'Two-Wheelers'){

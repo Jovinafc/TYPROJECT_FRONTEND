@@ -14,6 +14,7 @@ const initialState = {
     email: '',
     password: '',
     image: '',
+    address: '',
     state: '',
     city: '',
     pincode: '',

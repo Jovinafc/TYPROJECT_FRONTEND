@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Cart from '../../Images/Cart.png';
 import * as actions from '../../store/actions/auth';
-
+import shoppingCart from '../../Images/shopping-cart.png';
 const style = {
     height: '95%',
     width: '5%',
@@ -63,10 +63,13 @@ class TopToolbar extends Component {
             </div> */}
 
             <div className={classes.cartCont}>
+                <div>
                 <NavLink to="/cart">
+                <h6 className={classes.items}>0</h6>
 
-                <img src={Cart} alt="Cart" className={classes.cart}/>
+                <img src={shoppingCart} alt="Cart" className={classes.cart}/>
                 </NavLink>
+                </div>
 
                 <div className={classes.dropdowndiv}>
                     Your Cart is Empty 
