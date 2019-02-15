@@ -5,6 +5,7 @@
 .Container {
      display: flex;
      /* border: 2px solid black; */
+     padding-top: 90px; 
 }
 
 .card {
@@ -18,7 +19,7 @@
      border: 1px solid yellow;
      height: 700px;
      overflow-y: auto;
-
+     overflow: scroll;
 }
 
 .Type {
@@ -33,6 +34,9 @@
      border: 1px solid green;
 }
 
+.type {
+     background-color: #D8D8D8;
+}
 
 @media(max-width:500px) {
      .Container {

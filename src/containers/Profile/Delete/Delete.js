@@ -8,13 +8,12 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { connect} from 'react-redux';
 import * as actions from '../../../store/actions/auth';
-
+import {Redirect} from 'react-router-dom';
 
 
 
 class Delete extends Component {
 
-    
         
         state = {
             show: false,
@@ -85,11 +84,16 @@ class Delete extends Component {
     </form>
                 </div>
 
+            let authRedirect = null;
+            if(!this.props.isAuthenticated){
+                authRedirect = <Redirect to={this.props.authRedirectPath}/>
+            }
+
 
         return (
             <Aux>
 
-
+            {authRedirect}
 
             <div className={classes.Container}>
 
@@ -124,7 +128,10 @@ class Delete extends Component {
 
 const mapStateToProps = state => {
     return {
-        user_id: state.auth.userId
+        user_id: state.auth.userId,
+        isAuthenticated: state.auth.token !== null,
+        authRedirectPath: state.auth.authRedirectPath
+
     };
 }
 

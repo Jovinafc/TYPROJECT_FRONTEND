@@ -4,6 +4,9 @@ import {DatePicker} from 'shineout';
 import Input from 'react-validation/build/input';
 import Form from 'react-validation/build/form';
 import axios from '../../../axios';
+// import DatePicker from 'react-date-picker';
+import {DateInput} from '@opuscapita/react-dates';
+// import DatePicker from "react-bootstrap-date-picker";
 
 
 class SignUp extends Component {
@@ -420,9 +423,18 @@ class SignUp extends Component {
      
                          <div>
                      <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
-                     <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} />
+                     <div className="col-sm-4">
+                     {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
+                     {/* <DatePicker onChange={this.dobHandler} value={this.state.DOB} /> */}
+                     {/* <DateInput  value={this.state.DOB} onChange={this.dobHandler} dateFormat="dd-MM-yyyy"
+  disabled={false}
+  locale="en" />   */}
+                    <DatePicker  value={this.state.DOB} onChange={this.dobHandler} />
+   
+
                      <span style={{color: 'red'}}>{this.state.DOBError}</span>   
+
+                    
 
                      </div>
                          </div>
@@ -454,8 +466,17 @@ class SignUp extends Component {
                          <div style={{textAlign: 'center', marginTop: '15px'}}>
                          <button disabled={disable} type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
                          </div>
+
+                         
                   </Form>
-            </div>  
+
+                
+
+
+            </div>
+
+            
+            <br />
             </div>
         )
     }

@@ -18,7 +18,9 @@ const initialState = {
     state: '',
     city: '',
     pincode: '',
-    photoadd: false
+    bank_account_no: '',
+    photoadd: false,
+    itemnum: 2
 };
 
 const authStart = (state, action) => {
@@ -70,7 +72,8 @@ const saveUserData = (state,action) => {
             address: action.address,
             state: action.state,
             city: action.city,
-            pincode: action.pincode
+            pincode: action.pincode,
+            bank_account_no: action.bank_account_no
     })
 };
 
@@ -85,7 +88,8 @@ export const deleteUserData = (state, action) => {
         address: null,
         state: null,
         city: null,
-        pincode: null
+        pincode: null,
+        bank_account_no: null
     })
 }
 

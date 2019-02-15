@@ -18,20 +18,27 @@ class TopToolbar extends Component {
     
 
     state = {
-        ppimage: this.props.image
+        ppimage: this.props.image,
+        number: 3, 
+        no_of_items: 0
     }
 
     componentDidUpdate = (prevProps) => {
         if(this.props.image !== prevProps.image){
             this.setState({
-                ppimage: this.props.image
+                ppimage: this.props.image   
             })
             this.props.photoFinish();
+        }
+        if(this.props.counter !== prevProps.counter){
+            this.setState({
+                no_of_items: this.props.counter
+            })
         }
     }
 
     render () {
-
+        console.log(this.props.item_number);
         let a = this.props.first_name.charAt(0);
 
         let sign = <Signing />
@@ -65,16 +72,29 @@ class TopToolbar extends Component {
             <div className={classes.cartCont}>
                 <div>
                 <NavLink to="/cart">
-                <h6 className={classes.items}>0</h6>
-
+                {this.props.isAuthenticated 
+                ? <h6 className={classes.items}>{this.props.item_number}</h6>
+                : <h6 className={classes.items}>0</h6>
+            }
+                
                 <img src={shoppingCart} alt="Cart" className={classes.cart}/>
                 </NavLink>
                 </div>
 
                 <div className={classes.dropdowndiv}>
-                    Your Cart is Empty 
+                    {this.props.cart_items === undefined
+                    ? <div>Your Cart is Empty 
                     <br />
                     Keep Shopping
+                    </div>
+                    : <div>
+                            {this.props.cart_items.map(dis => {
+                                return (
+                                    <div>{dis.accessory_name}</div>
+                                )
+                            })}  
+                      </div>} 
+                    
                 </div>
             </div>
 
@@ -97,7 +117,10 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null,
         first_name: state.auth.first_name,
-        image: state.auth.image
+        image: state.auth.image,
+        item_number: state.cart.item_number,
+        cart_items: state.cart.cart
+
     };
 };
 

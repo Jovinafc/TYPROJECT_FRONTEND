@@ -6,10 +6,16 @@ import { DatePicker} from 'shineout';
 import axios from 'axios';
 import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Alert from 'react-bootstrap/Alert'
+
+
 
 class ProfInfo extends Component {
 
-    
+    notify = () => toast("Wow so easy !");
+
     state = {
         first_name: '',
         last_name: '',
@@ -19,7 +25,9 @@ class ProfInfo extends Component {
         state: '',
         city: '',
         pincode: '',
-        user_id: this.props.user_id
+        bank_no: '',
+        user_id: this.props.user_id,
+        show: false
     }
 
     componentDidMount() {
@@ -36,7 +44,8 @@ class ProfInfo extends Component {
                 address:res.data.address,
                 state: res.data.state,
                 city: res.data.city,
-                pincode: res.data.pincode
+                pincode: res.data.pincode,
+                bank_no: res.data.bank_account_no
             });         
             
         })
@@ -80,6 +89,10 @@ class ProfInfo extends Component {
         this.setState({pincode : e.target.value});
     }
 
+    bankHandler = (e) => {
+        this.setState({bank_no: e.target.value});
+    }
+
     validate = () =>  {
         let isError = false;
         let errors = {};
@@ -115,6 +128,15 @@ class ProfInfo extends Component {
             })
             errors.phone_numberError = "Please Enter Phone Number"
 
+        }
+
+        if(this.state.bank_no === '') {
+            isError = true;
+            this.setState({
+                ...this.state,
+                bank_noError: "Please Enter Bank Account Number"
+            })
+            errors.bank_noError = "Please Enter Bank Account Number"
         }
 
         let v = false;
@@ -158,9 +180,7 @@ class ProfInfo extends Component {
 
 
     submitHandler = (e) => {
-        console.log('before validate');
         const error = this.validate();
-        console.log('after validate');
         if(error){
             e.preventDefault();
             const users = {
@@ -172,12 +192,11 @@ class ProfInfo extends Component {
                 state: this.state.state,
                 city: this.state.city,
                 pincode: this.state.pincode,
-                user_id: this.state.user_id
+                user_id: this.state.user_id,
+                bank_account_no: this.state.bank_no
             }
         axios.post('/update-user-profile', {users: users })
         .then( res => {
-            console.log(res);
-            console.log('Success');
             alert('Saved')
             this.props.fetchUser(this.state.user_id);
         })
@@ -190,6 +209,12 @@ class ProfInfo extends Component {
         }
         
               
+    }
+
+    alertHandler = () => {
+        this.setState({
+            show: true
+        })
     }
 
     render () {
@@ -221,6 +246,14 @@ class ProfInfo extends Component {
                     <label htmlFor="phone" className="col-sm-2 control-label">Phone Number</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="phone" onChange={this.phoneHandler} value={this.state.phone_number}/>        
+                    </div>    
+                        </div>
+
+                        
+                        <div className="form-group">
+                    <label htmlFor="bank_no" className="col-sm-2 control-label">Bank Account No</label>
+                    <div className="col-sm-10">
+                    <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no}/>        
                     </div>    
                         </div>
 
@@ -259,11 +292,20 @@ class ProfInfo extends Component {
                     </div>
                         </div>
 
+
                         <div style={{textAlign: 'center', marginTop: '15px'}}>
                         <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
+                        <br/>
+                        <br />
+                        {/* <button onSubmit={this.alertHandler} >Notify!</button> */}
+                        
                         </div>
                  </form>
                  </div>
+                 <Alert show={this.state.show} key="idx" variant="dark">
+                            This is a dark alert
+                </Alert>
+
             </div>
         );
     }

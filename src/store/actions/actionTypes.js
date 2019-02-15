@@ -21,3 +21,16 @@ export const FETCH_VEHICLES = 'FETCH_VEHICLES';
 export const CARD_CLICK = 'ON_CARD_CLICK';
 export const CLEAR = 'ON_CLEAR';
 export const ON_VEHICLE_ID = 'ON_VEHICLE_ID';
+export const START_DATE = 'START_DATE';
+export const END_DATE = 'END_DATE';
+export const TYPE_OF_PAYMENT = 'TYPE_OF_PAYMENT';
+export const FETCH_SELECTED_VEHICLES = 'FETCH_SELECTED_VEHICLES';
+export const SAVE_OWNER_BANK_ACCOUNT_NO = 'SAVE_OWNER_BANK_ACCOUNT_NO';
+
+export const ADD_ITEM = 'ADD_ITEM';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const UPDATE_ITEMS = 'UPDATE_ITEMS';
+export const PRODUCT_CLICK = 'PRODUCT_CLICK';
+export const CART_DETAILS = 'CART_DETAILS';
+export const SET_TO_ZERO = 'SET_TO_ZERO';
+export const ALREADY_ADDED_TO_CART = 'ALREADY_ADDED_TO_CART';

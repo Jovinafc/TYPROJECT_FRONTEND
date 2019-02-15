@@ -1,0 +1,50 @@
+.Container {
+    width: 80%;
+    margin-left: 10%;
+    height: 350px;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    height: 200px;
+    margin-bottom: 2%;
+    display: flex;
+}
+
+.imageName {
+    width: 30%;
+    height: 100%;
+}
+
+.inputDiv {
+    font-size: 16px;
+    margin: 0px 5px;
+    text-align: center;
+    width: 50px;
+} 
+
+.name {
+    height: 20%;
+}
+
+.ImageContainer {
+   height: 80%;
+}
+
+.Image {
+    height: 95%;
+    width: 95%;
+}
+
+.quantity {
+    border: 1px solid palegreen;
+    width: 20%;
+}
+
+.priceDiv {
+    border: 1px solid aqua;
+    width: 20%;
+}
+
+.input {
+    width: 2px;
+    size: 4;
+}

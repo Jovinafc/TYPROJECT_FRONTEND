@@ -1,0 +1,15 @@
+.Container {
+    padding-top: 120px;
+}
+
+.Box {
+    border: 1px solid black;
+    width: 30%;
+    margin-left: 35%;
+    margin-bottom: 30%;
+    text-align: center
+}
+
+.submit {
+    margin-bottom: 5%;
+}

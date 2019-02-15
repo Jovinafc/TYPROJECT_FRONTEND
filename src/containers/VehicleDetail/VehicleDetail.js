@@ -9,6 +9,8 @@ import Aux from '../../hoc/Auxilary';
 import {DatePicker} from 'shineout';
 import { NavLink, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
+import * as actionp from '../../store/actions/vehicle_click'
+
 
 class VehicleDetail extends Component {
 
@@ -25,7 +27,6 @@ class VehicleDetail extends Component {
 
 
     buyVehicleHandler = () => {
-        console.log(this.props.user_id);
         if(this.props.user_id === null){
             alert("Kindly Login")
             // this.setState({
@@ -77,12 +78,8 @@ class VehicleDetail extends Component {
         // }
         // console.log(this.props.vehicle_id);
         const {match: {params}} = this.props;
-        console.log(params);
-        console.log(params.vehicle_id);
         let a = params.vehicle_id;
-        console.log(a.charAt(0));
         a = a.substring(1);
-        console.log(a);
 
         //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
          axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
@@ -94,7 +91,9 @@ class VehicleDetail extends Component {
            }
            else
            {
-            this.setState({vehicles: response.data});
+            this.setState({vehicles: response.data[0]});
+            this.props.save_bank_account_no(response.data[1])
+            this.props.fetch_selected_vehicle(response.data)
            }
          })
          .catch(err => {
@@ -102,13 +101,7 @@ class VehicleDetail extends Component {
              this.setState({Invalid: true})
          });
 
-         
-         console.log(this.props.address);
-         console.log(this.props.number);
-         console.log(this.props.state);
-         console.log(this.props.city);
-         console.log(this.props.pincode);
-     }
+ }
 
      cancel = () => {
         this.setState({show: false});
@@ -116,13 +109,12 @@ class VehicleDetail extends Component {
 
     startDateHandler = (e) => {
         this.setState({startdatetime: e});
-        console.log(e);
-    
+        this.props.startDate(e);
     }
 
     endDateHandler = e => {
         this.setState({enddatetime: e});
-        console.log(e);
+        this.props.endDate(e);
     }
  
     proceedHandler = (e) => {
@@ -150,31 +142,36 @@ class VehicleDetail extends Component {
         this.setState({show: false});
     }
 
-    
+    dateHandler = () => {
+
+    }
  
     render () {
-        
+        const sd = this.state.startdatetime;
+        const ed = this.state.enddatetime;
+
+        const enabled = sd.length > 0 && ed.length > 0;
 
         // let log = null;
         // log = <Login />
         
-
-        // let dc = <div className={classes.DateContainer}>
-        // <form className="form-horizontal">
-        // <div className="form-group" >
-        //     <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
-        //     <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
-        //     </div>
-        //     <div className="form-group">
-        //     <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
-        //     <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
-        //     </div>                    
-        //     <br /> <br /> 
+        let dc = null;
+        dc = <div className={classes.DateContainer}>
+        <form className="form-horizontal">
+        <div className="form-group" >
+            <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
+            <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
+            </div>
+            <div className="form-group">
+            <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
+            <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
+            </div>                    
+            <br /> <br /> 
+            <NavLink  to={'/payment/:'+this.props.vehicle_id}><button disabled={!enabled}  className="btn btn-danger">Proceed To Payment</button></NavLink>
             
-        //     <button onClick={this.proceedHandler} className="btn btn-danger">Proceed To Payment</button>
-        // </form>
+        </form>
             
-        // </div>
+        </div>
         
         
         let vehicleDetail = (
@@ -258,7 +255,7 @@ class VehicleDetail extends Component {
 
                              ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
 
-                             : <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                             : <NavLink to={'/payment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
                               
                              }  
                            </div> 
@@ -267,9 +264,10 @@ class VehicleDetail extends Component {
 
                                {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
 
-                               ? <button className="btn btn-success">Rent Vehicle</button> 
+                               ? <NavLink to="/Profile"><button className="btn btn-success">Update your Profile</button></NavLink>
 
-                               : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                   //            : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                               : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
 
                                 }
                             </div> 
@@ -295,9 +293,9 @@ class VehicleDetail extends Component {
                 </div> */}
 
 
-                {/* {
+                {
                     this.state.showDate === true ? dc : null
-                } */}
+                }
 
             </div>
         );
@@ -314,10 +312,6 @@ class VehicleDetail extends Component {
                              
                 <h2>Vehicle Details</h2> 
                 {vehicleDetail} 
-                {/* {this.props.user_id === null 
-                ? <div className={classes.but}>
-                </div>
-                 } */}
             </div> }
             </Aux>
         );
@@ -341,7 +335,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getTokens: (email,user_id) => dispatch(actions.authRefresh(email,user_id)),
-
+        startDate: (startDate) => dispatch(actionp.startDate(startDate)),
+        endDate: (endDate) => dispatch(actionp.endDate(endDate)),
+        fetch_selected_vehicle: (vehicle) => dispatch(actionp.fetch_selected_vehicle(vehicle)),
+        save_bank_account_no : (bank_no) => dispatch(actionp.save_owner_bank_account_no(bank_no))
     }
 }
 

@@ -72,3 +72,38 @@ export const checkVehicleID = () => {
         dispatch(onVehicleID(vehicle_id));
     }
 }
+
+export const startDate = (startDate) => {
+    return {
+        type: actionTypes.START_DATE,
+        startDate: startDate
+    }
+}
+
+export const endDate = (endDate) => {
+    return {
+        type: actionTypes.END_DATE,
+        endDate: endDate
+    }
+}
+
+export const type_of_payment = (payment_type) => {
+    return {
+        type: actionTypes.TYPE_OF_PAYMENT,
+        type_payment: payment_type
+    }
+}
+
+export const fetch_selected_vehicle = (vehicles) => {
+    return {
+        type: actionTypes.FETCH_SELECTED_VEHICLES,
+        vehicles: vehicles
+    }
+}
+
+export const save_owner_bank_account_no = (bank_account_no) => {
+    return {
+        type: actionTypes.SAVE_OWNER_BANK_ACCOUNT_NO,
+        bank_account_no: bank_account_no
+    }
+}

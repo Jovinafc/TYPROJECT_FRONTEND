@@ -17,6 +17,7 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 import store from '../../store/reducers/auth';
+import InputRange from 'react-input-range';
 
 function searchingFor(term) {
     return function(x) {
@@ -33,7 +34,8 @@ class Cards extends Component {
             display: [],
             vehicles: [],
             user_id: this.props.user_id,
-            term: ''
+            term: '',
+            price: ''
         }
     }
 
@@ -70,6 +72,14 @@ class Cards extends Component {
         this.setState({term: e.target.value})
     }
 
+
+    priceRangeHandler = (e) => {
+        console.log(e);
+        console.log(e.target.value);
+        // this.setState({
+        //     price: { min: min, max: max }
+        // })
+    }
     
    
     render () {
@@ -145,15 +155,7 @@ class Cards extends Component {
         return (
             <div>
 
-            <div className={classes.search}>
-            <form>
-            <input type="text" 
-                    value={this.state.term}
-                    onChange={this.searchHandler}
-            />
-
-            </form>
-             </div>    
+                
 
             <div className={classes.Container}>
 
@@ -161,7 +163,17 @@ class Cards extends Component {
 
                 <div className={classes.Menu}>
                     <h5>Filter</h5>
-                    
+
+                    <div className={classes.searchDiv}>
+                         <form>
+                         <input type="text" 
+                                 value={this.state.term}
+                                 onChange={this.searchHandler}
+                         />
+
+                         </form>
+                   </div>
+{/*                     
                     <Collapsible trigger="Vehicle Type">
                     <div className={classes.Type}>
                         <h6>Vehicle Type-</h6>
@@ -190,7 +202,38 @@ class Cards extends Component {
                         
                     </div>
                     
-                    
+                     */}
+
+                     <div className={classes.type}>
+                         <h6>Vehicle Type </h6> 
+
+                         <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
+                                         
+
+                    {/* <label class="checkbox-inline"><input type="checkbox" value="" />Option 1</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="" />Option 2</label>  */}
+
+                     </div>
+
+                     <div>
+                         <h6>Fuel Type</h6> 
+
+                         <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
+                     </div>
+
+                    <div>
+                    <InputRange
+                         maxValue={20}
+                         minValue={0}
+                         value={this.state.price}
+                         onChange={this.priceRangeHandler} />
+                    </div>
+                    <div>
+
+                    </div>
 
                 </div>
                 <div className={classes.Main}>  

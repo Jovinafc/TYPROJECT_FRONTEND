@@ -1,10 +1,11 @@
 import React, { Component} from 'react';
 import classes from './Accessories.module.css';
 import Accessory from './Accessory/Accessory';
+import axios from 'axios';
 
 function searchingFor(term) {
     return function(x) {
-        return x.name.toLowerCase().includes(term.toLowerCase()) || !term;
+        return x.accessory_name.toLowerCase().includes(term.toLowerCase()) || !term;
     }
 }
 
@@ -12,13 +13,21 @@ function searchingFor(term) {
 class Accessories extends Component {
 
     state = {
-        products: [
-            {name: 'Helmets', price: '500'},
-            {name: 'Gloves', price: '350'}
-        ],
+        products: [],
         term: ''
     }
 
+    componentDidMount = () => {
+        axios.post('/fetch-accessories')
+        .then(response => {
+            console.log(response);
+            this.setState({products: response.data})
+        })
+    }
+
+    searchHandler = (e) => {
+        this.setState({term: e.target.value})
+    }
     render () {
 
         let displayProducts = this.state.products
@@ -26,9 +35,12 @@ class Accessories extends Component {
         .map(dis => {
             
             return (
-            <Accessory className={classes.card} name={dis.name} user_id={dis.user_id} vehicle_id={dis.vehicle_id} key={dis.id} model={dis.model} 
-               price={dis.price} 
-               image={dis.image}
+            <Accessory className={classes.card} id={dis.accessory_id} name={dis.accessory_name} key={dis.accessory_id}  
+               price={dis.accessory_price}
+               type={dis.accessory_type}
+               use={dis.accessory_use}
+               qty={dis.accessory_qty}
+               image={dis.accessory_image}
                />
 
             )
@@ -36,7 +48,7 @@ class Accessories extends Component {
             });
 
         return (
-            <div>
+            <div className={classes.big}>
 
             <div className={classes.search}>
             <form>

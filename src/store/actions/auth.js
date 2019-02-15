@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
-import { stat } from 'fs';
+import * as actions from './cart'
 
 export const authStart = () => {
     return {
@@ -30,7 +30,7 @@ export const logout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('expirationDate');
       localStorage.removeItem('userId'); 
-      return {
+      return  {
         type: actionTypes.AUTH_LOGOUT
       };
   };
@@ -106,6 +106,7 @@ export const logout = () => {
           localStorage.setItem('userId', response.data.user_id);
           localStorage.setItem('email', email);
           dispatch(authSuccess(response.data.token, response.data.user_id));
+          dispatch(actions.cartItems(response.data.user_id))
           dispatch(userData(response.data.user_id));
           dispatch(checkAuthTimeout(response.data.expiresIn));
       })
@@ -130,6 +131,7 @@ export const authRefresh = (email, user_id) => {
             dispatch(checkAuthTimeout(response.data.expiresIn));
 
         })
+        
     }
 }
 
@@ -197,7 +199,7 @@ export const authRefresh = (email, user_id) => {
 //      }
 //  };
 
-export const saveUserData = (first_name,last_name,phone_number,dob,email,image,address,state,city,pincode) => {
+export const saveUserData = (first_name,last_name,phone_number,dob,email,image,address,state,city,pincode,bank_account_no) => {
         return {
             type: actionTypes.SAVE_USER_DATA,
             first_name: first_name,
@@ -209,7 +211,8 @@ export const saveUserData = (first_name,last_name,phone_number,dob,email,image,a
             address: address,
             state: state,
             city: city,
-            pincode: pincode
+            pincode: pincode,
+            bank_account_no: bank_account_no
         };
 };
 
@@ -242,8 +245,12 @@ export const userData = (user_id) => {
                 res.data.address,
                 res.data.state,
                 res.data.city,
-                res.data.pincode));
+                res.data.pincode,
+                res.data.bank_account_no));
 
+        })
+        .catch(err => {
+            console.log(err.response.data);
         })
     }
 }

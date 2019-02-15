@@ -7,8 +7,14 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Tabs from './Tabs/Tabs';
 import { connect} from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { ToastContainer, toast} from 'react-toastify'
+import Modal from 'react-bootstrap/Modal'
+import Aux from '../../hoc/Auxilary';
 
 class SellVehicle extends Component {
+
+    notify = () => toast("Ad Posted Successfully!");
     state = {
         formdata: {
             user_id: localStorage.getItem('userId'),
@@ -39,7 +45,8 @@ class SellVehicle extends Component {
         tempBrand: '',
         tempModel: '',
         tempType: '',
-        sample: ''
+        sample: '',
+        show: false
     }
 
     details = () => {
@@ -60,10 +67,14 @@ class SellVehicle extends Component {
 
 
     componentDidMount () {
-        console.log(localStorage.getItem('token'));
         const header = {
             'x-auth' : localStorage.getItem('token')
         }
+
+        if(this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''){
+            this.setState({show: true})
+        }
+
         axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
             console.log(result);
@@ -74,6 +85,13 @@ class SellVehicle extends Component {
 
         this.details(); 
     }
+
+    handleClose = () =>  {
+        this.setState({
+            show: false
+        })
+      }
+    
 
    selectChangedHandlerType = (e) => {
        this.setState({
@@ -258,9 +276,8 @@ class SellVehicle extends Component {
     
     axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
     .then((post) => {
-         alert('Data Sent')
         console.log("Data Sent", post);
-
+        this.notify();
         this.setState({
             formdata: {
                 type: '',
@@ -275,7 +292,9 @@ class SellVehicle extends Component {
                 km_driven: '',
                 number_plate: '',
                 user_id: this.props.user_id
-              }
+              },
+              imagePrev: '',
+              documentPrev: ''
         }) 
 
     }).catch(e=>{
@@ -365,6 +384,9 @@ class SellVehicle extends Component {
       }
 
   render () {
+
+      
+
       console.log(this.state);
       console.log(this.state.imagePrev + "image preview");
     let {imagePrev} = this.state;
@@ -430,12 +452,24 @@ class SellVehicle extends Component {
     console.log(this.state.formdata);
 
     return (
-        
+        <Aux>
+            <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal.Body>
+                    Kindly Update your profile before posting an ad
+                </Modal.Body>
+                <Modal.Footer>
+                    <NavLink to="/Profile">
+                        Go To Profile Page
+                    </NavLink>
+                        
+                </Modal.Footer>
+            </Modal>
         <div  className={classes.Box} >
 
             <Tabs />
 
         <div>
+        
             <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell</h2>
             <Form className={classes.Sell}>
                        <div className={classes.divs}> 
@@ -596,13 +630,21 @@ class SellVehicle extends Component {
             </Form>
             </div>
         </div>
+        </Aux>
     );
   };
 }
 
 const mapStateToProps = state => {
     return {
-        user_id: state.auth.userId
+        user_id: state.auth.userId,
+        isAuthenticated: state.auth.token !== null,
+        address: state.auth.address,
+        state: state.auth.state,
+        city: state.auth.city,
+        pincode: state.auth.pincode,
+        number : state.auth.phone_number
+
     }
 }
 

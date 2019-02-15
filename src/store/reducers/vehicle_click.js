@@ -1,12 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
+import { fetch_selected_vehicle } from '../actions/vehicle_click';
 
 
 const initialState = {
     vehicle_id: null,
     vehicles: [],
     loading: false,
-    
+    startDate: '',
+    endDate: '',
+    type_payment: '',
+    owner_bank_account_no: ''
 };
 
 const FetchVehiclesStart = (state,action) => {
@@ -15,6 +19,10 @@ const FetchVehiclesStart = (state,action) => {
 
 const FetchAllVehiclesSuccess = (state, action) => {
     return updateObject(state, {vehicles: action.vehicles, loading: false})
+}
+
+const FetchSelectedVehicle = (state,action) => {
+    return updateObject(state, {vehicles: action.vehicles})
 }
 
 const FetchAllVehiclesFail = (state, action) => {
@@ -37,6 +45,22 @@ const OnVehicleID = (state,action) => {
     return updateObject(state, {vehicle_id: action.vehicle_id});
 }
 
+const startDate = (state,action) => {
+    return updateObject(state,{startDate: action.startDate})
+}
+
+const endDate = (state,action) => {
+    return updateObject(state,{endDate: action.endDate})
+}
+
+const typeOfPayment = (state,action) => {
+    return updateObject(state,{type_payment: action.type_payment})
+}
+
+const save_owner_bank_account_no = (state,action) => {
+    return updateObject(state,{owner_bank_account_no: action.owner_bank_account_no})
+}
+
 const reducer = (state=initialState, action) => {
     switch(action.type){
         case actionTypes.CARD_CLICK: return CardClick(state,action);
@@ -45,6 +69,11 @@ const reducer = (state=initialState, action) => {
         case actionTypes.FETCH_ALL_VEHICLES_START: return FetchVehiclesStart(state,action);
         case actionTypes.FETCH_ALL_VEHICLES_FAIL: return FetchAllVehiclesFail(state,action);
         case actionTypes.ON_VEHICLE_ID: return OnVehicleID(state,action);
+        case actionTypes.START_DATE: return startDate(state,action);
+        case actionTypes.END_DATE: return endDate(state,action);
+        case actionTypes.TYPE_OF_PAYMENT: return typeOfPayment(state,action);
+        case actionTypes.FETCH_SELECTED_VEHICLES: return(FetchSelectedVehicle(state,action));
+        case actionTypes.SAVE_OWNER_BANK_ACCOUNT_NO: return(save_owner_bank_account_no(state,action));
         default: return state;
     }
 };

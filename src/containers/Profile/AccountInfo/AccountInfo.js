@@ -22,7 +22,6 @@ class AccountInfo extends Component {
     componentDidMount = () => {
         axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
-            console.log(res.data);
             this.setState({
                 email: res.data.email
                 // old_password: res.data.password
@@ -115,7 +114,6 @@ class AccountInfo extends Component {
         e.preventDefault();
         const error = this.validate();
         if(!error) {
-            console.log('In Submit Method')
         if(this.state.new_password === this.state.confirm_password){
             axios.post('/update-password', {email: this.state.email, old_password: this.state.old_password, password: this.state.confirm_password})
             .then( response => {

@@ -9,10 +9,11 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
+import cartReducer from './store/reducers/cart'; 
 import vehicleReducer from './store/reducers/vehicle_click';
 import axios from 'axios';
 import { func } from 'prop-types';
-
+import { ToastContainer} from 'react-toastify';
 axios.defaults.baseURL = 'http://localhost:3001';
 // console.log(localStorage.getItem('token'));
 // axios.defaults.headers.get['x-auth'] = localStorage.getItem('token');
@@ -45,7 +46,8 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    vehicle: vehicleReducer
+    vehicle: vehicleReducer,
+    cart: cartReducer
 })
 
 function saveToLocalStorage(state) {
@@ -76,6 +78,9 @@ const store = createStore(rootReducer, persistedState, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
+// const store = createStore(rootReducer, composeEnhancers(
+//     applyMiddleware(thunk)
+// ));
 console.log(store.getState());
 // persistStore(store);
 
@@ -85,7 +90,10 @@ store.subscribe(() => saveToLocalStorage(store.getState()))
 const app = (
     <Provider store={store}>
         <BrowserRouter> 
-            <App />
+            <App >
+            <ToastContainer />  
+
+            </App>
         </BrowserRouter>
     </Provider>
 );

@@ -3,15 +3,26 @@ import classes from './SellPaymentPage.module.css';
 import axios from 'axios';
 import {DatePicker} from 'shineout';
 import Card from './Card';
+import * as actions from '../../store/actions/vehicle_click';
 import { Form, Field } from 'react-final-form'
 import Styles from './Styles';
+import { Redirect } from 'react-router-dom';
+import Aux from '../../hoc/Auxilary'
 import {
     formatCreditCardNumber,
     formatCVC,
     formatExpirationDate
   } from './cardUtils'
 import { connect} from 'react-redux';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import { css } from '@emotion/core';
+import {ClipLoader} from 'react-spinners';
 
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: yellow;
+`;
 
 class SellPaymentPage extends Component {
     state = {
@@ -23,7 +34,9 @@ class SellPaymentPage extends Component {
         expiry: '',
         focused: '',
         otp: '',
-        otpdisplay: false
+        otpdisplay: false,
+        spin: false,
+        loading:false
     }
     componentDidMount() {
         window.scrollTo(0,0);
@@ -37,12 +50,18 @@ class SellPaymentPage extends Component {
            console.log(response);
           if(response===null)
           {
-
+              
           }
           else
           {
-           this.setState({vehicles: response.data});
-           console.log(this.state.vehicles)
+           this.setState({vehicles: response.data[0]});
+           console.log(response.data)
+           if(response.data.price !== null){
+                this.props.type_payment('Sell');
+           }
+           else{
+                this.props.type_payment('Rent');
+           }
           }
         })
         .catch(err => {
@@ -77,6 +96,8 @@ class SellPaymentPage extends Component {
 
 
      const onSubmit = async values => {
+
+       this.setState({loading: true})
        console.log(values);
         await sleep(300)
         const cardDetails = {
@@ -84,7 +105,7 @@ class SellPaymentPage extends Component {
           card_no: values.number,
           cvv: values.cvc,
           expiry_date: values.expiry,
-          amount: this.state.vehicles.price
+          amount: this.state.vehicles.price || this.state.vehicles.price_per_day
         }
         axios.post('/pay-now', {card_details: cardDetails})
         .then(response => {
@@ -92,30 +113,42 @@ class SellPaymentPage extends Component {
           if(response.data === 'VALID'){
             console.log(this.props.email);
             axios.post('/request-otp', {email: this.props.email})
-            this.setState({
-              otpdisplay: true
+            .then(res=> {
+                console.log(res);
+                this.setState({
+                  loading: false,
+                  otpdisplay: true
+                })
             })
           }
 
         })
         .catch(err => {
           console.log(err.response.data);
+          this.setState({loading: false})
         })
         
         // window.alert(JSON.stringify(values, 0, 2))
       }
 
-      let otp = null
-      if(this.state.otpdisplay){
-        otp = <div>
-                OTP <input onChange={this.setOtp} value={this.state.otp} type="number" />
-                <br />
-                <button onClick={this.otpsender}>Confirm</button>
-            </div>
+      // let otp = null
+      // if(this.state.otpdisplay){
+      //   otp = <div>
+      //           OTP <input onChange={this.setOtp} value={this.state.otp} type="number" />
+      //           <br />
+      //           <button onClick={this.otpsender}>Confirm</button>
+      //       </div>
 
+      // }
+      let otp = null 
+      if(this.state.otpdisplay){
+        otp = <Redirect to="/otp" />
       }
-      
-      
+
+      let spin = null
+      if(this.state.spin) {
+        spin = <Spinner />
+      }      
 
 
         return (
@@ -190,8 +223,20 @@ class SellPaymentPage extends Component {
             </div>
             <div className="buttons">
               <button type="submit" disabled={disable}>
-                Pay {this.state.vehicles.price}
+                Pay &#x20B9; {this.state.vehicles.price !== null
+                ? this.state.vehicles.price
+                : this.state.vehicles.price_per_day}
               </button>
+              <div>
+              <ClipLoader
+                  css={override}
+                  sizeUnit={"px"}
+                  size={20}
+                  color={'#123abc'}
+                  loading={this.state.loading}
+               />
+              </div>
+              
             </div>
             </form>
         )
@@ -212,4 +257,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(SellPaymentPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    type_payment: (payment_type) => dispatch(actions.type_of_payment(payment_type))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SellPaymentPage);

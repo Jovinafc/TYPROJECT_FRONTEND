@@ -64,6 +64,17 @@
      text-align: center;
    }
 
+   .Name {
+       height: 30%;
+       word-wrap: break-word;
+
+   }
+
+   .na {
+       height: 100%;
+       font-size:medium
+   }
+
 
 
    @media (max-width: 500px) {
@@ -76,3 +87,5 @@
         justify-content: center;
     }
    }
+
+   

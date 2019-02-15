@@ -1,0 +1,28 @@
+.Container {
+    padding-top: 80px;
+    height: 800px;
+    
+}
+
+.pdcontainer {
+    border: 1px solid black;
+    width: 80%;
+    margin-left: 10%;
+    height: 500px;
+}
+
+.imgcontainer {
+    width: 40%;
+    margin-left: 30%;
+    height: 300px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}
+
+.buttonContainer {
+    text-align: center
+}

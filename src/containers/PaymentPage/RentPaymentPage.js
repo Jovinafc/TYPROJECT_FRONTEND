@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import classes from './RentPaymentPage.module.css';
 import axios from '../../axios';
 import {DatePicker} from 'shineout';
-import {MomentInput} from 'react-moment-input';
 import { object } from 'prop-types';
-import moment from 'moment';
-import visa from '../../Images/visa.png';
-import mastercard from '../../Images/mastercard.jpg'
 import Card from './Card';
 import { connect} from 'react-redux';
 import { Form, Field } from 'react-final-form'
@@ -22,8 +18,6 @@ class RentPaymentPage extends Component {
     state = {
         vehicles: {},
         Invalid: false,
-        startdatetime: '',
-        enddatetime: '',
         newdate: '',
         cardNumber: '',
         cardName: '',
@@ -33,35 +27,22 @@ class RentPaymentPage extends Component {
         otpdisplay: false
 
     }
-
-    startDateHandler = (e) => {
-        this.setState({startdatetime: e});
-        console.log(e);
-    
-    }
-
-    endDateHandler = e => {
-        this.setState({enddatetime: e});
-        console.log(e);
-    }
- 
-
-    proceedHandler = (e) => {
-        e.preventDefault();
-        axios.post('/rent-now', {user_client_id: this.props.user_id, 
-                        vehicle_id: this.state.vehicles.vehicle_id,
-                        start_date: this.state.startdatetime,
-                        end_date: this.state.enddatetime})
-        .then(response => {
+    // proceedHandler = (e) => {
+    //     e.preventDefault();
+    //     axios.post('/rent-now', {user_client_id: this.props.user_id, 
+    //                     vehicle_id: this.state.vehicles.vehicle_id,
+    //                     start_date: this.state.startdatetime,
+    //                     end_date: this.state.enddatetime})
+    //     .then(response => {
             
-            console.log(response);
-            alert("Rented")
-            this.setState({
-                startdatetime : '',
-                enddatetime: ''
-            })
-        })
-    }
+    //         console.log(response);
+    //         alert("Rented")
+    //         this.setState({
+    //             startdatetime : '',
+    //             enddatetime: ''
+    //         })
+    //     })
+    // }
     componentDidMount() {
         window.scrollTo(0,0);
         const {match: {params}} = this.props
@@ -146,7 +127,7 @@ class RentPaymentPage extends Component {
             card_no: values.number,
             cvv: values.cvc,
             expiry_date: values.expiry,
-            amount: this.state.vehicles.price
+            amount: this.state.vehicles.price_per_day
           }
           axios.post('/pay-now', {card_details: cardDetails})
           .then(response => {
@@ -227,7 +208,6 @@ class RentPaymentPage extends Component {
                     //      }    
                     // </div>
                     <div>
-                        {dc}
 
                         
 
