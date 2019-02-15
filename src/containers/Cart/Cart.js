@@ -18,6 +18,8 @@ class Cart extends Component {
                 cart: this.props.cart_items
             })
         }
+
+        
     }
 
     componentDidMount = () => {
@@ -81,7 +83,7 @@ class Cart extends Component {
              displayCartItems = this.state.cart
         .map(dis => {
             return (    
-                <div>
+                
 
                 <CartItem  
                 key={dis.accessory_id}
@@ -90,12 +92,12 @@ class Cart extends Component {
                 price={dis.accessory_price}
                 image={dis.accessory_image}
                 details={dis.accessory_details}
-                qty={dis.accessory_qty}
+                qty={dis.cart_storages[0].quantity}
                 type={dis.accessory_type}
                 use={dis.accessory_use}
                 />
 
-                </div>            
+                            
             )
         })
 
@@ -130,7 +132,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
     return {
-        cart_items: state.cart.cart
+        cart_items: state.cart.cart,
+
     }
 }
 

@@ -8,8 +8,8 @@ import { NavLink} from 'react-router-dom'
 class CartItem extends Component {
 
     state = {
-        counter:1,
-        price: this.props.price
+        counter:this.props.qty,
+        price: this.props.price*this.props.qty
     }
 
     increaseCounter = (e) => {
@@ -36,12 +36,14 @@ class CartItem extends Component {
         })
     }
 
-    updateQuantity = (e) => {
-        e.preventDefault();
-
-        axios.post('', )
+    updateQuantity = (id) => {
+        console.log(this.state.counter);
+        axios.post('/updateCart', {user_id: localStorage.getItem('userId'), accessory_id: id, quantity: this.state.counter} )
         .then(response => {
             console.log(response)
+            alert('Updated');
+            this.props.cartItems(localStorage.getItem('userId'))
+
         });
     }
 
@@ -66,13 +68,13 @@ class CartItem extends Component {
                             -
                         </button>
                         {/* <div className="col-xs-1"> */}
-                        <input readOnly classname={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
+                        <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
                         {/* </div> */}
                         <button onClick={this.increaseCounter}>
                             +
                         </button>
                     </div>
-                    <button onClick={this.updateQuantity}>Update Quantity Amount</button>
+                    <button onClick={() => this.updateQuantity(this.props.id)}>Update Quantity Amount</button>
                 </div>
 
                 <div className={classes.priceDiv}>
@@ -89,7 +91,6 @@ class CartItem extends Component {
         )
     }
 }
-
 
 
 const mapDispatchToProps = dispatch => {

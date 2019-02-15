@@ -90,7 +90,7 @@ class TopToolbar extends Component {
                     : <div>
                             {this.props.cart_items.map(dis => {
                                 return (
-                                    <div>{dis.accessory_name}</div>
+                                    <div key={dis.accessory_id}>{dis.accessory_name}</div>
                                 )
                             })}  
                       </div>} 

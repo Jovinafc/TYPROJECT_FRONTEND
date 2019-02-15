@@ -253,7 +253,7 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="bank_no" className="col-sm-2 control-label">Bank Account No</label>
                     <div className="col-sm-10">
-                    <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no}/>        
+                    <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no || ''}/>        
                     </div>    
                         </div>
 

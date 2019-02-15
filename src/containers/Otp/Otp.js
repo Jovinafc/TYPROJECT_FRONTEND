@@ -19,12 +19,23 @@ class Otp extends Component {
 
     otpsender = (e) => {
         e.preventDefault();
-  
+        console.log(this.props.email+" "+this.state.otp);
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
           console.log(response);
           alert("Success");
           if(this.props.payment_type === 'Sell'){
+            let vehicles = {
+                client_id: localStorage.getItem('userId'),
+                vehicle_id: this.props.vehicle_id,
+                owner_bank_account: this.props.owner_bank_account,
+                client_bank_account: this.props.client_bank_account,
+                amount: this.props.price
+            } 
+            axios.post('/buy-now', {vehicles: vehicles})
+            .then(response => {
+                console.log(response);
+            })
 
           }
           else if(this.props.payment_type === 'Rent'){
@@ -35,7 +46,10 @@ class Otp extends Component {
                          end_date: this.props.enddatetime,
                          owner_bank_account: this.props.owner_bank_account,
                          client_bank_account: this.props.client_bank_account,
-                         rent_amount: this.props.price
+                         rent_amount: this.props.price_per_day
+            })
+            .then(response =>{
+                console.log(response);
             })
           }
           
@@ -43,7 +57,7 @@ class Otp extends Component {
 
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
         })
       }
 
@@ -106,6 +120,7 @@ const mapStateToProps = state => {
       owner_bank_account: state.vehicle.owner_bank_account_no,
       client_bank_account: state.auth.bank_account_no,
       price: state.vehicle.vehicles[0].price,
+      price_per_day: state.vehicle.vehicles[0].price_per_day,
       vehicle_id: state.vehicle.vehicle_id
     }
   }

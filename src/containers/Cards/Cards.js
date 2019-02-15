@@ -18,6 +18,12 @@ import {
 } from 'react-accessible-accordion';
 import store from '../../store/reducers/auth';
 import InputRange from 'react-input-range';
+import Picky from 'react-picky';
+import "react-picky/dist/picky.css";
+import { SliderComponent } from '@syncfusion/ej2-react-inputs';
+import zIndex from '@material-ui/core/styles/zIndex';
+
+
 
 function searchingFor(term) {
     return function(x) {
@@ -29,13 +35,19 @@ class Cards extends Component {
     constructor (props){
         super(props);
         this.getVehicleDetails = this.getVehicleDetails.bind(this);
+        this.selectMultipleOption = this.selectMultipleOption.bind(this);
+        this.selectMultipleKm_Driven = this.selectMultipleKm_Driven.bind(this);
 
         this.state = {
             display: [],
             vehicles: [],
             user_id: this.props.user_id,
             term: '',
-            price: ''
+            price: '',
+            regStateSelected: [],
+            reg_state: [],
+            kmDrivenSelected: [],
+            kmDriven: []
         }
     }
 
@@ -65,6 +77,14 @@ class Cards extends Component {
             this.getVehicleDetails, 0
         );
         // this.props.onFetchVehicles(this.props.user_id);
+
+        axios.get('/fetch-registration-state').then(result => {
+            this.setState({reg_state: result.data})
+        });
+
+        axios.get('/fetch-km_driven').then(result => {
+            this.setState({kmDriven: result.data})
+        });
        
     }
 
@@ -80,8 +100,26 @@ class Cards extends Component {
         //     price: { min: min, max: max }
         // })
     }
-    
+
+    selectMultipleOption(value) {
+        // this.setState({ regStateSelected: value });
+        this.setState({
+            regStateSelected: value            
+        })
+      }
+
+      selectMultipleKm_Driven(value) {
+        // this.setState({ regStateSelected: value });
+        this.setState({
+            kmDrivenSelected: value            
+        })
+      }
    
+    tooltip = { placement: 'After', isVisible: true, showOn: 'Always' };
+
+     ticks= { placement: 'After', format: 'C2', largeStep: 20, smallStep: 10, showSmallTicks: true };
+
+
     render () {
 
      //   let displayNav = this.state.display.map(dis => (
@@ -113,6 +151,8 @@ class Cards extends Component {
 
         console.log(this.state.vehicles);
         console.log(this.state.user_id);
+        console.log(this.state.reg_state);
+        console.log(this.state.regStateSelected);
 
         // let displayVehicle = this.props.vehicles
         // .filter(dis => {
@@ -204,7 +244,14 @@ class Cards extends Component {
                     
                      */}
 
-                     <div className={classes.type}>
+                    <div className={classes.type}>
+                         <h6>Type of Service</h6> 
+
+                         <input type="checkbox" name="vehicle_type" value="Sale" /> Sale &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="Rent" /> Rent < br/>               
+                    </div>
+
+                     <div >
                          <h6>Vehicle Type </h6> 
 
                          <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
@@ -216,7 +263,7 @@ class Cards extends Component {
 
                      </div>
 
-                     <div>
+                     <div className={classes.type}>
                          <h6>Fuel Type</h6> 
 
                          <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
@@ -224,14 +271,73 @@ class Cards extends Component {
                          <input type="checkbox" name="fuel_type" value="Cng" /> CNG
                      </div>
 
-                    <div>
+                    {/* <div>
                     <InputRange
                          maxValue={20}
                          minValue={0}
                          value={this.state.price}
                          onChange={this.priceRangeHandler} />
+                    </div> */}
+
+                    <div >
+                        <h6>Select State</h6>
+                        <Picky 
+                            value={this.state.regStateSelected}
+                            // open={true}
+                            options={this.state.reg_state}
+                            includeFilter={true}
+                            dropdownHeight={600}
+                            onChange={this.selectMultipleOption}
+                            valueKey="id"
+                            labelKey="name"
+                            multiple={true}
+                            includeSelectAll={true}
+                            dropdownHeight={600}
+
+                        />
+
+
                     </div>
-                    <div>
+
+                    <div className={classes.type}>
+                         <h6>Fuel Type</h6> 
+
+                         <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
+                     </div>
+
+
+                    <div >
+                        <h6>Km_Driven</h6>
+                        <Picky 
+                            value={this.state.kmDrivenSelected}
+                            // open={true}
+                            options={this.state.kmDriven}
+                            includeFilter={true}
+                            dropdownHeight={400}
+                            onChange={this.selectMultipleKm_Driven}
+                            valueKey="id"
+                            labelKey="km_driven"
+                            multiple={true}
+                            includeSelectAll={true}
+                            style={{zIndex: -2 }}
+
+                        />
+
+
+                    </div>
+
+                    <div className={classes.slider}>
+                     <div className="sliderwrap">
+                        <div className="labeltext">Range</div>
+                    <SliderComponent style={{width: '90%', marginLeft: '5%'}} ticks={this.ticks} tooltip={this.tooltip} id='range' type='Range' value={[30, 70]} />
+                        </div>
+                    </div>
+
+
+                    <div style={{textAlign: 'center', marginTop: '10px'}}>   
+                        <button className="btn btn-success"> Apply Filter</button>
 
                     </div>
 
