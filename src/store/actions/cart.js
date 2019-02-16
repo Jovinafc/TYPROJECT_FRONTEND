@@ -99,3 +99,17 @@ export const cartDetails = (cartDetails) => {
     }
 }
 
+
+export const singleItemDetails = (accessory_details) => {
+    return {
+        type: actionTypes.SINGLE_ITEM,
+        single_item: accessory_details
+    }
+}
+
+export const quantityNum = (quantity) => {
+    return {
+        type: actionTypes.QUANTITY,
+        quantity: quantity
+    }
+}

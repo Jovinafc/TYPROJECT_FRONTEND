@@ -5,7 +5,9 @@ const initialState = {
     cart: [],
     item_number: 0,
     product_id: '',
-    added_cart: false
+    added_cart: false,
+    single_item: [],
+    quantity: 1
 };
 
 const addItem = (state, action) => {
@@ -40,6 +42,14 @@ export const removeItemFromCart = (state,action) => {
     return updateObject(state, {})
 }
 
+export const singleItemDetails = (state,action) => {
+    return updateObject(state, {single_item: action.single_item})
+}
+
+export const quantityNum = (state,action) => {
+    return updateObject(state, {quantity: action.quantity})
+}
+
 const reducer = (state=initialState, action ) => {
     switch(action.type) {
         case actionTypes.ADD_ITEM: return(addItem(state,action))
@@ -49,6 +59,8 @@ const reducer = (state=initialState, action ) => {
         case actionTypes.CART_DETAILS: return(cartDetails(state,action))
         case actionTypes.SET_TO_ZERO: return(setToZero(state,action))
         case actionTypes.ALREADY_ADDED_TO_CART: return(already_added_cart(state,action))    
+        case actionTypes.SINGLE_ITEM: return (singleItemDetails(state,action));
+        case actionTypes.QUANTITY: return (quantityNum(state,action))
         default: return state;
     }
 }

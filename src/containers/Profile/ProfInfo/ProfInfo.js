@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import classes from './ProfInfo.module.css';
 import cx from 'classnames';
 import globalStyles from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-import { DatePicker} from 'shineout';
+// import { DatePicker} from 'shineout';
 import axios from 'axios';
 import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Alert from 'react-bootstrap/Alert'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 
 
@@ -40,7 +43,7 @@ class ProfInfo extends Component {
                 first_name: res.data.first_name,
                 last_name: res.data.last_name,
                 phone_number: res.data.phone_number,
-                DOB:res.data.DOB,
+                DOB:res.data.DOB.slice(0,10),
                 address:res.data.address,
                 state: res.data.state,
                 city: res.data.city,
@@ -72,7 +75,7 @@ class ProfInfo extends Component {
     }
 
     dobHandler = (e) => {
-        this.setState({DOB: e});
+        this.setState({DOB: e.target.value});
     }
 
     stateHandler = (e) => {
@@ -288,7 +291,7 @@ class ProfInfo extends Component {
                         <div>
                     <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth</label>
                     <div className="col-sm-10">
-                    <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} />
+                    <DatePicker id="dob" dateFormat="yyyy-MM-dd" onChange={this.dobHandler} value={this.state.DOB} />
                     </div>
                         </div>
 

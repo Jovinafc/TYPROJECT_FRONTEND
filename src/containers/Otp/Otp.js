@@ -52,6 +52,15 @@ class Otp extends Component {
                 console.log(response);
             })
           }
+          else if(this.props.payment_type === 'Single Item') {
+              axios.post('/direct-buy', {
+                  user_id: localStorage.getItem('userId'),
+                  bank_account_no: this.props.client_bank_account,
+                  accessory_id: this.props.accessory_id,
+                  quantity: this.props.quantity,
+                  amount: this.props.single_item.accessory_price * this.props.quantity 
+            })
+          }
           
           this.setState({success: true})
 
@@ -121,7 +130,10 @@ const mapStateToProps = state => {
       client_bank_account: state.auth.bank_account_no,
       price: state.vehicle.vehicles[0].price,
       price_per_day: state.vehicle.vehicles[0].price_per_day,
-      vehicle_id: state.vehicle.vehicle_id
+      vehicle_id: state.vehicle.vehicle_id,
+      accessory_id: state.cart.accessory_id,
+      quantity: state.cart.quantity,
+      single_item: state.cart.single_item
     }
   }
 
