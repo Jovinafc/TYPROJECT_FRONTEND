@@ -3,7 +3,7 @@ import './App.css';
 import Layout from './containers/Layout/Layout';
 import LayoutTwo from './containers/Layout/LayoutTwo';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
-import Cards from './containers/Cards/Cards';
+// import Cards from './containers/Cards/Cards';
 import SignUpForm from './containers/Forms/SignUpForm/SignUpForm';
 import SignIn from './containers/Forms/SignIn/SignIn';
 import Login from './containers/Forms/Login/Login'; 
@@ -32,6 +32,11 @@ import Success from './containers/Success/Success';
 import ProductDetail from './containers/ProductDetail/ProductDetail';
 import ProductPayment from './containers/PaymentPage/ProductPayment';
 import { ToastContainer} from 'react-toastify';
+import asyncComponent from './hoc/asyncComponent/asynComponent';
+
+const asyncCards = asyncComponent(() => {
+  return import('./containers/Cards/Cards');
+});
 
 class App extends Component {
   
@@ -124,7 +129,7 @@ class App extends Component {
                 <Switch>
                 <Route path="/" exact component={Homepage} />
                 <Route path="/Signup" exact component={SignUp}/>
-                <Route path="/display" exact component={Cards} />
+                <Route path="/display" exact component={asyncCards} />
                 <Route path="/login" exact component={Login} />
                 {/* <Route path="/signUp" exact component={SignUpForm} /> */}
                 <Route path="/sell/sell" exact component={SellVehicle} />
@@ -154,7 +159,7 @@ class App extends Component {
               <Layout>
               <Switch>
             <Route path="/" exact component={Homepage} />
-            <Route path="/display" exact component={Cards} />
+            <Route path="/display" exact component={asyncCards} />
             <Route path="/login" exact component={Login} />
             <Route path="/sell/sell" exact component={SellVehicle} />
             <Route path="/logout" exact component={Logout}/>

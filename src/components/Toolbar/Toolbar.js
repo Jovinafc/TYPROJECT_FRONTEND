@@ -4,13 +4,13 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const toolbar = (props) => (
-    <header className={classes.Toolbar}>
+    <div className={classes.Toolbar}>
         <DrawerToggle clicked={props.drawerToggleClicked} />
         
         <nav className={classes.DesktopOnly}>
             <NavigationItems isAuthenticated={props.isAuth} />
         </nav>
-    </header>
+    </div>
 );
 
 export default toolbar;

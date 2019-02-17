@@ -48,6 +48,9 @@ class ProductPayment extends Component {
         this.setState({product: response.data})
         this.props.singleItemDetails(response.data)
       })
+
+
+      
     }
 
       otpsender = (e) => {
@@ -65,6 +68,9 @@ class ProductPayment extends Component {
   
   
     render() {
+        const { data } = this.props.location;
+        console.log(data);
+        console.log(this.props);
         console.log(this.state.product)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 

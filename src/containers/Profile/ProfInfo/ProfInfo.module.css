@@ -12,6 +12,11 @@
     font-weight: bold;
 }
 
+/* .dobborder {
+    border: 1px solid grey;
+    z-index: 30;
+} */
+
 
 @media(min-width: 500px) and (max-width: 1200px)
 {

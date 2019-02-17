@@ -4,12 +4,17 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/cart'
 import { NavLink} from 'react-router-dom'
+import * as actionp from '../../../store/actions/vehicle_click'
 
 class CartItem extends Component {
 
     state = {
         counter:this.props.qty,
         price: this.props.price*this.props.qty
+    }
+
+    componentDidMount = () => {
+        this.props.type_payment('Cart Item');
     }
 
     increaseCounter = (e) => {
@@ -43,9 +48,14 @@ class CartItem extends Component {
             console.log(response)
             alert('Updated');
             this.props.cartItems(localStorage.getItem('userId'))
+            this.props.quantityNum(this.state.counter);
 
         });
     }
+
+    quantityHandler = () => {
+        this.props.quantityNum(this.state.counter);
+    }   
 
     render () {
         return (
@@ -85,7 +95,14 @@ class CartItem extends Component {
                     <button onClick={() => this.removeItemHandler(this.props.id)} className="btn btn-danger">Remove from Cart</button>
                     <div style={{width:'5px'}}></div>
                     <br />
-                    <NavLink to={'/productpayment/:'+this.props.id}><button className="btn btn-primary">Buy Product</button> </NavLink>
+                    {/* <NavLink to={'/productpayment/:'+this.props.id}>
+                    <button className="btn btn-primary">Buy Product</button> </NavLink> */}
+                    <NavLink to={{
+                        pathname: '/productpayment/:'+this.props.id,
+                        data: {
+                            qty: this.state.counter
+                        }}}>
+                    <button onClick={this.quantityHandler} className="btn btn-primary">Buy Product</button> </NavLink>
                 </div>
             </div>
         )
@@ -95,7 +112,10 @@ class CartItem extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        cartItems : (user_id) => dispatch(actions.cartItems(user_id))
+        cartItems : (user_id) => dispatch(actions.cartItems(user_id)),
+        type_payment: (payment_type) => dispatch(actionp.type_of_payment(payment_type)),
+        quantityNum : (quantity) => dispatch(actions.quantityNum(quantity))
+
     }
 }
 

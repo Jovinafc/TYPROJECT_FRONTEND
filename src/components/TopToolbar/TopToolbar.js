@@ -46,7 +46,7 @@ class TopToolbar extends Component {
             sign = <div className={classes.afterlogin}>
             {this.props.image 
             ? <NavLink to="/Profile"><img className={classes.pp} src={this.state.ppimage} alt="pp"/> </NavLink>
-            : <h4 style={{textAlign: "center"}}>{a}</h4> }
+            : <h2 style={{textAlign: "center", marginTop: "10%"}}>{a}</h2> }
             <div className={classes.dropdowncontent}>
                 
                 <NavLink to="/Profile">My Profile</NavLink>
@@ -60,6 +60,7 @@ class TopToolbar extends Component {
 
 
         return (
+            
             <div className={classes.nav}>
             <div className={classes.Logo}>Logo</div>
             <div className={classes.Name}>
@@ -106,6 +107,7 @@ class TopToolbar extends Component {
             : <div className={classes.sign}> {sign} </div>}
         </div>
 
+        
         );
     }
 

@@ -72,10 +72,10 @@ class Cards extends Component {
     componentDidMount = () => {
         console.log(this.props.user_id);
         console.log('In cards display');        
-        // this.getVehicleDetails()
-        setTimeout(
-            this.getVehicleDetails, 0
-        );
+        this.getVehicleDetails()
+        // setTimeout(
+        //     this.getVehicleDetails, 0
+        // );
         // this.props.onFetchVehicles(this.props.user_id);
 
         axios.get('/fetch-registration-state').then(result => {

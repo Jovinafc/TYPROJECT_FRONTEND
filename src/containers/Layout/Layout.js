@@ -50,22 +50,19 @@ class Layout extends Component {
     render () {
         let abc = (
             <Aux>
-                
-                <div id="topnav">
             <TopToolbar 
               isAuth = {this.props.isAuthenticated}
             />
            <Toolbar 
+           
            isAuth = {this.props.isAuthenticated}
            drawerToggleClicked={this.sideDrawerToggleHandler}
            />
-        
            <SideDrawer 
            isAuth = {this.props.isAuthenticated}
            open={this.state.showSideDrawer } 
            closed={this.sideDrawerClosedHandler} />
-                      </div>
-     
+
            <main   className={classes.Content}>
                    {this.props.children}
            </main>

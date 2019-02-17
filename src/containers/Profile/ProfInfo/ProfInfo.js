@@ -11,8 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Alert from 'react-bootstrap/Alert'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-
+import moment from 'react-moment';
+import ModernDatePicker from 'react-modern-datepicker'
 
 
 class ProfInfo extends Component {
@@ -74,8 +74,11 @@ class ProfInfo extends Component {
         this.setState({address: e.target.value});
     }
 
-    dobHandler = (e) => {
-        this.setState({DOB: e.target.value});
+    dobHandler = (date) => {
+        
+        console.log(date);
+        this.setState({DOB: date})
+        // this.setState({DOB: e.target.value});
     }
 
     stateHandler = (e) => {
@@ -260,6 +263,8 @@ class ProfInfo extends Component {
                     </div>    
                         </div>
 
+
+
                         <div className="form-group">
                     <label htmlFor="address" className="col-sm-2 control-label">Address</label>
                     <div className="col-sm-10">
@@ -288,15 +293,25 @@ class ProfInfo extends Component {
                     </div>    
                         </div>
 
+                        
                         <div>
                     <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth</label>
                     <div className="col-sm-10">
-                    <DatePicker id="dob" dateFormat="yyyy-MM-dd" onChange={this.dobHandler} value={this.state.DOB} />
+                    {/* <DatePicker id="dob" dateFormat="yyyy-MM-dd" onChange={this.dobHandler} value={this.state.DOB} /> */}
+                    <ModernDatePicker 
+                    id="dob"
+                    format={'YYYY-MM-DD'} 
+                    date = {this.state.DOB}
+                    onChange={(date) => this.dobHandler(date)} 
+                    showBorder
+                    className="form-control"
+                    />
                     </div>
                         </div>
 
+                       
 
-                        <div style={{textAlign: 'center', marginTop: '15px'}}>
+                        <div style={{textAlign: 'center', marginTop: '80px'}}>
                         <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
                         <br/>
                         <br />

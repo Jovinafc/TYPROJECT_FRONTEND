@@ -7,6 +7,8 @@ import axios from '../../../axios';
 // import DatePicker from 'react-date-picker';
 import {DateInput} from '@opuscapita/react-dates';
 // import DatePicker from "react-bootstrap-date-picker";
+import moment from 'react-moment';
+import ModernDatePicker from 'react-modern-datepicker'
 
 
 class SignUp extends Component {
@@ -421,7 +423,7 @@ class SignUp extends Component {
                          </div>
  
      
-                         <div>
+                         <div className="form-group" >
                      <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth<span style={{color: 'red'}}>*</span></label>
                      <div className="col-sm-4">
                      {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
@@ -429,8 +431,18 @@ class SignUp extends Component {
                      {/* <DateInput  value={this.state.DOB} onChange={this.dobHandler} dateFormat="dd-MM-yyyy"
   disabled={false}
   locale="en" />   */}
-                    <DatePicker  value={this.state.DOB} onChange={this.dobHandler} />
-   
+                    {/* <DatePicker  value={this.state.DOB} onChange={this.dobHandler} /> */}
+                     <ModernDatePicker 
+                    id="dob"
+                    format={'YYYY-MM-DD'} 
+                    date = {this.state.DOB}
+                    onChange={(date) => this.dobHandler(date)} 
+                    showBorder
+                    // className="form-control"
+                    className={classes.modernDiv} 
+            
+                    />
+                   
 
                      <span style={{color: 'red'}}>{this.state.DOBError}</span>   
 
