@@ -2,9 +2,15 @@
     padding-top: 100px;
 } */
 
+.big {
+    background-color:#272727;
+    
+}
+
 .Container {
     display: flex;
     /* border: 2px solid black; */
+
 }
 
 .card {

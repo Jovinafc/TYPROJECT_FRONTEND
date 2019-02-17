@@ -1,15 +1,14 @@
 .Container {
-  width: 90%;
-  padding-top: 20px;
+  width: 100%;
   height: 1200px;
   border: 1px solid black;
-  margin: 5%;
+  
   display: flex;
 }
 
 .Menu {
   width: 20%;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 }
 
 .Main {

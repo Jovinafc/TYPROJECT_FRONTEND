@@ -1,7 +1,7 @@
 .Sell {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    flex-wrap: wrap
+    /* flex-wrap: wrap */
 }
 
 .Label {
@@ -41,7 +41,6 @@
 .Box {
     border: 3px solid black;
     padding: 20px;
-    padding-top: 100px;
     padding-bottom: 40px;
     width: 90%;
     text-align: center;
@@ -51,10 +50,10 @@
     
 }
 
-.divs {
+/* .divs {
     border: 1px solid black;
-    
-}
+    width: 600px;
+} */
 
 .span1 {
     display: block;
@@ -70,4 +69,31 @@
     margin-top: -15px;
     margin-bottom: 15px;
     
+}
+
+.firstDiv {
+    border: 1px solid yellow;
+    height: 150px;
+    
+}
+
+.secondDiv {
+    display: flex;
+    border: 1px solid yellow;
+    height: 150px;
+    padding-left: 7%;
+}
+
+.thirdDiv {
+    display: flex;
+    border: 1px solid yellow;
+    height: 150px;  
+    padding-left: 7%;
+
+}
+
+.fourthDiv {
+    border: 1px solid yellow;
+    text-align: center;
+    padding-left: 30%; 
 }

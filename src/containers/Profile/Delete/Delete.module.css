@@ -1,9 +1,9 @@
 .Container {
-    width: 90%;
-    padding-top: 120px;
+   /* width: 90%; */
+    /* padding-top: 120px; */
     height: 800px;
     border: 1px solid black;
-    margin: 5%;
+    /* margin: 5%; */
     display: flex;
   }
   

@@ -9,7 +9,19 @@ import {DateInput} from '@opuscapita/react-dates';
 // import DatePicker from "react-bootstrap-date-picker";
 import moment from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
+import pic from '../../../Images/signupmod.jpg';
+import Aux from '../../../hoc/Auxilary';
 
+// let style = {
+//     backgroundImage: `url(${pic})`,
+//     backgroundRepeat: 'no-repeat',
+//     width: '100%',
+//     backgroundSize: 'auto',
+//     backgroundPosition: 'center',
+//     backgroundSize: 'cover',
+//     // filter: 'blur(8px)'
+
+// }
 
 class SignUp extends Component {
     state = {
@@ -388,16 +400,19 @@ class SignUp extends Component {
 
         console.log(this.state);
         return (
+            <Aux>
             <div className={classes.Container}>
-                <h4> Sign Up </h4>
+            <div style={{height: '20px'}}></div>
             <div className={classes.formCont}>
+            <h4 style={{textAlign: 'center'}}> Sign Up </h4>
+                <div className={classes.topForm}>
                 <Form  className="form-horizontal">
                  
                  {/* className={cx(globalStyles.label, globalStyles['col-sm-2 control-label'], classes.Inp)} */}
  
                          <div className="form-group">
-                     <label htmlFor="fname"  className="col-sm-2 control-label">First Name<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
+                     <label htmlFor="fname"  className="col-sm-4 control-label">First Name<span style={{color: 'red'}}>*</span></label>
+                     <div className="col-sm-6">
                      <input type="text" className="form-control" id="fname" onChange={this.fnameHandler} value={this.state.first_name}/>
                      <span style={{color: 'red'}}>{this.state.firstNameError}</span>   
                      </div>
@@ -405,8 +420,8 @@ class SignUp extends Component {
                      
  
                          <div className="form-group">
-                     <label htmlFor="lname" className="col-sm-2 control-label">Last Name<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
+                     <label htmlFor="lname" className="col-sm-4 control-label">Last Name<span style={{color: 'red'}}>*</span></label>
+                     <div className="col-sm-6">
                      <input type="text" className="form-control" id="lname" onChange={this.lnameHandler} value={this.state.last_name}/>
                      <span style={{color: 'red'}}>{this.state.lastNameError}</span>   
 
@@ -414,8 +429,8 @@ class SignUp extends Component {
                          </div>
  
                          <div className="form-group">
-                     <label htmlFor="phone" className="col-sm-2 control-label">Phone Number<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
+                     <label htmlFor="phone" className="col-sm-4 control-label">Phone Number<span style={{color: 'red'}}>*</span></label>
+                     <div className="col-sm-6">
                      <input type="number" className="form-control" id="phone" onChange={this.phoneHandler} value={this.state.phone_number}/>        
                      <span style={{color: 'red'}}>{this.state.phone_numberError}</span>   
 
@@ -424,8 +439,8 @@ class SignUp extends Component {
  
      
                          <div className="form-group" >
-                     <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-4">
+                     <label htmlFor="dob" className="col-sm-4 control-label">Date of Birth<span style={{color: 'red'}}>*</span></label>
+                     <div className="col-sm-6">
                      {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
                      {/* <DatePicker onChange={this.dobHandler} value={this.state.DOB} /> */}
                      {/* <DateInput  value={this.state.DOB} onChange={this.dobHandler} dateFormat="dd-MM-yyyy"
@@ -452,9 +467,9 @@ class SignUp extends Component {
                          </div>
 
                          <div className='form-group'>
-                     <label htmlFor="emails"  className="col-sm-2 control-label">Email<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
-                     <Input type="text" className="form-control" id="emails" onChange={this.emailHandler} value={this.state.email}/>
+                     <label htmlFor="emails"  className="col-sm-4 control-label">Email<span style={{color: 'red'}}>*</span></label>
+                     <div className="col-sm-6">
+                     <input type="text" className="form-control" id="emails" onChange={this.emailHandler} value={this.state.email}/>
                      <span style={{color: 'red'}}>{this.state.emailError}</span>   
 
                      </div>
@@ -464,7 +479,7 @@ class SignUp extends Component {
  
                          <div className="form-group">
                      <label htmlFor="old_password" className="col-sm-4 control-label">Current Password<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-10">
+                     <div className="col-sm-6">
                      <input type="password" className="form-control" id="old_password" onChange={this.oldPasswordHandler} value={this.state.old_password}/>
                      <span style={{color: 'red'}}>{this.state.old_passwordError}</span>   
 
@@ -475,21 +490,24 @@ class SignUp extends Component {
 
 
  
-                         <div style={{textAlign: 'center', marginTop: '15px'}}>
-                         <button disabled={disable} type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
-                         </div>
 
                          
                   </Form>
 
-                
+                    
 
+                  </div>
+
+                  <div style={{textAlign: 'center' ,marginTop: '30px'}}>
+                         <button disabled={disable} type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
+                         </div>
 
             </div>
 
             
             <br />
             </div>
+            </Aux>
         )
     }
 }

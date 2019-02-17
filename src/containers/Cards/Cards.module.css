@@ -5,13 +5,12 @@
 .Container {
      display: flex;
      /* border: 2px solid black; */
-     padding-top: 90px; 
+     
 }
 
 .card {
      width: 60%;
      
-
 }
 
 .Menu {

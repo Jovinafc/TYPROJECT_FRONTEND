@@ -50,7 +50,14 @@ class Accessories extends Component {
         return (
             <div className={classes.big}>
 
-            <div className={classes.search}>
+               
+
+            <div>
+                <div className={classes.Container}>
+                    <div className={classes.Menu}>
+                        <h5> Filter </h5>
+
+                        <div className={classes.search}>
             <form>
             <input type="text" 
                     value={this.state.term}
@@ -58,12 +65,7 @@ class Accessories extends Component {
             />
 
             </form>
-             </div>    
-
-            <div>
-                <div className={classes.Container}>
-                    <div className={classes.Menu}>
-                        <h5> Filter </h5>
+             </div> 
 
                     </div>
                     <div className={classes.Main}>  

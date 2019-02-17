@@ -2,6 +2,8 @@ import React from 'react';
 import classes from './MyVehicleCard.module.css';
 
 const MyVehicleCard = (props) => {
+
+
     return (
         <div className={classes.Container}>
             
@@ -19,6 +21,8 @@ const MyVehicleCard = (props) => {
             </div>
             <div>
                 Vehicle Status : {props.details.status}
+
+                <button className="btn btn-danger">Remove Vehicle</button>
             </div>
         </div>
     );

@@ -43,10 +43,10 @@ class TopToolbar extends Component {
 
         let sign = <Signing />
         if(this.props.isAuthenticated){
-            sign = <div className={classes.afterlogin}>
+            sign = <NavLink to="/Profile"><div className={classes.afterlogin}>
             {this.props.image 
             ? <NavLink to="/Profile"><img className={classes.pp} src={this.state.ppimage} alt="pp"/> </NavLink>
-            : <h2 style={{textAlign: "center", marginTop: "10%"}}>{a}</h2> }
+            : <h2 style={{textAlign: "center",color: "black",  marginTop: "10%"}}>{a}</h2> }
             <div className={classes.dropdowncontent}>
                 
                 <NavLink to="/Profile">My Profile</NavLink>
@@ -55,7 +55,7 @@ class TopToolbar extends Component {
                 <NavLink to="/help">Help</NavLink>
                 <NavLink to="/logout">Logout</NavLink>
             </div>
-            </div>
+            </div>  </NavLink>
         }
 
 
@@ -89,12 +89,27 @@ class TopToolbar extends Component {
                     Keep Shopping
                     </div>
                     : <div>
-                            {this.props.cart_items.map(dis => {
+                            {this.props.cart_items.slice(0,3).map(dis => {
                                 return (
-                                    <div key={dis.accessory_id}>{dis.accessory_name}</div>
+                                    <div className={classes.cartHoverDiv} key={dis.accessory_id}>
+                                      <div className={classes.imageCont}>
+                                          <img className={classes.cartimage} src={dis.accessory_image}/>  
+                                      </div>
+                                      
+                                      <div className={classes.cartDetails}>
+                                      {dis.accessory_name}
+                                      </div>
+                                    </div>
                                 )
                             })}  
-                      </div>} 
+                            <div>
+                                {this.props.item_number > 3
+                                ? <span><NavLink to="/cart">{(this.props.item_number - 3 )} more</NavLink></span>
+                                : <span><NavLink to="/cart">Go To Cart</NavLink> </span>}
+                            </div>
+                      </div>
+                    
+                    } 
                     
                 </div>
             </div>

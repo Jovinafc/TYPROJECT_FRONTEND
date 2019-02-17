@@ -3,6 +3,9 @@
     height: 65px;
     background-color: #6cdaee;
     /* position: fixed; */
+    /* background-color: #3b945e; */
+    /* background-color: green; */
+
     top: 0;
     left: 0;
     text-align: center;   
@@ -36,6 +39,7 @@
 .items {
     height: 20%;
     margin-bottom: 0px;
+    
 }
 
 .cartCont {
@@ -64,7 +68,11 @@
     border-radius: 50%;
     position: relative;
     display: inline-block;
-    }
+        }
+
+.afterlogin h2 {
+    text-decoration: none;
+}    
 
 .dropdowncontent {
   display: none;
@@ -90,11 +98,32 @@
     margin-right: 2%;
     background-color: #f1f1f1;
     width: 200px;
-    height: 100px;
+    height: 200px;
     text-align: center;  
     right: 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+}
+
+.cartHoverDiv {
+    width: 100%;
+    border: 1px solid green;
+    height: 55px;
+    display: flex;
+}
+
+.cartimage {
+    width: 90%;
+    height: 90%;
+} 
+
+.imageCont {
+    width: 25%;
+}
+
+.cartDetails {
+    width: 75%;
+    font-size: 0.9em;
 }
 
 .dropdowncontent a:hover {background-color: #ddd;}

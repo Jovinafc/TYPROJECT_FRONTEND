@@ -472,6 +472,8 @@ class SellVehicle extends Component {
         
             <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell</h2>
             <Form className={classes.Sell}>
+
+                        <div className={classes.firstDiv}>
                        <div className={classes.divs}> 
                       <label htmlFor="type" className={classes.Label}>Vehicle Type:</label>  
                       <Select
@@ -484,7 +486,10 @@ class SellVehicle extends Component {
                         {options1}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+                        </div>
+
+                        <div className={classes.secondDiv}>
+                        <div >
                         <label htmlFor="brand"  style={{marginBottom: '-10px'}}className={classes.Label}>Vehicle Brand:</label>
                         
                         <Select 
@@ -500,7 +505,7 @@ class SellVehicle extends Component {
                          {alternate}
                         </div>
 
-                        <div className={classes.divs}>
+                        <div >
                         <label htmlFor="model"  style={{marginBottom: '-15px'}}className={classes.Label}>Vehicle Model:</label>
                         <Select 
                             id="model"
@@ -515,11 +520,10 @@ class SellVehicle extends Component {
                         {alternateM}
                         </div>
                         
-                        <br />
-                        <br />
-                        <br />
                         
-                        <div className={classes.divs}>    
+                        <div >    
+
+
                         <label htmlFor="year" className={classes.Label}>Vehicle Year:</label>
                         <Select 
                             id="year"
@@ -531,7 +535,12 @@ class SellVehicle extends Component {
                         {options4}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        </div>
+
+                        <div className={classes.thirdDiv}> 
+
+                        <div>
                         <label htmlFor="fuel" className={classes.Label}>Fuel Type:</label>
                         <Select 
                             id="fuel"
@@ -543,7 +552,8 @@ class SellVehicle extends Component {
                         {options5}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        <div >
                         <label htmlFor="reg" className={classes.Label}>Registration State:</label>
                         <Select 
                             id="reg"
@@ -555,7 +565,8 @@ class SellVehicle extends Component {
                         {options6}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        <div>
                         <label htmlFor="km" className={classes.Label}>Km Driven:</label>
                         <Select 
                             id="km"
@@ -567,14 +578,10 @@ class SellVehicle extends Component {
                         {options7}
                         </Select>
                         </div>
+
+                        </div>
                         
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <span className={classes.Span}>
-
-
+                        <div className={classes.fourthDiv}>
                         <table>
                             <tbody>
                             <tr>
@@ -617,13 +624,13 @@ class SellVehicle extends Component {
                         
 
                         </table>
+                        </div>
                         <button  className="btn btn-primary" onClick={this.formSubmit}>
                             Submit
                         </button>
 
 
 
-                        </span>
 
                         <br />
                         <br /> 

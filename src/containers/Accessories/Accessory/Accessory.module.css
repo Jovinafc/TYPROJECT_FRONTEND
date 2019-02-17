@@ -14,6 +14,7 @@
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin: 5%;
     padding: 2%;
+    /* background-color: aliceblue; */
    }
 
 
@@ -38,7 +39,11 @@
    .price {
         display: grid;
         grid-template-columns: 80% 20%;
+    
+   }
 
+   .Price{
+       color: red;
    }
 
    .prices {

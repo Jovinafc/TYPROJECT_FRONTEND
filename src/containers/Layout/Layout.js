@@ -67,7 +67,7 @@ class Layout extends Component {
                    {this.props.children}
            </main>
     
-           <div style={{textAlign: 'center', height: '200px', backgroundColor: 'grey'}}>
+           <div style={{textAlign: 'center', height: '200px', backgroundColor: '#747474'}}>
                <h2>Footer Section </h2>
            </div>
            </Aux>         

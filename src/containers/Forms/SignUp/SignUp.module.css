@@ -1,10 +1,33 @@
+
+
 .Container {
-    padding-top: 70px;
+    background-image: url('../../../Images/signupmod.jpg');
+    /* filter: blur(1px); */
+    /* -webkit-filter: blur(8px); */
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+
 .formCont {
-    margin-top: 20px;
     margin-bottom: 50px;
+    border: 3px solid #f1f1f1;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    color: white;
+    /* font-weight: bold; */
+    margin-left: 10%;
+    z-index: 5;
+    width: 80%;
+     
+
+}
+
+.topForm {
+    padding-left: 35%;
+    
 }
 
 .modernDiv {
