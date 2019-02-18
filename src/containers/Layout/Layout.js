@@ -50,6 +50,12 @@ class Layout extends Component {
     render () {
         let abc = (
             <Aux>
+             {/* <Headroom style={{
+  webkitTransition: 'all .5s ease-in-out',
+  mozTransition: 'all .5s ease-in-out',
+  oTransition: 'all .5s ease-in-out',
+  transition: 'all .5s ease-in-out'
+}}>    */}
             <TopToolbar 
               isAuth = {this.props.isAuthenticated}
             />
@@ -58,11 +64,12 @@ class Layout extends Component {
            isAuth = {this.props.isAuthenticated}
            drawerToggleClicked={this.sideDrawerToggleHandler}
            />
+           {/* </Headroom > */}
            <SideDrawer 
            isAuth = {this.props.isAuthenticated}
            open={this.state.showSideDrawer } 
            closed={this.sideDrawerClosedHandler} />
-
+            
            <main   className={classes.Content}>
                    {this.props.children}
            </main>

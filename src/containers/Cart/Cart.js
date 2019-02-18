@@ -9,7 +9,9 @@ class Cart extends Component {
     
     state = {
         cart : this.props.cart_items,
-        newcart: []
+        newcart: [],
+        noofItems: 0,
+        totalPrice: 0
     }
 
     componentDidUpdate = (prevProps) => {
@@ -19,11 +21,21 @@ class Cart extends Component {
             })
         }
 
+
         
     }
 
     componentDidMount = () => {
         console.log("Inside componnent Did Mount")
+
+        axios.post('/checkout-check', {user_id: localStorage.getItem('userId')})
+        .then(response => {
+            console.log(response.data);
+            this.setState({
+                noofItems: response.data.count,
+                totalPrice: response.data.grand_total
+            })
+        })
         // this.props.getCartItems(localStorage.getItem('userId'))
         // axios.post('/cartItems', {user_id: localStorage.getItem('userId')})
         // .then(response => {
@@ -121,10 +133,19 @@ class Cart extends Component {
                     : <div> {displayCartItems} </div> } */}
                     {/* {displayCartItems} */}
                     {displayCartItems}
-                    <div className={classes.checkoutDiv}>
-                        <h4>Toal Price</h4>
-                            
+                    {this.props.item_number > 0
+                    ? <div className={classes.checkoutDiv}>
+                    {/* <h4>Toal Price</h4> */}
+                     <div>
+                         <h3>Grand Total</h3>
+                     </div>       
+                     <div>
+                         No of Items: {this.state.noofItems}
+                         Grand Total: {this.state.totalPrice}
                     </div>
+                    </div>
+                    :<div> </div>}
+                    
             </div>
         )
     }
@@ -133,7 +154,7 @@ class Cart extends Component {
 const mapStateToProps = state => {
     return {
         cart_items: state.cart.cart,
-
+        item_number: state.cart.item_number
     }
 }
 

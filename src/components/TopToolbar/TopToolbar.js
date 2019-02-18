@@ -43,7 +43,7 @@ class TopToolbar extends Component {
 
         let sign = <Signing />
         if(this.props.isAuthenticated){
-            sign = <NavLink to="/Profile"><div className={classes.afterlogin}>
+            sign = <div className={classes.afterlogin}>
             {this.props.image 
             ? <NavLink to="/Profile"><img className={classes.pp} src={this.state.ppimage} alt="pp"/> </NavLink>
             : <h2 style={{textAlign: "center",color: "black",  marginTop: "10%"}}>{a}</h2> }
@@ -55,7 +55,7 @@ class TopToolbar extends Component {
                 <NavLink to="/help">Help</NavLink>
                 <NavLink to="/logout">Logout</NavLink>
             </div>
-            </div>  </NavLink>
+            </div>  
         }
 
 
@@ -78,7 +78,8 @@ class TopToolbar extends Component {
                 : <h6 className={classes.items}>0</h6>
             }
                 
-                <img src={shoppingCart} alt="Cart" className={classes.cart}/>
+                {/* <img src={shoppingCart} alt="Cart" className={classes.cart}/> */}
+                <i style={{color: 'red', fontSize: '2.3rem'}} class="fas fa-shopping-cart"></i>
                 </NavLink>
                 </div>
 

@@ -32,8 +32,8 @@ class Accessory extends Component {
 
                          <div className={classes.add}>
                               {this.props.isAuthenticated
-                                ? <button onClick={() => this.props.addToCart(this.props.user_id, this.props.id, this.props.qty)} className="btn btn-success">Add to Cart</button>
-                                : <button className="btn btn-success">Add to Cart</button>   
+                                ? <button onClick={() => this.props.addToCart(this.props.user_id, this.props.id, this.props.qty)} style={{color: 'white', fontWeight: 'bold', backgroundColor: '#272727'}} className="btn btn-danger">Add to Cart</button>
+                                : <button style={{color: 'white', fontWeight: 'bold', backgroundColor: '#272727'}} className="btn btn-danger">Add to Cart</button>   
                                 }  
                              
 {/* 

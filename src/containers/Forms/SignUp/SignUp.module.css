@@ -1,27 +1,32 @@
 
 
 .Container {
-    background-image: url('../../../Images/signupmod.jpg');
+    /* background-image: url('../../../Images/signupmod.jpg'); */
     /* filter: blur(1px); */
     /* -webkit-filter: blur(8px); */
+    /* background-color: #272727; */
+    background-color: #050004;
+    background-image: url("https://www.transparenttextures.com/patterns/classy-fabric.png");
     height: 100%; 
-    background-position: center;
+    /* background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
 }
 
 
 .formCont {
     margin-bottom: 50px;
-    border: 3px solid #f1f1f1;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+    /* border: 3px solid #fae0e0; */
+     /* background-color: rgb(0,0,0); */
+    /* background-color: rgba(0,0,0, 0.4); 
+     */
+    /* background-color: rgba(12, 10, 10, 0.938); */
+    
     color: white;
     /* font-weight: bold; */
     margin-left: 10%;
-    z-index: 5;
     width: 80%;
-     
+
 
 }
 
@@ -31,5 +36,18 @@
 }
 
 .modernDiv {
-    z-index: 800;
+    padding-left: 10px;
+    /* border-radius: 2px 2px 2px 2px; */
+    outline: none;
+    border-radius: 10px;
+    border-color: black;
+    background-color: rgb(20, 19, 19);
+    color: bisque;
+    width: 50%;
+    opacity: 10%;
+}
+
+
+@media(max-width:500px) {
+    
 }
