@@ -21,8 +21,8 @@ class VehicleDetail extends Component {
         showDate: false,
         startdatetime: '',
         enddatetime: '',
-        Invalid: false
-
+        Invalid: false,
+        postedOn: ''
     }
 
 
@@ -84,7 +84,7 @@ class VehicleDetail extends Component {
         //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
          axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
          .then(response => {
-            console.log(response);
+            console.log(response.data);
            if(response===null)
            {
 
@@ -92,6 +92,7 @@ class VehicleDetail extends Component {
            else
            {
             this.setState({vehicles: response.data[0]});
+            this.setState({postedOn: response.data[0].createdAt.substring(0,10)})
             this.props.save_bank_account_no(response.data[1])
             this.props.fetch_selected_vehicle(response.data)
            }
@@ -147,32 +148,6 @@ class VehicleDetail extends Component {
     }
  
     render () {
-        const sd = this.state.startdatetime;
-        const ed = this.state.enddatetime;
-
-        const enabled = sd.length > 0 && ed.length > 0;
-
-        // let log = null;
-        // log = <Login />
-        
-        let dc = null;
-        dc = <div className={classes.DateContainer}>
-        <form className="form-horizontal">
-        <div className="form-group" >
-            <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
-            <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
-            </div>
-            <div className="form-group">
-            <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
-            <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
-            </div>                    
-            <br /> <br /> 
-            <NavLink  to={'/payment/:'+this.props.vehicle_id}><button disabled={!enabled}  className="btn btn-danger">Proceed To Payment</button></NavLink>
-            
-        </form>
-            
-        </div>
-        
         
         let vehicleDetail = (
             <div className={classes.InnerContainer}>
@@ -220,23 +195,6 @@ class VehicleDetail extends Component {
                     </table>
                 </div>
 
-                {/* <div className={classes.but}>
-                    {this.state.vehicles.price 
-                        ? <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
-                        : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
-                        }
-                  </div> */}
-                 
-                 {/* {localStorage.getItem('token') === null
-                 ? <div className={classes.but}>
-                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
-                   </div>  
-                : <div className={classes.but}>
-                     {this.state.vehicles.price 
-                         ? <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
-                         : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
-                         }
-                  </div> }                 */}
 
                 {
                     localStorage.getItem('token') === null
@@ -246,7 +204,7 @@ class VehicleDetail extends Component {
                    </div>  
                
                  : <div className={classes.but}>
-                     {
+                     {  
                          this.state.vehicles.price 
                          
                          ? <div>
@@ -281,21 +239,6 @@ class VehicleDetail extends Component {
                   </div> 
                
                }                
-       
-
-
-                {/* <div className={classes.but}>
-                {this.state.vehicles.price 
-                ? <button onClick={this.buyVehicleHandler} className="btn btn-primary">Buy Vehicle</button> 
-                : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
-  
-                }
-                </div> */}
-
-
-                {
-                    this.state.showDate === true ? dc : null
-                }
 
             </div>
         );
@@ -308,10 +251,39 @@ class VehicleDetail extends Component {
 
             {this.state.Invalid === true 
             ?  <div className={classes.Container}> <h2> Error 404</h2> </div> 
-            : <div className={classes.Container}>
-                             
-                <h2>Vehicle Details</h2> 
-                {vehicleDetail} 
+            :  <div className={classes.Container}>
+                                             
+                <div className={classes.firstCont}>
+                    <div className={classes.leftdiv}>
+                             <div className={classes.image}>
+                                 <img className={classes.img} src={this.state.vehicles.image}/>
+                             </div>
+                             <div className={classes.details}>
+                                  Details
+                                  <div className={classes.innerdetails}>
+                                 <div> <p>Brand: {this.state.vehicles.brand}</p> </div> 
+                                 <div> <p>Model: {this.state.vehicles.model} </p> </div>
+                                 <div> <p>Year: {this.state.vehicles.year} </p></div>
+                                 <div> <p>Km Driven: {this.state.vehicles.km_driven} </p></div> 
+                                 <div> <p>State: {this.state.vehicles.registration_state} </p></div>
+                                 <div> <p>Fuel Type: {this.state.vehicles.fuel_type} </p></div> 
+                                 <div> <p>Vehicle Number: {this.state.vehicles.number_plate} </p></div>  
+                                 {/* <div> <p>Posted On: {this.state.vehicles.createdAt} </p></div>  */}
+
+                                 </div>
+                             </div>
+                    </div>
+
+                    <div className={classes.rightdiv}>
+                        <div className={classes.price}>
+                            {this.state.vehicles.price ? 
+                            <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
+                            <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
+                            <div> Ad Posted On: {this.state.postedOn}</div>        
+                        </div>
+                    </div>
+                </div>  
+                {/* {vehicleDetail}  */}
             </div> }
             </Aux>
         );

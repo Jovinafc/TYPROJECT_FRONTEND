@@ -1,11 +1,11 @@
 import React,{ Component} from 'react';
 import classes from './SignUp.module.css';
-import {DatePicker} from 'shineout';
+// import {DatePicker} from 'shineout';
 // import Input from 'react-validation/build/input';
 import Form from 'react-validation/build/form';
 import axios from '../../../axios';
-// import DatePicker from 'react-date-picker';
-import {DateInput} from '@opuscapita/react-dates';
+import DatePicker from 'react-date-picker';
+// import {DateInput} from '@opuscapita/react-dates';
 // import DatePicker from "react-bootstrap-date-picker";
 import moment from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
@@ -440,7 +440,7 @@ class SignUp extends Component {
                          
                         <div >
                      <label htmlFor="lname" >Last Name<span style={{color: 'red'}}>*</span></label>
-                     <Input type="text" id="lname" onChange={this.lnameHandler} value={this.state.last_name}/>
+                     <Input type="text" id="lname" changed={this.lnameHandler} value={this.state.last_name}/>
                      <span style={{color: 'red'}}>{this.state.lastNameError}</span>   
 
                          </div>
@@ -458,7 +458,7 @@ class SignUp extends Component {
                         <div >
                      <label htmlFor="phone" >Phone Number<span style={{color: 'red'}}>*</span></label>
                      
-                     <Input type="number" id="phone" onChange={this.phoneHandler} value={this.state.phone_number}/>        
+                     <Input type="number" id="phone" changed={this.phoneHandler} value={this.state.phone_number}/>        
                      <span style={{color: 'red'}}>{this.state.phone_numberError}</span>   
 
                          
@@ -469,7 +469,7 @@ class SignUp extends Component {
                          <div>
                      <label htmlFor="dob" >Date of Birth<span style={{color: 'red'}}>*</span></label>
                    
-                     <div>
+                     <div style={{width: '100ps'}}>
                     {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
                     <ModernDatePicker 
                     id="dob"
@@ -480,7 +480,8 @@ class SignUp extends Component {
                     className={classes.modernDiv} 
             
                     />
-       
+                    {/* <DatePicker id="dob" style={{height: '100px'}} onChange={this.dobHandler} value={this.state.DOB} />  */}
+
                     </div>
 
                      <span style={{color: 'red'}}>{this.state.DOBError}</span>   
@@ -492,7 +493,7 @@ class SignUp extends Component {
 
                          <div >
                      <label htmlFor="emails"> Email<span style={{color: 'red'}}>*</span></label>
-                     <Input type="text" id="emails" onChange={this.emailHandler} value={this.state.email}/>
+                     <Input type="text" id="emails" changed={this.emailHandler} value={this.state.email}/>
                      <span style={{color: 'red'}}>{this.state.emailError}</span>   
 
                          </div>
@@ -501,7 +502,7 @@ class SignUp extends Component {
  
                          <div>
                      <label htmlFor="old_password">Current Password<span style={{color: 'red'}}>*</span></label>
-                     <Input type="password" className="form-control" id="old_password" onChange={this.oldPasswordHandler} value={this.state.old_password}/>
+                     <Input type="password" className="form-control" id="old_password" changed={this.oldPasswordHandler} value={this.state.old_password}/>
                      <span style={{color: 'red'}}>{this.state.old_passwordError}</span>   
 
 

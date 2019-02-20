@@ -6,11 +6,17 @@ import { NavLink } from 'react-router-dom';
 import Cart from '../../Images/Cart.png';
 import * as actions from '../../store/actions/auth';
 import shoppingCart from '../../Images/shopping-cart.png';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 const style = {
     height: '95%',
     width: '5%',
     marginRight: '2%',
-    textAlign: 'center'
+    textAlign: 'center',
+    maxWidth: '100%',
+
 }
 
 class TopToolbar extends Component {
@@ -18,6 +24,7 @@ class TopToolbar extends Component {
     
 
     state = {
+        zero: 0,
         ppimage: this.props.image,
         number: 3, 
         no_of_items: 0
@@ -46,7 +53,7 @@ class TopToolbar extends Component {
             sign = <div className={classes.afterlogin}>
             {this.props.image 
             ? <NavLink to="/Profile"><img className={classes.pp} src={this.state.ppimage} alt="pp"/> </NavLink>
-            : <h2 style={{textAlign: "center",color: "black",  marginTop: "10%"}}>{a}</h2> }
+            : <h2 style={{textAlign: "center",color: "white",  marginTop: "10%"}}>{a}</h2> }
             <div className={classes.dropdowncontent}>
                 
                 <NavLink to="/Profile">My Profile</NavLink>
@@ -70,21 +77,33 @@ class TopToolbar extends Component {
             <div className={classes.cartCont}>
             </div> */}
 
-            <div className={classes.cartCont}>
-                <div>
+            <div className={classes.cartCont} >
+                <div style={{maxWidth: '100%'}}>
                 <NavLink to="/cart">
-                {this.props.isAuthenticated 
+                {/* {this.props.isAuthenticated 
                 ? <h6 className={classes.items}>{this.props.item_number}</h6>
                 : <h6 className={classes.items}>0</h6>
-            }
+            } */}
                 
                 {/* <img src={shoppingCart} alt="Cart" className={classes.cart}/> */}
-                <i style={{color: 'red', fontSize: '2.3rem'}} class="fas fa-shopping-cart"></i>
+                {/* <i style={{color: 'red', fontSize: '2.0rem'}} className="fas fa-shopping-cart"></i> */}
+                <IconButton aria-label="Cart">
+                {this.props.isAuthenticated
+                ?  <Badge badgeContent={this.props.item_number} color="primary"  >
+                        <i style={{color: 'red', fontSize: '1.5rem'}} className="fas fa-shopping-cart"></i>
+                    </Badge>
+            
+                
+                : <Badge  badgeContent={this.state.zero} color="primary" >
+                        <i style={{color: 'red', fontSize: '1.5rem'}} className="fas fa-shopping-cart"></i>
+                </Badge>
+                }
+                </IconButton>
                 </NavLink>
                 </div>
 
                 <div className={classes.dropdowndiv}>
-                    {this.props.cart_items === undefined
+                    {this.props.cart_items === undefined 
                     ? <div>Your Cart is Empty 
                     <br />
                     Keep Shopping

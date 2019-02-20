@@ -9,6 +9,8 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
 import Headroom from 'react-headroom';
+import { Spinner } from '@chevtek/react-spinners';
+
 
 class Layout extends Component {
     state = {
@@ -28,24 +30,24 @@ class Layout extends Component {
          } );
     }
 
-    // componentDidMount() {
-    //     window.addEventListener("scroll", this.handleScroll);
-    //   }
+    componentDidMount() {
+        window.addEventListener("scroll", this.handleScroll);
+      }
 
-    //   componentWillUnmount() {
-    //     window.removeEventListener("scroll", this.handleScroll);
-    //   }
+      componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+      }
 
-    // handleScroll = () => {
-    //     let currentScrollPos = window.pageYOffset;
+    handleScroll = () => {
+        let currentScrollPos = window.pageYOffset;
     
-    //     if (this.state.prevScrollpos > currentScrollPos) {
-    //       document.getElementById("topnav").style.top = "0";
-    //     } else {
-    //       document.getElementById("topnav").style.top = "-50px";
-    //     }
-    //     this.setState({ prevScrollpos: currentScrollPos });
-    //   };
+        if (this.state.prevScrollpos > currentScrollPos) {
+          document.getElementById("topnav").style.top = "65px";
+        } else {
+          document.getElementById("topnav").style.top = "-50px";
+        }
+        this.setState({ prevScrollpos: currentScrollPos });
+      };
 
     render () {
         let abc = (
@@ -59,11 +61,7 @@ class Layout extends Component {
             <TopToolbar 
               isAuth = {this.props.isAuthenticated}
             />
-           <Toolbar 
            
-           isAuth = {this.props.isAuthenticated}
-           drawerToggleClicked={this.sideDrawerToggleHandler}
-           />
            {/* </Headroom > */}
            <SideDrawer 
            isAuth = {this.props.isAuthenticated}
@@ -71,6 +69,12 @@ class Layout extends Component {
            closed={this.sideDrawerClosedHandler} />
             
            <main   className={classes.Content}>
+           <div id="topnav">
+           <Toolbar 
+           isAuth = {this.props.isAuthenticated}
+           drawerToggleClicked={this.sideDrawerToggleHandler}
+           />
+           </div>
                    {this.props.children}
            </main>
     

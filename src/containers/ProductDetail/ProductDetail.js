@@ -5,9 +5,12 @@ import { NavLink, Redirect} from 'react-router-dom'
 import * as actions from '../../store/actions/vehicle_click';
 import { connect} from 'react-redux';
 import * as actionp from '../../store/actions/cart';
+import { useAlert } from 'react-alert';
 
 
 class ProductDetail extends Component {
+
+    
 
     state = {
         product: [],
@@ -100,6 +103,7 @@ class ProductDetail extends Component {
 
     }
 
+
     render () {
         let directProd = null;
         if(this.state.direct){  
@@ -166,10 +170,11 @@ class ProductDetail extends Component {
                      }
 
 
+
                 </div>
                                     
-
-                    
+                              
+                  
             </div>
         )
     }

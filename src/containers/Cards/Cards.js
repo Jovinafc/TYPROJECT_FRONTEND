@@ -22,6 +22,15 @@ import Picky from 'react-picky';
 import "react-picky/dist/picky.css";
 import { SliderComponent } from '@syncfusion/ej2-react-inputs';
 import zIndex from '@material-ui/core/styles/zIndex';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+import 'rc-slider/assets/index.css';
+import Collapse, { Panel } from 'rc-collapse';
+import 'rc-collapse/assets/index.css';
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+const Handle = Slider.Handle;
 
 
 
@@ -95,7 +104,6 @@ class Cards extends Component {
 
     priceRangeHandler = (e) => {
         console.log(e);
-        console.log(e.target.value);
         // this.setState({
         //     price: { min: min, max: max }
         // })
@@ -119,7 +127,15 @@ class Cards extends Component {
 
      ticks= { placement: 'After', format: 'C2', largeStep: 20, smallStep: 10, showSmallTicks: true };
 
-
+      serviceHandler = (e) => {
+          console.log(e);
+          console.log(e.target.checked)
+          console.log(e.target.value)
+          if(e.target.checked){
+              this.setState({ service_type: e.target.value})
+          }
+      }
+      
     render () {
 
      //   let displayNav = this.state.display.map(dis => (
@@ -148,11 +164,6 @@ class Cards extends Component {
         // console.log(myItems);
         // const newArray = myItems.filter(item => item.user_id !== this.props.user_id);
         // console.log(newArray);
-
-        console.log(this.state.vehicles);
-        console.log(this.state.user_id);
-        console.log(this.state.reg_state);
-        console.log(this.state.regStateSelected);
 
         // let displayVehicle = this.props.vehicles
         // .filter(dis => {
@@ -213,63 +224,104 @@ class Cards extends Component {
 
                          </form>
                    </div>
-{/*                     
-                    <Collapsible trigger="Vehicle Type">
-                    <div className={classes.Type}>
-                        <h6>Vehicle Type-</h6>
-                        4-Wheelers:<CheckBox />
-                        2-Wheelers:<CheckBox />
-                    </div>
-                    </Collapsible>
 
-                    <Accordion>
-                        <AccordionItem style={{width: '100%'}}>
-                            <AccordionItemTitle>
-                                <h5>Fuel Type</h5>
-                            </AccordionItemTitle>
-                            <AccordionItemBody>
-                            Petrol <CheckBox /> <br/>
-                            CNG <CheckBox />    <br/>
-                            Diesel <CheckBox /> <br/>
-                            </AccordionItemBody>
-                        </AccordionItem>
-                    </Accordion>
+                   <Collapse accordion={true}>
+                        <Panel header="Type of Service" headerClass="my-header-class">
+                        <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="Rent" /> Rent < br/>               
+                        </Panel>
 
+                        <Panel header="Vehicle Type" headerClass="my-header-class">
+                        <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
+                                     
+                        </Panel>
 
-                   
-                    <div className={classes.fuel}>
-                        <h6>Fuel Type</h6>
                         
-                    </div>
-                    
-                     */}
+                        <Panel header="Fuel Type" headerClass="my-header-class">
+                        <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
+                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
+                                     
+                        </Panel>
 
-                    <div className={classes.type}>
+                        <Panel header="Select State" headerClass="my-header-class">
+                        <Picky 
+                            value={this.state.regStateSelected}
+                            //  open={true}
+                            options={this.state.reg_state}
+                            includeFilter={true}
+                            dropdownHeight={600}
+                            onChange={this.selectMultipleOption}
+                            valueKey="id"
+                            labelKey="name"
+                            multiple={true}
+                            includeSelectAll={true}
+                            dropdownHeight={600}
+
+                        />
+
+                        <div style={{height: '400px'}}>
+                            
+                        </div>
+
+                        </Panel>
+
+                        <Panel header="Km Driven" headerClass="my-header-class">
+                        <Picky 
+                            value={this.state.kmDrivenSelected}
+                            // open={true}
+                            options={this.state.kmDriven}
+                            includeFilter={true}
+                            dropdownHeight={400}
+                            onChange={this.selectMultipleKm_Driven}
+                            valueKey="id"
+                            labelKey="km_driven"
+                            multiple={true}
+                            includeSelectAll={true}
+                            style={{zIndex: -2 }}
+
+                        />
+                        <div style={{height: '400px'}}>
+
+                        </div>
+                
+                        </Panel>
+
+                        
+                        <Panel header="Price Range" headerClass="my-header-class">
+                        <Range min={0} max={1000000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
+
+                        </Panel>
+
+
+
+                  </Collapse>
+
+                    {/* <div className={classes.type}>
                          <h6>Type of Service</h6> 
 
                          <input type="checkbox" name="vehicle_type" value="Sale" /> Sale &nbsp; 
                          <input type="checkbox" name="vehicle_type" value="Rent" /> Rent < br/>               
-                    </div>
+                    </div> */}
 
-                     <div >
+                     {/* <div >
                          <h6>Vehicle Type </h6> 
 
                          <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
                          <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
                                          
 
-                    {/* <label class="checkbox-inline"><input type="checkbox" value="" />Option 1</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="" />Option 2</label>  */}
 
-                     </div>
+                     </div> */}
 
-                     <div className={classes.type}>
+                     {/* <div className={classes.type}>
                          <h6>Fuel Type</h6> 
 
                          <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
                          <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
                          <input type="checkbox" name="fuel_type" value="Cng" /> CNG
-                     </div>
+                     </div> */}
 
                     {/* <div>
                     <InputRange
@@ -278,7 +330,7 @@ class Cards extends Component {
                          value={this.state.price}
                          onChange={this.priceRangeHandler} />
                     </div> */}
-
+{/* 
                     <div >
                         <h6>Select State</h6>
                         <Picky 
@@ -297,18 +349,18 @@ class Cards extends Component {
                         />
 
 
-                    </div>
+                    </div> */}
 
-                    <div className={classes.type}>
+                    {/* <div className={classes.type}>
                          <h6>Fuel Type</h6> 
 
                          <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
                          <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
                          <input type="checkbox" name="fuel_type" value="Cng" /> CNG
-                     </div>
+                     </div> */}
 
 
-                    <div >
+                    {/* <div >
                         <h6>Km_Driven</h6>
                         <Picky 
                             value={this.state.kmDrivenSelected}
@@ -326,17 +378,44 @@ class Cards extends Component {
                         />
 
 
-                    </div>
-
+                    </div> */}
+{/* 
                     <div className={classes.slider}>
                      <div className="sliderwrap">
                         <div className="labeltext">Range</div>
                     <SliderComponent style={{width: '90%', marginLeft: '5%'}} ticks={this.ticks} tooltip={this.tooltip} id='range' type='Range' value={[30, 70]} />
                         </div>
-                    </div>
+                    </div> */}
+
+                    
+                    {/* <div className={classes.slider}>
+                     <div className="sliderwrap">
+                        <div className="labeltext">Price Range</div>
+                        <Range min={0} max={1000000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
+
+                        </div>
+                    </div> */}
 
 
-                    <div style={{textAlign: 'center', marginTop: '10px'}}>   
+                    {/* <Accordion className={classes.accordion}>
+                        <AccordionItem className={classes.accordionItem}>
+                            <AccordionItemTitle className={classes.accordion__title}>
+                                <h3>Simple title</h3>
+                            </AccordionItemTitle>
+                            <AccordionItemBody className={classes.accordion__body}>
+                                <p>Body content</p>
+                            </AccordionItemBody>
+                         </AccordionItem>
+                     </Accordion>
+ */}
+
+                     {/* <Collapse accordion={true}>
+    <Panel header="hello" headerClass="my-header-class">this is panel content</Panel>
+    <Panel header="title2">this is panel content2 or other</Panel>
+  </Collapse> */}
+
+
+                    <div style={{textAlign: 'center', marginTop: '20px'}}>   
                         <button className="btn btn-success"> Apply Filter</button>
 
                     </div>

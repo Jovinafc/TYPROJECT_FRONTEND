@@ -7,7 +7,9 @@ const initialState = {
     product_id: '',
     added_cart: false,
     single_item: [],
-    quantity: 1
+    quantity: 1,
+    count: 0,
+    total: 0
 };
 
 const addItem = (state, action) => {
@@ -50,6 +52,14 @@ export const quantityNum = (state,action) => {
     return updateObject(state, {quantity: action.quantity})
 }
 
+export const removeCartItems = (state, action) => {
+    return updateObject(state, {cart: undefined})
+}
+
+export const cartAmount = (state,action) => {
+    return updateObject(state, {count: action.count, total: action.total })
+}
+ 
 const reducer = (state=initialState, action ) => {
     switch(action.type) {
         case actionTypes.ADD_ITEM: return(addItem(state,action))
@@ -60,7 +70,9 @@ const reducer = (state=initialState, action ) => {
         case actionTypes.SET_TO_ZERO: return(setToZero(state,action))
         case actionTypes.ALREADY_ADDED_TO_CART: return(already_added_cart(state,action))    
         case actionTypes.SINGLE_ITEM: return (singleItemDetails(state,action));
-        case actionTypes.QUANTITY: return (quantityNum(state,action))
+        case actionTypes.QUANTITY: return (quantityNum(state,action));
+        case actionTypes.REMOVE_ITEM_CART: return (removeCartItems(state,action));
+        case actionTypes.CART_AMOUNT: return(cartAmount(state,action));
         default: return state;
     }
 }

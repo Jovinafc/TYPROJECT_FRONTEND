@@ -2,6 +2,15 @@ import React, { Component} from 'react';
 import classes from './Accessories.module.css';
 import Accessory from './Accessory/Accessory';
 import axios from 'axios';
+import Collapse, { Panel } from 'rc-collapse';
+import 'rc-collapse/assets/index.css';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+import 'rc-slider/assets/index.css';
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+const Handle = Slider.Handle;
 
 function searchingFor(term) {
     return function(x) {
@@ -27,6 +36,13 @@ class Accessories extends Component {
 
     searchHandler = (e) => {
         this.setState({term: e.target.value})
+    }
+
+    priceRangeHandler = (e) => {
+        console.log(e);
+        // this.setState({
+        //     price: { min: min, max: max }
+        // })
     }
     render () {
 
@@ -55,7 +71,7 @@ class Accessories extends Component {
             <div>
                 <div className={classes.Container}>
                     <div className={classes.Menu}>
-                        <h5> Filter </h5>
+                        <h5 style={{color: 'white'}}> Filter </h5>
 
                         <div className={classes.search}>
             <form>
@@ -65,7 +81,26 @@ class Accessories extends Component {
             />
 
             </form>
+
+
              </div> 
+
+                <Collapse accordion={true} > 
+                        <Panel header="Vehicle Type" headerClass="my-header-class">
+                        <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
+                                     
+                        </Panel>
+
+                        
+                        <Panel header="Price Range" headerClass="my-header-class">
+                        <Range min={0} max={10000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
+
+                        </Panel>
+
+
+
+                </Collapse>
 
                     </div>
                     <div className={classes.Main}>  

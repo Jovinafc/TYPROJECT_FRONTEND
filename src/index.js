@@ -14,6 +14,10 @@ import vehicleReducer from './store/reducers/vehicle_click';
 import axios from 'axios';
 import { func } from 'prop-types';
 import { ToastContainer} from 'react-toastify';
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-oldschool-dark'
+
+
 axios.defaults.baseURL = 'http://localhost:3001';
 // console.log(localStorage.getItem('token'));
 // axios.defaults.headers.get['x-auth'] = localStorage.getItem('token');
@@ -86,20 +90,30 @@ console.log(store.getState());
 
 store.subscribe(() => saveToLocalStorage(store.getState()))
 
+const options = {
+    // you can also just use 'bottom center'
+    position: positions.BOTTOM_CENTER,
+    timeout: 5000,
+    offset: '30px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE
+  }
 
 const app = (
     <Provider store={store}>
         <BrowserRouter> 
-            <App >
-            <ToastContainer />  
-
-            </App>
+            <AlertProvider {...options} template={AlertTemplate}>
+            <App />
+            {/* <ToastContainer />   */}
+            
+            {/* </App> */}
+            </AlertProvider>
         </BrowserRouter>
     </Provider>
 );
 
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById('root'), document.querySelector('[data-mount]'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -36,3 +36,5 @@ export const SET_TO_ZERO = 'SET_TO_ZERO';
 export const ALREADY_ADDED_TO_CART = 'ALREADY_ADDED_TO_CART';
 export const SINGLE_ITEM = 'SINGLE_ITEM';
 export const QUANTITY = 'QUANTITY';
+export const REMOVE_ITEM_CART = 'REMOVE_ITEM_CART';
+export const CART_AMOUNT = 'CART_AMOUNT';

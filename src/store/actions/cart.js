@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { useAlert} from 'react-alert';
+
 
 export const add_Item = () => {
     return {
@@ -53,6 +55,7 @@ export const addToCart = (user_id,accessory_id,quantity) => {
             if(response.data === 'Item Exist')
             {
                 alert("Item Exists");
+                // alert.show('Oh look, an alert!')
                 dispatch(already_added_cart())
             }
             dispatch(cartItems(user_id))
@@ -111,5 +114,30 @@ export const quantityNum = (quantity) => {
     return {
         type: actionTypes.QUANTITY,
         quantity: quantity
+    }
+}
+
+export const removeCartItems = () => {
+    return {
+        type: actionTypes.REMOVE_ITEM_CART
+    }
+}
+
+export const cartAmountQunatity = () => {
+    return dispatch => {
+        axios.post('/checkout-check', {user_id: localStorage.getItem('userId')})
+        .then(response => {
+            console.log(response.data);
+            dispatch(cartAmount(response.data.count, response.data.grand_total))
+            
+        })
+    }
+}
+
+export const cartAmount = (count, total) => {
+    return {
+        type: actionTypes.CART_AMOUNT,
+        count: count,
+        total: total
     }
 }

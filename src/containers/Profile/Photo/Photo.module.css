@@ -1,20 +1,17 @@
 .Container {
-    /* width: 90%; */
-    /* padding-top: 120px; */
     height: 800px;
     border: 1px solid black;
-    /* margin: 5%; */
     display: flex;
   }
   
   .Menu {
     width: 20%;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
   }
   
   .Main {
     width: 80%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 2%;
     text-align: center;
   }
@@ -84,11 +81,11 @@
 @media(min-width: 500px) and (max-width: 1200px)
 {
   .Container {
-    width: 90%;
-    padding-top: 120px;
+    width: 100%;
+    /* padding-top: 120px; */
     height: 800px;
     border: 1px solid black;
-    margin: 5%;
+    /* margin: 5%; */
     display: flex;
   }
 

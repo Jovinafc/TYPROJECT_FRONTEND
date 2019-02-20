@@ -33,6 +33,7 @@ import ProductDetail from './containers/ProductDetail/ProductDetail';
 import ProductPayment from './containers/PaymentPage/ProductPayment';
 import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
+import Loader from 'react-loader-spinner';
 
 const asyncCards = asyncComponent(() => {
   return import('./containers/Cards/Cards');
@@ -202,9 +203,28 @@ class App extends Component {
     
     return (
       <Aux>
-      {layout1}
+             
+      {layout1}    
+      
+      {/* <Spinner name="mySpinner">
+                    <div style={{
+                      width: '100%',
+                      height: '100%',
+                      position: 'absolute',
+                      backgroundColor: 'wheat',
+                      opacity: '0.2',
+                      top: 0,
+                      left: 0,
+                      zIndex: '20'  
+                    }}>
+                      Loading...
+                    </div>
+               </Spinner>   */}
+              
       <ToastContainer />
       </Aux>
+    
+
     );
   }
 }

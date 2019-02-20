@@ -33,9 +33,9 @@ class Signing extends Component {
                         {/* <button onClick={this.logHandler} className="btn btn-primary btn-xs">
                                 Log In
                         </button>   */}
-                        <NavLink to="/login"><button className="btn btn-primary btn-xs" >Login</button></NavLink>
+                        <NavLink to="/login"><button style={{fontSize: '0.8em'}} className="btn btn-primary" >Login</button></NavLink>
                         <div style={{width: "10px"}}></div>
-                        <NavLink to="/Signup" exact> <button className="btn btn-success btn-xs">Sign Up</button></NavLink>
+                        <NavLink to="/Signup" exact> <button style={{fontSize: '0.8em'}}  className="btn btn-success">Sign Up</button></NavLink>
                 </div>
         
 

@@ -5,10 +5,13 @@ import * as actions from '../../store/actions/auth';
 import { setToZero } from '../../store/reducers/cart';
 import * as actionp from '../../store/actions/cart';
 
+
+
 class Logout extends Component {
     componentDidMount(){
         this.props.onLogout();
-        this.props.setToZero();
+        // this.props.setToZero();
+        this.props.removeCartItems();
     }
     render() {
         return <Redirect to="/"/>
@@ -18,7 +21,8 @@ class Logout extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onLogout: () => dispatch(actions.logout()),
-        setToZero: () => dispatch(actionp.number_of_items_on_logout)
+        setToZero: () => dispatch(actionp.number_of_items_on_logout()),
+        removeCartItems: () => dispatch(actionp.removeCartItems())
     };
 };
 

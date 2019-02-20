@@ -161,6 +161,7 @@ export const authRefresh = (email, user_id) => {
               const expirationDate = new Date(localStorage.getItem('expirationDate'));
               if(expirationDate <= new Date()) {
                   dispatch(logout());
+                  dispatch(actions.removeCartItems())
             }else{
                  const userId = localStorage.getItem('userId');
                   dispatch(authSuccess(token, userId));
