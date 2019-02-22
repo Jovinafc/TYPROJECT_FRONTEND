@@ -43,7 +43,7 @@
 .but {
     margin-top: 5%;
     margin-bottom: 10%;
-    margin-left: 35%;
+    /* margin-left: 35%; */
 }
 
 .tables {
@@ -138,4 +138,9 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
        
+}
+
+.buttonCont {
+    /* border: 1px solid black; */
+
 }

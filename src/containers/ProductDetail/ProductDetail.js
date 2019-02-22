@@ -113,9 +113,8 @@ class ProductDetail extends Component {
         return (
             <div className={classes.Container}>
                     {directProd}
-                    <h2>Product Detail</h2>
 
-                    <div className={classes.pdcontainer}>
+                    {/* <div className={classes.pdcontainer}>
 
                         <div>
                             <h5>{this.state.product.accessory_name}</h5>
@@ -130,48 +129,86 @@ class ProductDetail extends Component {
                         <button onClick={this.decreaseCounter} >
                             -
                         </button>
-                        {/* <div className="col-xs-1"> */}
                         <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
-                        {/* </div> */}
                         <button onClick={this.increaseCounter}>
                             +
                         </button>
                     </div>
                     <button onClick={this.updateQuantity}>Check Product Availability</button>
                 </div>
+                    </div> */}
+
+                <div className={classes.mainDiv}>
+                    <div className={classes.leftDiv}>
+
+                        <div className={classes.imageCont}>
+                            <img className={classes.image} src={this.state.product.accessory_image}/>
+                        </div>
+
+                        <div className={classes.details}>
+                            Details
+                            <div className={classes.innerDetails}>
+                                <div><p>Description: {this.state.product.accessory_details}</p></div>
+                                {/* <div><p>Used For:{this.state.product}</p></div> */}
+                                <div><p>Used For: {this.state.product.accessory_use}</p> </div>
+                                <div><p>Product Type: {this.state.product.accessory_type}</p> </div>
+
+                            </div>
+                        </div>
                     </div>
 
-                <div className={classes.buttonContainer}>
+                    <div className={classes.rightDiv}>
+                        <div className={classes.price}>
+                            <h6>Price: &#x20B9;{this.state.product.accessory_price}</h6>
+                            <div><p><strong>{this.state.product.accessory_name}</strong></p></div>    
 
-                {
-                    localStorage.getItem('token') === null
-                 
-                 ? <div className={classes.but}>
-                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
-                   </div>  
-               
-                 : <div className={classes.but}>
-                     {
-                            <div>
-                             
-                             {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+                            <div className={classes.quantity}> 
+                                  <h6>Quantity: &nbsp;&nbsp;&nbsp;
+                                     <button onClick={this.decreaseCounter} >
+                                         -
+                                     </button>
+                                     <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
+                                     <button onClick={this.increaseCounter}>
+                                         +
+                                     </button>
+                                     </h6>
+                            </div>            
 
-                             ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
+                        
+                            <div className={classes.buttonContainer}>
 
-                            //  : <NavLink  to={'/productpayment/:'+this.state.product.accessory_id} ><button disabled={!this.state.buyButton} className="btn btn-primary">Buy Product</button> </NavLink>
-                             : <button onClick={this.buyProduct}>Buy Product</button>
-                              
-                             }  
-                           </div> 
-                           
-                                }
-                            </div> 
-                                  
-                     }
+{
+    localStorage.getItem('token') === null
+ 
+ ? <div className={classes.but}>
+     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
+   </div>  
+
+ : <div className={classes.but}>
+     {
+            <div>
+             
+             {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+
+             ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
+
+            //  : <NavLink  to={'/productpayment/:'+this.state.product.accessory_id} ><button disabled={!this.state.buyButton} className="btn btn-primary">Buy Product</button> </NavLink>
+             : <button onClick={this.buyProduct}>Buy Product</button>
+              
+             }  
+           </div> 
+           
+                }
+            </div> 
+                  
+     }
+                
+                            </div>               
+                        </div>
+                    </div>
+                </div>    
 
 
-
-                </div>
                                     
                               
                   

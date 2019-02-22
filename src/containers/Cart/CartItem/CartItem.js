@@ -37,31 +37,37 @@ class CartItem extends Component {
     }
 
     removeItemHandler = (id) => {
-        spinnerService.show('mySpinner');
+        // spinnerService.show('mySpinner');
+        this.props.startLoading();
         axios.post('/removeCart', {user_id: localStorage.getItem('userId'), accessory_id: id, quantity: 1})
         .then(response => {
             console.log(response);
             this.props.cartItems(localStorage.getItem('userId'));
             this.props.cartAmountQuantity();
-            spinnerService.hide('mySpinner');
+            // spinnerService.hide('mySpinner');
+            // this.props.stopLoading();
         })
     }
 
     updateQuantity = (id) => {
-        this.setState({
-            loaded: false
-        })
+        this.props.startLoading();
         console.log(this.state.counter);
         axios.post('/updateCart', {user_id: localStorage.getItem('userId'), accessory_id: id, quantity: this.state.counter} )
         .then(response => {
-            console.log(response)
-            // alert('Updated');
-            this.props.cartItems(localStorage.getItem('userId'))
-            this.props.quantityNum(this.state.counter);
-            this.props.cartAmountQuantity();
-            this.setState({
-                loaded: true
-            })
+            console.log(response.data)
+            if(response.data === 'Added To Cart'){
+                this.props.cartItems(localStorage.getItem('userId'))
+                this.props.quantityNum(this.state.counter);
+                this.props.cartAmountQuantity();     
+            }
+            else {
+                this.props.stopLoading();
+
+            }
+            // this.setState({
+            //     loaded: true
+            // })
+            // this.props.stopLoading();
         });
     }
 
@@ -180,7 +186,9 @@ const mapDispatchToProps = dispatch => {
         cartItems : (user_id) => dispatch(actions.cartItems(user_id)),
         type_payment: (payment_type) => dispatch(actionp.type_of_payment(payment_type)),
         quantityNum : (quantity) => dispatch(actions.quantityNum(quantity)),
-        cartAmountQuantity: () => dispatch(actions.cartAmountQunatity())
+        cartAmountQuantity: () => dispatch(actions.cartAmountQunatity()),
+        startLoading: () => dispatch(actions.startLoading()),
+        stopLoading: () => dispatch(actions.stopLoading())
 
     }
 }

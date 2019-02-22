@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import axios from 'axios';
 import CartItem from './CartItem/CartItem';
 import * as actions from '../../store/actions/cart';
+import LoadingOverlay from 'react-loading-overlay';
+
 
 class Cart extends Component {
     
@@ -18,18 +20,24 @@ class Cart extends Component {
         if(this.props.cart_items !== prevProps.cart_items){
             this.setState({
                 cart: this.props.cart_items
+            }, () => {
+                this.props.stopLoading();
             })
         }
 
         if(this.props.count !== prevProps.count){
             this.setState({
                 noofItems: this.props.count
+            }, () => {
+                this.props.stopLoading();
             })
         }
 
         if(this.props.total !== prevProps.total){
             this.setState({
                 totalPrice: this.props.total
+            }, () => {
+                this.props.stopLoading();
             })
         }
 
@@ -135,6 +143,7 @@ class Cart extends Component {
         }
         
         return (
+            <LoadingOverlay active={this.props.isActive} spinner text="Loading">
             <div className={classes.Container}>
                     <h2> Cart Page</h2>
                     {/* {this.state.cart.length === 0
@@ -169,6 +178,7 @@ class Cart extends Component {
                     
                     </div>    
             </div>
+            </LoadingOverlay>
         )
     }
 }
@@ -178,14 +188,16 @@ const mapStateToProps = state => {
         cart_items: state.cart.cart,
         item_number: state.cart.item_number,
         count: state.cart.count,
-        total: state.cart.total
+        total: state.cart.total,
+        isActive: state.cart.isActive
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getCartItems: (user_id) => dispatch(actions.cartItems(user_id)),
-        cartAmountQuantity: () => dispatch(actions.cartAmountQunatity())
+        cartAmountQuantity: () => dispatch(actions.cartAmountQunatity()),
+        stopLoading: () => dispatch(actions.stopLoading())
     }
 }
 

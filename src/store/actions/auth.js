@@ -34,6 +34,13 @@ export const logout = () => {
         type: actionTypes.AUTH_LOGOUT
       };
   };
+
+export const deleteLocalStorage = () => {
+    localStorage.removeItem('state');
+    return {
+        type: actionTypes.DELETE_LOCAL_STORAGE
+    }
+}
   
 //   export const logoutSucceed = () => {
 //       return {
@@ -163,7 +170,7 @@ export const authRefresh = (email, user_id) => {
                   dispatch(logout());
                   dispatch(actions.removeCartItems())
             }else{
-                 const userId = localStorage.getItem('userId');
+                 const userId = localStorage.getItem('userId'); 
                   dispatch(authSuccess(token, userId));
                   dispatch(userData(userId));
                   dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime() )/ 1000));

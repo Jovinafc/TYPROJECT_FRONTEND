@@ -94,17 +94,55 @@ class SellPaymentPage extends Component {
         console.log(this.state)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+    const onCardFormat = async value => {
+      var v = ''
+      var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+      var matches = v.match(/\d{4,16}/g);
+      var match = matches && matches[0] || ''
+      var parts = []
+      let len;
+      
+      for (let i=0, len=match.length; i<len; i+=4) {
+        parts.push(match.substring(i, i+4))
+      }
+      if (parts.length) {
+        return parts.join(' ')
+      } else {
+      return value
+    }
+      }
+
 
      const onSubmit = async values => {
 
        this.setState({loading: true})
        console.log(values);
         await sleep(300)
+
+        let expiry = values.expiry;
+        if(expiry.length > 5){
+          expiry = expiry.substring(0,5);
+          console.log(expiry);
+        }
+
+        let cardNum = values.number;
+        if(cardNum.length > 17){
+          cardNum = cardNum.substring(0,17);
+        }
+        else{
+          console.log('Enter a value')
+        }
+        console.log(expiry);
+        
+
+        console.log(cardNum);
+
+        
         const cardDetails = {
           name: values.name,
-          card_no: values.number,
+          card_no: cardNum,
           cvv: values.cvc,
-          expiry_date: values.expiry,
+          expiry_date: expiry,
           amount: this.state.vehicles.price || this.state.vehicles.price_per_day
         }
         axios.post('/pay-now', {card_details: cardDetails})
@@ -153,7 +191,7 @@ class SellPaymentPage extends Component {
 
         return (
             <div className={classes.Container}>
-                <h3> Payment Page </h3>
+                {/* <h3> Payment Page </h3> */}
                 <div>
                     
 
@@ -162,6 +200,7 @@ class SellPaymentPage extends Component {
   <Styles>
     <Form
       onSubmit={onSubmit}
+      onCardFormat={onCardFormat}
       render={
         ({
         handleSubmit,
@@ -171,6 +210,7 @@ class SellPaymentPage extends Component {
         values,
         active,
         disable = true
+
       }) => {
         console.log(values);
          disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;

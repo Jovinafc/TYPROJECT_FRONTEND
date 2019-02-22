@@ -9,7 +9,8 @@ const initialState = {
     single_item: [],
     quantity: 1,
     count: 0,
-    total: 0
+    total: 0,
+    isActive: false
 };
 
 const addItem = (state, action) => {
@@ -59,6 +60,14 @@ export const removeCartItems = (state, action) => {
 export const cartAmount = (state,action) => {
     return updateObject(state, {count: action.count, total: action.total })
 }
+
+export const startLoading = (state,action) => {
+    return updateObject(state,{isActive: true})
+}
+
+export const stopLoading = (state,action) => {
+    return updateObject(state, {isActive: false})
+}
  
 const reducer = (state=initialState, action ) => {
     switch(action.type) {
@@ -73,6 +82,8 @@ const reducer = (state=initialState, action ) => {
         case actionTypes.QUANTITY: return (quantityNum(state,action));
         case actionTypes.REMOVE_ITEM_CART: return (removeCartItems(state,action));
         case actionTypes.CART_AMOUNT: return(cartAmount(state,action));
+        case actionTypes.START_LOADING: return(startLoading(state,action));
+        case actionTypes.STOP_LOADING: return(stopLoading(state,action));
         default: return state;
     }
 }

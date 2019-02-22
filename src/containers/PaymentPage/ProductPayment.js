@@ -55,7 +55,7 @@ class ProductPayment extends Component {
 
       otpsender = (e) => {
         e.preventDefault();
-  
+        
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
           console.log(response.data);
@@ -80,11 +80,28 @@ class ProductPayment extends Component {
        this.setState({loading: true})
        console.log(values);
         await sleep(300)
+        let expiry = values.expiry;
+        if(expiry.length > 5){
+          expiry = expiry.substring(0,5);
+          console.log(expiry);
+        }
+
+        let cardNum = values.number;
+        if(cardNum.length > 17){
+          cardNum = cardNum.substring(0,17);
+        }
+        else{
+          console.log('Enter a value')
+        }
+        console.log(expiry);
+        
+
+        console.log(cardNum);
         const cardDetails = {
           name: values.name,
-          card_no: values.number,
+          card_no: cardNum,
           cvv: values.cvc,
-          expiry_date: values.expiry,
+          expiry_date: expiry,
           amount: (this.state.product.accessory_price * this.props.quantity)
         }
         axios.post('/pay-now', {card_details: cardDetails})
@@ -182,7 +199,7 @@ class ProductPayment extends Component {
           <Field
             name="cvc"
             component="input"
-            type="text"
+            type="password"
             pattern="\d{3,4}"
             placeholder="CVC"
             format={formatCVC}

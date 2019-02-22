@@ -44,8 +44,9 @@ class Cards extends Component {
     constructor (props){
         super(props);
         this.getVehicleDetails = this.getVehicleDetails.bind(this);
-        this.selectMultipleOption = this.selectMultipleOption.bind(this);
+        // this.selectMultipleOption = this.selectMultipleOption.bind(this);
         this.selectMultipleKm_Driven = this.selectMultipleKm_Driven.bind(this);
+        this.selectMultipleState = this.selectMultipleState.bind(this);
 
         this.state = {
             display: [],
@@ -56,7 +57,12 @@ class Cards extends Component {
             regStateSelected: [],
             reg_state: [],
             kmDrivenSelected: [],
-            kmDriven: []
+            kmDriven: [],
+            service_type: [],
+            vehicle_type: [],
+            fuel_type: [],
+            price_range: []
+
         }
     }
 
@@ -100,8 +106,6 @@ class Cards extends Component {
     searchHandler = (e) => {
         this.setState({term: e.target.value})
     }
-
-
     priceRangeHandler = (e) => {
         console.log(e);
         // this.setState({
@@ -109,19 +113,38 @@ class Cards extends Component {
         // })
     }
 
-    selectMultipleOption(value) {
-        // this.setState({ regStateSelected: value });
-        this.setState({
-            regStateSelected: value            
-        })
-      }
+    // selectMultipleOption(value) {
+    //     // this.setState({ regStateSelected: value });
+    //     this.setState({
+    //         regStateSelected: value            
+    //     })
+    //   }
 
-      selectMultipleKm_Driven(value) {
-        // this.setState({ regStateSelected: value });
+        selectMultipleState = (value) => {
+            this.setState({
+                regStateSelected: value
+            })
+        }
+
+        state_Builder = () => {
+            let arr = this.state.regStateSelected;
+            let str = arr.join();
+            console.log('state_type='+str);
+        }
+  
+
+      selectMultipleKm_Driven = (value) => {
         this.setState({
             kmDrivenSelected: value            
         })
       }
+
+      km_drivenBuilder = () => {
+        let arr = this.state.kmDrivenSelected;
+        let str = arr.join();
+        console.log('km_driven='+str);
+    }
+
    
     tooltip = { placement: 'After', isVisible: true, showOn: 'Always' };
 
@@ -132,8 +155,88 @@ class Cards extends Component {
           console.log(e.target.checked)
           console.log(e.target.value)
           if(e.target.checked){
-              this.setState({ service_type: e.target.value})
+              this.setState({ 
+                    service_type: [
+                        ...this.state.service_type,
+                        e.target.value    
+                    ]                  
+                }, () => {
+                    this.service_typeBuilder();
+                })
+              
           }
+          else {
+              console.log('unchecked')
+              this.setState({
+                  service_type: this.state.service_type.filter(type => {
+                      return type !== e.target.value;
+                  })
+              },() => {
+                 this.service_typeBuilder();
+              })
+          }
+          
+        //   this.vehicle_typeBuilder();
+      }
+
+      service_typeBuilder = () => {
+          let arr = this.state.service_type;
+          let str = arr.join();
+          console.log('service_type='+str);
+      }
+
+      vehicle_typeHandler = (e) => {
+        if(e.target.checked){
+            this.setState({ 
+                  vehicle_type: [
+                      ...this.state.vehicle_type,
+                      e.target.value    
+                  ]                  
+              })
+            
+        }
+        else {
+            console.log('unchecked')
+            this.setState({
+                vehicle_type: this.state.vehicle_type.filter(type => {
+                    return type !== e.target.value;
+                })
+            })
+        }
+      
+      }
+
+      vehicle_typeBuilder = () => {
+        let arr = this.state.vehicle_type;
+        let str = arr.join();
+        console.log('vehicle_type='+str);
+    }
+
+      fuel_typeHandler = (e) => {
+        if(e.target.checked){
+            this.setState({ 
+                  fuel_type: [
+                      ...this.state.fuel_type,
+                      e.target.value    
+                  ]                  
+              })
+            
+        }
+        else {
+            console.log('unchecked')
+            this.setState({
+                fuel_type: this.state.fuel_type.filter(type => {
+                    return type !== e.target.value;
+                })
+            })
+        }
+      
+      }
+
+      fuel_typeBuilder = () => {
+          let arr = this.state.fuel_type;
+          let str = arr.join();
+          console.log('fuel_type'+str);
       }
       
     render () {
@@ -142,7 +245,11 @@ class Cards extends Component {
      //       <Card name={dis.User_Name} userid={dis.UserId} key={dis.id}/>
      //   ));
 
-        console.log(this.props.user_id);
+        console.log(this.state.service_type);
+        console.log(this.state.vehicle_type);
+        console.log(this.state.fuel_type);
+        console.log(this.state.regStateSelected);
+        console.log(this.state.kmDrivenSelected);
 
         // let filter = this.state.vehicles => {
         //     return this.props.vehicles.filter(dis => dis.user_id !== this.props.user_id);
@@ -197,7 +304,7 @@ class Cards extends Component {
                
             });
 
-        console.log(displayVehicle);
+        // console.log(displayVehicle);
         if(this.props.loading){
             displayVehicle = <Spinner />
         }
@@ -228,31 +335,31 @@ class Cards extends Component {
                    <Collapse accordion={true}>
                         <Panel header="Type of Service" headerClass="my-header-class">
                         <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
-                         <input type="checkbox" name="vehicle_type" value="Rent" /> Rent < br/>               
+                         <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
                         </Panel>
 
                         <Panel header="Vehicle Type" headerClass="my-header-class">
-                        <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
-                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
+                        <input type="checkbox" name="vehicle_type" value="4-Wheelers" onChange={this.vehicle_typeHandler}/> 4-Wheelers &nbsp; 
+                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" onChange={this.vehicle_typeHandler}/> 2-Wheelers < br/>               
                                      
                         </Panel>
 
                         
                         <Panel header="Fuel Type" headerClass="my-header-class">
-                        <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
+                        <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Diesel" /> Diesel &nbsp;
+                         <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Petrol" /> Petrol &nbsp;
+                         <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Cng" /> CNG
                                      
                         </Panel>
 
                         <Panel header="Select State" headerClass="my-header-class">
                         <Picky 
                             value={this.state.regStateSelected}
-                            //  open={true}
+                            open={true}
                             options={this.state.reg_state}
                             includeFilter={true}
                             dropdownHeight={600}
-                            onChange={this.selectMultipleOption}
+                            onChange={this.selectMultipleState}
                             valueKey="id"
                             labelKey="name"
                             multiple={true}
@@ -270,7 +377,7 @@ class Cards extends Component {
                         <Panel header="Km Driven" headerClass="my-header-class">
                         <Picky 
                             value={this.state.kmDrivenSelected}
-                            // open={true}
+                            open={true}
                             options={this.state.kmDriven}
                             includeFilter={true}
                             dropdownHeight={400}

@@ -32,6 +32,7 @@ class Otp extends Component {
                 client_bank_account: this.props.client_bank_account,
                 amount: this.props.price
             } 
+            console.log(vehicles);
             axios.post('/buy-now', {vehicles: vehicles})
             .then(response => {
                 console.log(response);
@@ -127,8 +128,8 @@ const mapStateToProps = state => {
       payment_type: state.vehicle.type_payment,
       startdatetime: state.vehicle.startDate,
       enddatetime: state.vehicle.endDate,
-      owner_id: state.vehicle.vehicles.user_id,
-      owner_bank_account: state.vehicle.owner_bank_account_no,
+      owner_id: state.vehicle.vehicles[0].user_id,
+      owner_bank_account: state.vehicle.vehicles[1].bank_account_no,
       client_bank_account: state.auth.bank_account_no,
       price: state.vehicle.vehicles[0].price,
       price_per_day: state.vehicle.vehicles[0].price_per_day,

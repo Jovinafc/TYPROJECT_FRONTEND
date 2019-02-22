@@ -76,6 +76,7 @@ function loadFromStorage() {
     }
 } 
 
+
 const persistedState = loadFromStorage()
 
 const store = createStore(rootReducer, persistedState, composeEnhancers(

@@ -279,7 +279,53 @@ class VehicleDetail extends Component {
                             {this.state.vehicles.price ? 
                             <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
                             <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
-                            <div> Ad Posted On: {this.state.postedOn}</div>        
+                            <div> Ad Posted On: {this.state.postedOn}</div>    
+                            <div className={classes.buttonCont}>
+                            {
+                    localStorage.getItem('token') === null
+                 
+                 ? <div className={classes.but}>
+                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
+                   </div>  
+               
+                 : <div className={classes.but}>
+                     {  
+                         this.state.vehicles.price 
+                         
+                         ? <div>
+                             
+                             {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+
+                             ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
+
+                             : <NavLink to={'/payment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                              
+                             }  
+                           </div> 
+                           
+                          : <div>
+
+                               {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
+
+                               ? <NavLink to="/Profile"><button className="btn btn-success">Update your Profile</button></NavLink>
+
+                   //            : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                               : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
+
+                                }
+                            </div> 
+                         
+                        //  <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
+                         
+                        //  : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
+                         
+                     }
+                 
+                  </div> 
+               
+               }                
+
+                            </div>    
                         </div>
                     </div>
                 </div>  

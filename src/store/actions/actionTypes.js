@@ -38,3 +38,7 @@ export const SINGLE_ITEM = 'SINGLE_ITEM';
 export const QUANTITY = 'QUANTITY';
 export const REMOVE_ITEM_CART = 'REMOVE_ITEM_CART';
 export const CART_AMOUNT = 'CART_AMOUNT';
+
+export const START_LOADING = 'START_LOADING';
+export const STOP_LOADING = 'STOP_LOADING';
+export const DELETE_LOCAL_STORAGE = 'DELETE_LOCAL_STORAGE';

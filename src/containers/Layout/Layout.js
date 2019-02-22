@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
 import Headroom from 'react-headroom';
 import { Spinner } from '@chevtek/react-spinners';
+import LoadingOverlay from 'react-loading-overlay';
 
 
 class Layout extends Component {
@@ -58,6 +59,7 @@ class Layout extends Component {
   oTransition: 'all .5s ease-in-out',
   transition: 'all .5s ease-in-out'
 }}>    */}
+            {/* <LoadingOverlay active={this.props.isActive} spinner text="Loading"> */}
             <TopToolbar 
               isAuth = {this.props.isAuthenticated}
             />
@@ -81,6 +83,7 @@ class Layout extends Component {
            <div style={{textAlign: 'center', height: '200px', backgroundColor: '#747474'}}>
                <h2>Footer Section </h2>
            </div>
+           {/* </LoadingOverlay> */}
            </Aux>         
         )
 
@@ -108,7 +111,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        isActive: state.cart.isActive
     };
 }
 

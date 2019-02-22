@@ -9,9 +9,11 @@ import * as actionp from '../../store/actions/cart';
 
 class Logout extends Component {
     componentDidMount(){
+        this.props.removeCartItems();
+        localStorage.removeItem('state');
         this.props.onLogout();
         // this.props.setToZero();
-        this.props.removeCartItems();
+        
     }
     render() {
         return <Redirect to="/"/>

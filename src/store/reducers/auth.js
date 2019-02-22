@@ -93,6 +93,10 @@ export const deleteUserData = (state, action) => {
     })
 }
 
+export const delete_local_storage = (state,action) => {
+    return updateObject(state,{...initialState})
+}
+
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.AUTH_START: return authStart(state, action);
@@ -104,6 +108,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.DELETE_USER_DATA: return deleteUserData(state,action);
         case actionTypes.PHOTO_START: return photoStart(state,action);
         case actionTypes.PHOTO_FINISH: return photoFinish(state,action);
+        case actionTypes.DELETE_LOCAL_STORAGE: return delete_local_storage(state, action);
         default: return state;        
     }
 };
