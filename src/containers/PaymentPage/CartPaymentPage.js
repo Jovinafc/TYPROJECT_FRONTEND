@@ -41,37 +41,30 @@ class ProductPayment extends Component {
         loading:false
     }
 
-    componentDidMount = () => {
-      this.props.type_payment('Single Item')
-      window.scrollTo(0,0);
-      const {match: {params}} = this.props
-      let a = params.product_id;
-      a = a.substring(1);
-      console.log(a);
-      
-      axios.post('/fetch-specific-accessory', {accessory_id: a})
-      .then(response => {
-        console.log(response.data);
-        this.setState({product: response.data})
-        this.props.singleItemDetails(response.data)
-      })
+    // componentDidMount = () => {
+    //   axios.post('/fetch-specific-accessory', {accessory_id: this.props.product_id})
+    //   .then(response => {
+    //     console.log(response.data);
+    //     this.setState({product: response.data})
+    //     this.props.singleItemDetails(response.data)
+    //   })
 
 
       
-    }
+    // }
 
-      otpsender = (e) => {
-        e.preventDefault();
+    //   otpsender = (e) => {
+    //     e.preventDefault();
         
-        axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
-        .then(response => {
-          console.log(response.data);
-          alert("Success");
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      }
+    //     axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
+    //     .then(response => {
+    //       console.log(response.data);
+    //       alert("Success");
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     })
+    //   }
   
   
     render() {
@@ -109,7 +102,7 @@ class ProductPayment extends Component {
           card_no: cardNum,
           cvv: values.cvc,
           expiry_date: expiry,
-          amount: (this.state.product.accessory_price * this.props.quantity)
+          amount: (this.props.total)
         }
         axios.post('/pay-now', {card_details: cardDetails})
         .then(response => {
@@ -141,11 +134,8 @@ class ProductPayment extends Component {
 
         return (
             <div className={classes.Container}>
-            <h3> Payment Page For Accessories </h3>
+            <h3>Cart Payment Page </h3>
             <div>
-                
-
-
 
 <Styles>
 <Form
@@ -163,9 +153,6 @@ class ProductPayment extends Component {
     console.log(values);
      disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
      console.log(disable);
-     console.log(this.state.product.accessory_price);
-     console.log(this.props.quantity);
-     console.log((this.state.product.accessory_price*this.props.quantity))
     return (
       <form onSubmit={handleSubmit}>
          <Card
@@ -214,7 +201,7 @@ class ProductPayment extends Component {
         </div>
         <div className="buttons">
           <button type="submit" disabled={disable}>
-            Pay &#x20B9;{(this.state.product.accessory_price * this.props.quantity)} 
+            Pay &#x20B9;{this.props.total} 
           </button>
           <div>
           <ClipLoader
@@ -245,7 +232,8 @@ const mapStateToProps = state => {
     return {
       email: state.auth.email,
       product_id: state.cart.product_id,
-      quantity: state.cart.quantity
+      quantity: state.cart.quantity,
+      total: state.cart.total
     }
   }
 

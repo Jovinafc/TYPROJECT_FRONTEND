@@ -133,7 +133,7 @@
 .price {
     width: 80%;
     margin-left: 10%;
-    height: 50%;
+    height: 80%;
     /* border: 1px solid orange; */
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
@@ -143,4 +143,8 @@
 .buttonCont {
     /* border: 1px solid black; */
 
+}
+
+.inputStart {
+    width: 50px;
 }

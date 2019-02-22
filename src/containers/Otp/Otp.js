@@ -36,6 +36,8 @@ class Otp extends Component {
             axios.post('/buy-now', {vehicles: vehicles})
             .then(response => {
                 console.log(response);
+                this.setState({success: true})
+
             })
 
           }
@@ -52,6 +54,8 @@ class Otp extends Component {
             })
             .then(response =>{
                 console.log(response);
+                this.setState({success: true})
+
             })
           }
           else if(this.props.payment_type === 'Single Item') {
@@ -63,10 +67,21 @@ class Otp extends Component {
                   accessory_id: this.props.accessory_id,
                   quantity: this.props.quantity,
                   amount: this.props.single_item.accessory_price * this.props.quantity 
+            }).then(response => {
+              console.log(response);
+              this.setState({success: true})
+
             })
           }
+          else {
+              axios.post('/checkout', {user_id: localStorage.getItem('userId')})
+              .then(response => {
+                  console.log(response);
+                  this.setState({success: true})
+
+              })
+          }
           
-          this.setState({success: true})
 
         })
         .catch(err => {

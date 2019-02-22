@@ -56,11 +56,11 @@ class SellPaymentPage extends Component {
           {
            this.setState({vehicles: response.data[0]});
            console.log(response.data)
-           if(response.data.price !== null){
-                this.props.type_payment('Sell');
-           }
-           else{
+           if(response.data[0].price === null){
                 this.props.type_payment('Rent');
+           }
+           else{  
+                this.props.type_payment('Sell');
            }
           }
         })
@@ -126,8 +126,8 @@ class SellPaymentPage extends Component {
         }
 
         let cardNum = values.number;
-        if(cardNum.length > 17){
-          cardNum = cardNum.substring(0,17);
+        if(cardNum.length > 19){
+          cardNum = cardNum.substring(0,19);
         }
         else{
           console.log('Enter a value')

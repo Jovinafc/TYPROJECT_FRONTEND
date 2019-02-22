@@ -5,6 +5,7 @@ import axios from 'axios';
 import CartItem from './CartItem/CartItem';
 import * as actions from '../../store/actions/cart';
 import LoadingOverlay from 'react-loading-overlay';
+import { NavLink } from 'react-router-dom';
 
 
 class Cart extends Component {
@@ -170,8 +171,11 @@ class Cart extends Component {
                          <h3>Grand Total</h3>
                      </div>       
                      <div>
-                         No of Items: {this.state.noofItems}
-                         Grand Total: {this.state.totalPrice}
+                         <p>No of Items: {this.state.noofItems}</p>
+                    </div>
+                    <div><p>Grand Total: {this.state.totalPrice}</p></div>
+                    <div>
+                        <NavLink to="/cart/cartpayment"><button className="btn btn-success">Checkout</button></NavLink>
                     </div>
                     </div>
                     :<div> </div>}

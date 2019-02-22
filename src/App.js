@@ -31,9 +31,11 @@ import Otp from './containers/Otp/Otp';
 import Success from './containers/Success/Success';
 import ProductDetail from './containers/ProductDetail/ProductDetail';
 import ProductPayment from './containers/PaymentPage/ProductPayment';
+import CartPaymentPage from './containers/PaymentPage/CartPaymentPage';
 import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
 import Loader from 'react-loader-spinner';
+
 
 const asyncCards = asyncComponent(() => {
   return import('./containers/Cards/Cards');
@@ -179,6 +181,7 @@ class App extends Component {
             <Route path="/otp" exact component={Otp}/>
             <Route path="/cart" exact component={Cart} />
             <Route path="/productpayment/:product_id" exact component={ProductPayment} />
+            <Route path="/cart/cartpayment" exact component={CartPaymentPage}/>
             <Route path="/success" exact component={Success} />
              </Switch> 
               </Layout> 

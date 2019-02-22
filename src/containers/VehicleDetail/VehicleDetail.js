@@ -10,7 +10,10 @@ import {DatePicker} from 'shineout';
 import { NavLink, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
 import * as actionp from '../../store/actions/vehicle_click'
-
+import Datetime from 'react-datetime';
+import moment, * as moments from 'moment';
+import {DatetimePickerTrigger} from 'rc-datetime-picker';
+import './react-datetime.css';
 
 class VehicleDetail extends Component {
 
@@ -18,11 +21,14 @@ class VehicleDetail extends Component {
         vehicles: {},
         show: false,
         user: false,
-        showDate: false,
+        showDate: false,        
         startdatetime: '',
         enddatetime: '',
         Invalid: false,
-        postedOn: ''
+        postedOn: '',
+        moment: moment(),
+        start: '',
+        end: ''
     }
 
 
@@ -47,6 +53,12 @@ class VehicleDetail extends Component {
             alert("Sold")
         });
     }
+
+    handleChange = (moment) => {
+        this.setState({
+          moment
+        });
+      }
 
     
 
@@ -115,6 +127,7 @@ class VehicleDetail extends Component {
 
     endDateHandler = e => {
         this.setState({enddatetime: e});
+        console.log(e);
         this.props.endDate(e);
     }
  
@@ -147,7 +160,66 @@ class VehicleDetail extends Component {
 
     }
  
+    starth = (moment) => {
+        console.log(moment);
+        let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
+        this.setState({
+            start: s
+        })
+        this.props.startDate(s);
+        // moment(e._d).format()
+    }
+
+    endh = (e) => {
+        console.log(e);
+        let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
+        this.setState({
+            end: s
+        });
+        this.props.endDate(s);
+    }
+
     render () {
+        console.log(this.state.start);
+        console.log(this.state.end);
+
+        const sd = this.state.start;
+        const ed = this.state.end;
+
+        const enabled = sd.length > 0 && ed.length > 0;
+
+        // let log = null;
+        // log = <Login />
+        
+        let datepickers = null;
+        if(this.state.vehicles.price_per_day){
+            datepickers = <div className={classes.date}>
+                                <p>Start Date</p>
+                                <Datetime className={classes.startInput} style={{width: '30px'}} onChange={this.starth}/>  
+                                <p>End Date</p>
+                               <Datetime onChange={this.endh}/>
+                          </div>
+        }
+        
+
+        let dc = null;
+        dc = <div className={classes.DateContainer}>
+        {/* <form className="form-horizontal">
+        <div className="form-group" >
+            <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
+            <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
+            </div>
+            <div className="form-group">
+            <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
+            <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
+            </div>                    
+            <br /> <br /> 
+            <NavLink  to={'/payment/:'+this.props.vehicle_id}><button disabled={!enabled}  className="btn btn-danger">Proceed To Payment</button></NavLink>
+            
+        </form> */}
+            
+            
+        </div>
         
         let vehicleDetail = (
             <div className={classes.InnerContainer}>
@@ -280,6 +352,7 @@ class VehicleDetail extends Component {
                             <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
                             <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
                             <div> Ad Posted On: {this.state.postedOn}</div>    
+                            <div> {datepickers} </div>
                             <div className={classes.buttonCont}>
                             {
                     localStorage.getItem('token') === null
@@ -310,7 +383,11 @@ class VehicleDetail extends Component {
                                ? <NavLink to="/Profile"><button className="btn btn-success">Update your Profile</button></NavLink>
 
                    //            : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
-                               : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
+                               : <NavLink to={'/payment/:'+this.props.vehicle_id}>
+                                   <button 
+                                   disabled={!enabled}
+                                //    onClick={this.lendHandler} 
+                               className="btn btn-success">Rent Vehicle</button></NavLink>
 
                                 }
                             </div> 
@@ -323,9 +400,16 @@ class VehicleDetail extends Component {
                  
                   </div> 
                
-               }                
+               }           
+
+
 
                             </div>    
+                            <div>
+                            {
+                                this.state.showDate === true ? dc : null
+                            }
+                            </div>
                         </div>
                     </div>
                 </div>  
