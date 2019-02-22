@@ -47,7 +47,8 @@ class Otp extends Component {
                          end_date: this.props.enddatetime,
                          owner_bank_account: this.props.owner_bank_account,
                          client_bank_account: this.props.client_bank_account,
-                         rent_amount: this.props.price_per_day
+                         amount: this.props.price_per_day,
+                         deposit: 5000
             })
             .then(response =>{
                 console.log(response);
