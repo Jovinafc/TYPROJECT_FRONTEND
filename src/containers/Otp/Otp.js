@@ -3,6 +3,7 @@ import classes from './Otp.module.css';
 import axios from 'axios';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import * as actions from '../../store/actions/cart';
 
 class Otp extends Component {
 
@@ -27,6 +28,7 @@ class Otp extends Component {
           if(this.props.payment_type === 'Sell'){
             let vehicles = {
                 client_id: localStorage.getItem('userId'),
+                user_id: localStorage.getItem('userId'),
                 vehicle_id: this.props.vehicle_id,
                 owner_bank_account: this.props.owner_bank_account,
                 client_bank_account: this.props.client_bank_account,
@@ -78,7 +80,7 @@ class Otp extends Component {
               .then(response => {
                   console.log(response);
                   this.setState({success: true})
-
+                  this.props.cartItems(localStorage.getItem('userId'));
               })
           }
           
@@ -156,4 +158,10 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps, null)(Otp);
+const mapDispatchToProps = dispatch => {
+  return {
+    cartItems: (user_id) => dispatch(actions.cartItems(user_id)) 
+  }
+}  
+
+export default connect(mapStateToProps, mapDispatchToProps)(Otp);

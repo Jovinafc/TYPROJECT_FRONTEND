@@ -1,0 +1,117 @@
+.bigDiv {
+    width: 80%;
+    height:250px;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 30% 70% ; 
+    margin-left: 10%;
+}
+
+.leftDiv {
+    border:1px solid black;
+
+}
+
+.rightDiv {
+    border: 1px solid green;
+}
+
+.imageCont {
+    height: 90%;
+    width: 90%;
+    /* margin-top: 1%;
+    margin-left:2%;*/
+    margin: 5%;
+    border: 1px solid grey;
+}
+
+.Image {
+    height: 95%;
+    width: 95%;
+    margin: 2.5%;   
+}
+
+.topRightDiv {
+    height: 75%;
+    width: 100%;
+    border: 1px solid blue
+}
+
+.downRightDiv {
+    height: 25%;
+    width: 100%;
+    display: flex;
+
+    border: 1px solid red;
+}
+
+.rateDiv {
+    position: relative;
+}
+
+.rateDiv .rate{
+visibility: hidden;
+  width: 120px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+
+}
+
+.rateDiv:hover .rate {
+    visibility: visible;
+
+}
+
+.modalHeader {
+    position: relative;
+    display: flex;  
+    margin: -20px;
+    margin-left: 10px;
+    padding-left: 1%; 
+    width: 100%;
+    /* border: 1px solid yellow; */
+}
+
+.round {
+    border-radius:  50%;
+    border: 1px solid black;
+    width: 5%;
+    height:50%;
+    
+    /* position: relative;
+    display: inline-block; */
+    margin-right: 10px;
+}
+
+.pp {
+    position: relative;
+    display: inline-block;
+    object-fit: cover;
+    border-radius: 50%;
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+}
+
+.rateCom:link {
+    color: #ccc
+}
+
+
+.rateCom:hover {
+    color:lightyellow;
+}
+
+.rateCom:active {
+    color: yellow;
+}
+

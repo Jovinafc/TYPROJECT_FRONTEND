@@ -19,6 +19,7 @@ class VehicleDetail extends Component {
 
     state = {
         vehicles: {},
+        owner: {},
         show: false,
         user: false,
         showDate: false,        
@@ -103,7 +104,11 @@ class VehicleDetail extends Component {
            }
            else
            {
-            this.setState({vehicles: response.data[0]});
+            this.setState({
+                vehicles: response.data[0],
+                owner: response.data[0].owner
+            });
+            console.log(response.data[0].owner.name);
             this.setState({postedOn: response.data[0].createdAt.substring(0,10)})
             this.props.save_bank_account_no(response.data[1])
             this.props.fetch_selected_vehicle(response.data)
@@ -194,9 +199,9 @@ class VehicleDetail extends Component {
         let datepickers = null;
         if(this.state.vehicles.price_per_day){
             datepickers = <div className={classes.date}>
-                                <p>Start Date</p>
-                                <Datetime className={classes.startInput} style={{width: '30px'}} onChange={this.starth}/>  
-                                <p>End Date</p>
+                                <p style={{marginBottom: '-3px'}}>Start Date</p>
+                                <Datetime className={classes.startInput} style={{width: '60%'}} onChange={this.starth}/>  
+                                <p style={{marginBottom: '-3px'}}>End Date</p>
                                <Datetime onChange={this.endh}/>
                           </div>
         }
@@ -315,7 +320,8 @@ class VehicleDetail extends Component {
             </div>
         );
 
-        
+        // console.log(this.state.vehicles.owner.name);
+               console.log(this.state.owner);
 
         return (
             <Aux>
@@ -352,6 +358,7 @@ class VehicleDetail extends Component {
                             <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
                             <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
                             <div> Ad Posted On: {this.state.postedOn}</div>    
+                            <div>Owner:{this.state.owner.name}</div>    
                             <div> {datepickers} </div>
                             <div className={classes.buttonCont}>
                             {
@@ -365,7 +372,7 @@ class VehicleDetail extends Component {
                      {  
                          this.state.vehicles.price 
                          
-                         ? <div>
+                         ? <div className={classes.but}>
                              
                              {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
 
@@ -376,7 +383,7 @@ class VehicleDetail extends Component {
                              }  
                            </div> 
                            
-                          : <div>
+                          : <div className={classes.but}>
 
                                {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
 

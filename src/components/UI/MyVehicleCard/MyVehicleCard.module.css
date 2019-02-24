@@ -5,29 +5,69 @@
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin-bottom: 20px;
     display: grid;
-    grid-template-columns: 30% 40% 30%; 
+    grid-template-columns: 30% 70% ; 
     margin-left: 10%;
+
 }
 
 .div1 {
     border: 1px solid blue;
+    /* width: 50%; */
 }
 
-.div2 {
+/* .div2 {
     border: 1px solid yellow;
-    display: grid;
+    display: flex;
+    flex-direction: column; 
+} */
 
+.rightDiv {
+    border: 1px solid black;
+    font-size: 1rem;
+    /* width: 70%; */
 }
 .ImageCon {
-    height: 80%;
-    width: 80%;
-    margin-top: 1%;
-    margin-left:2%;
-    
+    height: 90%;
+    width: 90%;
+    /* margin-top: 1%;
+    margin-left:2%;*/
+    margin: 5%;
+    border: 1px solid grey;
 }
 
 .Image {
     height: 95%;
     width: 95%;
     margin: 2.5%;
+}
+
+.topRightDiv {
+    display: flex;
+    /* grid-template-columns: auto auto ; */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 15%;
+
+}
+
+.details {
+    /* display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px; */
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 2px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid green;
+    height: 50%;
+}
+
+.downRightDiv {
+    margin-top: 2%;
 }

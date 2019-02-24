@@ -117,8 +117,6 @@ class Cart extends Component {
              displayCartItems = this.state.cart
         .map(dis => {
             return (    
-                
-
                 <CartItem  
                 key={dis.accessory_id}
                 name={dis.accessory_name}
@@ -129,9 +127,7 @@ class Cart extends Component {
                 qty={dis.cart_storages[0].quantity}
                 type={dis.accessory_type}
                 use={dis.accessory_use}
-                />
-
-                            
+                />                           
             )
         })
 
@@ -140,13 +136,13 @@ class Cart extends Component {
         else {
             displayCartItems = <div className={classes.empty}>
                                   <h3>Your Cart is Empty</h3>
-                             </div>
+                              </div>
         }
         
         return (
             <LoadingOverlay active={this.props.isActive} spinner text="Loading">
             <div className={classes.Container}>
-                    <h2> Cart Page</h2>
+                    {/* <h2> Cart Page</h2> */}
                     {/* {this.state.cart.length === 0
                     ? {no_items}
                     : {displayCartItems}} */}
@@ -155,34 +151,41 @@ class Cart extends Component {
                     
                     : <div> {displayCartItems} </div> } */}
                     {/* {displayCartItems} */}
+                {this.props.cart_items !== undefined
+                ? <div className={classes.secondCont}>
+                <div className={classes.cartitems}>
+                <div className={classes.topHeader}>
+                    <h5>My Cart</h5>
+                </div>
+                {displayCartItems}
+                </div>    
 
-                <div className={classes.secondCont}>
-                    <div className={classes.cartitems}>
-                    <div className={classes.topHeader}>
-                        <h5>My Cart</h5>
-                    </div>
-                    {displayCartItems}
-                    </div>    
+                        
+                {this.props.item_number > 0
+                ? <div className={classes.checkoutDiv}>
+                 <div>
+                     <h3>Grand Total</h3>
+                 </div>       
+                 <div>
+                     <p>No of Items: {this.state.noofItems}</p>
+                </div>
+                <div><p>Grand Total: {this.state.totalPrice}</p></div>
+                <div>
+                    <NavLink to="/cart/cartpayment"><button className="btn btn-success">Checkout</button></NavLink>
+                </div>
+                </div>
+                :<div> </div>}
+                
+                </div>    
+        
+                : <div className={classes.emptyCart}> 
+                <h4 style={{fontFamily: 'roboto'}}>Your Cart is Empty</h4> 
+                <NavLink to="/accessories">Go To Accessories Store</NavLink>
+                </div>
+                }
 
-                            
-                    {this.props.item_number > 0
-                    ? <div className={classes.checkoutDiv}>
-                     <div>
-                         <h3>Grand Total</h3>
-                     </div>       
-                     <div>
-                         <p>No of Items: {this.state.noofItems}</p>
-                    </div>
-                    <div><p>Grand Total: {this.state.totalPrice}</p></div>
-                    <div>
-                        <NavLink to="/cart/cartpayment"><button className="btn btn-success">Checkout</button></NavLink>
-                    </div>
-                    </div>
-                    :<div> </div>}
-                    
-                    </div>    
-            </div>
-            </LoadingOverlay>
+                </div>
+        </LoadingOverlay>     
         )
     }
 }

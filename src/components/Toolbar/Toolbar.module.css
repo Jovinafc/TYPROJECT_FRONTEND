@@ -44,7 +44,9 @@
         position: fixed;
         top: 0;
         left: 0;
-        background-color: #0099cc;
+        /* background-color: #0099cc; */
+        background-color: rgb(175, 7, 7);
+
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -53,5 +55,10 @@
         z-index: 90;
     }
 
+    .phoneDiv {
+        display: flex;
+        border: 1px solid white;
+        height: 200%;
+    }    
 
 }
