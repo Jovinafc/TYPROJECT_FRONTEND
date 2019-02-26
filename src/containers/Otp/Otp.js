@@ -44,6 +44,7 @@ class Otp extends Component {
 
           }
           else if(this.props.payment_type === 'Rent'){
+            console.log(this.props.enddatetime);
                 axios.post('/rent-now', {
                     user_client_id: localStorage.getItem('userId'), 
                          vehicle_id: this.props.vehicle_id,

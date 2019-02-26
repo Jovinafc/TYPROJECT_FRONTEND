@@ -125,16 +125,16 @@ class VehicleDetail extends Component {
         this.setState({show: false});
     }
 
-    startDateHandler = (e) => {
-        this.setState({startdatetime: e});
-        this.props.startDate(e);
-    }
+    // startDateHandler = (e) => {
+    //     this.setState({startdatetime: e});
+    //     this.props.startDate(e);
+    // }
 
-    endDateHandler = e => {
-        this.setState({enddatetime: e});
-        console.log(e);
-        this.props.endDate(e);
-    }
+    // endDateHandler = e => {
+    //     this.setState({enddatetime: e});
+    //     console.log(e);
+    //     this.props.endDate(e);
+    // }
  
     proceedHandler = (e) => {
         e.preventDefault();
@@ -168,6 +168,7 @@ class VehicleDetail extends Component {
     starth = (moment) => {
         console.log(moment);
         let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
+        console.log(s);
         this.setState({
             start: s
         })
@@ -175,9 +176,10 @@ class VehicleDetail extends Component {
         // moment(e._d).format()
     }
 
-    endh = (e) => {
-        console.log(e);
+    endh = (moment) => {
+        console.log(moment);
         let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
+        console.log(s);
         this.setState({
             end: s
         });

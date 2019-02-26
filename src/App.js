@@ -163,6 +163,7 @@ class App extends Component {
               <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/display" exact component={asyncCards} />
+            {/* <Route path="/display/:filter" */}
             <Route path="/login" exact component={Login} />
             <Route path="/sell/sell" exact component={SellVehicle} />
             <Route path="/logout" exact component={Logout}/>

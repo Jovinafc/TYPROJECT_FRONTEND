@@ -53,7 +53,10 @@ const MyVehicleCard = (props) => {
 
              </div>
              <div className={classes.downRightDiv}>
-                 <div><button  className="btn btn-danger">Remove Vehicle</button></div>
+                  {props.details.status !== 'SOLD'
+                  ? <div><button  className="btn btn-danger">Remove Vehicle</button></div>
+                  : <div><p>Your Vehicle was sold to </p> </div>
+                } 
              </div>
 
             </div>

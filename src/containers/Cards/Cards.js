@@ -61,7 +61,8 @@ class Cards extends Component {
             service_type: [],
             vehicle_type: [],
             fuel_type: [],
-            price_range: []
+            price_range: [],
+            filterstring: '/filter?',
 
         }
     }
@@ -106,23 +107,31 @@ class Cards extends Component {
     searchHandler = (e) => {
         this.setState({term: e.target.value})
     }
+
+
+
+    //Price Handler and Builder
     priceRangeHandler = (e) => {
         console.log(e);
         // this.setState({
         //     price: { min: min, max: max }
         // })
+        this.setState({
+            price_range: e
+        }, () => {
+            console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+
+        })
+        
     }
 
-    // selectMultipleOption(value) {
-    //     // this.setState({ regStateSelected: value });
-    //     this.setState({
-    //         regStateSelected: value            
-    //     })
-    //   }
 
+        //State Handler and Builder
         selectMultipleState = (value) => {
             this.setState({
                 regStateSelected: value
+            }, () => {
+                this.state_Builder();
             })
         }
 
@@ -130,12 +139,16 @@ class Cards extends Component {
             let arr = this.state.regStateSelected;
             let str = arr.join();
             console.log('state_type='+str);
+            console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+
         }
   
-
+        //KM Driven Handler and Builder
       selectMultipleKm_Driven = (value) => {
         this.setState({
             kmDrivenSelected: value            
+        }, () => {
+            this.km_drivenBuilder();
         })
       }
 
@@ -143,17 +156,17 @@ class Cards extends Component {
         let arr = this.state.kmDrivenSelected;
         let str = arr.join();
         console.log('km_driven='+str);
-    }
+        console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+     }
 
    
     tooltip = { placement: 'After', isVisible: true, showOn: 'Always' };
 
      ticks= { placement: 'After', format: 'C2', largeStep: 20, smallStep: 10, showSmallTicks: true };
 
+
+     // Service Type Handler and Builder
       serviceHandler = (e) => {
-          console.log(e);
-          console.log(e.target.checked)
-          console.log(e.target.value)
           if(e.target.checked){
               this.setState({ 
                     service_type: [
@@ -174,17 +187,17 @@ class Cards extends Component {
               },() => {
                  this.service_typeBuilder();
               })
-          }
-          
-        //   this.vehicle_typeBuilder();
+          }          
       }
 
       service_typeBuilder = () => {
           let arr = this.state.service_type;
           let str = arr.join();
           console.log('service_type='+str);
+          console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
       }
 
+      // Vehicle Type Handler and Builder       
       vehicle_typeHandler = (e) => {
         if(e.target.checked){
             this.setState({ 
@@ -192,7 +205,9 @@ class Cards extends Component {
                       ...this.state.vehicle_type,
                       e.target.value    
                   ]                  
-              })
+              },() => {
+                this.vehicle_typeBuilder();
+            })
             
         }
         else {
@@ -201,17 +216,21 @@ class Cards extends Component {
                 vehicle_type: this.state.vehicle_type.filter(type => {
                     return type !== e.target.value;
                 })
-            })
+                }, () => {
+                    this.vehicle_typeBuilder();
+                })
+            
         }
-      
       }
 
       vehicle_typeBuilder = () => {
         let arr = this.state.vehicle_type;
         let str = arr.join();
         console.log('vehicle_type='+str);
-    }
+        console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+   }
 
+    // Fuel _type Handler and Builder
       fuel_typeHandler = (e) => {
         if(e.target.checked){
             this.setState({ 
@@ -219,7 +238,9 @@ class Cards extends Component {
                       ...this.state.fuel_type,
                       e.target.value    
                   ]                  
-              })
+              }, () => {
+                this.fuel_typeBuilder();
+            })
             
         }
         else {
@@ -228,15 +249,19 @@ class Cards extends Component {
                 fuel_type: this.state.fuel_type.filter(type => {
                     return type !== e.target.value;
                 })
-            })
+                }, () => {
+                    this.fuel_typeBuilder();
+                })
+            
         }
-      
-      }
+        }
 
       fuel_typeBuilder = () => {
           let arr = this.state.fuel_type;
           let str = arr.join();
           console.log('fuel_type'+str);
+          console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+
       }
       
     render () {
@@ -245,11 +270,11 @@ class Cards extends Component {
      //       <Card name={dis.User_Name} userid={dis.UserId} key={dis.id}/>
      //   ));
 
-        console.log(this.state.service_type);
-        console.log(this.state.vehicle_type);
-        console.log(this.state.fuel_type);
-        console.log(this.state.regStateSelected);
-        console.log(this.state.kmDrivenSelected);
+        // console.log(this.state.service_type);
+        // console.log(this.state.vehicle_type);
+        // console.log(this.state.fuel_type);
+        // console.log(this.state.regStateSelected);
+        // console.log(this.state.kmDrivenSelected);
 
         // let filter = this.state.vehicles => {
         //     return this.props.vehicles.filter(dis => dis.user_id !== this.props.user_id);
