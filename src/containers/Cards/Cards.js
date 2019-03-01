@@ -63,7 +63,15 @@ class Cards extends Component {
             fuel_type: [],
             price_range: [],
             filterstring: '/filter?',
-
+            filterValues: {
+                vehicle_type: [],
+                service_type: [],
+                fuel_type: [],
+                price_range: [],
+                regStateSelected: [],
+                kmDrivenSelected: [],
+                price_range: []
+            }
         }
     }
 
@@ -113,11 +121,12 @@ class Cards extends Component {
     //Price Handler and Builder
     priceRangeHandler = (e) => {
         console.log(e);
-        // this.setState({
-        //     price: { min: min, max: max }
-        // })
         this.setState({
-            price_range: e
+            price_range: e,
+            filterValues: {
+                ...this.state.filterValues,
+                price_range: e   
+            }
         }, () => {
             console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
 
@@ -129,7 +138,11 @@ class Cards extends Component {
         //State Handler and Builder
         selectMultipleState = (value) => {
             this.setState({
-                regStateSelected: value
+                regStateSelected: value,
+                filterValues: {
+                    ...this.state.filterValues,
+                    regStateSelected: value
+                }  
             }, () => {
                 this.state_Builder();
             })
@@ -146,7 +159,11 @@ class Cards extends Component {
         //KM Driven Handler and Builder
       selectMultipleKm_Driven = (value) => {
         this.setState({
-            kmDrivenSelected: value            
+            kmDrivenSelected: value,
+            filterValues: {
+                ...this.state.filterValues,
+                kmDrivenSelected: value
+            }            
         }, () => {
             this.km_drivenBuilder();
         })
@@ -169,10 +186,17 @@ class Cards extends Component {
       serviceHandler = (e) => {
           if(e.target.checked){
               this.setState({ 
-                    service_type: [
-                        ...this.state.service_type,
-                        e.target.value    
-                    ]                  
+                    // service_type: [
+                    //     ...this.state.service_type,
+                    //     e.target.value    
+                    // ],
+                    filterValues: {
+                        ...this.state.filterValues,
+                        service_type: [
+                            ...this.state.filterValues.service_type,
+                            e.target.value
+                        ]
+                    }                  
                 }, () => {
                     this.service_typeBuilder();
                 })
@@ -181,30 +205,39 @@ class Cards extends Component {
           else {
               console.log('unchecked')
               this.setState({
-                  service_type: this.state.service_type.filter(type => {
-                      return type !== e.target.value;
-                  })
-              },() => {
+                  filterValues: {
+                      ...this.state.filterValues,
+                      service_type: this.state.filterValues.service_type.filter(type => {
+                          return type !== e.target.value
+                      })
+                }},() => {
                  this.service_typeBuilder();
               })
           }          
       }
 
       service_typeBuilder = () => {
-          let arr = this.state.service_type;
+          let arr = this.state.filterValues.service_type;
           let str = arr.join();
           console.log('service_type='+str);
-          console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+          console.log(`/filter?service_type=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
       }
 
       // Vehicle Type Handler and Builder       
       vehicle_typeHandler = (e) => {
         if(e.target.checked){
-            this.setState({ 
-                  vehicle_type: [
-                      ...this.state.vehicle_type,
-                      e.target.value    
-                  ]                  
+            this.setState({
+                  filterValues: {
+                      ...this.state.filterValues,
+                      vehicle_type: [
+                          ...this.state.filterValues.vehicle_type,
+                          e.target.value
+                      ]
+                  } 
+                //   vehicle_type: [
+                //       ...this.state.vehicle_type,
+                //       e.target.value    
+                //   ]                  
               },() => {
                 this.vehicle_typeBuilder();
             })
@@ -213,10 +246,10 @@ class Cards extends Component {
         else {
             console.log('unchecked')
             this.setState({
-                vehicle_type: this.state.vehicle_type.filter(type => {
+                ...this.state.filterValues,
+                vehicle_type: this.state.filterValues.vehicle_type.filter(type => {
                     return type !== e.target.value;
-                })
-                }, () => {
+                })}, () => {
                     this.vehicle_typeBuilder();
                 })
             
@@ -224,20 +257,23 @@ class Cards extends Component {
       }
 
       vehicle_typeBuilder = () => {
-        let arr = this.state.vehicle_type;
+        let arr = this.state.filterValues.vehicle_type;
         let str = arr.join();
         console.log('vehicle_type='+str);
-        console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
+        console.log(`/filter?service_type=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
    }
 
     // Fuel _type Handler and Builder
       fuel_typeHandler = (e) => {
         if(e.target.checked){
             this.setState({ 
-                  fuel_type: [
-                      ...this.state.fuel_type,
-                      e.target.value    
-                  ]                  
+                  filterValues: {
+                      ...this.state.filterValues,
+                      fuel_type: [
+                          ...this.state.filterValues.fuel_type,
+                          e.target.value
+                      ]
+                 }            
               }, () => {
                 this.fuel_typeBuilder();
             })
@@ -246,10 +282,12 @@ class Cards extends Component {
         else {
             console.log('unchecked')
             this.setState({
-                fuel_type: this.state.fuel_type.filter(type => {
+                filterValues : {
+                    ...this.state.filterValues,
+                fuel_type: this.state.filterValues.fuel_type.filter(type => {
                     return type !== e.target.value;
                 })
-                }, () => {
+                }}, () => {
                     this.fuel_typeBuilder();
                 })
             
@@ -257,7 +295,7 @@ class Cards extends Component {
         }
 
       fuel_typeBuilder = () => {
-          let arr = this.state.fuel_type;
+          let arr = this.state.filterValues.fuel_type;
           let str = arr.join();
           console.log('fuel_type'+str);
           console.log(`/filter?service_type=${this.state.service_type.join()}&vehicle_type=${this.state.vehicle_type.join()}&fuel_type=${this.state.fuel_type.join()}&regState=${this.state.regStateSelected.join()}&km_driven=${this.state.kmDrivenSelected.join()}&price_range=${this.state.price_range.join()}`);
@@ -265,6 +303,7 @@ class Cards extends Component {
       }
       
     render () {
+        console.log(this.state.filterValues);
 
      //   let displayNav = this.state.display.map(dis => (
      //       <Card name={dis.User_Name} userid={dis.UserId} key={dis.id}/>
@@ -430,122 +469,7 @@ class Cards extends Component {
 
                   </Collapse>
 
-                    {/* <div className={classes.type}>
-                         <h6>Type of Service</h6> 
-
-                         <input type="checkbox" name="vehicle_type" value="Sale" /> Sale &nbsp; 
-                         <input type="checkbox" name="vehicle_type" value="Rent" /> Rent < br/>               
-                    </div> */}
-
-                     {/* <div >
-                         <h6>Vehicle Type </h6> 
-
-                         <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
-                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
-                                         
-
-
-                     </div> */}
-
-                     {/* <div className={classes.type}>
-                         <h6>Fuel Type</h6> 
-
-                         <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
-                     </div> */}
-
-                    {/* <div>
-                    <InputRange
-                         maxValue={20}
-                         minValue={0}
-                         value={this.state.price}
-                         onChange={this.priceRangeHandler} />
-                    </div> */}
-{/* 
-                    <div >
-                        <h6>Select State</h6>
-                        <Picky 
-                            value={this.state.regStateSelected}
-                            // open={true}
-                            options={this.state.reg_state}
-                            includeFilter={true}
-                            dropdownHeight={600}
-                            onChange={this.selectMultipleOption}
-                            valueKey="id"
-                            labelKey="name"
-                            multiple={true}
-                            includeSelectAll={true}
-                            dropdownHeight={600}
-
-                        />
-
-
-                    </div> */}
-
-                    {/* <div className={classes.type}>
-                         <h6>Fuel Type</h6> 
-
-                         <input type="checkbox" name="fuel_type" value="Diesel" /> Diesel &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Petrol" /> Petrol &nbsp;
-                         <input type="checkbox" name="fuel_type" value="Cng" /> CNG
-                     </div> */}
-
-
-                    {/* <div >
-                        <h6>Km_Driven</h6>
-                        <Picky 
-                            value={this.state.kmDrivenSelected}
-                            // open={true}
-                            options={this.state.kmDriven}
-                            includeFilter={true}
-                            dropdownHeight={400}
-                            onChange={this.selectMultipleKm_Driven}
-                            valueKey="id"
-                            labelKey="km_driven"
-                            multiple={true}
-                            includeSelectAll={true}
-                            style={{zIndex: -2 }}
-
-                        />
-
-
-                    </div> */}
-{/* 
-                    <div className={classes.slider}>
-                     <div className="sliderwrap">
-                        <div className="labeltext">Range</div>
-                    <SliderComponent style={{width: '90%', marginLeft: '5%'}} ticks={this.ticks} tooltip={this.tooltip} id='range' type='Range' value={[30, 70]} />
-                        </div>
-                    </div> */}
-
-                    
-                    {/* <div className={classes.slider}>
-                     <div className="sliderwrap">
-                        <div className="labeltext">Price Range</div>
-                        <Range min={0} max={1000000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
-
-                        </div>
-                    </div> */}
-
-
-                    {/* <Accordion className={classes.accordion}>
-                        <AccordionItem className={classes.accordionItem}>
-                            <AccordionItemTitle className={classes.accordion__title}>
-                                <h3>Simple title</h3>
-                            </AccordionItemTitle>
-                            <AccordionItemBody className={classes.accordion__body}>
-                                <p>Body content</p>
-                            </AccordionItemBody>
-                         </AccordionItem>
-                     </Accordion>
- */}
-
-                     {/* <Collapse accordion={true}>
-    <Panel header="hello" headerClass="my-header-class">this is panel content</Panel>
-    <Panel header="title2">this is panel content2 or other</Panel>
-  </Collapse> */}
-
+           
 
                     <div style={{textAlign: 'center', marginTop: '20px'}}>   
                         <button className="btn btn-success"> Apply Filter</button>

@@ -31,7 +31,7 @@
 
 .mainDiv {
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     height: 80%;
     padding: 2%;
@@ -87,6 +87,15 @@
 
 }
 
+.downRightDiv {
+    width: 80%;
+    margin-left: 10%;
+    height: 30%;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    margin-top: 10%;    
+}
+
 .quantity {
     width: 80%;
     display: flex;
@@ -100,4 +109,50 @@
 .buttonContainer {
     text-align: center;
     margin-top: 10px;    
+}
+
+.ratebut {
+    background: none;
+    border: none; 
+    color: #212121;
+    font-family: Roboto,Arial,sans-serif;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.ratebut:hover {
+    color: rgb(97, 97, 236);
+}
+
+
+.modalHeader {
+    position: relative;
+    display: flex;  
+    margin: -20px;
+    margin-left: 10px;
+    padding-left: 1%; 
+    width: 100%;
+    /* border: 1px solid yellow; */
+}
+
+.round {
+    border-radius:  50%;
+    border: 1px solid black;
+    width: 5%;
+    height:50%;
+    
+    /* position: relative;
+    display: inline-block; */
+    margin-right: 10px;
+}
+
+.pp {
+    position: relative;
+    display: inline-block;
+    object-fit: cover;
+    border-radius: 50%;
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
 }

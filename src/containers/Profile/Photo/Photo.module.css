@@ -6,14 +6,15 @@
   
   .Menu {
     width: 20%;
-    /* border: 1px solid yellow; */
+    border: 1px solid yellow;
   }
   
   .Main {
     width: 80%;
-    /* border: 1px solid green; */
+    border: 1px solid green;
     padding: 2%;
     text-align: center;
+    font-size: 1.2em;
   }
 
   .ImageCont {
@@ -68,6 +69,8 @@
     width: 100%;
     margin-top: 40px;
     border: none;
+    font-size: 1.2em;
+
   }
 
   .ImageCont {
@@ -99,6 +102,8 @@
   width: 75%;
   border: 1px solid green;
   padding: 2%;
+  font-size: 1.2em;
+
 }
 
 .ImageCont {

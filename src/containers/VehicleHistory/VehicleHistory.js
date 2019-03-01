@@ -12,6 +12,7 @@ class VehicleHistory extends Component {
     }
 
     componentDidMount = () => {
+        console.log("Inside Vehicle History");
         axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
         .then(response => {
             console.log(response.data);

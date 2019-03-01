@@ -8,6 +8,7 @@
     background-color: #050004;
     background-image: url("https://www.transparenttextures.com/patterns/classy-fabric.png");
     height: 100%; 
+    
     /* background-position: center;
     background-repeat: no-repeat;
     background-size: cover; */
@@ -26,6 +27,7 @@
     /* font-weight: bold; */
     margin-left: 10%;
     width: 80%;
+    font-size: 1.3em;
 
 
 }
@@ -47,6 +49,12 @@
     opacity: 10%;
 }
 
+
+.save {
+    background-color: rgb(175, 7, 7);
+    border: none;
+    width: 8%;
+}
 
 @media(max-width:500px) {
     

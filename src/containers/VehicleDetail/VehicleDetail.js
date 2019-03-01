@@ -29,7 +29,8 @@ class VehicleDetail extends Component {
         postedOn: '',
         moment: moment(),
         start: '',
-        end: ''
+        end: '',
+        days: 1
     }
 
 
@@ -182,8 +183,18 @@ class VehicleDetail extends Component {
         console.log(s);
         this.setState({
             end: s
+        }, () => {
+            let sd = moments(this.state.start);
+            let ed = moments(this.state.end);
+            let duration = moments.duration(ed.diff(sd));
+            let days = duration.asDays();
+            this.setState({
+                days: days
+            })
         });
+
         this.props.endDate(s);
+
     }
 
     render () {
@@ -208,120 +219,6 @@ class VehicleDetail extends Component {
                           </div>
         }
         
-
-        let dc = null;
-        dc = <div className={classes.DateContainer}>
-        {/* <form className="form-horizontal">
-        <div className="form-group" >
-            <label className="control-label col-sm-2" htmlFor="start">Start Date:</label> 
-            <DatePicker id="start" placeholder="Start Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.startdatetime} onChange={this.startDateHandler}/>
-            </div>
-            <div className="form-group">
-            <label className="control-label col-sm-2" htmlFor="end">End Date:</label>
-            <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
-            </div>                    
-            <br /> <br /> 
-            <NavLink  to={'/payment/:'+this.props.vehicle_id}><button disabled={!enabled}  className="btn btn-danger">Proceed To Payment</button></NavLink>
-            
-        </form> */}
-            
-            
-        </div>
-        
-        let vehicleDetail = (
-            <div className={classes.InnerContainer}>
-                
-                <h3>{this.state.vehicles.brand} {this.state.vehicles.model}</h3> 
-                {this.state.vehicles.price ? 
-                <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
-                <img className={classes.Img} src={this.state.vehicles.image} alt="Vehicle"/>
-                
-                <div className={classes.Details}>
-                    <h4>Other Details: </h4>
-                    <table className={classes.tables}>
-                        <tbody>
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>Model</td>
-                            <td className={classes.tds}>{this.state.vehicles.model}</td>
-                        </tr>
-
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>Year</td>
-                            <td className={classes.tds}>{this.state.vehicles.year}</td>
-                        </tr>
-
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>State</td>
-                            <td className={classes.tds}>{this.state.vehicles.registration_state}</td>
-                        </tr>
-
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>Kms Driven</td>
-                            <td className={classes.tds}>{this.state.vehicles.km_driven}</td>
-                        </tr>
-
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>Fuel Type</td>
-                            <td className={classes.tds}>{this.state.vehicles.fuel_type}</td>
-                        </tr>
-
-                        <tr className={classes.trs}>
-                            <td className={classes.tds}>Vehicle Number</td>
-                            <td className={classes.tds}>{this.state.vehicles.number_plate}</td>
-                        </tr>
-                        </tbody>
-                        
-                    </table>
-                </div>
-
-
-                {
-                    localStorage.getItem('token') === null
-                 
-                 ? <div className={classes.but}>
-                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
-                   </div>  
-               
-                 : <div className={classes.but}>
-                     {  
-                         this.state.vehicles.price 
-                         
-                         ? <div>
-                             
-                             {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
-
-                             ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
-
-                             : <NavLink to={'/payment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
-                              
-                             }  
-                           </div> 
-                           
-                          : <div>
-
-                               {this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''
-
-                               ? <NavLink to="/Profile"><button className="btn btn-success">Update your Profile</button></NavLink>
-
-                   //            : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
-                               : <button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button>
-
-                                }
-                            </div> 
-                         
-                        //  <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
-                         
-                        //  : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
-                         
-                     }
-                 
-                  </div> 
-               
-               }                
-
-            </div>
-        );
-
         // console.log(this.state.vehicles.owner.name);
                console.log(this.state.owner);
 
@@ -411,14 +308,15 @@ class VehicleDetail extends Component {
                
                }           
 
-
-
-                            </div>    
-                            <div>
-                            {
-                                this.state.showDate === true ? dc : null
-                            }
+                            <div >
+                                {!this.state.vehicles.price 
+                                ? <div style={{border: '1px solid yellow', width: '100%', height: '80%'}}><p style={{fontSize: '0.8em', marginTop: '10%'}}>A deposit of &#x20B9; 5000 will be taken.
+                                5000 + {this.state.vehicles.price_per_day * this.state.days} = {this.state.vehicles.price_per_day* this.state.days + 5000}
+                                </p></div>
+                                : null }
                             </div>
+                            </div>    
+                            
                         </div>
                     </div>
                 </div>  
@@ -449,7 +347,8 @@ const mapDispatchToProps = dispatch => {
         startDate: (startDate) => dispatch(actionp.startDate(startDate)),
         endDate: (endDate) => dispatch(actionp.endDate(endDate)),
         fetch_selected_vehicle: (vehicle) => dispatch(actionp.fetch_selected_vehicle(vehicle)),
-        save_bank_account_no : (bank_no) => dispatch(actionp.save_owner_bank_account_no(bank_no))
+        save_bank_account_no : (bank_no) => dispatch(actionp.save_owner_bank_account_no(bank_no)),
+        no_of_days: (start,end) => dispatch(actionp.no_of_days(start,end))
     }
 }
 

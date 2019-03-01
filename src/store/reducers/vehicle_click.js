@@ -10,7 +10,8 @@ const initialState = {
     startDate: '',
     endDate: '',
     type_payment: '',
-    owner_bank_account_no: ''
+    owner_bank_account_no: '',
+    days: ''
 };
 
 const FetchVehiclesStart = (state,action) => {
@@ -28,8 +29,6 @@ const FetchSelectedVehicle = (state,action) => {
 const FetchAllVehiclesFail = (state, action) => {
     return updateObject(state, {loading:false})
 }
-
-
 
 const CardClick = (state, action) => {
     return updateObject(state, {vehicle_id: action.vehicle_id})
@@ -53,6 +52,10 @@ const endDate = (state,action) => {
     return updateObject(state,{endDate: action.endDate})
 }
 
+const priceonDays = (state, action) => {
+    return updateObject(state, {days: action.days})
+}
+
 const typeOfPayment = (state,action) => {
     return updateObject(state,{type_payment: action.type_payment})
 }
@@ -74,6 +77,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.TYPE_OF_PAYMENT: return typeOfPayment(state,action);
         case actionTypes.FETCH_SELECTED_VEHICLES: return(FetchSelectedVehicle(state,action));
         case actionTypes.SAVE_OWNER_BANK_ACCOUNT_NO: return(save_owner_bank_account_no(state,action));
+        case actionTypes.NO_OF_DAYS: return (priceonDays(state, action));
         default: return state;
     }
 };

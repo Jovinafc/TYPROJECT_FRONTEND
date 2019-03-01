@@ -15,7 +15,60 @@ class VehicleHistoryCard extends Component {
     state = {
         modalShow:false,
         review: '',
-        rating: 0 
+        rating: 0,
+        disabled: false
+        // review: '' || this.props.details.feedback['feedback_comment'] ,
+        // rating: '' || this.props.details.rating['rating_number']     
+    }
+
+    componentDidMount = () => {
+        // if(this.props.details.feedback['feedback_comment'] === null){
+        //     this.setState({
+        //         review: ''
+        //     })
+        // }
+
+        // if( 'feedback' in this.props.details ){
+        //     this.setState({
+        //       review: this.props.details.feedback['feedback_comment']  
+        //     })
+        // }
+
+        // if(this.props.details.has('feedback')){
+        //     console.log('true');
+        // }
+        console.log(this.props.details);
+        let vehicle_details = this.props.details;
+        // if('feedback' in vehicle_details){
+        //     console.log('exists')
+        // }
+        // else {
+        //     console.log('Doesnt exist');
+        // }
+
+        if(this.props.details.feedback === null ){
+            this.setState({
+                review: ''
+            })
+        }
+        else {
+            this.setState({
+                review: this.props.details.feedback['feedback_comment']
+            })
+        }
+
+        if(this.props.details.rating === null ){
+            this.setState({
+                rating: 0
+            })
+        }
+        else {
+            this.setState({
+                rating: this.props.details.rating['rating_number'],
+                disabled: true
+            })
+        }
+
     }
 
     inputChangeHandler = (e) => {
@@ -54,6 +107,9 @@ class VehicleHistoryCard extends Component {
         })
         .then(res => {
             console.log(res);
+            this.setState({
+                modalShow: false
+            })
         })
     }
 
@@ -113,7 +169,7 @@ class VehicleHistoryCard extends Component {
         </Modal.Header>
         <Modal.Body>
           <h5>Give your review</h5>
-          <textarea rows="5" style={{width: '100%'}}type="text" onChange={this.inputChangeHandler} rows="3"/>
+          <textarea rows="5" style={{width: '100%'}}type="text" onChange={this.inputChangeHandler} disabled={this.state.disabled} value={this.state.review} rows="3"/>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta

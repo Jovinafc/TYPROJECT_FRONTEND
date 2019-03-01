@@ -90,12 +90,12 @@ class TopToolbar extends Component {
                 <IconButton aria-label="Cart">
                 {this.props.isAuthenticated
                 ?  <Badge badgeContent={this.props.item_number} color="primary"  >
-                        <i style={{color: 'red', fontSize: '1.5rem'}} className="fas fa-shopping-cart"></i>
+                        <i style={{color: 'red', fontSize: '1.7rem'}} className="fas fa-shopping-cart"></i>
                     </Badge>
             
                 
                 : <Badge  badgeContent={this.state.zero} color="primary" >
-                        <i style={{color: 'red', fontSize: '1.5rem'}} className="fas fa-shopping-cart"></i>
+                        <i style={{color: 'red', fontSize: '1.7rem'}} className="fas fa-shopping-cart"></i>
                 </Badge>
                 }
                 </IconButton>

@@ -405,7 +405,7 @@ class SignUp extends Component {
             <div className={classes.Container}>
             <div style={{height: '20px'}}></div>
             <div className={classes.formCont}>
-            <h4 style={{textAlign: 'center'}}> Sign Up </h4>
+            <h4 style={{textAlign: 'center', marginBottom: '2%'}}> Sign Up </h4>
                 <div className={classes.topForm}>
                 <Form  className="form-horizontal">
                  
@@ -520,7 +520,7 @@ class SignUp extends Component {
                   </div>
 
                   <div style={{textAlign: 'center' ,marginTop: '30px'}}>
-                         <button disabled={disable} type="button" onClick={this.submitHandler} >Save</button>
+                         <button className={classes.save} disabled={disable} type="button" onClick={this.submitHandler} >Save</button>
                          </div>
 
             </div>

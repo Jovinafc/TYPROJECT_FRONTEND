@@ -6,6 +6,10 @@ import * as actions from '../../store/actions/vehicle_click';
 import { connect} from 'react-redux';
 import * as actionp from '../../store/actions/cart';
 import { useAlert } from 'react-alert';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import ReactStars from 'react-stars'
+
 
 
 class ProductDetail extends Component {
@@ -17,8 +21,56 @@ class ProductDetail extends Component {
         counter: 1,
         price: this.props.price,
         buyButton: true,
-        direct: false
+        modalShow:false,
+        direct: false,
+        review: '',
+        rate: 0,
+        rateToggle: false,
+        reviewsArray: []
     }
+
+    componentDidMount () {
+        window.scrollTo(0,0);
+        const {match: {params}} = this.props;
+        let a = params.product_id
+        a = a.substring(1);
+        this.props.type_payment('Single Item')
+
+        console.log('cafafhuhuhj')
+        axios.post('/fetch-specific-accessory', {accessory_id: a})
+        .then(response => {
+            console.log(response);
+            this.setState({
+                product: response.data
+            })
+
+            console.log(this.state.product);
+        })
+        
+        axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: a})
+        .then(response => {
+            console.log(response.data);
+            const hist = [];
+            for(let key in response.data){
+                hist.push({
+                    ...response.data[key],
+                    id: key
+                });
+            }
+            this.setState({
+                reviewsArray: hist
+            })
+        })
+        
+
+    }
+
+    inputChangeHandler = (e) => {
+        this.setState({
+            review: e.target.value
+        })
+    }
+
 
     increaseCounter = (e) => {
         this.setState({
@@ -81,30 +133,77 @@ class ProductDetail extends Component {
     }
 
 
-
-    componentDidMount () {
-        window.scrollTo(0,0);
-        const {match: {params}} = this.props;
-        let a = params.product_id
-        a = a.substring(1);
-        this.props.type_payment('Single Item')
-
-        axios.post('/fetch-specific-accessory', {accessory_id: a})
-        .then(response => {
-            console.log(response);
-            this.setState({
-                product: response.data
+    ratingChanged = (newRating) => {
+        this.setState({
+            rating: newRating
+        }, () => {
+            axios.post('/accessory-rating', {
+                user_id: localStorage.getItem('userId'),
+                accessory_id: this.state.product.accessory_id,
+                rating: this.state.rate
             })
-
-            console.log(this.state.product);
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
         })
+    }
+
+    showRate = () => {
+        if(this.state.rateToggle){
+            this.setState({
+                rateToggle: false
+            })
+        }
+        else {
+            this.setState({
+                rateToggle: true
+            })
+        }
         
-
-
+        
+    }
+    submitHandler = (e) => {
+        axios.post('/accessory-review', {
+            user_id: localStorage.getItem('userId'),
+            accessory_id: this.state.product.accessory_id,
+            review: this.state.review
+        })
+        .then(res => {
+            console.log(res);
+            this.setState({
+                modalShow: false
+            })
+        })
     }
 
 
     render () {
+
+        let rateDiv = <div>
+
+                        {this.state.rateToggle 
+                        ?  <ReactStars
+                           count={5}
+                           onChange={this.ratingChanged}
+                           size={24}
+                           value={this.state.rating}
+                           half={false}
+                           color2={'#ffd700'} /> 
+                         : null}
+                         </div>
+
+        let reviewlist = null;
+
+        reviewlist = this.state.reviewsArray.map(dis => {
+            
+        })
+
+
+        let modalClose = () => this.setState({ modalShow: false });
+
         let directProd = null;
         if(this.state.direct){  
             directProd = <Redirect to={'/productpayment/:'+this.state.product.accessory_id} />
@@ -113,30 +212,6 @@ class ProductDetail extends Component {
         return (
             <div className={classes.Container}>
                     {directProd}
-
-                    {/* <div className={classes.pdcontainer}>
-
-                        <div>
-                            <h5>{this.state.product.accessory_name}</h5>
-                        </div>
-                        <div className={classes.imgcontainer}>
-                            <img className={classes.img} src={this.state.product.accessory_image} />
-                        </div>
-
-                        <div className={classes.quantity}> 
-                    Quantity:
-                    <div>
-                        <button onClick={this.decreaseCounter} >
-                            -
-                        </button>
-                        <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
-                        <button onClick={this.increaseCounter}>
-                            +
-                        </button>
-                    </div>
-                    <button onClick={this.updateQuantity}>Check Product Availability</button>
-                </div>
-                    </div> */}
 
                 <div className={classes.mainDiv}>
                     <div className={classes.leftDiv}>
@@ -205,16 +280,76 @@ class ProductDetail extends Component {
                 
                             </div>               
                         </div>
+
+                        <Modal
+        show={this.state.modalShow}
+        onHide={modalClose}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+                 <div className={classes.modalHeader}>
+                  <div className={classes.round}> {
+                            this.props.image === null
+                            ? <h2 style={{textAlign: "center",color: "black", }}>{this.props.fname.charAt(0)} </h2>
+                            : <img className={classes.pp} src={this.props.image}/>
+                        }
+                  </div>
+                  <div><p>{this.props.fname +" "+ this.props.lname}</p></div>      
+             </div>      
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>Give your review</h5>
+          <textarea rows="5" style={{width: '100%'}}type="text" onChange={this.inputChangeHandler}  value={this.state.review} rows="3"/>
+          {/* <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+            ac consectetur ac, vestibulum at eros.
+          </p> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.submitHandler}>Save</Button>
+        </Modal.Footer>
+      </Modal>
+        
+
+                        <div className={classes.downRightDiv}>
+                            {localStorage.getItem('userId')
+                            ? <div><button className={classes.ratebut} onClick={this.showRate}>Rate our product</button></div>
+                            : <div><NavLink to="/login"><button className={classes.ratebut} onClick={this.showRate}>Rate our product</button></NavLink></div>}
+                            
+                            <div>
+                            {rateDiv}
+                            </div>    
+
+                            {localStorage.getItem('userId')
+                            ? <div><button className={classes.ratebut} onClick={() => this.setState({ modalShow: true })}>Give your review</button></div>
+                            : <div><NavLink to="/login"><button onClick={() => this.setState({ modalShow: true })} className={classes.ratebut}>Give your review</button></NavLink></div>}
+                            
+                        </div>
                     </div>
+
                 </div>    
 
+                <div className={classes.reviewsCont}>
+                    
+               </div>
 
-                                    
-                              
-                  
             </div>
         )
     }
+}
+
+const mapStateToProps = state => {
+    return {
+        image : state.auth.image,
+        fname : state.auth.first_name,
+        lname : state.auth.last_name
+    }    
 }
 
 const mapDispatchToProps = dispatch => {
@@ -225,4 +360,4 @@ const mapDispatchToProps = dispatch => {
   }
   
 
-export default connect(null,mapDispatchToProps)(ProductDetail);
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetail);

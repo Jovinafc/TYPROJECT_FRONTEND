@@ -107,3 +107,17 @@ export const save_owner_bank_account_no = (bank_account_no) => {
         bank_account_no: bank_account_no
     }
 }
+
+export const no_of_days = (start, end) => {
+    return dispatch => {
+        console.log(start);
+        console.log(end);
+   }
+}
+
+export const price_on_days = (days) => {
+    return {
+        type: actionTypes.NO_OF_DAYS,
+        days: days
+    }
+}

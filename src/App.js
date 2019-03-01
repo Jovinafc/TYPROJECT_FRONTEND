@@ -137,6 +137,8 @@ class App extends Component {
                 {/* <Route path="/signUp" exact component={SignUpForm} /> */}
                 <Route path="/sell/sell" exact component={SellVehicle} />
                 <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
+                <Route path="/productdetail/:product_id" component={ProductDetail} />
+
                 <Route path="/accessories" component={Accessories} />
                 </Switch>
             </Layout>

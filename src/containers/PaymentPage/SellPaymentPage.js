@@ -17,6 +17,8 @@ import { connect} from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
+import moment, * as moments from 'moment';
+
 
 const override = css`
     display: block;
@@ -36,10 +38,13 @@ class SellPaymentPage extends Component {
         otp: '',
         otpdisplay: false,
         spin: false,
-        loading:false
+        loading: '',
+        days: ''
     }
     componentDidMount() {
         window.scrollTo(0,0);
+
+
         const {match: {params}} = this.props
         let a = params.vehicle_id;
         a = a.substring(1);
@@ -68,6 +73,23 @@ class SellPaymentPage extends Component {
             console.log(err);
             this.setState({Invalid: true})
         });   
+
+        console.log(this.props.start);
+        console.log(this.props.end);
+
+        let startDate = moment(this.props.start);
+        let endDate = moment(this.props.end);
+        // let days = moment().diff(startDate,endDate);
+        // console.log(days);
+
+        let duration = moment.duration(endDate.diff(startDate));
+        console.log(duration);
+        let days = duration.asDays();
+        console.log(days);
+        this.setState({
+          days: days
+        })
+        this.props.price_on_days(days);
     }
 
     setOtp = (e) => {
@@ -265,7 +287,7 @@ class SellPaymentPage extends Component {
               <button type="submit" disabled={disable}>
                 Pay &#x20B9; {this.state.vehicles.price !== null
                 ? this.state.vehicles.price
-                : this.state.vehicles.price_per_day}
+                : this.state.vehicles.price_per_day*this.state.days + 5000}
               </button>
               <div>
               <ClipLoader
@@ -293,14 +315,17 @@ class SellPaymentPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    email: state.auth.email
+    email: state.auth.email,
+    start: state.vehicle.startDate,
+    end: state.vehicle.endDate
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    type_payment: (payment_type) => dispatch(actions.type_of_payment(payment_type))
-  }
+    type_payment: (payment_type) => dispatch(actions.type_of_payment(payment_type)),
+    price_on_days: (days) => dispatch(actions.price_on_days(days))
+   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellPaymentPage);
