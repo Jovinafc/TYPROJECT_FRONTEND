@@ -38,7 +38,41 @@ class VehicleHistoryCard extends Component {
         //     console.log('true');
         // }
         console.log(this.props.details);
-        let vehicle_details = this.props.details;
+        console.log(this.props.details.vehicle_id);
+
+        // axios.get(`/get-vehicles?vehicle_id=${this.props.details.vehicle_id}&user_id=${localStorage.getItem('userId')}`)
+        // .then(res => {
+        //     console.log(res.data);
+        //     // console.log(res.data.ratings[0].rating_number);
+        //     if(res.data.ratings[0].rating_number !== undefined){
+        //         this.setState({
+        //             rating: res.data.ratings[0].rating_number
+        //         })    
+        //     }
+        //     else{
+        //         this.setState({
+        //             rating: 0
+        //         })
+        //     }
+
+        //     if(res.data.reviews[0].feedback_comment !== undefined){
+        //         this.setState({
+        //             review: res.data.reviews[0].feedback_comment
+        //         })    
+        //     }
+        //     else {
+        //         this.setState({
+        //             review: ''
+        //         })
+        //     }
+            
+        //     if(res.data.reviews[0].feedback_comment !== null||''){
+        //         this.setState({
+        //             disabled: true
+        //         })
+        //     }
+        // })
+        // setTimeout(this.ratingAndReview(), 2000);
         // if('feedback' in vehicle_details){
         //     console.log('exists')
         // }
@@ -46,29 +80,40 @@ class VehicleHistoryCard extends Component {
         //     console.log('Doesnt exist');
         // }
 
-        if(this.props.details.feedback === null ){
-            this.setState({
-                review: ''
-            })
-        }
-        else {
-            this.setState({
-                review: this.props.details.feedback['feedback_comment']
-            })
-        }
+        // if(this.props.details.feedback === null ){
+        //     this.setState({
+        //         review: ''
+        //     })
+        // }
+        // else {
+        //     this.setState({
+        //         review: this.props.details.feedback['feedback_comment']
+        //     })
+        // }
 
-        if(this.props.details.rating === null ){
-            this.setState({
-                rating: 0
-            })
-        }
-        else {
-            this.setState({
-                rating: this.props.details.rating['rating_number'],
-                disabled: true
-            })
-        }
+        // if(this.props.details.rating === null ){
+        //     this.setState({
+        //         rating: 0
+        //     })
+        // }
+        // else {
+        //     this.setState({
+        //         rating: this.props.details.rating['rating_number'],
+        //         disabled: true
+        //     })
+        // }
 
+    }
+
+    ratingAndReview = () => {
+        console.log(this.props.ratingDetails);
+
+        if(this.props.details.vehicle_id === this.props.ratingDetails['vehicle_id']){
+            console.log(this.props.ratingDetails['vehicle_id'])
+            this.setState({
+                rating: this.props.ratingDetails['vehicle_id']
+            })
+        }
     }
 
     inputChangeHandler = (e) => {
@@ -118,10 +163,22 @@ class VehicleHistoryCard extends Component {
         console.log(value.rating);
     }
 
+    cancelHandler = () =>{
+        axios.post('/cancel-booking', {owner_name: this.props.details.owner['name'], vehicle_id: this.props.details.vehicle_id, deposit: 5000, amount: this.props.details.amount,user_id:localStorage.getItem('userId'),client_bank_account_no: this.props.account_no})
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     render () {
 
         let modalClose = () => this.setState({ modalShow: false });
-
+        console.log(this.props.details);
+        console.log(this.props.ratingDetails);
+        console.log(this.props.commentDetails);
 
         return (
 
@@ -221,7 +278,7 @@ class VehicleHistoryCard extends Component {
 
                     {   
                         this.props.details.vehicle['price_per_day']
-                        ? <div className={classes.cancelDiv}><button>Cancel Vehicle</button> </div>
+                        ? <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Vehicle</button> </div>
                         : null
                     }
                     
@@ -238,7 +295,8 @@ const mapStateToProps = state => {
     return {
         image : state.auth.image,
         fname : state.auth.first_name,
-        lname : state.auth.last_name
+        lname : state.auth.last_name,
+        account_no: state.auth.bank_account_no
     }    
 }
 

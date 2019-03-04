@@ -9,6 +9,7 @@ import { useAlert } from 'react-alert';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactStars from 'react-stars'
+import ReviewDiv from './ReviewDiv';
 
 
 
@@ -26,7 +27,8 @@ class ProductDetail extends Component {
         review: '',
         rate: 0,
         rateToggle: false,
-        reviewsArray: []
+        reviewsArray: [],
+        disabled: false
     }
 
     componentDidMount () {
@@ -50,6 +52,8 @@ class ProductDetail extends Component {
         axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: a})
         .then(response => {
             console.log(response.data);
+            if(response.data.length > 0 ){
+                
             const hist = [];
             for(let key in response.data){
                 hist.push({
@@ -57,11 +61,26 @@ class ProductDetail extends Component {
                     id: key
                 });
             }
+            console.log(hist[0]['rating'])
+            // console.log(hist[0]['rating'])
             this.setState({
-                reviewsArray: hist
+                reviewsArray: hist,
+                rate: hist[0]['rating'],
+                review: hist[0]['review'],
             })
+            if(hist[0]['review'] !== null||''){
+                this.setState({
+                    disabled: true
+                })
+            }
+            }
         })
         
+
+        axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: this.state.product.accessory_id})
+        .then(res => {
+            console.log(res);
+        })
 
     }
 
@@ -135,12 +154,12 @@ class ProductDetail extends Component {
 
     ratingChanged = (newRating) => {
         this.setState({
-            rating: newRating
+            rate: newRating
         }, () => {
             axios.post('/accessory-rating', {
                 user_id: localStorage.getItem('userId'),
                 accessory_id: this.state.product.accessory_id,
-                rating: this.state.rate
+                rating: newRating
             })
             .then(res => {
                 console.log(res);
@@ -182,6 +201,9 @@ class ProductDetail extends Component {
 
     render () {
 
+
+
+        console.log(this.state.product.accessory_id);
         let rateDiv = <div>
 
                         {this.state.rateToggle 
@@ -189,7 +211,7 @@ class ProductDetail extends Component {
                            count={5}
                            onChange={this.ratingChanged}
                            size={24}
-                           value={this.state.rating}
+                           value={this.state.rate}
                            half={false}
                            color2={'#ffd700'} /> 
                          : null}
@@ -198,7 +220,13 @@ class ProductDetail extends Component {
         let reviewlist = null;
 
         reviewlist = this.state.reviewsArray.map(dis => {
-            
+            return (
+            <ReviewDiv 
+            key={dis.id}
+            details = {dis}
+            />
+            )
+
         })
 
 
@@ -303,7 +331,7 @@ class ProductDetail extends Component {
         </Modal.Header>
         <Modal.Body>
           <h5>Give your review</h5>
-          <textarea rows="5" style={{width: '100%'}}type="text" onChange={this.inputChangeHandler}  value={this.state.review} rows="3"/>
+          <textarea rows="5" style={{width: '100%'}}type="text" disabled={this.state.disabled} onChange={this.inputChangeHandler}  value={this.state.review} rows="3"/>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
@@ -336,7 +364,8 @@ class ProductDetail extends Component {
                 </div>    
 
                 <div className={classes.reviewsCont}>
-                    
+                    Reviews 
+                    {reviewlist}
                </div>
 
             </div>

@@ -6,7 +6,7 @@ import CartItem from './CartItem/CartItem';
 import * as actions from '../../store/actions/cart';
 import LoadingOverlay from 'react-loading-overlay';
 import { NavLink } from 'react-router-dom';
-
+import Alert from 'react-bootstrap/Alert';
 
 class Cart extends Component {
     

@@ -34,7 +34,20 @@ import ProductPayment from './containers/PaymentPage/ProductPayment';
 import CartPaymentPage from './containers/PaymentPage/CartPaymentPage';
 import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
-import Loader from 'react-loader-spinner';
+// import Loader from 'react-loader-spinner';
+// import CustomScroll from 'react-custom-scroll';
+// import 'react-custom-scroll/dist/reactCustomScroll';
+
+import Alert from 'react-s-alert';
+ 
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import 'react-s-alert/dist/s-alert-css-effects/scale.css';
+import 'react-s-alert/dist/s-alert-css-effects/bouncyflip.css';
+import 'react-s-alert/dist/s-alert-css-effects/flip.css';
+import 'react-s-alert/dist/s-alert-css-effects/genie.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 
 
 const asyncCards = asyncComponent(() => {
@@ -209,7 +222,6 @@ class App extends Component {
     
     return (
       <Aux>
-             
       {layout1}    
       
       {/* <Spinner name="mySpinner">
@@ -227,6 +239,8 @@ class App extends Component {
                     </div>
                </Spinner>   */}
               
+              <Alert stack={{limit: 3}} />
+        
       <ToastContainer />
       </Aux>
     

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import classes from './ReviewDiv.module.css';
+import classes from './VehicleReviewDiv.module.css';
 import ReactStars from 'react-stars';
 
-class ReviewDiv extends Component {
+class VehicleReviewDiv extends Component {
     render () {
 
         let rateDiv = <div>{this.props.details.rating 
@@ -21,6 +21,8 @@ class ReviewDiv extends Component {
 
 
         console.log(this.props.details);
+        console.log(this.props.details2);
+        
         console.log(this.props.details.user['first_name'].charAt(0));
 
         let a = this.props.details.user['first_name'].charAt(0);
@@ -63,4 +65,4 @@ class ReviewDiv extends Component {
     }
 }
 
-export default ReviewDiv;
+export default VehicleReviewDiv;

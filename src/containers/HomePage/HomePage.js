@@ -70,9 +70,16 @@ class HomePage extends Component {
                                  
                                  
                                  
-                                  <div className={classes.firstDiv}>
+                                  {/* <div className={classes.firstDiv}>
                                        <NavLink to="/display">Buy any Vehicle</NavLink>  
-                                  </div>
+                                  </div> */}
+
+                                <NavLink className={classes.firstDiv} to="/display">  
+ 
+                                 <span >
+                                 Buy any Vehicle
+                                  </span>
+                                  </NavLink>
 
                                   <div className={classes.secondDiv} >
                                        <NavLink  to="/display">Rent any Vehicle</NavLink>  

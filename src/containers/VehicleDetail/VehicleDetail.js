@@ -14,6 +14,7 @@ import Datetime from 'react-datetime';
 import moment, * as moments from 'moment';
 import {DatetimePickerTrigger} from 'rc-datetime-picker';
 import './react-datetime.css';
+import VehicleReviewDiv from './VehicleReviewDiv';
 
 class VehicleDetail extends Component {
 
@@ -30,7 +31,8 @@ class VehicleDetail extends Component {
         moment: moment(),
         start: '',
         end: '',
-        days: 1
+        days: 1,
+        reviewsArray: []
     }
 
 
@@ -120,6 +122,24 @@ class VehicleDetail extends Component {
              this.setState({Invalid: true})
          });
 
+
+         axios.get(`/fetch-vehicle-comments-and-ratings/${a}`)
+         .then(res => {
+             console.log(res.data);
+                 const hist = [];
+                 for(let key in res.data){
+                     hist.push({
+                         ...res.data[key],
+                         id: key
+                     });
+                 }
+
+                 console.log(hist);
+                 this.setState({
+                    reviewsArray: hist
+                 })
+             
+         })
  }
 
      cancel = () => {
@@ -184,13 +204,33 @@ class VehicleDetail extends Component {
         this.setState({
             end: s
         }, () => {
-            let sd = moments(this.state.start);
-            let ed = moments(this.state.end);
-            let duration = moments.duration(ed.diff(sd));
-            let days = duration.asDays();
-            this.setState({
-                days: days
-            })
+               let sd = this.state.start;
+               let ed = this.state.end;
+               console.log(sd);
+               console.log(ed); 
+
+               let s = sd.substring(8,10);
+               console.log(s)
+               let e = ed.substring(8,10);
+               console.log(e);
+               console.log(e-s);
+               if(e-s == 0){
+                   this.setState({
+                       days: 1
+                   })
+               }
+               else {
+               this.setState({
+                   days: e - s
+               })
+            }
+            // let sd = moments(this.state.start);
+            // let ed = moments(this.state.end);
+            // let duration = moments.duration(ed.diff(sd));
+            // let days = duration.asDays();
+            // this.setState({
+            //     days: days
+            // })
         });
 
         this.props.endDate(s);
@@ -198,8 +238,24 @@ class VehicleDetail extends Component {
     }
 
     render () {
-        console.log(this.state.start);
-        console.log(this.state.end);
+        // console.log(this.state.start);
+        // console.log(this.state.end);
+
+        let reviewlist = null;
+
+        console.log(this.state.reviewsArray);
+        reviewlist = this.state.reviewsArray.map(dis => {
+            return (
+            <VehicleReviewDiv 
+            key={dis.id}
+            details ={dis[0]}
+            details2 = {dis[1]}
+            />
+            )
+
+        })
+
+
 
         const sd = this.state.start;
         const ed = this.state.end;
@@ -322,6 +378,12 @@ class VehicleDetail extends Component {
                 </div>  
                 {/* {vehicleDetail}  */}
             </div> }
+
+            <div className={classes.reviewsCont}>
+                    Reviews 
+                    {/* {reviewlist} */}
+               </div>
+
             </Aux>
         );
     };

@@ -74,22 +74,44 @@ class SellPaymentPage extends Component {
             this.setState({Invalid: true})
         });   
 
-        console.log(this.props.start);
-        console.log(this.props.end);
+        // console.log(this.props.start);
+        // console.log(this.props.end);
 
-        let startDate = moment(this.props.start);
-        let endDate = moment(this.props.end);
-        // let days = moment().diff(startDate,endDate);
+        // let startDate = moment(this.props.start);
+        // let endDate = moment(this.props.end);
+        // // let days = moment().diff(startDate,endDate);
+        // // console.log(days);
+
+        // let duration = moment.duration(endDate.diff(startDate));
+        // console.log(duration);
+        // let days = duration.asDays();
         // console.log(days);
-
-        let duration = moment.duration(endDate.diff(startDate));
-        console.log(duration);
-        let days = duration.asDays();
-        console.log(days);
+        // this.setState({
+        //   days: days
+        // })
+        let sd = this.props.start;
+        let ed = this.props.end;
+        
+        let s = sd.substring(8,10);
+        console.log(s)
+        let e = ed.substring(8,10);
+        console.log(e);
+        console.log(e-s);
+        if(e-s == 0){
+            this.setState({
+                days: 1
+            })
+            this.props.price_on_days(1);
+        }
+        else {
         this.setState({
-          days: days
+            days: e - s
         })
-        this.props.price_on_days(days);
+        this.props.price_on_days(e-s);
+
+     }       
+
+
     }
 
     setOtp = (e) => {

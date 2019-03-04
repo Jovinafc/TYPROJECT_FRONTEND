@@ -24,7 +24,7 @@ class Lend extends Component {
             price_per_day: '',
             image: '',
             documents: '',
-            user_id: this.props.user_id
+            user_id: localStorage.getItem('userId')
             
         },
         types: [],

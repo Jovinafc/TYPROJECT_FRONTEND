@@ -19,7 +19,32 @@ class card extends Component {
             
         
             <div className={classes.CardContainer}>
-                <div className={classes.Card}>
+               
+                {/* <NavLink className={classes.Card} to={'/vehicledetail/:'+this.props.vehicle_id} >               
+                <span >
+                    <div className={classes.ImageContainer}>
+                        <img className={classes.Image}src={this.props.image} alt="Im"/>
+                    </div>
+                    <div  className={classes.content}>
+                        <h5 onClick={() => this.props.onCardClick(this.props.vehicle_id)}><strong>{this.props.name}</strong> {this.props.model}</h5>
+                        <div className={classes.price}>
+                            <div className={classes.prices}>
+                             <h6 >&#x20B9; {this.props.price === null ? this.props.price_per_day : this.props.price} 
+                                  <span className={classes.divider}></span>  
+                            </h6>
+                            {this.props.price_per_day !== null ? pd : null}
+
+                            </div>
+                            {this.props.price === null ? rent : sell }
+
+                         
+                        </div>
+                    </div>
+                </span>
+
+                </NavLink> */}
+
+<div className={classes.Card}>
                     <div className={classes.ImageContainer}>
                         <img className={classes.Image}src={this.props.image} alt="Im"/>
                     </div>
@@ -39,6 +64,7 @@ class card extends Component {
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }

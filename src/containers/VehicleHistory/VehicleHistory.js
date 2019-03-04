@@ -8,27 +8,52 @@ import VehicleHistoryCard from '../../components/UI/VehicleHistory/VehicleHistor
 class VehicleHistory extends Component {
 
     state = {
-        vehicles : []
+        vehicles : [],
+        vehicleComment: [],
+        vehicleRate: []
     }
 
     componentDidMount = () => {
         console.log("Inside Vehicle History");
         axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
         .then(response => {
+            console.log(response.data.details);
             console.log(response.data);
             // this.setState({
             //     vehicles: response.data
             // })
             const vehiclesHist = [];
-            for(let key in response.data){
+            for(let key in response.data.details){
                 vehiclesHist.push({
-                    ...response.data[key],
+                    ...response.data.details[key],
                     id: key
                 });
             }
             this.setState({
                 vehicles: vehiclesHist
             })
+            let vehicleRate = [];
+            for(let key in response.data.ratingDetails){
+                vehicleRate.push({
+                    ...response.data.ratingDetails[key],
+                    id: key
+                });
+            }
+            this.setState({
+                vehicleRate: vehicleRate
+            })
+    
+            let vehicleCom = [];
+            for(let key in response.data.commentDetails){
+                vehicleCom.push({
+                    ...response.data.commentDetails[key],
+                    id: key
+                });
+            }
+            this.setState({
+                vehicleComment: vehicleCom
+            })
+           
         })
         .catch(err => {
             console.log(err);
@@ -44,8 +69,11 @@ class VehicleHistory extends Component {
         }
         display = this.state.vehicles.map(dis => (
             <VehicleHistoryCard 
+            ratingDetails={this.state.vehicleRate}
+            commentDetails={this.state.vehicleComment}
             key={dis.id}
             details={dis}
+           
             />
         ));
         

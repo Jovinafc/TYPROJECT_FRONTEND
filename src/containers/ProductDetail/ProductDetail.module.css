@@ -1,5 +1,5 @@
 .Container {
-    height: 600px;
+    height: auto;
     
 }
 
@@ -155,4 +155,10 @@
     /* border: 1px solid black; */
     width: 100%;
     height: 100%;
+}
+
+.reviewsCont {
+    width: 90%;
+    margin-left: 5%;
+    border: 1px solid black;
 }

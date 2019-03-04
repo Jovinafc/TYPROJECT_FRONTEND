@@ -57,8 +57,23 @@
 
     .phoneDiv {
         display: flex;
-        border: 1px solid white;
-        height: 200%;
+        /* border: 1px solid white; */
+        height: 40px;
     }    
 
+    .cart {
+        margin-right: 10px;
+    }
+
+    .imageCont {
+        width: 40px;
+        border-radius: 50%; 
+        height: 40px;   
+    }
+
+    .image {
+        width: 100%;
+        border-radius: 50%;
+        height: 100%;
+    }
 }

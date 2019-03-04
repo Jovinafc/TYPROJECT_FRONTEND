@@ -52,7 +52,7 @@ class Otp extends Component {
                          end_date: this.props.enddatetime,
                          owner_bank_account: this.props.owner_bank_account,
                          client_bank_account: this.props.client_bank_account,
-                         amount: this.props.price_per_day,
+                         amount: this.props.price_per_day * this.props.days,
                          deposit: 5000
             })
             .then(response =>{
@@ -155,7 +155,8 @@ const mapStateToProps = state => {
       vehicle_id: state.vehicle.vehicle_id,
       accessory_id: state.cart.single_item.accessory_id,
       quantity: state.cart.quantity,
-      single_item: state.cart.single_item
+      single_item: state.cart.single_item,
+      days: state.vehicle.days
     }
   }
 

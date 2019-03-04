@@ -11,6 +11,8 @@ import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast} from 'react-toastify'
 import Modal from 'react-bootstrap/Modal'
 import Aux from '../../hoc/Auxilary';
+import ReactTooltip from 'react-tooltip'
+
 
 class SellVehicle extends Component {
 
@@ -262,46 +264,106 @@ class SellVehicle extends Component {
             }
         })
     }
+
+    validate = () => {
+        let isError = false;
+        let errors = {}
+
+        if(this.state.formdata.type === ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.brand === ''){
+            isError = true;
+        }
+        if(this.state.formdata.model === ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.registration_state === ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.fuel === ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.km_driven === ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.image === ''){
+            isError = true;
+        }
+
+        if(this.state.formdata.price=== ''){
+            isError = true;
+        }
+        
+        if(this.state.formdata.year === ''){
+            isError = true;
+        }
+
+        if(this.state.formdata.number_plate === ''){
+            isError = true;
+        }
+// if(this.state.formdata.documents=== ''){
+        //     isError = true;
+        // }
+        if(isError){
+            this.setState({
+                ...this.state,
+                ...errors
+            })
+        }
+
+        return isError;
+    }
+
     formSubmit = (event) => {
-        event.preventDefault();
+        const error = this.validate();
+        if(!error){
+            event.preventDefault();
 
-        const fd = new FormData();
-        fd.append('image',this.state.formdata.image);
-        axios.post('/image',fd).then(()=>{
-            console.log('Image Sent');
-           this.setState({imagePrev:''});
-
+            const fd = new FormData();
+            fd.append('image',this.state.formdata.image);
+            axios.post('/image',fd).then(()=>{
+                console.log('Image Sent');
+               this.setState({imagePrev:''});
     
-    }).catch(e=>console.log(e));
+        
+        }).catch(e=>console.log(e));
+        
+        axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
+        .then((post) => {
+            console.log("Data Sent", post);
+            this.notify();
+            this.setState({
+                formdata: {
+                    type: '',
+                    brand: '',
+                    model: '',
+                    registration_state: '',
+                    fuel: '',
+                    image: '',
+                    documents: '',
+                    price: '',
+                    year: '',
+                    km_driven: '',
+                    number_plate: '',
+                    user_id: this.props.user_id
+                  },
+                  imagePrev: '',
+                  documentPrev: ''
+            }) 
     
-    axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
-    .then((post) => {
-        console.log("Data Sent", post);
-        this.notify();
-        this.setState({
-            formdata: {
-                type: '',
-                brand: '',
-                model: '',
-                registration_state: '',
-                fuel: '',
-                image: '',
-                document: '',
-                price: '',
-                year: '',
-                km_driven: '',
-                number_plate: '',
-                user_id: this.props.user_id
-              },
-              imagePrev: '',
-              documentPrev: ''
-        }) 
-
-    }).catch(e=>{
-        console.log(e)
-
-    })
-
+        }).catch(e=>{
+            console.log(e)
+    
+        })
+    
+        }
+      
     }
 
       handleImageChange = (e) => {
@@ -385,7 +447,19 @@ class SellVehicle extends Component {
 
   render () {
 
-      
+      let disable = true;
+      if(this.state.formdata.type !== '' && 
+        this.state.formdata.brand !== '' &&
+        this.state.formdata.model !== '' &&
+        this.state.formdata.year !== '' &&
+        this.state.formdata.km_driven!== '' &&
+        this.state.formdata.registration_state !== '' &&
+        this.state.formdata.fuel !== '' &&
+        this.state.formdata.number_plate !== '' &&
+        this.state.formdata.image !== '' &&
+        this.state.formdata.price !== ''){
+            disable = false;
+        }
 
       console.log(this.state);
       console.log(this.state.imagePrev + "image preview");
@@ -593,8 +667,11 @@ class SellVehicle extends Component {
                                  id="number" 
                                  name="number" 
                                  value={this.state.formdata.number_plate}
-                                 onChange={this.selectChangedHandlerName} /></td>
-                        
+                                 onChange={this.selectChangedHandlerName} 
+                                //  error={this.state.formdata.number_plate === ""}
+                                //  helperText={this.state.formdata.number_plate === "" ? 'Empty field!' : ' '}
+                                 /></td>
+                                 
                             </tr>
                         
                             </tbody>
@@ -618,16 +695,19 @@ class SellVehicle extends Component {
                         <tbody>
                         <tr>
                              <td><label htmlFor="price" className={classes.Label}>Price:</label></td>
-                             <td><TextField className={classes.other} value={this.state.formdata.price} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
+                             <td><TextField label="Enter Price" type="number" className={classes.other} value={this.state.formdata.price} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
                          </tr>
                          </tbody>
                         
 
                         </table>
                         </div>
-                        <button  className="btn btn-primary" onClick={this.formSubmit}>
+                        <button data-tip="React-tooltip" disabled={disable} className="btn btn-primary" onClick={this.formSubmit}>
                             Submit
                         </button>
+                        <ReactTooltip disable place="right" type="warning" effect="float"/>
+
+
 
 
 

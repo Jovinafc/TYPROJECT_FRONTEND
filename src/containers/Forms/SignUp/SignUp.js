@@ -12,6 +12,8 @@ import ModernDatePicker from 'react-modern-datepicker'
 import pic from '../../../Images/signupmod.jpg';
 import Aux from '../../../hoc/Auxilary';
 import Input from '../../../components/UI/InputTag/Input';
+import Alert from 'react-s-alert';
+
 
 // let style = {
 //     backgroundImage: `url(${pic})`,
@@ -369,7 +371,12 @@ class SignUp extends Component {
       axios.post('/sign-up', {users: user})
       .then(res => {
           console.log(res);
-          alert('Data Sent');
+          Alert.info('Sign Up Complete', {
+            position: 'bottom-right',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
           this.setState({
               first_name: '',
               last_name: '',

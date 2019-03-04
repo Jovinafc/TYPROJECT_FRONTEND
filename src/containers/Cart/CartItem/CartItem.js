@@ -7,13 +7,16 @@ import { NavLink} from 'react-router-dom'
 import * as actionp from '../../../store/actions/vehicle_click'
 import { spinnerService } from '@chevtek/react-spinners';
 import Loader from 'react-loader';
+import Alert from 'react-bootstrap/Alert';
+
 
 class CartItem extends Component {
 
     state = {
         counter:this.props.qty,
         price: this.props.price*this.props.qty,
-        loaded: true
+        loaded: true,
+        alertShow: false
     }
 
     componentDidMount = () => {
@@ -59,10 +62,15 @@ class CartItem extends Component {
                 this.props.cartItems(localStorage.getItem('userId'))
                 this.props.quantityNum(this.state.counter);
                 this.props.cartAmountQuantity();     
+                this.setState({
+                    alertShow: false
+                })
             }
             else {
                 this.props.stopLoading();
-
+                this.setState({
+                    alertShow: true
+                })
             }
             // this.setState({
             //     loaded: true
@@ -152,7 +160,11 @@ class CartItem extends Component {
                         +
                     </button>
                 </div>
+                
                 <button style={{ }} onClick={() => this.updateQuantity(this.props.id)}>Update</button>
+                <Alert show={this.state.alertShow} variant="warning">
+                    Out of Stock 
+                </Alert>
             </div>
 
             <div className={classes.priceDiv}>

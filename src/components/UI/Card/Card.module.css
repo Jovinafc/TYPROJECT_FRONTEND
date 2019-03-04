@@ -31,8 +31,15 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin: 5%;
-    padding: 2%;
+    padding: 2%;    
+    transition: all 1s;
+    text-decoration: none;
    }
+
+   .Card:hover{
+       transform: scale(1.1);
+   }
+   
 
 
    .ImageContainer {
@@ -42,6 +49,7 @@
    }
 
    .content {
+    text-decoration: none;
         height: 40%;
    }
 
@@ -56,12 +64,14 @@
    .price {
         display: grid;
         grid-template-columns: 80% 20%;
+        text-decoration: none;
 
    }
 
    .prices {
        display: flex;
-       
+       text-decoration: none;
+
    }
 
    .pd {
