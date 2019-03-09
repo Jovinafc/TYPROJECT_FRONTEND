@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import classes from './ProductPayment.module.css';
 import axios from 'axios';
-import {DatePicker} from 'shineout';
 import Card from './Card';
 import * as actions from '../../store/actions/vehicle_click';
 import * as actionp from '../../store/actions/cart';
 import { Form, Field } from 'react-final-form'
 import Styles from './Styles';
 import { Redirect } from 'react-router-dom';
-import Aux from '../../hoc/Auxilary'
 import {
     formatCreditCardNumber,
     formatCVC,
     formatExpirationDate
   } from './cardUtils'
 import { connect} from 'react-redux';
-import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
 

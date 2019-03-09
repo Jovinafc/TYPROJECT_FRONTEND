@@ -100,6 +100,7 @@ import * as actions from '../../store/actions/auth';
  import IconButton from '@material-ui/core/IconButton';
  import Badge from '@material-ui/core/Badge';
  import { NavLink } from 'react-router-dom';
+ import PhoneToolBar from './PhoneToolBar/PhoneToolBar';
 
 
 
@@ -123,10 +124,11 @@ const toolbar = (props) => {
         <nav className={classes.DesktopOnly}>
             <NavigationItems isAuthenticated={props.isAuth} />
         </nav>
+        <PhoneToolBar />
 
-        <div style={style} >
+        {/* <div style={style} >
             <div className={classes.phoneDiv}>
-            {/* <div className={classes.cart}>  
+            <div className={classes.cart}>  
                     <NavLink to="/cart"> 
                     <IconButton aria-label="Cart">
                     {this.props.isAuthenticated
@@ -145,33 +147,33 @@ const toolbar = (props) => {
                  
                     <div className={classes.imageCont}>
                         <img  className={classes.image} src={this.props.image} alt="Image"/>
-                    </div> */}
+                    </div>
             </div>
-        </div>
+        </div> */}
     </div>
     </StyleRoot >
 
      )
 };
 
-const mapStateToProps = state => {
-    return {
-        isAuthenticated: state.auth.token !== null,
-        first_name: state.auth.first_name,
-        image: state.auth.image,
-        item_number: state.cart.item_number,
-        cart_items: state.cart.cart
+// const mapStateToProps = state => {
+//     return {
+//         isAuthenticated: state.auth.token !== null,
+//         first_name: state.auth.first_name,
+//         image: state.auth.image,
+//         item_number: state.cart.item_number,
+//         cart_items: state.cart.cart
 
-    };
-};
+//     };
+// };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        photoFinish: () => dispatch(actions.photoFinish())
-    };
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         photoFinish: () => dispatch(actions.photoFinish())
+//     };
+// }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(toolbar);
+export default toolbar;
 
 

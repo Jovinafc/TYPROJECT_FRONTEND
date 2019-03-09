@@ -1,15 +1,22 @@
 import React, {Component} from 'react';
 import classes from './Lend.module.css';
-import { Form } from 'shineout';
+// import { Form } from 'shineout';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Tabs from '../Tabs/Tabs';
 import { connect} from 'react-redux';
+import { Redirect, NavLink } from 'react-router-dom'
+import Aux from '../../../hoc/Auxilary';
+import Modal from 'react-bootstrap/Modal'
+import { toast} from 'react-toastify'
 
 
 class Lend extends Component {
+
+    notify = () => toast("Ad Posted !");
+
     state = {
         formdata: {
             
@@ -41,7 +48,9 @@ class Lend extends Component {
         tempBrand: '',
         tempModel: '',
         tempType: '',
-        sample: ''
+        sample: '',
+        show: false
+
     }
 
     details = () => {
@@ -61,9 +70,16 @@ class Lend extends Component {
     }
 
     componentDidMount () {
+
+        if(this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''){
+            this.setState({show: true})
+        }
+
+
         axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
         });
+        
 
         this.details();
         
@@ -432,7 +448,44 @@ class Lend extends Component {
         <MenuItem value={item} key={i} >{item}</MenuItem>
     );
 
+    
+    let redirect = null;
+
+    console.log(this.props.isAuthenticated);
+      if(!this.props.isAuthenticated){
+          redirect = <Redirect to="/login"/>
+         }
+
+         let disable = true;
+         if(this.state.formdata.type !== '' && 
+           this.state.formdata.brand !== '' &&
+           this.state.formdata.model !== '' &&
+           this.state.formdata.year !== '' &&
+           this.state.formdata.km_driven!== '' &&
+           this.state.formdata.registration_state !== '' &&
+           this.state.formdata.fuel !== '' &&
+           this.state.formdata.number_plate !== '' &&
+           this.state.formdata.image !== '' &&
+           this.state.formdata.price !== ''){
+               disable = false;
+           } 
+
+
     return (
+        <Aux>
+             {redirect}
+            <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal.Body>
+                    Kindly Update your profile before posting an ad
+                </Modal.Body>
+                <Modal.Footer>
+                    <NavLink to="/Profile">
+                        Go To Profile Page
+                    </NavLink>
+                        
+                </Modal.Footer>
+            </Modal>
+
         
         <div  className={classes.Box} >
 
@@ -440,8 +493,12 @@ class Lend extends Component {
 
         <div>
             <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Lend</h2>
-            <Form className={classes.Sell}>
-                       <div className={classes.divs}> 
+            <form className={classes.Sell}>
+
+                       <span><p style={{fontSize: '0.8em', textAlign: 'left', marginBottom: '-3px'}}>(*Start with the Vehicle Type field)</p></span>
+                       <div className={classes.firstDiv}>
+
+                        <div className={classes.divs}> 
                       <label htmlFor="type" className={classes.Label}>Vehicle Type:</label>  
                       <Select
                              id="type" 
@@ -453,7 +510,12 @@ class Lend extends Component {
                         {options1}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+                        </div>
+
+
+                        <div className={classes.secondDiv}>
+
+                        <div>
                         <label htmlFor="brand"  style={{marginBottom: '-10px'}}className={classes.Label}>Vehicle Brand:</label>
                         
                         <Select 
@@ -469,7 +531,7 @@ class Lend extends Component {
                          {alternate}
                         </div>
 
-                        <div className={classes.divs}>
+                        <div >
                         <label htmlFor="model"  style={{marginBottom: '-15px'}}className={classes.Label}>Vehicle Model:</label>
                         <Select 
                             id="model"
@@ -484,11 +546,7 @@ class Lend extends Component {
                         {alternateM}
                         </div>
                         
-                        <br />
-                        <br />
-                        <br />
-                        
-                        <div className={classes.divs}>    
+                        <div>
                         <label htmlFor="year" className={classes.Label}>Vehicle Year:</label>
                         <Select 
                             id="year"
@@ -500,7 +558,13 @@ class Lend extends Component {
                         {options4}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        </div>
+
+                        <div className={classes.thirdDiv}> 
+
+
+                        <div >
                         <label htmlFor="fuel" className={classes.Label}>Fuel Type:</label>
                         <Select 
                             id="fuel"
@@ -512,7 +576,8 @@ class Lend extends Component {
                         {options5}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        <div >
                         <label htmlFor="reg" className={classes.Label}>Registration State:</label>
                         <Select 
                             id="reg"
@@ -524,7 +589,8 @@ class Lend extends Component {
                         {options6}
                         </Select>
                         </div>
-                        <div className={classes.divs}>
+
+                        <div>
                         <label htmlFor="km" className={classes.Label}>Km Driven:</label>
                         <Select 
                             id="km"
@@ -537,14 +603,12 @@ class Lend extends Component {
                         </Select>
                         </div>
                         
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <span className={classes.Span}>
+                        </div>
+
+                        <div className={classes.fourthDiv}>
 
 
-                        <table>
+                        <table style={{textAlign: 'center', paddingLeft: '30%'}}>
                             <tbody>
                             <tr>
                                  <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
@@ -567,6 +631,7 @@ class Lend extends Component {
                         
                         </tr>
                         </tbody>
+                     
                         <tbody>
                         <tr>
                             
@@ -585,26 +650,36 @@ class Lend extends Component {
                         
 
                         </table>
-                        <button  className="btn btn-primary" onClick={this.formSubmit}>
+                     
+                        </div>
+
+                        <div style={{ marginTop: '10px'}}>
+                        <button  className="btn btn-primary" disabled={disable} onClick={this.formSubmit}>
                             Submit
                         </button>
-
-
-
-                        </span>
+    
+                        </div> 
 
                         <br />
-                        <br /> 
-            </Form>
+                        <br />
+            </form>
             </div>
         </div>
+
+        </Aux>
     );
   };
 }
 
 const mapStateToProps = state => {
     return {
-        user_id: state.auth.userId
+        user_id: state.auth.userId,
+        isAuthenticated: state.auth.token !== null,
+        address: state.auth.address,
+        state: state.auth.state,
+        city: state.auth.city,
+        pincode: state.auth.pincode,
+        number : state.auth.phone_number
     }
 }
 

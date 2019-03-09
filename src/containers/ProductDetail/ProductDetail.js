@@ -53,33 +53,50 @@ class ProductDetail extends Component {
         .then(response => {
             console.log(response.data);
             if(response.data.length > 0 ){
-                
+            
             const hist = [];
             for(let key in response.data){
                 hist.push({
                     ...response.data[key],
-                    id: key
+                    iddd: key
                 });
             }
             console.log(hist[0]['rating'])
-            // console.log(hist[0]['rating'])
+            // console.log(hist[0]['rating'])   
             this.setState({
                 reviewsArray: hist,
-                rate: hist[0]['rating'],
-                review: hist[0]['review'],
+                // rate: hist[0]['rating'],
+                // review: hist[0]['review'],
             })
-            if(hist[0]['review'] !== null||''){
-                this.setState({
-                    disabled: true
-                })
-            }
+            
             }
         })
         
-
-        axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: this.state.product.accessory_id})
+        console.log(this.state.product.accessory_id);
+        console.log(localStorage.getItem('userId'))
+        axios.post('/fetch-specific-accessory-rating-and-review-based-on-user-accessory', {user_id: localStorage.getItem('userId'), accessory_id: localStorage.getItem('product_id')})
         .then(res => {
-            console.log(res);
+            console.log(res.data);
+            if(res.data.length > 0){
+                
+                if(res.data[0].review !== null||''){
+                    this.setState({
+                        review: res.data[0].review,
+                    })
+                }
+
+                if(res.data[0].rating !== null|| ''){
+                    this.setState({
+                        rate: res.data[0].rating
+                    })
+                }
+
+                if(res.data[0].review !== null||''){
+                    this.setState({
+                        disabled: true
+                    })
+                }
+            }
         })
 
     }
@@ -222,7 +239,7 @@ class ProductDetail extends Component {
         reviewlist = this.state.reviewsArray.map(dis => {
             return (
             <ReviewDiv 
-            key={dis.id}
+            key={dis.iddd}
             details = {dis}
             />
             )

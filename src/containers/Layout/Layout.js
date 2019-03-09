@@ -8,9 +8,9 @@ import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
-import Headroom from 'react-headroom';
-import { Spinner } from '@chevtek/react-spinners';
-import LoadingOverlay from 'react-loading-overlay';
+// import Headroom from 'react-headroom';
+// import { Spinner } from '@chevtek/react-spinners';
+// import LoadingOverlay from 'react-loading-overlay';
 
 
 class Layout extends Component {

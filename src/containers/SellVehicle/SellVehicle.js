@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './SellVehicle.module.css';
-import { Form } from 'shineout';
+// import { Form } from 'shineout';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -8,15 +8,18 @@ import axios from 'axios';
 import Tabs from './Tabs/Tabs';
 import { connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { ToastContainer, toast} from 'react-toastify'
+import { toast} from 'react-toastify'
 import Modal from 'react-bootstrap/Modal'
 import Aux from '../../hoc/Auxilary';
 import ReactTooltip from 'react-tooltip'
+import { Redirect } from 'react-router-dom'
+import Alert from 'react-s-alert';
+
 
 
 class SellVehicle extends Component {
 
-    notify = () => toast("Ad Posted Successfully!");
+    notify = () => toast("Ad Posted !");
     state = {
         formdata: {
             user_id: localStorage.getItem('userId'),
@@ -69,10 +72,7 @@ class SellVehicle extends Component {
 
 
     componentDidMount () {
-        const header = {
-            'x-auth' : localStorage.getItem('token')
-        }
-
+        
         if(this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''){
             this.setState({show: true})
         }
@@ -147,6 +147,15 @@ class SellVehicle extends Component {
 
  
     selectChangedHandlerBrand = (e) => {
+        if(this.state.formdata.type === ''){
+            Alert.info('Select Vehicle Type', {
+                position: 'top',
+                effect: 'bouncyflip',
+                timeout: 3000,
+                html: false
+            });
+        }
+        
         e.preventDefault();
         if(e.target.value === 'Others'){
             this.setState({
@@ -445,7 +454,16 @@ class SellVehicle extends Component {
         })
       }
 
+
+
   render () {
+
+      let redirect = null;
+
+        console.log(this.props.isAuthenticated);
+      if(!this.props.isAuthenticated){
+         redirect = <Redirect to="/login"/>
+      }
 
       let disable = true;
       if(this.state.formdata.type !== '' && 
@@ -527,6 +545,7 @@ class SellVehicle extends Component {
 
     return (
         <Aux>
+            {redirect}
             <Modal show={this.state.show} onHide={this.handleClose}>
                 <Modal.Body>
                     Kindly Update your profile before posting an ad
@@ -544,9 +563,10 @@ class SellVehicle extends Component {
 
         <div>
         
-            <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell</h2>
-            <Form className={classes.Sell}>
+            <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell your Vehicle</h2>
+            <form className={classes.Sell}>
 
+                        <span><p style={{fontSize: '0.8em', textAlign: 'left', marginBottom: '-3px'}}>(*Start with the Vehicle Type field)</p></span>
                         <div className={classes.firstDiv}>
                        <div className={classes.divs}> 
                       <label htmlFor="type" className={classes.Label}>Vehicle Type:</label>  
@@ -656,7 +676,7 @@ class SellVehicle extends Component {
                         </div>
                         
                         <div className={classes.fourthDiv}>
-                        <table>
+                        <table style={{textAlign: 'center', paddingLeft: '30%'}}>
                             <tbody>
                             <tr>
                                  <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
@@ -701,20 +721,22 @@ class SellVehicle extends Component {
                         
 
                         </table>
-                        </div>
-                        <button data-tip="React-tooltip" disabled={disable} className="btn btn-primary" onClick={this.formSubmit}>
-                            Submit
-                        </button>
+
                         <ReactTooltip disable place="right" type="warning" effect="float"/>
 
-
-
-
+                        </div>
+                  
+                        <div style={{ marginTop: '10px'}}>
+                        <button data-tip="React-tooltip" disabled={disable}  className="btn btn-primary" onClick={this.formSubmit}>
+                            Submit
+                        </button>
+                        </div>
+                    
 
 
                         <br />
                         <br /> 
-            </Form>
+            </form>
             </div>
         </div>
         </Aux>

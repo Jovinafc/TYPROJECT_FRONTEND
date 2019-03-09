@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import classes from './SellPaymentPage.module.css';
 import axios from 'axios';
-import {DatePicker} from 'shineout';
 import Card from './Card';
 import * as actions from '../../store/actions/vehicle_click';
 import { Form, Field } from 'react-final-form'
 import Styles from './Styles';
 import { Redirect } from 'react-router-dom';
-import Aux from '../../hoc/Auxilary'
 import {
     formatCreditCardNumber,
     formatCVC,
     formatExpirationDate
   } from './cardUtils'
 import { connect} from 'react-redux';
-import Spinner from '../../components/UI/Spinner/Spinner';
+// import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
 import moment, * as moments from 'moment';
@@ -138,23 +136,23 @@ class SellPaymentPage extends Component {
         console.log(this.state)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-    const onCardFormat = async value => {
-      var v = ''
-      var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-      var matches = v.match(/\d{4,16}/g);
-      var match = matches && matches[0] || ''
-      var parts = []
-      let len;
+    // const onCardFormat = async value => {
+    //   var v = ''
+    //   var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+    //   var matches = v.match(/\d{4,16}/g);
+    //   var match = matches && matches[0] || ''
+    //   var parts = []
+    //   let len;
       
-      for (let i=0, len=match.length; i<len; i+=4) {
-        parts.push(match.substring(i, i+4))
-      }
-      if (parts.length) {
-        return parts.join(' ')
-      } else {
-      return value
-    }
-      }
+    //   for (let i=0, len=match.length; i<len; i+=4) {
+    //     parts.push(match.substring(i, i+4))
+    //   }
+    //   if (parts.length) {
+    //     return parts.join(' ')
+    //   } else {
+    //   return value
+    // }
+    //   }
 
 
      const onSubmit = async values => {
@@ -227,10 +225,10 @@ class SellPaymentPage extends Component {
         otp = <Redirect to="/otp" />
       }
 
-      let spin = null
-      if(this.state.spin) {
-        spin = <Spinner />
-      }      
+      // let spin = null;
+      // if(this.state.spin) {
+      //   spin = <Spinner />
+      // }      
 
 
         return (
@@ -244,7 +242,7 @@ class SellPaymentPage extends Component {
   <Styles>
     <Form
       onSubmit={onSubmit}
-      onCardFormat={onCardFormat}
+      // onCardFormat={onCardFormat}
       render={
         ({
         handleSubmit,

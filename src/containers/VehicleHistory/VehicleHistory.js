@@ -64,7 +64,8 @@ class VehicleHistory extends Component {
 
         let display ;
 
-        if(this.state.vehicles === null){
+        console.log(this.state.vehicles.length);
+        if(this.state.vehicles.length === 0){
             display = <h4>Nothing to Show</h4>
         }
         display = this.state.vehicles.map(dis => (
@@ -79,7 +80,12 @@ class VehicleHistory extends Component {
         
         return (
             <div className={classes.Container}>
-                <h6>Vehicle History</h6>
+                <h6 style={{textAlign: 'center', fontFamily: 'roboto', fontSize: '2em'}}>Vehicle History</h6>
+                {
+                    this.state.vehicles.length === 0
+                    ? <div style={{marginBottom: '500px', textAlign: 'center'}}>No Vehicles have been bought or rented</div>
+                    : null
+                }
                 {display}
             </div>
 

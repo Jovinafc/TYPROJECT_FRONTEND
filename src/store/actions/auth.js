@@ -119,8 +119,8 @@ export const deleteLocalStorage = () => {
       })
       .catch(err => {
           console.log(err);
-          console.log(err.response.data);
-          console.log(err.message.toString());
+           console.log(err.response.data);
+           console.log(err.message.toString());
           dispatch(authFail(err.response.data));
       });
     };

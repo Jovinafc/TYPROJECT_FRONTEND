@@ -368,11 +368,12 @@ class SignUp extends Component {
         email: this.state.email,
         password: this.state.old_password
       }
+      
       axios.post('/sign-up', {users: user})
       .then(res => {
           console.log(res);
           Alert.info('Sign Up Complete', {
-            position: 'bottom-right',
+            position: 'top',
             effect: 'bouncyflip',
             timeout: 3000,
             html: false
@@ -385,7 +386,25 @@ class SignUp extends Component {
               email: '',
               old_password: ''
           })
+      })
+      .catch(err => {
+          console.log(err);
+          Alert.warning('Server Under Maintenance, Please try again later', {
+            position: 'top',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
+        this.setState({
+            first_name: '',
+            last_name: '',
+            phone_number: '',
+            DOB: '',
+            email: '',
+            old_password: ''
+        })
       });
+      
 
     }
     else {

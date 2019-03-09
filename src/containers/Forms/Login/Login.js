@@ -136,10 +136,10 @@ class Login extends Component {
             form = <Spinner />
         }
 
-        let errorMessage = <p></p>;
-
+        // let errorMessage = <p></p>;
+        let errorMessage;
         if(this.props.error) {
-            errorMessage = (
+           errorMessage = (
                 <p style={{color: 'red'}}>{this.props.error}</p>
             )
         }

@@ -1,6 +1,5 @@
 .Container {
-    height: auto;
-    
+    /* height: 800px; */
 }
 
 .pdcontainer {
@@ -13,7 +12,7 @@
 .imgcontainer {
     width: 40%;
     margin-left: 30%;
-    height: 300px;
+    height: 200px;
 }
 
 .img {
@@ -33,7 +32,7 @@
     width: 100%;
     /* border: 1px solid black; */
     display: flex;
-    height: 80%;
+    height: 450px;
     padding: 2%;
     /* flex-direction: column; */
 }
@@ -65,9 +64,10 @@
 }
 
 .details {
-    height: 35%;
+    height: 40%;
     width: 90%;
     margin-top: 2%;
+
     margin-left: 5%;
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
@@ -160,5 +160,6 @@
 .reviewsCont {
     width: 90%;
     margin-left: 5%;
+    
     border: 1px solid black;
 }

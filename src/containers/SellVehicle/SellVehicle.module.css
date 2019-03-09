@@ -1,6 +1,6 @@
 .Sell {
     /* display: flex; */
-    justify-content: center;
+    /* justify-content: center; */
     /* flex-wrap: wrap */
 }
 
@@ -72,28 +72,43 @@
 }
 
 .firstDiv {
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+   
     height: 150px;
     
 }
 
 .secondDiv {
     display: flex;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+   
     height: 150px;
-    padding-left: 7%;
+    /* padding-left: 7%; */
+    justify-content: space-between;
+
 }
 
 .thirdDiv {
     display: flex;
-    border: 1px solid yellow;
+    justify-content: space-between;
+    /* border: 1px solid yellow; */
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+   
     height: 150px;  
-    padding-left: 7%;
+    /* padding-left: 7%; */
+    
 
 }
 
 .fourthDiv {
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
     text-align: center;
     padding-left: 30%; 
 }

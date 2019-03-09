@@ -25,6 +25,14 @@ class MyVehicle extends Component {
         });
     }
 
+    // componentDidUpdate = (prevProps) => {
+    //     if(this.state.myvehicle !== prevProps.myvehicle){
+    //         this.setState({
+    //             myvehicle: this.state.myvehicle
+    //         })
+    //     }
+    // }
+
     render () {
         let display; 
         if(this.state.myvehicle === null) {

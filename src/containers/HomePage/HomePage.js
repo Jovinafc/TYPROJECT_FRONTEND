@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import classes from './HomePage.module.css';
-import Image from './Vehicle.v1.jpg';
+// import Image from './Vehicle.v1.jpg';
 // import ImageSlider from '../../components/ImageSlider/ImageSlider';
 // import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -50,17 +50,17 @@ class HomePage extends Component {
                     <Carousel className={classes.carousel}>
                         <Carousel.Item>
                         {/* <img className={classes.Image} src="http://res.cloudinary.com/beast0013/image/upload/v1548216751/geqnk9bclpaqboxkn2fc.jpg" /> */}
-                        <img className={classes.Image} src={photo} />
+                        <img className={classes.Image} src={photo} alt="Vehicle Image" />
 
                         </Carousel.Item>
 
                         <Carousel.Item>
-                        <img className={classes.Image} src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg"/>
+                        <img className={classes.Image }alt="Vehicle Image" src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg"/>
 
                         </Carousel.Item>
 
                         <Carousel.Item>
-                        <img className={classes.Image} src="http://res.cloudinary.com/beast0013/image/upload/v1548243037/tgbmbyzowukhndhfkhfn.jpg"/>
+                        <img className={classes.Image} alt="Vehicle Image" src="http://res.cloudinary.com/beast0013/image/upload/v1548243037/tgbmbyzowukhndhfkhfn.jpg"/>
   
                         </Carousel.Item>
                     </Carousel> 

@@ -6,7 +6,6 @@ import axios from '../../axios';
 import Modal from '../../components/UI/Modal/Modal';
 // import Login from '../Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
-import {DatePicker} from 'shineout';
 import { NavLink, Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
 import * as actionp from '../../store/actions/vehicle_click'
@@ -32,7 +31,8 @@ class VehicleDetail extends Component {
         start: '',
         end: '',
         days: 1,
-        reviewsArray: []
+        reviewsArray: [],
+        noReviews: false
     }
 
 
@@ -98,7 +98,7 @@ class VehicleDetail extends Component {
         a = a.substring(1);
 
         //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
-         axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
+         axios.post(`/fetch-specific-vehicle`, {user_id: localStorage.getItem('userId'), vehicle_id: a})
          .then(response => {
             console.log(response.data);
            if(response===null)
@@ -119,6 +119,7 @@ class VehicleDetail extends Component {
          })
          .catch(err => {
              console.log(err);
+             console.log(err.response.data)
              this.setState({Invalid: true})
          });
 
@@ -126,7 +127,13 @@ class VehicleDetail extends Component {
          axios.get(`/fetch-vehicle-comments-and-ratings/${a}`)
          .then(res => {
              console.log(res.data);
-                 const hist = [];
+                if(res.data === 'No reviews'){
+                    this.setState({
+                        noReviews: true
+                    })   
+                }
+                else {
+                    const hist = [];
                  for(let key in res.data){
                      hist.push({
                          ...res.data[key],
@@ -139,6 +146,8 @@ class VehicleDetail extends Component {
                     reviewsArray: hist
                  })
              
+                }
+                 
          })
  }
 
@@ -240,21 +249,27 @@ class VehicleDetail extends Component {
     render () {
         // console.log(this.state.start);
         // console.log(this.state.end);
+        console.log(this.state.vehicles);
 
         let reviewlist = null;
 
         console.log(this.state.reviewsArray);
+
+
+        if(this.state.noReviews === false){
+            
         reviewlist = this.state.reviewsArray.map(dis => {
             return (
             <VehicleReviewDiv 
             key={dis.id}
-            details ={dis[0]}
-            details2 = {dis[1]}
+            details = {dis}
+            
             />
             )
 
         })
 
+        }
 
 
         const sd = this.state.start;
@@ -379,11 +394,16 @@ class VehicleDetail extends Component {
                 {/* {vehicleDetail}  */}
             </div> }
 
-            <div className={classes.reviewsCont}>
-                    Reviews 
-                    {/* {reviewlist} */}
-               </div>
+            {
+                this.state.noReviews
+                ? null
+                : <div className={classes.reviewsCont}>
+                Reviews 
+                {reviewlist}
+           </div>
 
+            }
+            
             </Aux>
         );
     };

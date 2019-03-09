@@ -10,20 +10,14 @@ import 'react-accessible-accordion/dist/minimal-example.css';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import axios from 'axios';
 // import Aux from '../../hoc/Auxilary';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionItemTitle,
-    AccordionItemBody,
-} from 'react-accessible-accordion';
-import store from '../../store/reducers/auth';
-import InputRange from 'react-input-range';
+// import store from '../../store/reducers/auth';
+// import InputRange from 'react-input-range';
 import Picky from 'react-picky';
 import "react-picky/dist/picky.css";
 import { SliderComponent } from '@syncfusion/ej2-react-inputs';
-import zIndex from '@material-ui/core/styles/zIndex';
+// import zIndex from '@material-ui/core/styles/zIndex';
 import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
+// import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
@@ -79,6 +73,7 @@ class Cards extends Component {
 
     getVehicleDetails = () => {
         axios.post('/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
+            console.log(result.data);
             const fetchedValues = [];
             for(let key in result.data){
                 fetchedValues.push({
@@ -303,7 +298,7 @@ class Cards extends Component {
       }
       
     render () {
-        console.log(this.state.filterValues);
+        // console.log(this.state.filterValues);
 
      //   let displayNav = this.state.display.map(dis => (
      //       <Card name={dis.User_Name} userid={dis.UserId} key={dis.id}/>
@@ -353,11 +348,14 @@ class Cards extends Component {
                
         //     });
 
-        let displayVehicle = this.state.vehicles
+        let displayVehicle = <div>No Vehicles To Show</div>
+
+        displayVehicle = this.state.vehicles
         .filter(searchingFor(this.state.term))
         .map(dis => {
-            
+            console.log(dis)
             return (
+            
             <Card className={classes.card} name={dis.brand} user_id={dis.user_id} vehicle_id={dis.vehicle_id} key={dis.id} model={dis.model} 
                price={dis.price} 
                image={dis.image}
@@ -368,6 +366,11 @@ class Cards extends Component {
                
             });
 
+        // if(this.state.vehicles.filter(searchingFor(this.state.term) === 0)){
+             
+        // displayVehicle = <div>No Vehicles To Show </div>    
+
+        // }   
         // console.log(displayVehicle);
         if(this.props.loading){
             displayVehicle = <Spinner />

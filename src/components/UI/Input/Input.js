@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Input.module.css';
 //import validators from '../../../shared/validator';
-import { DatePicker} from 'shineout';
+// import { DatePicker} from 'shineout';
 
 const input = (props) => {
     let inputElement = null;
@@ -26,7 +26,7 @@ const input = (props) => {
             onChange={props.changed}/>
             break;
         case('date'):
-            inputElement = <DatePicker 
+            inputElement = <input
             placeholder="Select DOB"
             onChange={props.changed}
             />

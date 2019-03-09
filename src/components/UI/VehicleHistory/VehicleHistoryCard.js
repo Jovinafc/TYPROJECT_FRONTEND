@@ -1,6 +1,5 @@
 import React, {Component}  from 'react';
 import classes from './VehicleHistoryCard.module.css';
-import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css';
 // import Modal from 'react-responsive-modal';
 import Modal from 'react-bootstrap/Modal';
@@ -16,6 +15,7 @@ class VehicleHistoryCard extends Component {
         modalShow:false,
         review: '',
         rating: 0,
+        edit: true,
         disabled: false
         // review: '' || this.props.details.feedback['feedback_comment'] ,
         // rating: '' || this.props.details.rating['rating_number']     
@@ -39,83 +39,97 @@ class VehicleHistoryCard extends Component {
         // }
         console.log(this.props.details);
         console.log(this.props.details.vehicle_id);
-
-        // axios.get(`/get-vehicles?vehicle_id=${this.props.details.vehicle_id}&user_id=${localStorage.getItem('userId')}`)
-        // .then(res => {
-        //     console.log(res.data);
-        //     // console.log(res.data.ratings[0].rating_number);
-        //     if(res.data.ratings[0].rating_number !== undefined){
-        //         this.setState({
-        //             rating: res.data.ratings[0].rating_number
-        //         })    
-        //     }
-        //     else{
-        //         this.setState({
-        //             rating: 0
-        //         })
-        //     }
-
-        //     if(res.data.reviews[0].feedback_comment !== undefined){
-        //         this.setState({
-        //             review: res.data.reviews[0].feedback_comment
-        //         })    
-        //     }
-        //     else {
-        //         this.setState({
-        //             review: ''
-        //         })
-        //     }
-            
-        //     if(res.data.reviews[0].feedback_comment !== null||''){
-        //         this.setState({
-        //             disabled: true
-        //         })
-        //     }
-        // })
-        // setTimeout(this.ratingAndReview(), 2000);
-        // if('feedback' in vehicle_details){
-        //     console.log('exists')
-        // }
-        // else {
-        //     console.log('Doesnt exist');
-        // }
-
-        // if(this.props.details.feedback === null ){
-        //     this.setState({
-        //         review: ''
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         review: this.props.details.feedback['feedback_comment']
-        //     })
-        // }
-
-        // if(this.props.details.rating === null ){
-        //     this.setState({
-        //         rating: 0
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         rating: this.props.details.rating['rating_number'],
-        //         disabled: true
-        //     })
-        // }
-
-    }
-
-    ratingAndReview = () => {
-        console.log(this.props.ratingDetails);
-
-        if(this.props.details.vehicle_id === this.props.ratingDetails['vehicle_id']){
-            console.log(this.props.ratingDetails['vehicle_id'])
-            this.setState({
-                rating: this.props.ratingDetails['vehicle_id']
-            })
+        if(this.props.details.rents.length > 0 ){
+            console.log(this.props.details.rents[0].start_date);
         }
+
+
+        axios.get(`/get-vehicles?vehicle_id=${this.props.details.vehicle_id}&user_id=${localStorage.getItem('userId')}`)
+        .then(res => {
+            console.log(res.data);
+            console.log(res.data.ratings.length)
+
+            if(res.data.ratings.length > 0){
+                if(res.data.ratings[0].rating_number !== undefined){
+                    this.setState({
+                        edit: false,
+                        rating: res.data.ratings[0].rating_number,
+                        
+                    })    
+                }
+                else{
+                    this.setState({
+                        rating: 0,
+                        edit: false
+                    })
+                }
+            }
+            else{
+                this.setState({
+                    edit: true,
+                    rating: 0,
+                    
+                })
+            }
+
+            if(res.data.reviews.length > 0){
+                if(res.data.reviews[0].feedback_comment !== undefined){
+                    this.setState({
+                        review: res.data.reviews[0].feedback_comment
+                    })    
+                }
+                else {
+                    this.setState({
+                        review: ''
+                    })
+                }
+                
+                if(res.data.reviews[0].feedback_comment !== null||''){
+                    this.setState({
+                        disabled: true
+                    })
+                }
+    
+            }
+
+            if(res.data.length < 0){
+                console.log('Inside get Vehicles')
+                if(res.data.ratings[0].rating_number !== undefined){
+                    this.setState({
+                        rating: res.data.ratings[0].rating_number
+                    })    
+                }
+                else{
+                    this.setState({
+                        rating: 0
+                    })
+                }
+    
+                if(res.data.reviews[0].feedback_comment !== undefined){
+                    this.setState({
+                        review: res.data.reviews[0].feedback_comment
+                    })    
+                }
+                else {
+                    this.setState({
+                        review: ''
+                    })
+                }
+                
+                if(res.data.reviews[0].feedback_comment !== null||''){
+                    this.setState({
+                        disabled: true
+                    })
+                }
+    
+            }
+                   })
+
+
+       
     }
 
+  
     inputChangeHandler = (e) => {
         this.setState({
             review: e.target.value
@@ -170,15 +184,18 @@ class VehicleHistoryCard extends Component {
         })
         .catch(err => {
             console.log(err);
+
         })
     }
 
     render () {
-
+        console.log(this.state.edit);
         let modalClose = () => this.setState({ modalShow: false });
         console.log(this.props.details);
-        console.log(this.props.ratingDetails);
-        console.log(this.props.commentDetails);
+        // console.log(this.props.details.rents[0].start_date);
+        // console.log(this.props.ratingDetails);
+        // console.log(this.props.commentDetails);
+        console.log(this.props.details.owner['name']);
 
         return (
 
@@ -189,19 +206,44 @@ class VehicleHistoryCard extends Component {
             <div className={classes.rightDiv}>
                 <div className={classes.topRightDiv}>
                     {this.props.details.vehicle['price'] 
-                    ? <div><p>Purchased From {this.props.details.to}</p></div>
-                    : <div><p>Rented From {this.props.details.to}</p></div>
+                    ? <div><p>Purchased From {this.props.details.owner['name']}</p></div>
+                    : <span> {this.props.details.status === "Rent Initiated"
+                            ? <div><p>To be Rented From {this.props.details.owner['name']}</p></div>
+                            : <div><p>Rented From {this.props.details.owner['name']} </p></div> }</span>
                     }
                     <div><p>Amount {this.props.details.amount}</p></div>
-                    <div></div>
+                    <div>{
+                    this.props.details.rents.length > 0
+                    ? <div>Start Date : {this.props.details.rents[0].start_date.substring(0,10)}</div>
+                    : null
+                    } </div>
+
+                    <div>{
+                    this.props.details.rents.length > 0
+                    ? <div>End Date : {this.props.details.rents[0].end_date.substring(0,10)}</div>
+                    : null
+                    } </div>
+
+                    
                 </div>
                 <div className={classes.downRightDiv}>
                     {
-                        this.props.details.vehicle['price_per_day']
-                        ? <div> <button onClick={() => this.setState({ modalShow: true })}
-                        >Give your Review</button></div>
-                        : <div> <button onClick={() => this.setState({ modalShow: true })}
-                        >Give your Review</button></div> 
+                        this.props.details.status === "Rent Initiated"    
+                        ? null
+                        : <div> {
+                            this.state.review !== ''
+                            ? <div> 
+                                <button onClick={() => this.setState({ modalShow: true })}>
+                                    Review Given
+                                </button>
+                            </div> 
+                            : <div> 
+                            <button onClick={() => this.setState({ modalShow: true })}>
+                                Give your Review
+                            </button>
+                            </div> 
+
+                          } </div>
                     }
 
         <Modal
@@ -253,32 +295,25 @@ class VehicleHistoryCard extends Component {
                     } */}
 
                     {
-                        this.props.details.vehicle['price_per_day']
-                        ? <div className={classes.rateDiv}>
-                                {/* Rate Vehicle <Rater className={classes.rateCom} /> */}
-                                <ReactStars
-                                count={5}
-                                onChange={this.ratingChanged}
-                                size={24}
-                                value={this.state.rating}
-                                half={false}
-                                color2={'#ffd700'} />
-                          </div>
+                        this.props.details.status === "Rent Initiated"
+                        ? null
                         : <div className={classes.rateDiv}>
-                                 {/* Rate Vehicle <Rater className={classes.rateCom}/> */}
-                                 <ReactStars
-                                count={5}
-                                onChange={this.ratingChanged}
-                                size={24}
-                                value={this.state.rating}
-                                half={false}
-                                color2={'#ffd700'} />                                
-                          </div>
+                        {/* Rate Vehicle <Rater className={classes.rateCom} /> */}
+                        <ReactStars
+                        count={5}
+                        onChange={this.ratingChanged}
+                        size={24}
+                        value={this.state.rating}
+                        half={false}
+                        edit={this.state.edit}
+
+                        color2={'#ffd700'} />
+                  </div>
                     }
 
                     {   
-                        this.props.details.vehicle['price_per_day']
-                        ? <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Vehicle</button> </div>
+                        this.props.details.vehicle['price_per_day'] && this.props.details.status === 'Rent Initiated'
+                        ? <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Booking</button> </div>
                         : null
                     }
                     

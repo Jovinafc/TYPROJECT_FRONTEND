@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
+import { throws } from 'assert';
 
 
 class ProfInfo extends Component {
@@ -30,7 +31,10 @@ class ProfInfo extends Component {
         pincode: '',
         bank_no: '',
         user_id: this.props.user_id,
-        show: false
+        show: false,
+        pin_numberError: '',
+        cityError: '',
+        stateError: ''
     }
 
     componentDidMount() {
@@ -92,7 +96,20 @@ class ProfInfo extends Component {
     }
 
     pincodeHandler = (e) => {
+        let v = false;
         this.setState({pincode : e.target.value});
+
+        let pincodeRegex = /^\d{6}$/;
+        if((e.target.value.match(pincodeRegex))){
+            v = true;
+        }
+
+        if(v === false) {
+            this.setState({
+                pin_numberError: 'Please Enter 6 digits'
+            })
+        }
+        
     }
 
     bankHandler = (e) => {
@@ -170,6 +187,62 @@ class ProfInfo extends Component {
             })
             errors.DOBError = "Please Enter Correct DOB"
         }
+
+        if(this.state.pincode === ''){
+            isError = true;
+            this.setState({
+                ...this.state,
+                pin_numberError: "Please Enter Pin Number"
+            })
+            errors.pin_numberError = "Please Enter Pin Number"
+        }
+
+        let pi = false;
+        let pincodeRegex = /^\d{10}$/;
+        if((this.state.pincode.match(pincodeRegex))){
+            pi = true;
+        }
+        
+        if(pi === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                pin_numberError: 'Please Enter 6 digits'
+            })
+            errors.pin_numberError = 'Enter Valid Number'
+        }
+
+        let ci = false;
+        let cityRegex = /^[A-Za-z\s]+$/;
+        if((this.state.city.match(cityRegex))){
+            ci = true;
+        }
+
+        if(ci === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                cityError: 'Enter proper City'
+            });
+            errors.cityError = 'Enter Proper City'
+        }
+
+        
+        let si = false;
+        let stateRegex = /^[A-Za-z\s]+$/;
+        if((this.state.state.match(stateRegex))){
+            ci = true;
+        }
+
+        if(si === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                stateError: 'Enter Proper State Name'
+            });
+            errors.stateError = 'Enter Proper State Name'
+        }
+        
 
         if(isError){
             
@@ -276,6 +349,8 @@ class ProfInfo extends Component {
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.stateHandler} type="text" id="state" onChange={this.stateHandler} value={this.state.state || ''} />   
+                    <span style={{color: 'red'}}>{this.state.stateError}</span>   
+
                         </div>    
                         </div>
 
@@ -283,6 +358,8 @@ class ProfInfo extends Component {
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.cityHandler} type="text" id="city" onChange={this.cityHandler} value={this.state.city || ''} />    
+                    <span style={{color: 'red'}}>{this.state.cityError}</span>   
+    
                         </div>    
                         </div>
 
@@ -290,6 +367,8 @@ class ProfInfo extends Component {
                     <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="pincode" onChange={this.pincodeHandler} value={this.state.pincode || ''}/>        
+                    <span style={{color: 'red'}}>{this.state.pin_numberError}</span>   
+
                     </div>    
                         </div>
 
