@@ -1,0 +1,14 @@
+.main {
+    margin-top: 20px;
+}
+
+.header {
+    background-color: grey;
+}
+
+.helpone {
+    width: 90%;
+    margin-left: 5%;
+    border: 1px solid yellow;
+    background-color: azure;
+}

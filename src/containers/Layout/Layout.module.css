@@ -15,3 +15,45 @@
     opacity: 0.2;
     
 }
+
+.footerCont {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.footer1{
+    width: 20%;
+    font-family: open 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer2{
+    width: 20%;
+}
+.footer3{
+    width: 20%;
+}
+
+.footer4 {
+    width: 20%;
+}
+
+.ul {
+    /* text-align: center; */
+    list-style-type: none;
+    text-align: left;
+
+}
+
+.ul a {
+    color: black;
+}
+
+.ul a:hover,
+.ul a:active,
+.ul a.active {
+        color: white;
+        
+}

@@ -11,6 +11,17 @@ import { Redirect, NavLink } from 'react-router-dom'
 import Aux from '../../../hoc/Auxilary';
 import Modal from 'react-bootstrap/Modal'
 import { toast} from 'react-toastify'
+import Alert from 'react-s-alert';
+import {ClipLoader} from 'react-spinners';
+import { css } from '@emotion/core';
+
+
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: yellow;
+`;
 
 
 class Lend extends Component {
@@ -49,8 +60,8 @@ class Lend extends Component {
         tempModel: '',
         tempType: '',
         sample: '',
-        show: false
-
+        show: false,
+        loading: false
     }
 
     details = () => {
@@ -257,7 +268,9 @@ class Lend extends Component {
 
     formSubmit = (event) => {
         event.preventDefault();
-
+        this.setState({
+            loading: true
+        })
         const fd = new FormData();
         fd.append('image',this.state.formdata.image);
         axios.post('/image',fd).then(()=>{
@@ -277,9 +290,14 @@ class Lend extends Component {
 
         axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
         .then((post) => {
-             alert('Data Sent')
+            //  alert('Data Sent')
             console.log("Data Sent", post);
-
+            Alert.info('Ad Posted', {
+                position: 'top',
+                effect: 'bouncyflip',
+                timeout: 3000,
+                html: false
+            });
             this.setState({
                 formdata: {
                     type: '',
@@ -293,14 +311,18 @@ class Lend extends Component {
                     year: '',
                     km_driven: '',
                     number_plate: ''
-                    
-                  }
+                     
+                  },
+                  loading: false
             }) 
                 
             
         }).catch(e => {
             console.log(e);
-            alert('Invalid Data')
+            this.setState({
+                loading: false
+            })
+            
         });
 
 
@@ -657,6 +679,14 @@ class Lend extends Component {
                         <button  className="btn btn-primary" disabled={disable} onClick={this.formSubmit}>
                             Submit
                         </button>
+
+                        <ClipLoader
+                  css={override}
+                  sizeUnit={"px"}
+                  size={20}
+                  color={'#123abc'}
+                  loading={this.state.loading}
+               />
     
                         </div> 
 

@@ -14,8 +14,16 @@ import Aux from '../../hoc/Auxilary';
 import ReactTooltip from 'react-tooltip'
 import { Redirect } from 'react-router-dom'
 import Alert from 'react-s-alert';
+import {ClipLoader} from 'react-spinners';
+import { css } from '@emotion/core';
 
 
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: yellow;
+`;
 
 class SellVehicle extends Component {
 
@@ -51,7 +59,8 @@ class SellVehicle extends Component {
         tempModel: '',
         tempType: '',
         sample: '',
-        show: false
+        show: false,
+        loading: false
     }
 
     details = () => {
@@ -333,7 +342,9 @@ class SellVehicle extends Component {
         const error = this.validate();
         if(!error){
             event.preventDefault();
-
+            this.setState({
+                loading: true
+            })
             const fd = new FormData();
             fd.append('image',this.state.formdata.image);
             axios.post('/image',fd).then(()=>{
@@ -346,7 +357,13 @@ class SellVehicle extends Component {
         axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
         .then((post) => {
             console.log("Data Sent", post);
-            this.notify();
+            Alert.info('Ad Posted', {
+                position: 'top',
+                effect: 'bouncyflip',
+                timeout: 3000,
+                html: false
+            });
+            // this.notify();
             this.setState({
                 formdata: {
                     type: '',
@@ -363,12 +380,15 @@ class SellVehicle extends Component {
                     user_id: this.props.user_id
                   },
                   imagePrev: '',
-                  documentPrev: ''
+                  documentPrev: '',
+                  loading: false
             }) 
     
         }).catch(e=>{
             console.log(e)
-    
+            this.setState({
+                loading: false
+            })
         })
     
         }
@@ -730,6 +750,15 @@ class SellVehicle extends Component {
                         <button data-tip="React-tooltip" disabled={disable}  className="btn btn-primary" onClick={this.formSubmit}>
                             Submit
                         </button>
+                        
+                        <ClipLoader
+                  css={override}
+                  sizeUnit={"px"}
+                  size={20}
+                  color={'#123abc'}
+                  loading={this.state.loading}
+               />
+
                         </div>
                     
 

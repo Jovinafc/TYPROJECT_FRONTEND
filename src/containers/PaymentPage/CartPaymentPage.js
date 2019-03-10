@@ -16,6 +16,7 @@ import { connect} from 'react-redux';
 // import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
+import Alert from 'react-s-alert';
 
 const override = css`
     display: block;
@@ -116,10 +117,26 @@ class ProductPayment extends Component {
                 })
             })
           }
+          else {
+            Alert.warning('Invalid Card Details', {
+              position: 'top',
+              effect: 'bouncyflip',
+              timeout: 3000,
+              html: false
+          });
+        
+          }
 
         })
         .catch(err => {
           console.log(err.response.data);
+          Alert.warning('Invalid Card Details', {
+            position: 'top',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
+      
           this.setState({loading: false})
         })
         

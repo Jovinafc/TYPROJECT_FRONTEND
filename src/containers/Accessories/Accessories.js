@@ -20,13 +20,25 @@ function searchingFor(term) {
 
 
 class Accessories extends Component {
-
-    state = {
+    constructor(props){
+    super(props);
+        
+    this.state = {
         products: [],
         term: ''
     }
 
+    this.myRef = React.createRef()   // Create a ref object 
+
+    }
+
+
+
     componentDidMount = () => {
+        // this.myRef.current.scrollTo(0, 0);
+        window.scrollTo(0, 0);
+
+
         axios.post('/fetch-accessories')
         .then(response => {
             console.log(response);
@@ -64,7 +76,7 @@ class Accessories extends Component {
             });
 
         return (
-            <div className={classes.big}>
+            <div ref={this.myRef} className={classes.big}>
 
                
 

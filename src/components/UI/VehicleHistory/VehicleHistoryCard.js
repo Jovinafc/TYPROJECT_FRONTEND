@@ -205,6 +205,9 @@ class VehicleHistoryCard extends Component {
             </div>
             <div className={classes.rightDiv}>
                 <div className={classes.topRightDiv}>
+                    <div>
+                        <p>{this.props.details.vehicle['brand']+ " " +this.props.details.vehicle['model']}</p>
+                    </div>
                     {this.props.details.vehicle['price'] 
                     ? <div><p>Purchased From {this.props.details.owner['name']}</p></div>
                     : <span> {this.props.details.status === "Rent Initiated"

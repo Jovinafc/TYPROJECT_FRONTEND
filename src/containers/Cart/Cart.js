@@ -6,7 +6,7 @@ import CartItem from './CartItem/CartItem';
 import * as actions from '../../store/actions/cart';
 import LoadingOverlay from 'react-loading-overlay';
 import { NavLink } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert';
+
 
 class Cart extends Component {
     
@@ -47,6 +47,8 @@ class Cart extends Component {
     }
 
     componentDidMount = () => {
+        window.scrollTo(0, 0);
+
         console.log("Inside componnent Did Mount")
 
         this.props.cartAmountQuantity();

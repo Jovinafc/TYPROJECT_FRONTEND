@@ -139,7 +139,7 @@ class ReviewDiv extends Component {
 
 
         console.log(this.props.details);
-        console.log(this.props.details.user['first_name'].charAt(0));
+        // console.log(this.props.details.user['first_name'].charAt(0));
 
         let a = this.props.details.user['first_name'].charAt(0);
 

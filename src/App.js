@@ -34,6 +34,7 @@ import ProductPayment from './containers/PaymentPage/ProductPayment';
 import CartPaymentPage from './containers/PaymentPage/CartPaymentPage';
 import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
+import Help from './containers/AboutUs/Help/Help';
 // import Loader from 'react-loader-spinner';
 // import CustomScroll from 'react-custom-scroll';
 // import 'react-custom-scroll/dist/reactCustomScroll';
@@ -153,6 +154,7 @@ class App extends Component {
                 <Route path="/productdetail/:product_id" component={ProductDetail} />
                 <Route path="/delete" exact component={Delete} />
                 <Route path="/cart" exact component={Cart} />
+                <Route path="/help" exact component={Help} />
                 <Route path="/accessories" component={Accessories} />
                 </Switch>
             </Layout>
@@ -196,6 +198,7 @@ class App extends Component {
             <Route path="/accessories" component={Accessories} />
             <Route path="/sell/lend" component={Lend} />
             <Route path="/otp" exact component={Otp}/>
+            <Route path="/help" exact component={Help} />
             <Route path="/cart" exact component={Cart} />
             <Route path="/productpayment/:product_id" exact component={ProductPayment} />
             <Route path="/cart/cartpayment" exact component={CartPaymentPage}/>

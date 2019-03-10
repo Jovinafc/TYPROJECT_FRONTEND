@@ -123,7 +123,7 @@ background: -webkit-linear-gradient(to bottom, #24243e, #302b63, #0f0c29);  /* C
 
 .cartHoverDiv {
     width: 100%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: 55px;
     display: flex;
 }

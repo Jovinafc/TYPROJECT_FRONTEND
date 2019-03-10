@@ -7,9 +7,58 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Carousel from 'react-bootstrap/Carousel'
 import { NavLink } from 'react-router-dom';
 import photo from '../../Images/signupmod.jpg'
+import axios from 'axios';
 
 class HomePage extends Component {
+
+    state = {
+        vehicles: []
+    }
+
+    componentDidMount = () => {
+
+        window.scrollTo(0, 0);
+
+        axios.post('/fetch-vehicles-except-current-user', {user_id: localStorage.getItem('userId')}).then(result => {
+            console.log(result.data);
+            const fetchedValues = [];
+            for(let key in result.data){
+                fetchedValues.push({
+                    ...result.data[key],
+                    id: key
+                });
+            }
+            this.setState({vehicles: fetchedValues})
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+
     render () {
+        let size = 3;
+        console.log(this.state.vehicles);   
+        let display = this.state.vehicles.slice(0,size).map(dis => {
+            return (
+                <NavLink style={{textDecoration: 'none'}} className={classes.topVehiclesDiv} key={dis.id} to={'/vehicledetail/:'+dis.vehicle_id}>
+                
+                    <div style={{display: 'flex',paddingLeft:'2%', paddingRight:'5%',  justifyContent: 'space-between'}}>
+                    <p style={{color: 'white'}}>{dis.brand} {dis.model}</p>  
+                        <p>{dis.price === null
+                            ? <span className={classes.rent}>Rent</span>
+                            : <span className={classes.sell}>Sale</span>}
+                        </p>
+                    </div>
+                    <div className={classes.imageCont}>
+                        <img  className={classes.image} src={dis.image} alt="Vehicle Image"/>
+                    </div>
+                
+                </NavLink>
+            )
+
+        })
+
         return (
 
                 // // <div className={classes.container}>
@@ -74,27 +123,51 @@ class HomePage extends Component {
                                        <NavLink to="/display">Buy any Vehicle</NavLink>  
                                   </div> */}
 
-                                <NavLink className={classes.firstDiv} to="/display">  
+                                <NavLink style={{textDecoration: 'none'}} className={classes.firstDiv} to="/display">  
  
-                                 <span >
-                                 Buy any Vehicle
+                                 <span style={{fontSize: "2em", textDecoration: 'none'}}>
+                                 Buy a Vehicle
                                   </span>
                                   </NavLink>
 
+                                  <NavLink style={{textDecoration: 'none'}} className={classes.secondDiv} to="/display">
+                                  <span style={{fontSize: "2em", textDecoration: 'none'}}>
+                                 Rent a Vehicle
+                                  </span>
+                                  </NavLink >
+{/*                                   
                                   <div className={classes.secondDiv} >
-                                       <NavLink  to="/display">Rent any Vehicle</NavLink>  
+                                       <NavLink style={{textDecoration: 'none'}} to="/display">Rent any Vehicle</NavLink>  
                                   </div>
-                                   
-                                   <div className={classes.thirdDiv}>
-                                         <NavLink  to="/sell/sell">Sell your Vehicle</NavLink>  
-                                  </div>
+                                    */}
 
-                                  
-                                  <div className={classes.fourthDiv}>
+                                <NavLink style={{textDecoration: 'none'}} className={classes.thirdDiv} to="/display">
+                                  <span style={{fontSize: "2em", textDecoration: 'none'}}>
+                                 Sell your Vehicle
+                                  </span>
+                                  </NavLink >
+
+                                   {/* <div className={classes.thirdDiv}>
+                                         <NavLink  to="/sell/sell">Sell your Vehicle</NavLink>  
+                                  </div> */}
+
+                                    <NavLink style={{textDecoration: 'none'}} className={classes.fourthDiv} to="/display">
+                                  <span style={{fontSize: "1.9em", textAlign:"center", textDecoration: 'none'}}>
+                                 Lend your Vehicle
+                                  </span>
+                                  </NavLink >
+                                  {/* <div className={classes.fourthDiv}>
                                          <NavLink  to="/sell/lend">Lend your Vehicle</NavLink>  
                                   </div>
-                                  
+                                   */}
 
+                    </div>
+
+                    <div style={{marginBottom: '20px'}}>
+                        <h2 style={{color: 'white', textAlign: 'center'}}> Top Vehicles </h2>
+                        <div className={classes.topVehicles}>
+                            {display}
+                        </div>
                     </div>
                  </div>
                 )

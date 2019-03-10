@@ -62,6 +62,15 @@ class card extends Component {
 
                          
                         </div>
+                        <div>
+                            Year: {this.props.year}
+                        </div>
+                        <div style={{float:'right'}}>
+                            {this.props.rate.length > 0
+                            ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'30px', color: 'white'}}>{this.props.rate[0].avg_rating}&#9734;</div>
+                            : null}
+                        </div>
+
                     </div>
                 </div>
 

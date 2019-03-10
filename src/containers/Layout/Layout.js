@@ -8,6 +8,9 @@ import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
+import { SocialIcon } from 'react-social-icons';
+import { NavLink } from 'react-router-dom';
+
 // import Headroom from 'react-headroom';
 // import { Spinner } from '@chevtek/react-spinners';
 // import LoadingOverlay from 'react-loading-overlay';
@@ -80,8 +83,52 @@ class Layout extends Component {
                    {this.props.children}
            </main>
     
-           <div style={{textAlign: 'center', height: '200px', backgroundColor: '#747474'}}>
-               <h2>Footer Section </h2>
+           <div style={{textAlign: 'center', paddingTop: '25px', height: '200px', backgroundColor: '#747474'}}>
+               {/* <h2>Footer Section </h2> */}
+               
+               <div className={classes.footerCont}>
+                    <div className={classes.footer1}>
+                        <ul className={classes.ul}>
+                        <h5 >Quick Links</h5>
+
+                            <li><NavLink to="/">Home</NavLink></li>
+                            <li><NavLink to="/profile">My Profile</NavLink></li>
+                            <li><NavLink to="/accessories">Accessories</NavLink></li>
+                            <li><NavLink to="/cart">Cart</NavLink></li>
+                        </ul>
+                    </div>
+
+                    <div className={classes.footer2}>
+                        <ul className={classes.ul}>
+                        <h5>Services</h5>
+
+                            <li><NavLink to="/display">Buy Vehicle</NavLink></li>
+                            <li><NavLink to="/sell/sell">Sell Vehicle</NavLink></li>
+                            <li><NavLink to="/display">Rent Vehicle</NavLink></li>
+                            <li><NavLink to="/sell/lend">Lend Vehicle</NavLink></li>
+                        </ul>
+                    </div>
+                      
+                    <div className={classes.footer3}>
+                      <ul className={classes.ul}>
+                      <h5>About</h5>
+
+                        <li><NavLink to="/help">Help</NavLink></li>
+                        <li><NavLink to="/contact">Contact Us</NavLink></li>
+                        <li><NavLink to="/about">About Us</NavLink></li>
+                      </ul>
+                    </div>
+                    <div className={classes.footer4}>
+                      <ul className={classes.ul}> 
+                      <h5>Social</h5>
+
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                      </ul>
+                    </div>
+               </div>
+               
            </div>
            {/* </LoadingOverlay> */}
            </Aux>         

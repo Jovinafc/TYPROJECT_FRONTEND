@@ -16,6 +16,7 @@ import { connect} from 'react-redux';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
 import moment, * as moments from 'moment';
+import Alert from 'react-s-alert';
 
 
 const override = css`
@@ -48,7 +49,7 @@ class SellPaymentPage extends Component {
         a = a.substring(1);
         console.log(a);
 
-        axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
+        axios.post(`/fetch-specific-vehicle`, {user_id: localStorage.getItem('userId'), vehicle_id: a})
         .then(response => {
            console.log(response);
           if(response===null)
@@ -201,10 +202,25 @@ class SellPaymentPage extends Component {
                 })
             })
           }
+          else{
+            Alert.warning('Invalid Card Details', {
+              position: 'top',
+              effect: 'bouncyflip',
+              timeout: 3000,
+              html: false
+          });
+         
+          }
 
         })
         .catch(err => {
           console.log(err.response.data);
+          Alert.warning('Invalid Card Details', {
+            position: 'top',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
           this.setState({loading: false})
         })
         

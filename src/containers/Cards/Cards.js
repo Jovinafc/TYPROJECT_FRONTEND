@@ -359,6 +359,8 @@ class Cards extends Component {
             <Card className={classes.card} name={dis.brand} user_id={dis.user_id} vehicle_id={dis.vehicle_id} key={dis.id} model={dis.model} 
                price={dis.price} 
                image={dis.image}
+               year={dis.year}
+               rate={dis.avg_rating_vehicles}
                price_per_day={dis.price_per_day}
                />
 

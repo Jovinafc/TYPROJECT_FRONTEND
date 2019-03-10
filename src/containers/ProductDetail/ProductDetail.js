@@ -28,6 +28,7 @@ class ProductDetail extends Component {
         rate: 0,
         rateToggle: false,
         reviewsArray: [],
+        revArray: [],
         disabled: false
     }
 
@@ -47,6 +48,24 @@ class ProductDetail extends Component {
             })
 
             console.log(this.state.product);
+        })
+
+        axios.get(`/get-accessory?accessory_id=${localStorage.getItem('product_id')}&user_id=${localStorage.getItem('userId')}`)
+        .then(res => {
+            console.log(res.data);
+            if(res.data !== 'No Reviews'){
+                const hist = [];
+
+                for(let key in res.data){
+                    hist.push({
+                        ...res.data[key],
+                        idd: key
+                    });
+                }
+                this.setState({
+                    revArray: hist
+                })
+            }
         })
         
         axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: a})
@@ -223,29 +242,32 @@ class ProductDetail extends Component {
         console.log(this.state.product.accessory_id);
         let rateDiv = <div>
 
-                        {this.state.rateToggle 
-                        ?  <ReactStars
+                        
+                          <ReactStars
                            count={5}
                            onChange={this.ratingChanged}
                            size={24}
                            value={this.state.rate}
                            half={false}
                            color2={'#ffd700'} /> 
-                         : null}
+                        
                          </div>
 
-        let reviewlist = null;
+        let reviewlist = <div>No Reviews To Show For </div>;
 
-        reviewlist = this.state.reviewsArray.map(dis => {
-            return (
-            <ReviewDiv 
-            key={dis.iddd}
-            details = {dis}
-            />
-            )
-
-        })
-
+        if(this.state.revArray.length > 0){
+            reviewlist = this.state.revArray.map(dis => {
+                return (
+                <ReviewDiv 
+                key={dis.idd}
+                details = {dis}
+                />
+                )
+    
+            })
+    
+        }
+        
 
         let modalClose = () => this.setState({ modalShow: false });
 
@@ -266,7 +288,7 @@ class ProductDetail extends Component {
                         </div>
 
                         <div className={classes.details}>
-                            Details
+                            <strong>Details</strong>
                             <div className={classes.innerDetails}>
                                 <div><p>Description: {this.state.product.accessory_details}</p></div>
                                 {/* <div><p>Used For:{this.state.product}</p></div> */}
@@ -356,7 +378,6 @@ class ProductDetail extends Component {
           </p> */}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
           <Button onClick={this.submitHandler}>Save</Button>
         </Modal.Footer>
       </Modal>
@@ -381,7 +402,7 @@ class ProductDetail extends Component {
                 </div>    
 
                 <div className={classes.reviewsCont}>
-                    Reviews 
+                    <strong>Reviews</strong> 
                     {reviewlist}
                </div>
 

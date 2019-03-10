@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../../store/actions/cart';
+import Alert from 'react-s-alert';
 
 class Otp extends Component {
 
@@ -24,7 +25,14 @@ class Otp extends Component {
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
           console.log(response);
-          alert("Success");
+          Alert.success('Payment Successful', {
+            position: 'top',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
+      
+          
           if(this.props.payment_type === 'Sell'){
             let vehicles = {
                 client_id: localStorage.getItem('userId'),
@@ -45,6 +53,7 @@ class Otp extends Component {
           }
           else if(this.props.payment_type === 'Rent'){
             console.log(this.props.enddatetime);
+              console.log(this.props.vehicle_id+ " "+localStorage.getItem('userId')+ " "+(this.props.price_per_day*this.props.days))
                 axios.post('/rent-now', {
                     user_client_id: localStorage.getItem('userId'), 
                          vehicle_id: this.props.vehicle_id,
@@ -89,6 +98,13 @@ class Otp extends Component {
         })
         .catch(err => {
           console.log(err.response.data);
+          Alert.warning('Incorrect OTP', {
+            position: 'top',
+            effect: 'bouncyflip',
+            timeout: 3000,
+            html: false
+        });
+      
         })
       }
 

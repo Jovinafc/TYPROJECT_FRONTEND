@@ -381,7 +381,7 @@ class VehicleDetail extends Component {
 
                             <div >
                                 {!this.state.vehicles.price 
-                                ? <div style={{border: '1px solid yellow', width: '100%', height: '80%'}}><p style={{fontSize: '0.8em', marginTop: '10%'}}>A deposit of &#x20B9; 5000 will be taken.
+                                ? <div style={{ width: '100%', height: '80%'}}><p style={{fontSize: '0.8em', marginTop: '10%'}}>A deposit of &#x20B9; 5000 will be taken.
                                 5000 + {this.state.vehicles.price_per_day * this.state.days} = {this.state.vehicles.price_per_day* this.state.days + 5000}
                                 </p></div>
                                 : null }

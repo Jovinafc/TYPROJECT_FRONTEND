@@ -6,14 +6,12 @@ import globalStyles from '../../../../node_modules/bootstrap/dist/css/bootstrap.
 import axios from 'axios';
 import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Alert from 'react-bootstrap/Alert'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from 'react-moment';
+// import moment from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
-import { throws } from 'assert';
+import Alert from 'react-s-alert';
 
 
 class ProfInfo extends Component {
@@ -276,7 +274,13 @@ class ProfInfo extends Component {
             }
         axios.post('/update-user-profile', {users: users })
         .then( res => {
-            alert('Saved')
+            console.log(res);
+            Alert.success('Profile Updated', {
+                position: 'top',
+                effect: 'bouncyflip',
+                timeout: 3000,
+                html: false
+            });
             this.props.fetchUser(this.state.user_id);
         })
         .catch(err => {
@@ -349,7 +353,7 @@ class ProfInfo extends Component {
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.stateHandler} type="text" id="state" onChange={this.stateHandler} value={this.state.state || ''} />   
-                    <span style={{color: 'red'}}>{this.state.stateError}</span>   
+                    {/* <span style={{color: 'red'}}>{this.state.stateError}</span>    */}
 
                         </div>    
                         </div>
@@ -358,7 +362,7 @@ class ProfInfo extends Component {
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.cityHandler} type="text" id="city" onChange={this.cityHandler} value={this.state.city || ''} />    
-                    <span style={{color: 'red'}}>{this.state.cityError}</span>   
+                    {/* <span style={{color: 'red'}}>{this.state.cityError}</span>    */}
     
                         </div>    
                         </div>
@@ -367,7 +371,7 @@ class ProfInfo extends Component {
                     <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="pincode" onChange={this.pincodeHandler} value={this.state.pincode || ''}/>        
-                    <span style={{color: 'red'}}>{this.state.pin_numberError}</span>   
+                    {/* <span style={{color: 'red'}}>{this.state.pin_numberError}</span>    */}
 
                     </div>    
                         </div>

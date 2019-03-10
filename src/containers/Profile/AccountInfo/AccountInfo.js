@@ -5,6 +5,7 @@ import cx from 'classnames';
 import globalStyles from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Alert from 'react-s-alert';
 
 class AccountInfo extends Component {
 
@@ -118,6 +119,12 @@ class AccountInfo extends Component {
             axios.post('/update-password', {email: this.state.email, old_password: this.state.old_password, password: this.state.confirm_password})
             .then( response => {
                 console.log(response);    
+                Alert.info('Password Updated', {
+                    position: 'top',
+                    effect: 'bouncyflip',
+                    timeout: 3000,
+                    html: false
+                });
             })
         }
         }     
