@@ -29,6 +29,7 @@ class ProductDetail extends Component {
         rateToggle: false,
         reviewsArray: [],
         revArray: [],
+        ratedisable:false,
         disabled: false
     }
 
@@ -106,7 +107,8 @@ class ProductDetail extends Component {
 
                 if(res.data[0].rating !== null|| ''){
                     this.setState({
-                        rate: res.data[0].rating
+                        rate: res.data[0].rating,
+                        ratedisable: true
                     })
                 }
 
@@ -249,8 +251,9 @@ class ProductDetail extends Component {
                            size={24}
                            value={this.state.rate}
                            half={false}
+                           edit={!this.state.ratedisable} 
+
                            color2={'#ffd700'} /> 
-                        
                          </div>
 
         let reviewlist = <div>No Reviews To Show For </div>;
@@ -290,10 +293,10 @@ class ProductDetail extends Component {
                         <div className={classes.details}>
                             <strong>Details</strong>
                             <div className={classes.innerDetails}>
-                                <div><p>Description: {this.state.product.accessory_details}</p></div>
+                                <div><p><strong>Description:</strong> {this.state.product.accessory_details}</p></div>
                                 {/* <div><p>Used For:{this.state.product}</p></div> */}
-                                <div><p>Used For: {this.state.product.accessory_use}</p> </div>
-                                <div><p>Product Type: {this.state.product.accessory_type}</p> </div>
+                                <div><p><strong>Used For:</strong> {this.state.product.accessory_use}</p> </div>
+                                <div><p><strong>Product Type:</strong> {this.state.product.accessory_type}</p> </div>
 
                             </div>
                         </div>
@@ -335,7 +338,7 @@ class ProductDetail extends Component {
              ? <NavLink to="/Profile"><button className="btn btn-primary">Update your Profile</button></NavLink>
 
             //  : <NavLink  to={'/productpayment/:'+this.state.product.accessory_id} ><button disabled={!this.state.buyButton} className="btn btn-primary">Buy Product</button> </NavLink>
-             : <button onClick={this.buyProduct}>Buy Product</button>
+             : <button className="btn btn-success" onClick={this.buyProduct}>Buy Product</button>
               
              }  
            </div> 
@@ -360,7 +363,11 @@ class ProductDetail extends Component {
                  <div className={classes.modalHeader}>
                   <div className={classes.round}> {
                             this.props.image === null
-                            ? <h2 style={{textAlign: "center",color: "black", }}>{this.props.fname.charAt(0)} </h2>
+                            ? <h2 style={{position: 'relative', objectFit: 'cover',
+                            borderRadius: '50%',
+                            width: '100%',
+                            height: '100%',
+                                display: 'inline-block',textAlign: "center",color: "black" }}>{this.props.fname.charAt(0)} </h2>
                             : <img className={classes.pp} src={this.props.image}/>
                         }
                   </div>

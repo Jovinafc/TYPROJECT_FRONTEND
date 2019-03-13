@@ -206,24 +206,24 @@ class VehicleHistoryCard extends Component {
             <div className={classes.rightDiv}>
                 <div className={classes.topRightDiv}>
                     <div>
-                        <p>{this.props.details.vehicle['brand']+ " " +this.props.details.vehicle['model']}</p>
+                        <h5>{this.props.details.vehicle['brand']+ " " +this.props.details.vehicle['model']}</h5>
                     </div>
                     {this.props.details.vehicle['price'] 
-                    ? <div><p>Purchased From {this.props.details.owner['name']}</p></div>
+                    ? <div><p><strong>Status:</strong> Purchased From {this.props.details.owner['name']}</p></div>
                     : <span> {this.props.details.status === "Rent Initiated"
-                            ? <div><p>To be Rented From {this.props.details.owner['name']}</p></div>
-                            : <div><p>Rented From {this.props.details.owner['name']} </p></div> }</span>
+                            ? <div><p><strong>Status</strong>: To be Rented From {this.props.details.owner['name']}</p></div>
+                            : <div><p><strong>Status</strong>: Rented From {this.props.details.owner['name']} </p></div> }</span>
                     }
-                    <div><p>Amount {this.props.details.amount}</p></div>
+                    <div><p><strong>&#x20B9; Amount</strong> : {this.props.details.amount + 100}</p></div>
                     <div>{
                     this.props.details.rents.length > 0
-                    ? <div>Start Date : {this.props.details.rents[0].start_date.substring(0,10)}</div>
+                    ? <div><strong>Start Date</strong> : {this.props.details.rents[0].start_date.substring(0,10)}</div>
                     : null
                     } </div>
 
                     <div>{
                     this.props.details.rents.length > 0
-                    ? <div>End Date : {this.props.details.rents[0].end_date.substring(0,10)}</div>
+                    ? <div><strong>End Date</strong> : {this.props.details.rents[0].end_date.substring(0,10)}</div>
                     : null
                     } </div>
 
@@ -284,19 +284,7 @@ class VehicleHistoryCard extends Component {
         </Modal.Footer>
       </Modal>
                   
-                    {/* {
-                        this.props.details.vehicle['price_per_day']
-                        ? <div className={classes.rateDiv}> Rate Vehicle Experience
-                            <button>Rate Vehicle Experience</button>
-                            <span className={classes.rate}>Rate Vehicle</span>
-                          </div>
-                        : <div className={classes.rateDiv}> 
-                            <span className={classes.rate}>
-                            <Rater className={classes.rateCom} onRate={this.rateHandler} total={5} rating={this.state.rating} />
-                            </span>
-                           </div> 
-                    } */}
-
+                 
                     {
                         this.props.details.status === "Rent Initiated"
                         ? null

@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
 import * as actions from './cart'
+import * as actionp from './vehicle_click';
 
 export const authStart = () => {
     return {
@@ -114,6 +115,7 @@ export const deleteLocalStorage = () => {
           localStorage.setItem('email', email);
           dispatch(authSuccess(response.data.token, response.data.user_id));
           dispatch(actions.cartItems(response.data.user_id))
+          dispatch(actionp.my_vehicles_store())
           dispatch(userData(response.data.user_id));
           dispatch(checkAuthTimeout(response.data.expiresIn));
       })

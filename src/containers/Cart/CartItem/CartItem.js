@@ -147,7 +147,7 @@ class CartItem extends Component {
 
             <div className={classes.quantity}> 
                 <div className={classes.name}> 
-                    {this.props.name}    
+                    <strong>{this.props.name} </strong>   
                 </div>
                     <div>
                     <button onClick={this.decreaseCounter} >
@@ -168,10 +168,10 @@ class CartItem extends Component {
             </div>
 
             <div className={classes.priceDiv}>
-                Price {this.state.price}
+                Price: &#x20B9;{this.state.price}
             </div>
 
-            <div>
+            <div className={classes.buttonDiv}>
                 <button onClick={() => this.removeItemHandler(this.props.id)} className="btn btn-danger">Remove from Cart</button>
                 <div style={{width:'5px'}}></div>
                 <br />

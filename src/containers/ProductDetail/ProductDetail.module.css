@@ -3,7 +3,10 @@
 }
 
 .pdcontainer {
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    
     width: 80%;
     margin-left: 10%;
     height: 700px;
@@ -39,7 +42,9 @@
 
 .leftDiv {
     width: 65%;
-    border: 1px solid black;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
     height:100%;
@@ -75,7 +80,9 @@
 }
 .rightDiv {
     width: 35%;
-    border: 1px solid black;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
+    
 }
 
 .price {
@@ -140,10 +147,8 @@
     border-radius:  50%;
     border: 1px solid black;
     width: 5%;
+    margin-top: 6px;
     height:50%;
-    
-    /* position: relative;
-    display: inline-block; */
     margin-right: 10px;
 }
 
@@ -152,7 +157,6 @@
     display: inline-block;
     object-fit: cover;
     border-radius: 50%;
-    /* border: 1px solid black; */
     width: 100%;
     height: 100%;
 }

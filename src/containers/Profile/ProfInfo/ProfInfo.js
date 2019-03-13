@@ -28,6 +28,8 @@ class ProfInfo extends Component {
         city: '',
         pincode: '',
         bank_no: '',
+        documents: '',
+        documentPrev: '',
         user_id: this.props.user_id,
         show: false,
         pin_numberError: '',
@@ -50,7 +52,8 @@ class ProfInfo extends Component {
                 state: res.data.state,
                 city: res.data.city,
                 pincode: res.data.pincode,
-                bank_no: res.data.bank_account_no
+                bank_no: res.data.bank_account_no,
+                documentPrev: res.data.documents
             });         
             
         })
@@ -272,20 +275,30 @@ class ProfInfo extends Component {
                 user_id: this.state.user_id,
                 bank_account_no: this.state.bank_no
             }
-        axios.post('/update-user-profile', {users: users })
-        .then( res => {
+
+        const fd = new FormData(); 
+        fd.append('clientImage', this.state.documents);   
+        axios.post('/clientImage', fd).then(res => {
             console.log(res);
-            Alert.success('Profile Updated', {
-                position: 'top',
-                effect: 'bouncyflip',
-                timeout: 3000,
-                html: false
-            });
-            this.props.fetchUser(this.state.user_id);
+
+            axios.post('/update-user-profile', {users: users })
+            .then( res => {
+                console.log(res);
+                Alert.success('Profile Updated', {
+                    position: 'top',
+                    effect: 'bouncyflip',
+                    timeout: 3000,
+                    html: false
+                });
+                this.props.fetchUser(this.state.user_id);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    
+            
         })
-        .catch(err => {
-            console.log(err);
-        })
+
         }
         else {
             console.log('Declined');
@@ -300,12 +313,43 @@ class ProfInfo extends Component {
         })
     }
 
+
+    handleDocumentChange = (e) => {
+        e.preventDefault();
+       
+       let reader = new FileReader();
+       let file = e.target.files[0];
+       if(file === undefined) {
+           this.setState({ documentPrev: null})
+       }
+       reader.onload = (e) => {
+           this.setState({
+               documents: file,
+               documentPrev: reader.result,
+           });
+       }
+       if(e.target.files[0]){
+           reader.readAsDataURL(e.target.files[0]);
+           this.setState({
+               documentPrev: ''
+           })
+       }
+    }
+   
+    
     render () {
+
+        let {documentPrev} = this.state;
+        let documentPreview = null;
+        if(documentPrev) {
+            documentPreview = (<img alt="document" className={classes.Image} src={documentPrev} />);
+        }
+    
         return (
-            <div>
+            <div className={classes.Cont}>
                 <h3 style={{textAlign: "center"}}>Basic Information</h3>
                 <br />
-                <div >
+                <div className={classes.formCont}>
                 <form  className="form-horizontal">
                  
                 {/* className={cx(globalStyles.label, globalStyles['col-sm-2 control-label'], classes.Inp)} */}
@@ -334,7 +378,7 @@ class ProfInfo extends Component {
 
                         
                         <div className="form-group">
-                    <label htmlFor="bank_no" className="col-sm-2 control-label">Bank Account No</label>
+                    <label htmlFor="bank_no" className="col-sm-4 control-label">Bank Account No</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no || ''}/>        
                     </div>    
@@ -392,9 +436,21 @@ class ProfInfo extends Component {
                     </div>
                         </div>
 
+
+                        <div className="form-group">
+                            <label htmlFor="documents" className="col-sm-4 control-label">Document</label>
+                            <div className="col-sm-10">
+                    <input type="file" className="form-control" id="documents" onChange={this.handleDocumentChange} />        
+                    {/* <span style={{color: 'red'}}>{this.state.pin_numberError}</span>    */}
+
+                    </div>    
+                    {documentPreview}
+                   
+                        </div>
+
                        
 
-                        <div style={{textAlign: 'center', marginTop: '80px'}}>
+                        <div style={{textAlign: 'center', marginTop: '50px'}}>
                         <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
                         <br/>
                         <br />

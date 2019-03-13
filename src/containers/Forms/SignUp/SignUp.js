@@ -7,12 +7,16 @@ import axios from '../../../axios';
 import DatePicker from 'react-date-picker';
 // import {DateInput} from '@opuscapita/react-dates';
 // import DatePicker from "react-bootstrap-date-picker";
-import moment from 'react-moment';
+import * as mom from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
+import './react-datetime.css';
 import pic from '../../../Images/signupmod.jpg';
 import Aux from '../../../hoc/Auxilary';
 import Input from '../../../components/UI/InputTag/Input';
 import Alert from 'react-s-alert';
+import Datetime from 'react-datetime';
+import moment, * as moments from 'moment';
+
 
 
 // let style = {
@@ -99,6 +103,34 @@ class SignUp extends Component {
         }
 
     }
+    
+dateHandler = (moment) => {
+    console.log(moment);
+    let s = moments(moment).format('YYYY-MM-DD');
+    console.log(s);
+    let curr = moments().format('YYYY-MM-DD');
+
+    let difference = moments(curr).diff(s, 'days');
+    console.log(difference);
+    
+    if(difference > 6570){
+        this.setState({
+            DOB: s,
+            DOBError: ''
+        })
+    }
+    else{
+        this.setState({
+            DOBError: "You should be 18 years old!"
+        })
+    }
+    console.log(curr);
+    // if(s > )
+    this.setState({
+        DOB: s
+    })
+
+}
 
     phoneHandler = (e) => {
         let touched = null;
@@ -138,25 +170,25 @@ class SignUp extends Component {
 
     }
     
-    dobHandler = (e) => {
-        let touched = null;
-        touched = true;
-        this.setState({DOB: e})
+    // dobHandler = (e) => {
+    //     let touched = null;
+    //     touched = true;
+    //     this.setState({DOB: e})
 
-        if(touched === true){
-            if(e === 0) {
-                this.setState({
-                    DOBError: 'Please Enter DOB'
-                })
-            }
+    //     if(touched === true){
+    //         if(e === 0) {
+    //             this.setState({
+    //                 DOBError: 'Please Enter DOB'
+    //             })
+    //         }
 
-            if(e !== ''){
-                this.setState({
-                    DOBError: ''
-                })
-            }
-        }
-    }
+    //         if(e !== ''){
+    //             this.setState({
+    //                 DOBError: ''
+    //             })
+    //         }
+    //     }
+    // }
 
     emailHandler = (e) => {
         let touched = null;
@@ -276,6 +308,27 @@ class SignUp extends Component {
             errors.DOBError = "Please Enter Correct DOB"
         }
 
+        let s = moments(this.state.DOB).format('YYYY-MM-DD');
+
+        let curr = moments().format('YYYY-MM-DD');
+
+        let difference = moments(curr).diff(s, 'days');
+        console.log(difference);
+
+         
+            if(difference > 6570){
+                this.setState({
+                    DOB: s,
+                    DOBError: ''
+                })
+            }
+            else{
+                isError = true;
+                this.setState({
+                    DOBError: "You should be 18 years old!"
+                })
+            }
+   
 //Email Validation
 
         if(this.state.email === '') {
@@ -497,7 +550,7 @@ class SignUp extends Component {
                    
                      <div style={{width: '100ps'}}>
                     {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
-                    <ModernDatePicker 
+                    {/* <ModernDatePicker 
                     id="dob"
                     format={'YYYY-MM-DD'} 
                     date = {this.state.DOB}
@@ -505,6 +558,14 @@ class SignUp extends Component {
                     showBorder
                     className={classes.modernDiv} 
             
+                    /> */}
+                    <Datetime 
+                    timeFormat={false}
+                    id="dob"
+                    style={{backgroundColor: '#141313'}}
+                    dateFormat="YYYY-MM-DD"
+                    onChange={this.dateHandler}
+                    className={classes.modernDiv}
                     />
                     {/* <DatePicker id="dob" style={{height: '100px'}} onChange={this.dobHandler} value={this.state.DOB} />  */}
 

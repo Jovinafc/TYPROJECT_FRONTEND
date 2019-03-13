@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { readSync } from 'fs';
 
 export const FetchAllVehiclesStart = () => {
     return {
@@ -119,5 +120,29 @@ export const price_on_days = (days) => {
     return {
         type: actionTypes.NO_OF_DAYS,
         days: days
+    }
+}
+
+export const my_vehicles = (myVehicles) => {
+    return {
+        type: actionTypes.MY_VEHICLES,
+        myVehicles: myVehicles
+    }
+}
+
+export const my_vehicles_store = () => {
+    return dispatch => {
+        axios.post('/fetch-specific-user-vehicles', {user_id: localStorage.getItem('userId')})
+    .then(res => {
+        console.log(res.data);
+        const vehicles = [];
+        for(let key in res.data){
+            vehicles.push({
+                ...res.data[key],
+                id: key
+            });
+        }
+        dispatch(my_vehicles(vehicles))
+    })
     }
 }

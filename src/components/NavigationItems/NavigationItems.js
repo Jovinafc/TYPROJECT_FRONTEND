@@ -37,9 +37,11 @@ const navigationItems = (props) =>  {
              <NavigationItem  link="/logout">Logout</NavigationItem> 
             */}
                 
-             {!props.isAuthenticated 
+                <span style={style} className={classes.span1}>
+               {!props.isAuthenticated 
                 ? <NavigationItem link="/login">Sign In</NavigationItem>
                 : null }
+                </span>
 
 
              {props.isAuthenticated 

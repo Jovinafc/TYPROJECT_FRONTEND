@@ -32,7 +32,10 @@ class VehicleDetail extends Component {
         end: '',
         days: 1,
         reviewsArray: [],
-        noReviews: false
+        noReviews: false,
+        startDateError: '',
+        endDateError: '',
+        depositAmount: 5000
     }
 
 
@@ -246,7 +249,13 @@ class VehicleDetail extends Component {
 
     }
 
+    
     render () {
+
+        let yesterday = Datetime.moment().subtract(1, 'day');
+        let valid = function(current){
+            return current.isAfter(yesterday);
+        };
         // console.log(this.state.start);
         // console.log(this.state.end);
         console.log(this.state.vehicles);
@@ -284,9 +293,11 @@ class VehicleDetail extends Component {
         if(this.state.vehicles.price_per_day){
             datepickers = <div className={classes.date}>
                                 <p style={{marginBottom: '-3px'}}>Start Date</p>
-                                <Datetime className={classes.startInput} style={{width: '60%'}} onChange={this.starth}/>  
+                                <Datetime isValidDate={valid} className={classes.modernDiv} style={{width: '60%'}} onChange={this.starth}/>  
+                                <span>{this.state.startDateError}</span>
                                 <p style={{marginBottom: '-3px'}}>End Date</p>
-                               <Datetime onChange={this.endh}/>
+                               <Datetime isValidDate={valid} className={classes.modernDiv}  onChange={this.endh}/>
+                                <span>{this.state.endDateError}</span>
                           </div>
         }
         
@@ -307,7 +318,7 @@ class VehicleDetail extends Component {
                                  <img className={classes.img} src={this.state.vehicles.image}/>
                              </div>
                              <div className={classes.details}>
-                                  Details
+                                  <strong>Details</strong>
                                   <div className={classes.innerdetails}>
                                  <div> <p>Brand: {this.state.vehicles.brand}</p> </div> 
                                  <div> <p>Model: {this.state.vehicles.model} </p> </div>
@@ -325,7 +336,7 @@ class VehicleDetail extends Component {
                     <div className={classes.rightdiv}>
                         <div className={classes.price}>
                             {this.state.vehicles.price ? 
-                            <h6>Price: &#x20B9;{this.state.vehicles.price}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
+                            <h6>Price: &#x20B9;{this.state.vehicles.price.toLocaleString('en-IN')}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
                             <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
                             <div> Ad Posted On: {this.state.postedOn}</div>    
                             <div>Owner:{this.state.owner.name}</div>    
@@ -379,10 +390,10 @@ class VehicleDetail extends Component {
                
                }           
 
-                            <div >
+                            <div style={{marginLeft:'5px'}}>
                                 {!this.state.vehicles.price 
                                 ? <div style={{ width: '100%', height: '80%'}}><p style={{fontSize: '0.8em', marginTop: '10%'}}>A deposit of &#x20B9; 5000 will be taken.
-                                5000 + {this.state.vehicles.price_per_day * this.state.days} = {this.state.vehicles.price_per_day* this.state.days + 5000}
+                                {this.state.depositAmount} + {this.state.vehicles.price_per_day * this.state.days} = {this.state.vehicles.price_per_day* this.state.days + 5000}
                                 </p></div>
                                 : null }
                             </div>

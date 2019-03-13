@@ -15,7 +15,7 @@
 }
 
 .rightDiv {
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .imageCont {
@@ -24,7 +24,7 @@
     /* margin-top: 1%;
     margin-left:2%;*/
     margin: 5%;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
 }
 
 .Image {
@@ -36,7 +36,7 @@
 .topRightDiv {
     height: 75%;
     width: 100%;
-    border: 1px solid blue
+    /* border: 1px solid blue */
 }
 
 .downRightDiv {
@@ -44,11 +44,12 @@
     width: 100%;
     display: flex;
 
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .rateDiv {
     position: relative;
+    margin-left: 2%;
 }
 
 .rateDiv .rate{

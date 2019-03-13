@@ -45,3 +45,11 @@
     width: 2px;
     size: 4;
 }
+.inputDiv {
+    width: 30px;
+    text-align: center;
+}
+
+.buttonDiv {
+    padding: 50px;
+}

@@ -169,9 +169,9 @@ class Cart extends Component {
                      <h3>Grand Total</h3>
                  </div>       
                  <div>
-                     <p>No of Items: {this.state.noofItems}</p>
+                     <p><strong>No of Items:</strong> {this.state.noofItems}</p>
                 </div>
-                <div><p>Grand Total: {this.state.totalPrice}</p></div>
+                <div><p><strong>Grand Total:</strong> &#x20B9;{this.state.totalPrice}</p></div>
                 <div>
                     <NavLink to="/cart/cartpayment"><button className="btn btn-success">Checkout</button></NavLink>
                 </div>

@@ -60,8 +60,25 @@ class SellVehicle extends Component {
         tempType: '',
         sample: '',
         show: false,
-        loading: false
+        loading: false,
+        width: window.innerWidth,
+
     }
+
+    componentWillMount() {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+      }
+      
+      // make sure to remove the listener
+      // when the component is not mounted anymore
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowSizeChange);
+      }
+
+      handleWindowSizeChange = () => {
+        this.setState({ width: window.innerWidth });
+      };
+
 
     details = () => {
         axios.get('/fetch-year').then(result => {
@@ -347,49 +364,64 @@ class SellVehicle extends Component {
             })
             const fd = new FormData();
             fd.append('image',this.state.formdata.image);
-            axios.post('/image',fd).then(()=>{
+            axios.post('/image',fd).then(()=>{  
                 console.log('Image Sent');
+
+               const sd = new FormData(); 
+               sd.append('documentImage', this.state.formdata.documents) 
+               axios.post('/documentImage', sd).then(res => {
+                   console.log(res);
+
+                   axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
+                   .then((post) => {
+                       console.log("Data Sent", post);
+                       Alert.info('Ad Posted', {
+                           position: 'top',
+                           effect: 'bouncyflip',
+                           timeout: 3000,
+                           html: false
+                       });
+                       // this.notify();
+                       this.setState({
+                           formdata: {
+                               type: '',
+                               brand: '',
+                               model: '',
+                               registration_state: '',
+                               fuel: '',
+                               image: '',
+                               documents: '',
+                               price: '',
+                               year: '',
+                               km_driven: '',
+                               number_plate: '',
+                               user_id: this.props.user_id
+                             },
+                             imagePrev: '',
+                             documentPrev: '',
+                             loading: false
+                       }) 
+               
+                   }).catch(e=>{
+                       console.log(e)
+                       Alert.warning('Some Error Occurred! Please Try Again', {
+                        position: 'top',
+                        effect: 'bouncyflip',
+                        timeout: 3000,
+                        html: false
+                    });
+                       this.setState({
+                           loading: false
+                       })
+                   })
+
+               }) 
+               this.setState({documentPrev: ''})    
                this.setState({imagePrev:''});
     
-        
         }).catch(e=>console.log(e));
         
-        axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
-        .then((post) => {
-            console.log("Data Sent", post);
-            Alert.info('Ad Posted', {
-                position: 'top',
-                effect: 'bouncyflip',
-                timeout: 3000,
-                html: false
-            });
-            // this.notify();
-            this.setState({
-                formdata: {
-                    type: '',
-                    brand: '',
-                    model: '',
-                    registration_state: '',
-                    fuel: '',
-                    image: '',
-                    documents: '',
-                    price: '',
-                    year: '',
-                    km_driven: '',
-                    number_plate: '',
-                    user_id: this.props.user_id
-                  },
-                  imagePrev: '',
-                  documentPrev: '',
-                  loading: false
-            }) 
-    
-        }).catch(e=>{
-            console.log(e)
-            this.setState({
-                loading: false
-            })
-        })
+        
     
         }
       
@@ -478,6 +510,9 @@ class SellVehicle extends Component {
 
   render () {
 
+    const { width } = this.state;
+    const isMobile = width <= 500;
+
       let redirect = null;
 
         console.log(this.props.isAuthenticated);
@@ -563,6 +598,21 @@ class SellVehicle extends Component {
 
     console.log(this.state.formdata);
 
+    // if(isMobile){
+    //     return (
+    //         <div>
+    //             Phone Layout
+    //             <div  className={classes.Box} >
+
+    //         <Tabs />
+
+    //     </div>
+    //         </div>
+    //     )
+    // }
+    // else {
+
+    
     return (
         <Aux>
             {redirect}
@@ -770,6 +820,7 @@ class SellVehicle extends Component {
         </div>
         </Aux>
     );
+    // }
   };
 }
 

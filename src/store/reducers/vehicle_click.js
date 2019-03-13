@@ -6,6 +6,7 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
     vehicle_id: null,
     vehicles: [],
+    myVehicles: [],
     loading: false,
     startDate: '',
     endDate: '',
@@ -64,6 +65,10 @@ const save_owner_bank_account_no = (state,action) => {
     return updateObject(state,{owner_bank_account_no: action.owner_bank_account_no})
 }
 
+const my_vehicles = (state,action) => {
+    return updateObject(state, {myVehicles: action.myVehicles})
+}
+
 const reducer = (state=initialState, action) => {
     switch(action.type){
         case actionTypes.CARD_CLICK: return CardClick(state,action);
@@ -78,6 +83,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.FETCH_SELECTED_VEHICLES: return(FetchSelectedVehicle(state,action));
         case actionTypes.SAVE_OWNER_BANK_ACCOUNT_NO: return(save_owner_bank_account_no(state,action));
         case actionTypes.NO_OF_DAYS: return (priceonDays(state, action));
+        case actionTypes.MY_VEHICLES: return (my_vehicles(state,action))
         default: return state;
     }
 };

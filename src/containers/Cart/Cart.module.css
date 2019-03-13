@@ -35,7 +35,8 @@
 .checkoutDiv {
     width: 30%;
     margin-left: 2%;
-    border: 1px solid black;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin-bottom: 100px;
     height: 200px;
     margin-right: 5%;

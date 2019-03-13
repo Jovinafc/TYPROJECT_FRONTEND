@@ -44,7 +44,7 @@ class Accessories extends Component {
             console.log(response);
             this.setState({products: response.data})
         })
-    }
+    }   
 
     searchHandler = (e) => {
         this.setState({term: e.target.value})
@@ -69,6 +69,7 @@ class Accessories extends Component {
                use={dis.accessory_use}
                qty={dis.accessory_qty}
                image={dis.accessory_image}
+               average_rating={dis.avg_rating_accessories}
                />
 
             )

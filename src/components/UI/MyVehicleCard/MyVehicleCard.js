@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import classes from './MyVehicleCard.module.css';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/vehicle_click';
+import * as actionp from '../../../store/actions/cart';
 class MyVehicleCard extends Component {
 
     removeVehicle = () => {
+        this.props.startLoading();
         axios.post('/remove-vehicle', {user_id: localStorage.getItem('userId'), vehicle_id: this.props.details.vehicle_id})
         .then(res => {
             console.log(res.data);
+            this.props.my_vehicle_store();
+        })
+        .catch(err => {
+            this.props.stopLoading();
         })
     }
 
@@ -78,6 +85,14 @@ class MyVehicleCard extends Component {
     }
 } 
 
+const mapDispatchToProps = dispatch => {
+    return {
+        my_vehicle_store: () =>dispatch(actions.my_vehicles_store()), 
+        startLoading: () => dispatch(actionp.startLoading()),
+        stopLoading: () => dispatch(actionp.stopLoading())
+
+    }
+}
 
 
-export default MyVehicleCard;
+export default connect(null, mapDispatchToProps)(MyVehicleCard);

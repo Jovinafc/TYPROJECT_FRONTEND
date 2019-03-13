@@ -1,5 +1,6 @@
-
-
+@media(min-width:500px)
+{
+    
 .TabContainer {
     text-align: center;
     width: 100%;
@@ -15,6 +16,8 @@
     border: 1px solid white;
     text-align: center;
     font-size: 1.5em;
+    word-wrap: break-word;
+
 }
 
 .righttab {
@@ -22,6 +25,7 @@
     border: 1px solid white;
     text-align: center;
     font-size: 1.5em;
+    word-wrap: break-word;
 
 }
 
@@ -44,3 +48,78 @@
     background-color: lightblue;
     color: white;
    }
+
+}
+  @media(max-width:500px){
+
+    
+.TabContainer {
+    text-align: center;
+    width: 100%;
+    color: antiquewhite;
+    /* height: 50px; */
+    margin-bottom: 4%;
+    display: flex;
+    background-color: grey;
+}
+
+
+    .lefttab {
+        width: 50%;
+        border: 1px solid white;
+        text-align: center;
+        font-size: 1.5em;
+        word-wrap: break-word;
+    }
+    
+    .righttab {
+        width: 50%;
+        border: 1px solid white;
+        text-align: center;
+        word-wrap: break-word;
+        font-size: 1.5em;
+    
+    }
+    
+.lefttab a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+
+.lefttab:last-child {
+    border-bottom:none;
+}
+
+.lefttab a:hover:not(.active) {
+    background-color: #555;
+    color: white;}
+
+.lefttab a.active {
+    background-color: lightblue;
+    color: white;
+   }
+
+     
+.righttab a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+
+.righttab:last-child {
+    border-bottom:none;
+}
+
+.righttab a:hover:not(.active) {
+    background-color: #555;
+    color: white;}
+
+.righttab a.active {
+    background-color: lightblue;
+    color: white;
+   }
+
+  } 

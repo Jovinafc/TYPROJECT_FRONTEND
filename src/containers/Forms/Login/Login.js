@@ -150,7 +150,7 @@ class Login extends Component {
         }
         return (
             
-                <div>
+                <div className={classes.cont}>
                 <h3 style={{textAlign: 'center'}}> Login </h3>
                 <form className={classes.form} onSubmit={this.submitHandler} >
                     {form}

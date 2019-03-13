@@ -12,7 +12,14 @@ class Accessory extends Component {
         // ids: this.props.cartItems.map(a => a.accessory_id)
     }
     
+
     render () {
+
+        let temp_rate;
+        if(this.props.average_rating.length > 0){
+            temp_rate = this.props.average_rating[0].avg_rating;
+        }
+        console.log(temp_rate);
         // console.log(this.props.cartItems.map(a => a.accessory_id));
         return (
             <div className={classes.CardContainer}>
@@ -41,6 +48,12 @@ class Accessory extends Component {
                                     Item already exists in cart
                              </Alert> */}
                          </div>
+                         <div style={{float:'right'}}>
+                            {this.props.average_rating.length > 0
+                            ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'35px', color: 'white'}}>{this.props.average_rating[0].avg_rating}&#9734;</div>
+                            : null}
+                        </div>
+
                     </div>
                     
 
