@@ -1,70 +1,97 @@
 import React, {Component} from 'react';
 import classes from './VehicleHistory.module.css';
-import ImageSlider from '../../components/ImageSlider/ImageSlider';
-import axios from 'axios';
+// import axios from 'axios';
 import VehicleHistoryCard from '../../components/UI/VehicleHistory/VehicleHistoryCard'; 
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/vehicle_click';
+import * as actionp from '../../store/actions/cart';
 
 
 class VehicleHistory extends Component {
 
     state = {
-        vehicles : [],
-        vehicleComment: [],
-        vehicleRate: []
+        vehicles : this.props.vehicleHist,
+        vehicleComment: this.props.vehicleCom,
+        vehicleRate: this.props.vehicleRate
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if(this.props.vehicleHist !== prevProps.vehicleHist){
+            this.setState({
+                vehicles: this.props.vehicleHist
+            }, () => {
+                this.props.stopLoading();
+            })
+        }
+
+        if(this.props.vehicleRate !== prevProps.vehicleRate){
+            this.setState({
+                vehicleRate: this.props.vehicleRate
+            }, () => {
+                this.props.stopLoading();
+            })
+        }
+
+        if(this.props.vehicleCom !== prevProps.vehicleCom){
+            this.setState({
+                vehicleComment: this.props.vehicleCom
+            }, () => {
+                this.props.stopLoading();
+            })
+        }
     }
 
     componentDidMount = () => {
-        console.log("Inside Vehicle History");
-        axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
-        .then(response => {
-            console.log(response.data.details);
-            console.log(response.data);
-            // this.setState({
-            //     vehicles: response.data
-            // })
-            const vehiclesHist = [];
-            for(let key in response.data.details){
-                vehiclesHist.push({
-                    ...response.data.details[key],
-                    id: key
-                });
-            }
-            this.setState({
-                vehicles: vehiclesHist
-            })
-            let vehicleRate = [];
-            for(let key in response.data.ratingDetails){
-                vehicleRate.push({
-                    ...response.data.ratingDetails[key],
-                    id: key
-                });
-            }
-            this.setState({
-                vehicleRate: vehicleRate
-            })
+        // axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
+        // .then(response => {
+        //     console.log(response.data.details);
+        //     console.log(response.data);
+        //     // this.setState({
+        //     //     vehicles: response.data
+        //     // })
+        //     const vehiclesHist = [];
+        //     for(let key in response.data.details){
+        //         vehiclesHist.push({
+        //             ...response.data.details[key],
+        //             id: key
+        //         });
+        //     }
+        //     this.setState({
+        //         vehicles: vehiclesHist
+        //     })
+        //     let vehicleRate = [];
+        //     for(let key in response.data.ratingDetails){
+        //         vehicleRate.push({
+        //             ...response.data.ratingDetails[key],
+        //             id: key
+        //         });
+        //     }
+        //     this.setState({
+        //         vehicleRate: vehicleRate
+        //     })
     
-            let vehicleCom = [];
-            for(let key in response.data.commentDetails){
-                vehicleCom.push({
-                    ...response.data.commentDetails[key],
-                    id: key
-                });
-            }
-            this.setState({
-                vehicleComment: vehicleCom
-            })
+        //     let vehicleCom = [];
+        //     for(let key in response.data.commentDetails){
+        //         vehicleCom.push({
+        //             ...response.data.commentDetails[key],
+        //             id: key
+        //         });
+        //     }
+        //     this.setState({
+        //         vehicleComment: vehicleCom
+        //     })
            
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
+        this.props.fetchVehicleHistory();
     }
 
     render () {
 
         let display ;
 
-        console.log(this.state.vehicles.length);
         if(this.state.vehicles.length === 0){
             display = <h4>Nothing to Show</h4>
         }
@@ -93,4 +120,20 @@ class VehicleHistory extends Component {
     }
 }
 
-export default VehicleHistory;
+const mapStateToProps = state => {
+    return {
+        vehicleHist: state.vehicle.vehicleHist,
+        vehicleCom: state.vehicle.vehicleComment,
+        vehicleRate: state.vehicle.vehicleRate
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchVehicleHistory : () => dispatch(actions.fetchVehiclesHistory()),
+        stopLoading: () => dispatch(actionp.stopLoading())
+
+    }   
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleHistory);

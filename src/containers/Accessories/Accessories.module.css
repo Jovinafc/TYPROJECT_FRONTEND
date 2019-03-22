@@ -33,7 +33,7 @@
 }
 
 .Main {
-    width: 80%;
+    width: 100%;
     display: flex;
     padding: 1%;
     flex-wrap: wrap;

@@ -95,25 +95,20 @@ import classes from './Toolbar.module.css';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 import {StyleRoot } from 'radium';
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions/auth';
- import IconButton from '@material-ui/core/IconButton';
- import Badge from '@material-ui/core/Badge';
- import { NavLink } from 'react-router-dom';
  import PhoneToolBar from './PhoneToolBar/PhoneToolBar';
 
 
 
 const toolbar = (props) => {
-    const style = {
-        '@media (min-width: 500px)': {
-           display: 'none',
-           border: '1px solid black',
-           height: '55px',
-           padding: '-5%'
-        }
+    // const style = {
+    //     '@media (min-width: 500px)': {
+    //        display: 'none',
+    //        border: '1px solid black',
+    //        height: '55px',
+    //        padding: '-5%'
+    //     }
         
-     }
+    //  }
 
      return (
         <StyleRoot >

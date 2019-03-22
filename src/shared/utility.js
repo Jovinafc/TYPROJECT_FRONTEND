@@ -49,7 +49,7 @@ export const checkValidity = (value, rules) =>  {
 
     if(rules.isEmail) {
        // const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        const pattern = /^([a-zA-Z0-9_])+(([a-zA-Z0-9])+\.)+([a-zA-Z0-9]{2,4})+$/;
         isValid = pattern.test(value) && isValid
     }
     if(rules.isPassword) {

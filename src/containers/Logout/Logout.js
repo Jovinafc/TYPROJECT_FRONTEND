@@ -2,7 +2,7 @@ import React,{Component } from 'react';
 import {Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/auth';
-import { setToZero } from '../../store/reducers/cart';
+// import { setToZero } from '../../store/reducers/cart';
 import * as actionp from '../../store/actions/cart';
 
 

@@ -15,7 +15,7 @@ import { connect} from 'react-redux';
 // import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
-import moment, * as moments from 'moment';
+// import moment, * as moments from 'moment';
 import Alert from 'react-s-alert';
 
 
@@ -96,7 +96,7 @@ class SellPaymentPage extends Component {
         let e = ed.substring(8,10);
         console.log(e);
         console.log(e-s);
-        if(e-s == 0){
+        if(e-s === 0){
             this.setState({
                 days: 1
             })

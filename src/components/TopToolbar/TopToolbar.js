@@ -3,11 +3,10 @@ import classes from './TopToolbar.module.css'
 import Signing from '../Signing/Signing';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import Cart from '../../Images/Cart.png';
 import * as actions from '../../store/actions/auth';
-import shoppingCart from '../../Images/shopping-cart.png';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import lg from './logo.png'
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const style = {
@@ -45,7 +44,7 @@ class TopToolbar extends Component {
     }
 
     render () {
-        console.log(this.props.item_number);
+        // console.log(this.props.item_number);
         let a = this.props.first_name.charAt(0);
 
         let sign = <Signing />
@@ -69,9 +68,12 @@ class TopToolbar extends Component {
         return (
             
             <div className={classes.nav}>
-            <div className={classes.Logo}></div>
+            <div className={classes.Logo}>
+            <img src={lg} alt="img" style={{width: '150px', height:'60px'}}/>
+            </div>
             <div className={classes.Name}>
                 <h4>Ride Wheelz</h4>
+                {/* <img src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg" alt="homepage" style={{width:'200px', marginTop:'4px',height: '30px'}}/> */}
             </div>
 {/* 
             <div className={classes.cartCont}>
@@ -113,19 +115,20 @@ class TopToolbar extends Component {
                                 return (
                                     <div className={classes.cartHoverDiv} key={dis.accessory_id}>
                                       <div className={classes.imageCont}>
-                                          <img className={classes.cartimage} src={dis.accessory_image}/>  
+                                          <img alt="im" className={classes.cartimage} src={dis.accessory_image}/>  
                                       </div>
                                       
                                       <div className={classes.cartDetails}>
                                       {dis.accessory_name}
+                                      <p style={{fontSize: '0.7em'}}>Price: {dis.accessory_price}</p>
                                       </div>
                                     </div>
                                 )
                             })}  
-                            <div>
+                            <div style={{backgroundColor: '#747474'}} >
                                 {this.props.item_number > 3
-                                ? <span><NavLink to="/cart">{(this.props.item_number - 3 )} more</NavLink></span>
-                                : <span><NavLink to="/cart">Go To Cart</NavLink> </span>}
+                                ? <button style={{backgroundColor: 'red', color: 'black'}}><NavLink to="/cart">{(this.props.item_number - 3 )} more</NavLink></button>
+                                : <button style={{backgroundColor: 'red', color: 'black'}}><NavLink to="/cart" style={{color: 'black'}}>Go To Cart</NavLink></button> }
                             </div>
                       </div>
                     

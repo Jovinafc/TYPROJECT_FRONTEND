@@ -3,16 +3,14 @@ import classes from './VehicleDetail.module.css';
 import { connect} from 'react-redux';
 // import * as actions from '../../store/actions/vehicle_click';
 import axios from '../../axios';
-import Modal from '../../components/UI/Modal/Modal';
 // import Login from '../Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
 import * as actionp from '../../store/actions/vehicle_click'
 import Datetime from 'react-datetime';
 import moment, * as moments from 'moment';
-import {DatetimePickerTrigger} from 'rc-datetime-picker';
-import './react-datetime.css';
+import './react-date.css';
 import VehicleReviewDiv from './VehicleReviewDiv';
 
 class VehicleDetail extends Component {
@@ -226,7 +224,7 @@ class VehicleDetail extends Component {
                let e = ed.substring(8,10);
                console.log(e);
                console.log(e-s);
-               if(e-s == 0){
+               if(e-s === 0){
                    this.setState({
                        days: 1
                    })
@@ -293,10 +291,10 @@ class VehicleDetail extends Component {
         if(this.state.vehicles.price_per_day){
             datepickers = <div className={classes.date}>
                                 <p style={{marginBottom: '-3px'}}>Start Date</p>
-                                <Datetime isValidDate={valid} className={classes.modernDiv} style={{width: '60%'}} onChange={this.starth}/>  
+                                <Datetime isValidDate={valid}  style={{width: '60%'}} onChange={this.starth}/>  
                                 <span>{this.state.startDateError}</span>
                                 <p style={{marginBottom: '-3px'}}>End Date</p>
-                               <Datetime isValidDate={valid} className={classes.modernDiv}  onChange={this.endh}/>
+                               <Datetime isValidDate={valid}  onChange={this.endh}/>
                                 <span>{this.state.endDateError}</span>
                           </div>
         }
@@ -315,18 +313,18 @@ class VehicleDetail extends Component {
                 <div className={classes.firstCont}>
                     <div className={classes.leftdiv}>
                              <div className={classes.image}>
-                                 <img className={classes.img} src={this.state.vehicles.image}/>
+                                 <img alt="im" className={classes.img} src={this.state.vehicles.image}/>
                              </div>
                              <div className={classes.details}>
-                                  <strong>Details</strong>
+                                  <h4>Details</h4>
                                   <div className={classes.innerdetails}>
-                                 <div> <p>Brand: {this.state.vehicles.brand}</p> </div> 
-                                 <div> <p>Model: {this.state.vehicles.model} </p> </div>
-                                 <div> <p>Year: {this.state.vehicles.year} </p></div>
-                                 <div> <p>Km Driven: {this.state.vehicles.km_driven} </p></div> 
-                                 <div> <p>State: {this.state.vehicles.registration_state} </p></div>
-                                 <div> <p>Fuel Type: {this.state.vehicles.fuel_type} </p></div> 
-                                 <div> <p>Vehicle Number: {this.state.vehicles.number_plate} </p></div>  
+                                 <div> <p><strong>Brand:</strong> <span className={classes.valueDetail}>{this.state.vehicles.brand}</span></p> </div> 
+                                 <div> <p><strong>Model:</strong> <span className={classes.valueDetail}>{this.state.vehicles.model}</span> </p> </div>
+                                 <div> <p><strong>Year:</strong> <span className={classes.valueDetail}>{this.state.vehicles.year}</span> </p></div>
+                                 <div> <p><strong>Km Driven:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.km_driven}</span> </p></div> 
+                                 <div> <p><strong>State:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.registration_state}</span> </p></div>
+                                 <div> <p><strong>Fuel Type:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.fuel_type}</span> </p></div> 
+                                 <div> <p><strong>Vehicle Number:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.number_plate}</span> </p></div>  
                                  {/* <div> <p>Posted On: {this.state.vehicles.createdAt} </p></div>  */}
 
                                  </div>
@@ -402,14 +400,15 @@ class VehicleDetail extends Component {
                         </div>
                     </div>
                 </div>  
-                {/* {vehicleDetail}  */}
             </div> }
+            <hr />
+
 
             {
                 this.state.noReviews
                 ? null
                 : <div className={classes.reviewsCont}>
-                Reviews 
+
                 {reviewlist}
            </div>
 

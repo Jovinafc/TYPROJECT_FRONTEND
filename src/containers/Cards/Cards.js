@@ -4,8 +4,6 @@ import classes from './Cards.module.css';
 import { connect} from 'react-redux';
 import * as actions from '../../store/actions/auth';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import CheckBox from '@material-ui/core/Checkbox';
-import Collapsible from 'react-collapsible';
 import 'react-accessible-accordion/dist/minimal-example.css';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import axios from 'axios';
@@ -15,7 +13,6 @@ import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
 import Picky from 'react-picky';
 import "react-picky/dist/picky.css";
-import { SliderComponent } from '@syncfusion/ej2-react-inputs';
 // import zIndex from '@material-ui/core/styles/zIndex';
 import Slider from 'rc-slider';
 // import Tooltip from 'rc-tooltip';
@@ -25,7 +22,7 @@ import 'rc-collapse/assets/index.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-const Handle = Slider.Handle;
+// const Handle = Slider.Handle;
 
 
 
@@ -73,8 +70,7 @@ class Cards extends Component {
                 pricemax: 0,
                 price_range: [],
                 regStateSelected: [],
-                kmDrivenSelected: [],
-                price_range: []
+                kmDrivenSelected: []
             }
         }
     }
@@ -493,7 +489,6 @@ class Cards extends Component {
                             labelKey="name"
                             multiple={true}
                             includeSelectAll={true}
-                            dropdownHeight={600}
 
                         />
 

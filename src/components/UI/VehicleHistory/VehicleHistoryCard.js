@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import { connect} from 'react-redux';
 import axios from 'axios';
 import ReactStars from 'react-stars'
+import * as actions from '../../../store/actions/vehicle_click';
+import * as actionp from '../../../store/actions/cart';
 
 
 class VehicleHistoryCard extends Component {
@@ -37,17 +39,14 @@ class VehicleHistoryCard extends Component {
         // if(this.props.details.has('feedback')){
         //     console.log('true');
         // }
-        console.log(this.props.details);
-        console.log(this.props.details.vehicle_id);
-        if(this.props.details.rents.length > 0 ){
-            console.log(this.props.details.rents[0].start_date);
-        }
+        // console.log(this.props.details.vehicle_id);
+        // if(this.props.details.rents.length > 0 ){
+        //     console.log(this.props.details.rents[0].start_date);
+        // }
 
 
         axios.get(`/get-vehicles?vehicle_id=${this.props.details.vehicle_id}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
-            console.log(res.data);
-            console.log(res.data.ratings.length)
 
             if(res.data.ratings.length > 0){
                 if(res.data.ratings[0].rating_number !== undefined){
@@ -93,7 +92,6 @@ class VehicleHistoryCard extends Component {
             }
 
             if(res.data.length < 0){
-                console.log('Inside get Vehicles')
                 if(res.data.ratings[0].rating_number !== undefined){
                     this.setState({
                         rating: res.data.ratings[0].rating_number
@@ -165,7 +163,7 @@ class VehicleHistoryCard extends Component {
             feedback_comment: this.state.review
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             this.setState({
                 modalShow: false
             })
@@ -178,30 +176,32 @@ class VehicleHistoryCard extends Component {
     }
 
     cancelHandler = () =>{
+        this.props.startLoading();
+
         axios.post('/cancel-booking', {owner_name: this.props.details.owner['name'], vehicle_id: this.props.details.vehicle_id, deposit: 5000, amount: this.props.details.amount,user_id:localStorage.getItem('userId'),client_bank_account_no: this.props.account_no})
         .then(res => {
             console.log(res);
+            this.props.fetchVehicleHistory();
         })
         .catch(err => {
             console.log(err);
+            this.props.stopLoading();
 
         })
     }
 
     render () {
-        console.log(this.state.edit);
         let modalClose = () => this.setState({ modalShow: false });
-        console.log(this.props.details);
         // console.log(this.props.details.rents[0].start_date);
         // console.log(this.props.ratingDetails);
         // console.log(this.props.commentDetails);
-        console.log(this.props.details.owner['name']);
+        // console.log(this.props.details.owner['name']);
 
         return (
 
             <div className={classes.bigDiv}>
             <div className={classes.leftDiv}>
-                <div className={classes.imageCont}> <img className={classes.Image} src= {this.props.details.vehicle['image']}></img></div>
+                <div className={classes.imageCont}> <img alt="Im" className={classes.Image} src= {this.props.details.vehicle['image']}></img></div>
             </div>
             <div className={classes.rightDiv}>
                 <div className={classes.topRightDiv}>
@@ -262,7 +262,7 @@ class VehicleHistoryCard extends Component {
                   <div className={classes.round}> {
                             this.props.image === null
                             ? <h2 style={{textAlign: "center",color: "black", }}>{this.props.fname.charAt(0)} </h2>
-                            : <img className={classes.pp} src={this.props.image}/>
+                            : <img className={classes.pp} alt="Im" src={this.props.image}/>
                         }
                   </div>
                   <div><p>{this.props.fname +" "+ this.props.lname}</p></div>      
@@ -271,7 +271,7 @@ class VehicleHistoryCard extends Component {
         </Modal.Header>
         <Modal.Body>
           <h5>Give your review</h5>
-          <textarea rows="5" style={{width: '100%'}}type="text" onChange={this.inputChangeHandler} disabled={this.state.disabled} value={this.state.review} rows="3"/>
+          <textarea style={{width: '100%'}}type="text" onChange={this.inputChangeHandler} disabled={this.state.disabled} value={this.state.review} rows="3"/>
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
@@ -326,4 +326,15 @@ const mapStateToProps = state => {
     }    
 }
 
-export default connect(mapStateToProps, null)(VehicleHistoryCard);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchVehicleHistory : () => dispatch(actions.fetchVehiclesHistory()),
+        startLoading: () => dispatch(actionp.startLoading()),
+        stopLoading: () => dispatch(actionp.stopLoading())
+
+    }   
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleHistoryCard);

@@ -3,7 +3,6 @@ import classes from './Accessory.module.css';
 import {NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/cart';
-import Alert from 'react-bootstrap/Alert';
 
 
 class Accessory extends Component {
@@ -15,11 +14,11 @@ class Accessory extends Component {
 
     render () {
 
-        let temp_rate;
-        if(this.props.average_rating.length > 0){
-            temp_rate = this.props.average_rating[0].avg_rating;
-        }
-        console.log(temp_rate);
+        // let temp_rate;
+        // if(this.props.average_rating.length > 0){
+        //     let temp_rate = this.props.average_rating[0].avg_rating;
+        // }
+        // console.log(temp_rate);
         // console.log(this.props.cartItems.map(a => a.accessory_id));
         return (
             <div className={classes.CardContainer}>

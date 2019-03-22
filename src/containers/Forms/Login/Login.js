@@ -137,12 +137,11 @@ class Login extends Component {
         }
 
         // let errorMessage = <p></p>;
-        let errorMessage;
-        if(this.props.error) {
-           errorMessage = (
-                <p style={{color: 'red'}}>{this.props.error}</p>
-            )
-        }
+        // if(this.props.error) {
+        //    let errorMessage = (
+        //         <p style={{color: 'red'}}>{this.props.error}</p>
+        //     )
+        // }
 
         let authRedirect = null;
         if(this.props.isAuthenticated){

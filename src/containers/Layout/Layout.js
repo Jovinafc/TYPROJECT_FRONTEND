@@ -8,7 +8,6 @@ import Toolbar from '../../components/Toolbar/Toolbar';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';  
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
-import { SocialIcon } from 'react-social-icons';
 import { NavLink } from 'react-router-dom';
 
 // import Headroom from 'react-headroom';

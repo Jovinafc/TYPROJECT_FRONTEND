@@ -50,7 +50,7 @@ class PhoneToolbar extends Component {
                     
                     <div className={classes.imageCont}>
                         {this.props.image
-                        ? <img  className={classes.image} src={this.props.image} alt="Image"/> 
+                        ? <img  className={classes.image} src={this.props.image} alt="Im"/> 
                         : <h2 style={{textAlign: "center",color: "white"}}>{this.props.first_name.charAt(0)}</h2> }
                         
                     </div>

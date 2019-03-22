@@ -26,6 +26,7 @@
     "react-alert-template-oldschool-dark": "^1.0.1",
     "react-animated-css": "^1.0.4",
     "react-bootstrap": "^1.0.0-beta.5",
+    "react-bootstrap-carousel": "^3.4.1",
     "react-bootstrap-date-picker": "^5.1.0",
     "react-collapsible": "^2.3.2",
     "react-countdown-now": "^2.1.0",

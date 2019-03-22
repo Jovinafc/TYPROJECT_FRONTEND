@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
-import { readSync } from 'fs';
 
 export const FetchAllVehiclesStart = () => {
     return {
@@ -143,6 +142,58 @@ export const my_vehicles_store = () => {
             });
         }
         dispatch(my_vehicles(vehicles))
+    })
+    }
+}
+
+export const vehicle_history = (vehicle_hist, vehicle_comment, vehicle_rate) => {
+    return {
+        type: actionTypes.VEHICLE_HISTORY,
+        vehicleHist: vehicle_hist,
+        vehicleComment: vehicle_comment,
+        vehicleRate: vehicle_rate
+    }
+}
+
+export const fetchVehiclesHistory = () => {
+    return dispatch => {
+        
+    axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
+    .then(response => {
+        console.log(response.data.details);
+        console.log(response.data);
+        // this.setState({
+        //     vehicles: response.data
+        // })
+        const vehicleHist = [];
+        for(let key in response.data.details){
+            vehicleHist.push({
+                ...response.data.details[key],
+                id: key
+            });
+        }
+        let vehicleRate = [];
+        for(let key in response.data.ratingDetails){
+            vehicleRate.push({
+                ...response.data.ratingDetails[key],
+                id: key
+            });
+        }
+
+        let vehicleCom = [];
+        for(let key in response.data.commentDetails){
+            vehicleCom.push({
+                ...response.data.commentDetails[key],
+                id: key
+            });
+        }
+
+        dispatch(vehicle_history(vehicleHist, vehicleCom, vehicleRate));
+
+       
+    })
+    .catch(err => {
+        console.log(err);
     })
     }
 }

@@ -5,7 +5,6 @@ import { NavLink, Redirect} from 'react-router-dom'
 import * as actions from '../../store/actions/vehicle_click';
 import { connect} from 'react-redux';
 import * as actionp from '../../store/actions/cart';
-import { useAlert } from 'react-alert';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactStars from 'react-stars'
@@ -287,7 +286,7 @@ class ProductDetail extends Component {
                     <div className={classes.leftDiv}>
 
                         <div className={classes.imageCont}>
-                            <img className={classes.image} src={this.state.product.accessory_image}/>
+                            <img alt="accessory" className={classes.image} src={this.state.product.accessory_image}/>
                         </div>
 
                         <div className={classes.details}>
@@ -368,7 +367,7 @@ class ProductDetail extends Component {
                             width: '100%',
                             height: '100%',
                                 display: 'inline-block',textAlign: "center",color: "black" }}>{this.props.fname.charAt(0)} </h2>
-                            : <img className={classes.pp} src={this.props.image}/>
+                            : <img alt="profile" className={classes.pp} src={this.props.image}/>
                         }
                   </div>
                   <div><p>{this.props.fname +" "+ this.props.lname}</p></div>      
@@ -377,7 +376,7 @@ class ProductDetail extends Component {
         </Modal.Header>
         <Modal.Body>
           <h5>Give your review</h5>
-          <textarea rows="5" style={{width: '100%'}}type="text" disabled={this.state.disabled} onChange={this.inputChangeHandler}  value={this.state.review} rows="3"/>
+          <textarea rows="5" style={{width: '100%'}}type="text" disabled={this.state.disabled} onChange={this.inputChangeHandler}  value={this.state.review} />
           {/* <p>
             Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta

@@ -1,7 +1,6 @@
 import React,{ Component} from 'react';
 import classes from './Cart.module.css';
 import { connect } from 'react-redux'
-import axios from 'axios';
 import CartItem from './CartItem/CartItem';
 import * as actions from '../../store/actions/cart';
 import LoadingOverlay from 'react-loading-overlay';
@@ -49,7 +48,6 @@ class Cart extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
-        console.log("Inside componnent Did Mount")
 
         this.props.cartAmountQuantity();
         // axios.post('/checkout-check', {user_id: localStorage.getItem('userId')})
@@ -95,7 +93,6 @@ class Cart extends Component {
     render () {
         console.log(this.state.cart);
         console.log(this.props.cart_items)
-        let display = null;
         // this.state.cart.map(dis => {
         //    display = <div> 
         //         <div>

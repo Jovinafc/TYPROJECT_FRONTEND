@@ -5,12 +5,12 @@ import axios from 'axios';
 import Collapse, { Panel } from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
 import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
+// import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-const Handle = Slider.Handle;
+// const Handle = Slider.Handle;
 
 function searchingFor(term) {
     return function(x) {
@@ -41,7 +41,6 @@ class Accessories extends Component {
 
         axios.post('/fetch-accessories')
         .then(response => {
-            console.log(response);
             this.setState({products: response.data})
         })
     }   
@@ -51,7 +50,7 @@ class Accessories extends Component {
     }
 
     priceRangeHandler = (e) => {
-        console.log(e);
+        // console.log(e);
         // this.setState({
         //     price: { min: min, max: max }
         // })
@@ -83,7 +82,7 @@ class Accessories extends Component {
 
             <div>
                 <div className={classes.Container}>
-                    <div className={classes.Menu}>
+                    {/* <div className={classes.Menu}>
                         <h5 style={{color: 'white'}}> Filter </h5>
 
                         <div className={classes.search}>
@@ -115,7 +114,7 @@ class Accessories extends Component {
 
                 </Collapse>
 
-                    </div>
+                    </div> */}
                     <div className={classes.Main}>  
                         {displayProducts}
                     </div>

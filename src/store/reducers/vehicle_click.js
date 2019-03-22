@@ -12,7 +12,10 @@ const initialState = {
     endDate: '',
     type_payment: '',
     owner_bank_account_no: '',
-    days: ''
+    days: '',
+    vehicleHist: [],
+    vehicleRate: [],
+    vehicleComment: []
 };
 
 const FetchVehiclesStart = (state,action) => {
@@ -69,6 +72,10 @@ const my_vehicles = (state,action) => {
     return updateObject(state, {myVehicles: action.myVehicles})
 }
 
+const vehicle_hist = (state,action) => {
+    return updateObject(state, {vehicleHist: action.vehicleHist, vehicleComment: action.vehicleComment, vehicleRate: action.vehicleRate})
+}
+
 const reducer = (state=initialState, action) => {
     switch(action.type){
         case actionTypes.CARD_CLICK: return CardClick(state,action);
@@ -83,7 +90,8 @@ const reducer = (state=initialState, action) => {
         case actionTypes.FETCH_SELECTED_VEHICLES: return(FetchSelectedVehicle(state,action));
         case actionTypes.SAVE_OWNER_BANK_ACCOUNT_NO: return(save_owner_bank_account_no(state,action));
         case actionTypes.NO_OF_DAYS: return (priceonDays(state, action));
-        case actionTypes.MY_VEHICLES: return (my_vehicles(state,action))
+        case actionTypes.MY_VEHICLES: return (my_vehicles(state,action));
+        case actionTypes.VEHICLE_HISTORY: return (vehicle_hist(state,action));
         default: return state;
     }
 };

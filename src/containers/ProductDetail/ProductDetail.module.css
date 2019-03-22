@@ -35,7 +35,7 @@
     width: 100%;
     /* border: 1px solid black; */
     display: flex;
-    height: 450px;
+    height: 550px;
     padding: 2%;
     /* flex-direction: column; */
 }
@@ -54,10 +54,11 @@
 .imageCont {
     width: 80%;
     margin-left: 10%;
-    height: 55%;
+    height: 50%;
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     padding-left: 15%; 
+    margin-top: 2%;
 
 }
 
@@ -69,7 +70,7 @@
 }
 
 .details {
-    height: 40%;
+    height: 35%;
     width: 90%;
     margin-top: 2%;
 
@@ -165,6 +166,7 @@
     width: 90%;
     margin-left: 5%;
     margin-bottom: 2%;
-    border: 1px solid black;
+    border: 2px solid #eee;
+    box-shadow: 0 2px 3px rgb(124, 114, 114);
     text-align: center;
 }

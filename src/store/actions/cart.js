@@ -70,9 +70,6 @@ export const cartItems = (user_id) => {
     return dispatch => {
         axios.post('/cartItems', {user_id: user_id})
         .then( response => {
-            console.log(response);
-            console.log(response.data.count);
-            console.log(response.data.details)
             dispatch(update_items(response.data.count));
             dispatch(cartDetails(response.data.accessory_details))    
         })

@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import classes from './MyVehicle.module.css';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import MyVehicleCard from '../../components/UI/MyVehicleCard/MyVehicleCard';
 import { NavLink} from 'react-router-dom';
 import * as actions from '../../store/actions/vehicle_click';
@@ -83,7 +82,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        my_vehicle_store: () =>dispatch(actions.my_vehicles_store),
+        my_vehicle_store: () =>dispatch(actions.my_vehicles_store()),
         stopLoading: () => dispatch(actionp.stopLoading())
  
     }

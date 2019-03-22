@@ -41,8 +41,7 @@ class AccountInfo extends Component {
     
 
     oldPasswordHandler = (e) => {
-        let touched = null;
-        touched = true;
+        // let touched = true;
         this.setState({
             old_password: e.target.value
         })

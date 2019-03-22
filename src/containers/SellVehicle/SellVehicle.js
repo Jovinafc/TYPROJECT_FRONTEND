@@ -510,8 +510,8 @@ class SellVehicle extends Component {
 
   render () {
 
-    const { width } = this.state;
-    const isMobile = width <= 500;
+    // const { width } = this.state;
+    // const isMobile = width <= 500;
 
       let redirect = null;
 

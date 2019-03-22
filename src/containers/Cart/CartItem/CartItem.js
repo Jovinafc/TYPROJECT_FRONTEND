@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/cart'
 import { NavLink} from 'react-router-dom'
 import * as actionp from '../../../store/actions/vehicle_click'
-import { spinnerService } from '@chevtek/react-spinners';
+// import { spinnerService } from '@chevtek/react-spinners';
 import Loader from 'react-loader';
 import Alert from 'react-bootstrap/Alert';
 
@@ -140,7 +140,7 @@ class CartItem extends Component {
             </div> */}
 
             <div className={classes.ImageContainer}>
-                <img className={classes.Image} src={this.props.image} />
+                <img alt="Im" className={classes.Image} src={this.props.image} />
             </div>
 
             </div>

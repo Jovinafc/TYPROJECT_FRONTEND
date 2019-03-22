@@ -27,7 +27,6 @@ export const authFail = (error) => {
 
 
 export const logout = () => {
-      console.log('INside logout creator');
       localStorage.removeItem('token');
       localStorage.removeItem('expirationDate');
       localStorage.removeItem('userId'); 
@@ -60,7 +59,6 @@ export const deleteLocalStorage = () => {
 
   
   export const checkAuthTimeout = (expirationTime) => {
-      console.log(expirationTime);
       return dispatch => {
          setTimeout(() => {
              dispatch(logout());
@@ -116,11 +114,11 @@ export const deleteLocalStorage = () => {
           dispatch(authSuccess(response.data.token, response.data.user_id));
           dispatch(actions.cartItems(response.data.user_id))
           dispatch(actionp.my_vehicles_store())
+          dispatch(actionp.fetchVehiclesHistory())
           dispatch(userData(response.data.user_id));
           dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(err => {
-          console.log(err);
            console.log(err.response.data);
            console.log(err.message.toString());
           dispatch(authFail(err.response.data));
@@ -161,7 +159,6 @@ export const authRefresh = (email, user_id) => {
   };
   
   export const authCheckState = () => {
-      console.log('Checking Logout State')
       return dispatch => {
           const token = localStorage.getItem('token');
           if(!token){
@@ -240,9 +237,7 @@ export const deleteUserData = () => {
 }
 
 export const userData = (user_id) => {
-    console.log('Getting User Info');
     return dispatch => {
-        console.log(user_id);
         axios.post('/fetch-user', {user_id: user_id})
         .then(res => {
             console.log(res.data);

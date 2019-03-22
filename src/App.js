@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Layout from './containers/Layout/Layout';
-import LayoutTwo from './containers/Layout/LayoutTwo';
-import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 // import Cards from './containers/Cards/Cards';
-import SignUpForm from './containers/Forms/SignUpForm/SignUpForm';
-import SignIn from './containers/Forms/SignIn/SignIn';
 import Login from './containers/Forms/Login/Login'; 
 import SellVehicle from './containers/SellVehicle/SellVehicle'; 
 import Aux from './hoc/Auxilary';
@@ -24,7 +21,6 @@ import VehicleDetail from './containers/VehicleDetail/VehicleDetail';
 import Lend from './containers/SellVehicle/Lend/Lend';
 import SignUp from './containers/Forms/SignUp/SignUp';
 import SellPaymentPage from './containers/PaymentPage/SellPaymentPage';
-import { setTimeout } from 'timers';
 import Accessories from './containers/Accessories/Accessories';
 import Cart from './containers/Cart/Cart';
 import Otp from './containers/Otp/Otp';
@@ -91,14 +87,12 @@ class App extends Component {
     }
 
     if(this.props.isAuthenticated){
-        console.log('Item Number Counter')
         this.props.cartItems(localStorage.getItem('userId'));  
     }
     
   }
 
   render() {
-    console.log(this.props.location.pathname);
 
 
     // let routes = (

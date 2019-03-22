@@ -164,7 +164,7 @@ class ProfInfo extends Component {
         }
 
         let v = false;
-        let phoneno = /^\d{10}$/;
+        // let phoneno = /^\d{10}$/;
         // if((this.state.phone_number.match(phoneno))){
         //     v = true;
         // }
@@ -396,7 +396,7 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
-                    <input className="form-control" onChange={this.stateHandler} type="text" id="state" onChange={this.stateHandler} value={this.state.state || ''} />   
+                    <input className="form-control" onChange={this.stateHandler} type="text" id="state" value={this.state.state || ''} />   
                     {/* <span style={{color: 'red'}}>{this.state.stateError}</span>    */}
 
                         </div>    
@@ -405,7 +405,7 @@ class ProfInfo extends Component {
                         <div className="form-group">
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
-                    <input className="form-control" onChange={this.cityHandler} type="text" id="city" onChange={this.cityHandler} value={this.state.city || ''} />    
+                    <input className="form-control" onChange={this.cityHandler} type="text" id="city" value={this.state.city || ''} />    
                     {/* <span style={{color: 'red'}}>{this.state.cityError}</span>    */}
     
                         </div>    

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import classes from './Signing.module.css';
 import { NavLink} from 'react-router-dom';
-import Login from '../../containers/Forms/Login/Login';
-import Modal from '../../components/UI/Modal/Modal';
+// import Login from '../../containers/Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
 
 class Signing extends Component {
@@ -20,8 +19,7 @@ class Signing extends Component {
     }
     render () {
 
-        let log = null;
-        log = <Login />
+        // let log = <Login />
         return (
             <Aux>
                <div> 
