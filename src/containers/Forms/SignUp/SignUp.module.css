@@ -43,10 +43,18 @@
     outline: none;
     border-radius: 10px;
     border-color: black;
-    background-color: rgb(20, 19, 19);
-    color: red;
+    background-color: white;
+    color: black;
     width: 50%;
     opacity: 10%;
+}
+
+
+.modernDiv:focus {
+    background-color: rgb(29, 24, 24);
+    color: whitesmoke;
+    font-weight: 400;
+    
 }
 
 .form-control {

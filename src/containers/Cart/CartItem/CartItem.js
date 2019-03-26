@@ -149,40 +149,44 @@ class CartItem extends Component {
                 <div className={classes.name}> 
                     <strong>{this.props.name} </strong>   
                 </div>
-                    <div>
-                    <button onClick={this.decreaseCounter} >
+                    <div className={classes.quant}>
+                    <button className={classes.leftBut} onClick={this.decreaseCounter} >
                         -
                     </button>
                     {/* <div className="col-xs-1"> */}
                     <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
                     {/* </div> */}
-                    <button onClick={this.increaseCounter}>
+                    <button className={classes.leftBut} onClick={this.increaseCounter}>
                         +
                     </button>
+
+
                 </div>
                 
-                <button style={{ }} onClick={() => this.updateQuantity(this.props.id)}>Update</button>
+                <button className={classes.btn} onClick={() => this.updateQuantity(this.props.id)}>Update</button>
                 <Alert show={this.state.alertShow} variant="warning">
                     Out of Stock 
                 </Alert>
-            </div>
 
-            <div className={classes.priceDiv}>
-                Price: &#x20B9;{this.state.price}
+                
+                <div className={classes.priceDiv}>
+                <strong>Price:</strong> &#x20B9;{this.state.price}
+                     </div>
             </div>
 
             <div className={classes.buttonDiv}>
-                <button onClick={() => this.removeItemHandler(this.props.id)} className="btn btn-danger">Remove from Cart</button>
-                <div style={{width:'5px'}}></div>
-                <br />
-                {/* <NavLink to={'/productpayment/:'+this.props.id}>
-                <button className="btn btn-primary">Buy Product</button> </NavLink> */}
+                
                 <NavLink to={{
                     pathname: '/productpayment/:'+this.props.id,
                     data: {
                         qty: this.state.counter
                     }}}>
                 <button onClick={this.quantityHandler} className="btn btn-primary">Buy Product</button> </NavLink>
+
+                <div style={{width:'5px'}}></div>
+                <br />    
+                <button onClick={() => this.removeItemHandler(this.props.id)} className="btn btn-danger">Remove from Cart</button>
+
             </div>
         </div>
         </Loader>

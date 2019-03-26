@@ -1,6 +1,3 @@
-.Container {
-    /* height: 800px; */
-}
 
 .pdcontainer {
     /* border: 1px solid black; */
@@ -83,7 +80,6 @@
     width: 35%;
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
-    
 }
 
 .price {
@@ -92,7 +88,8 @@
     height: 50%;
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
-
+    margin-top: 5%;
+    padding-top: 3%;
 }
 
 .downRightDiv {
@@ -169,4 +166,8 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     text-align: center;
+}
+
+.valueDet {
+    color: blue;
 }

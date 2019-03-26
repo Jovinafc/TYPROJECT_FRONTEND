@@ -12,7 +12,7 @@ import './react-datetime.css';
 import Aux from '../../../hoc/Auxilary';
 import Input from '../../../components/UI/InputTag/Input';
 import Alert from 'react-s-alert';
-import Datetime from 'react-datetime';
+// import Datetime from 'react-datetime';
 import * as moments from 'moment';
 
 
@@ -65,6 +65,7 @@ class SignUp extends Component {
         //     })
         // }
 
+
         if(touched === true){
             if(e.target.value.length === 0) {
                 this.setState({
@@ -77,6 +78,7 @@ class SignUp extends Component {
                     firstNameError: ''
                 })
             }
+
         }
         
     }
@@ -98,7 +100,24 @@ class SignUp extends Component {
                     lastNameError: ''
                 })
             }
+
+            
+
         }
+        // let v = false;
+
+            //         let lname = /^[A-Za-z]+$/;
+            // if((this.state.last_name.match(lname))){
+            //     v = true;
+            // }
+            
+            // if(v === false) {
+            //     this.setState({
+            //         ...this.state,
+            //         lastNamerror: 'Please Enter Only Characters'
+            //     })
+            // }
+
 
     }
     
@@ -169,8 +188,6 @@ dateHandler = (moment) => {
     }
     
     dobHandler = (e) => {
-        let touched = null;
-        touched = true;
 
         let s = moments(e).format('YYYY-MM-DD');
     console.log(s);
@@ -278,10 +295,25 @@ dateHandler = (moment) => {
             isError = true;
             this.setState({
                 ...this.state,
-                firstNameError: "Please Enter Name"
+                firstNameError: "Enter Name"
             })
-            errors.firstNameError = "Please Enter First Name"
+            errors.firstNameError = "Enter First Name"
         }
+        let g = false;
+        let fname = /^[A-Za-z]+$/;
+        if((this.state.first_name.match(fname))){
+            g = true;
+        }
+        
+        if(g === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                firstNameError: 'Enter Only Characters'
+            })
+            errors.firstNameError = 'Enter Only Characters'
+        }
+
 
 
 // Last Name   
@@ -289,10 +321,25 @@ dateHandler = (moment) => {
             isError = true;
             this.setState({
                 ...this.state,
-                lastNameError: "Please Enter Last Name"
+                lastNameError: "Enter Last Name"
             })
-            errors.lastNameError = "Please Enter Last Name"
+            errors.lastNameError = "Enter Last Name"
+        }
 
+        
+        let k = false;
+        let lname = /^[A-Za-z]+$/;
+        if((this.state.last_name.match(lname))){
+            k = true;
+        }
+        
+        if(k === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                lastNamerror: ' Enter Only Characters'
+            })
+            errors.lastNameError = 'Enter Only Characters'
         }
 
 //Phone Number
@@ -632,7 +679,7 @@ dateHandler = (moment) => {
                   </div>
 
                   <div style={{textAlign: 'center' ,marginTop: '30px'}}>
-                         <button className={classes.save} disabled={disable} type="button" onClick={this.submitHandler} >Save</button>
+                         <button className={classes.save} disabled={disable} type="button" onClick={this.submitHandler} >Register</button>
                          </div>
 
             </div>

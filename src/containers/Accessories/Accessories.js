@@ -2,15 +2,9 @@ import React, { Component} from 'react';
 import classes from './Accessories.module.css';
 import Accessory from './Accessory/Accessory';
 import axios from 'axios';
-import Collapse, { Panel } from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
-import Slider from 'rc-slider';
-// import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
-// const Handle = Slider.Handle;
 
 function searchingFor(term) {
     return function(x) {

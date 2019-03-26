@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import Alert from 'react-s-alert';
 
 
 export const add_Item = () => {
@@ -46,6 +47,12 @@ export const already_added_cart = () => {
     }
 }
 
+export const alertControl = () => {
+    return {
+        type: actionTypes.ALERT_CONTROL
+    }
+}
+
 export const addToCart = (user_id,accessory_id,quantity) => {
     return dispatch => {
         axios.post('/addCart', {user_id: user_id, accessory_id: accessory_id, quantity: quantity})
@@ -53,7 +60,14 @@ export const addToCart = (user_id,accessory_id,quantity) => {
             console.log(response);
             if(response.data === 'Item Exist')
             {
-                alert("Item Exists");
+                dispatch(alertControl())
+                Alert.warning('Item Already Exists in Cart', {
+                    position: 'top',
+                    effect: 'bouncyflip',
+                    timeout: 3000,
+                    html: false
+                });
+                // alert    ("Item Exists");
                 // alert.show('Oh look, an alert!')
                 dispatch(already_added_cart())
             }

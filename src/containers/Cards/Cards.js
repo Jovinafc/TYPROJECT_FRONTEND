@@ -14,14 +14,13 @@ import "react-input-range/lib/css/index.css";
 import Picky from 'react-picky';
 import "react-picky/dist/picky.css";
 // import zIndex from '@material-ui/core/styles/zIndex';
-import Slider from 'rc-slider';
+// import Slider from 'rc-slider';
 // import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
+// const createSliderWithTooltip = Slider.createSliderWithTooltip;
 // const Handle = Slider.Handle;
 
 
@@ -445,11 +444,13 @@ class Cards extends Component {
                 
 
                 <div className={classes.Menu}>
-                    <h5>Filter</h5>
+                    <h5 >Filter</h5>
 
                     <div className={classes.searchDiv}>
-                         <form>
-                         <input type="text" 
+                         <form >
+                         <input 
+                                 type="text" 
+                                 placeholder="Enter Vehicle Name"   
                                  value={this.state.term}
                                  onChange={this.searchHandler}
                          />
@@ -457,7 +458,7 @@ class Cards extends Component {
                          </form>
                    </div>
 
-                   <Collapse accordion={true}>
+                   <Collapse >
                         <Panel header="Type of Service" headerClass="my-header-class">
                         <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
                          <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
@@ -497,35 +498,14 @@ class Cards extends Component {
                         </div>
 
                         </Panel>
-{/* 
-                        <Panel header="Km Driven" headerClass="my-header-class">
-                        <Picky 
-                            value={this.state.kmDrivenSelected}
-                            open={true}
-                            options={this.state.kmDriven}
-                            includeFilter={true}
-                            dropdownHeight={400}
-                            onChange={this.selectMultipleKm_Driven}
-                            valueKey="id"
-                            labelKey="km_driven"
-                            multiple={true}
-                            includeSelectAll={true}
-                            style={{zIndex: -2 }}
 
-                        />
-                        <div style={{height: '400px'}}>
-
-                        </div>
-                
-                        </Panel>
- */}
                         
-                        <Panel header="Price Range" headerClass="my-header-class">
+                        {/* <Panel header="Price Range" headerClass="my-header-class">
                         <Range min={0} max={100000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
 
-                        </Panel>
+                        </Panel> */}
 
-                        <Panel>
+                        <Panel header="Price Range" headerClass="my-header-class">
                         <InputRange
           maxValue={200000}
           minValue={0}
@@ -539,13 +519,6 @@ class Cards extends Component {
 
 
                   </Collapse>
-
-           
-
-                    <div style={{textAlign: 'center', marginTop: '20px'}}>   
-                        <button className="btn btn-success"> Apply Filter</button>
-
-                    </div>
 
                 </div>
                 <div className={classes.Main}>  

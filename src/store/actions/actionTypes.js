@@ -41,6 +41,7 @@ export const QUANTITY = 'QUANTITY';
 export const REMOVE_ITEM_CART = 'REMOVE_ITEM_CART';
 export const CART_AMOUNT = 'CART_AMOUNT';
 export const NO_OF_DAYS = 'NO_OF_DAYS';
+export const ALERT_CONTROL = 'ALERT_CONTROL'
 
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';

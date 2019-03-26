@@ -148,8 +148,11 @@ class Layout extends Component {
 
         return (
             <Aux>
+               {/* <Scrollbars
+                style={{ height: 1000  }}> */}
                 {abc}
                 
+                {/* </Scrollbars> */}
             </Aux>
     );
     }

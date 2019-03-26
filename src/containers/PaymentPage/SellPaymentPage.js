@@ -224,32 +224,16 @@ class SellPaymentPage extends Component {
           this.setState({loading: false})
         })
         
-        // window.alert(JSON.stringify(values, 0, 2))
       }
 
-      // let otp = null
-      // if(this.state.otpdisplay){
-      //   otp = <div>
-      //           OTP <input onChange={this.setOtp} value={this.state.otp} type="number" />
-      //           <br />
-      //           <button onClick={this.otpsender}>Confirm</button>
-      //       </div>
-
-      // }
+      
       let otp = null 
       if(this.state.otpdisplay){
         otp = <Redirect to="/otp" />
       }
 
-      // let spin = null;
-      // if(this.state.spin) {
-      //   spin = <Spinner />
-      // }      
-
-
         return (
             <div className={classes.Container}>
-                {/* <h3> Payment Page </h3> */}
                 <div>
                     
 
@@ -258,7 +242,6 @@ class SellPaymentPage extends Component {
   <Styles>
     <Form
       onSubmit={onSubmit}
-      // onCardFormat={onCardFormat}
       render={
         ({
         handleSubmit,

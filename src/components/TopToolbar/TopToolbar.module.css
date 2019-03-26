@@ -140,7 +140,7 @@ background: -webkit-linear-gradient(to bottom, #24243e, #302b63, #0f0c29);  /* C
 .cartDetails {
     width: 75%;
     font-size: 0.9em;
-    color: black;
+    color: white;
 }
 
 .dropdowncontent a:hover {background-color: #ddd;}

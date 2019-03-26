@@ -182,7 +182,7 @@ class VehicleReviewDiv extends Component {
                     ? <i  style={{color: 'blue'}} className="fas fa-thumbs-up"></i>
                     : <i  className="fas fa-thumbs-up"></i>}
                     </button>
-                    Helpful    {this.state.initialhelpCount} 
+                    <span style={{width: '10px', color: 'white'}}>d</span>Helpful    {this.state.initialhelpCount} 
 
                     </div>
 
@@ -193,6 +193,7 @@ class VehicleReviewDiv extends Component {
                     : <i className="fas fa-thumbs-down"></i>}       
                     
                     </button>
+                    <span style={{width: '10px', color: 'white'}}>d</span>
                     Not Helpful  {this.state.initialnothelpCount}
                     </div>
                     </div>

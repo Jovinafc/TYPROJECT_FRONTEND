@@ -3,12 +3,16 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     height: 200px;
-    display: flex;margin-bottom: 4px;
+    display: flex;margin-bottom: 8px;
 }
 
 .imageName {
     width: 30%;
-    height: 100%;
+    height: 90%;
+    margin-top: 10px;
+    margin-left: 10%;
+    /* border: 1px solid tan; */
+    padding-top: 1%; 
 }
 
 .inputDiv {
@@ -23,7 +27,7 @@
 }
 
 .ImageContainer {
-   height: 80%;
+   height: 90%;
 }
 
 .Image {
@@ -33,23 +37,44 @@
 
 .quantity {
     /* border: 1px solid palegreen; */
-    width: 20%;
+    width: 30%;
+    margin-left: 2%;
+    text-align: center;
+    /* border: 1px solid black; */
+}
+.quant {
+    padding-left: 5%;
+    margin-top: 10%;
 }
 
 .priceDiv {
-    /* border: 1px solid aqua; */
-    width: 20%;
+    margin-top: 3%;
 }
 
 .input {
     width: 2px;
-    size: 4;
+    size: 5;
 }
 .inputDiv {
     width: 30px;
-    text-align: center;
+    margin-left: 5px;
+
+    /* text-align: center; */
+}
+
+.btn {
+    margin-top: 10%;
+    background-color: black;
+    color: white; 
 }
 
 .buttonDiv {
     padding: 50px;
+    margin-right: 5%;
+    text-align: center;
+}
+
+.leftBut {
+    background-color: black;
+    color: white; 
 }

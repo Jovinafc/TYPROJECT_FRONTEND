@@ -20,6 +20,20 @@ class Login extends Component {
     }
 
     componentDidMount() {
+        this.props.authFail();
+        // this.setState({
+        //     email: '',
+        //     password: '',
+        //     errorM: '',
+        //     valid: true,
+        //     emailError:false,
+        //     passwordError: false,
+        
+        // })
+        this.setState({
+
+        })
+
         if(this.props.authRedirectPath !== '/'){
             this.props.onSetAuthRedirectPath();
         }
@@ -111,6 +125,7 @@ class Login extends Component {
             <TextField 
             placeholder="Email" 
             type="text" 
+            style={{width: '60%'}}
             value={this.state.email}
             error= {this.props.error === "User Does Not Exist"}
             helperText={this.props.error === "User Does Not Exist" ? 'Email Id does not exist' : ' '}
@@ -122,6 +137,7 @@ class Login extends Component {
             value={this.state.password}
             placeholder="Password" 
             type="password"
+            style={{width: '60%'}}
             error = {this.props.error === "Invalid Password"}
             helperText={this.props.error === "Invalid Password" ? 'Invalid Password' : ''} 
             onChange={this.passwordHandler}/>
@@ -148,9 +164,16 @@ class Login extends Component {
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
         }
         return (
-            
+                <div className={classes.loginCont}>
+
+                <div className={classes.bet}>
+
+                 </div>   
+
                 <div className={classes.cont}>
+                <div className={classes.top}>
                 <h3 style={{textAlign: 'center'}}> Login </h3>
+                </div>
                 <form className={classes.form} onSubmit={this.submitHandler} >
                     {form}
                 
@@ -161,6 +184,16 @@ class Login extends Component {
 
                     
                 </div>
+
+                </div>
+
+                // <div className={classes.Container}>
+                //     efe
+                //     <div>
+
+                //     </div>
+
+                // </div>
             
         )
     }
@@ -180,8 +213,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email,password) => dispatch(actions.auth(email,password)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath( '/' ))
-
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath( '/' )),
+        authFail: () => dispatch(actions.authFail(null))
     };
 };
 

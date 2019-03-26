@@ -1,12 +1,3 @@
-/* .Form {
-    margin: 10%;
-    margin-top: 5%;
-    width: 80%;
-    border: 1px solid black;
-    text-align: center;
-    height: 80%;
-} */
-
 
 .Inp {
     font-weight: bold;
@@ -19,15 +10,8 @@
   margin-left: 20px;
 
 }
-
-/* .dobborder {
-    border: 1px solid grey;
-    z-index: 30;
-} */
 .Cont {
   width: 100%;
-  /* height: 1000px; */
-  
 }
 
 .formCont {
@@ -55,7 +39,6 @@
   
 .Menu {
   width: 25%;
-  border: 1px solid yellow;
 }
 
 .Main {

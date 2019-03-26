@@ -6,8 +6,12 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import lg from './logo.png'
+// import lg from './logo.png'
+// import SloganDesign from './Slogan Design.png';
+// import LogoRW from './LogoRW.png';
+import Slogan from './Slogan design 1.png';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import RW from './RW.png';
 
 const style = {
     height: '95%',
@@ -69,11 +73,13 @@ class TopToolbar extends Component {
             
             <div className={classes.nav}>
             <div className={classes.Logo}>
-            <img src={lg} alt="img" style={{width: '150px', height:'60px'}}/>
+            {/* <img src={lg} alt="img" style={{width: '150px', height:'60px'}}/> */}
+            <img src={RW} alt="img" style={{marginTop: '5px', width: '150px', height:'60px'}}/>
+
             </div>
             <div className={classes.Name}>
-                <h4>Ride Wheelz</h4>
-                {/* <img src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg" alt="homepage" style={{width:'200px', marginTop:'4px',height: '30px'}}/> */}
+                {/* <h4>Ride Wheelz</h4> */}
+                <img src={Slogan} alt="homepage" style={{width:'450px', height: '70px'}}/>
             </div>
 {/* 
             <div className={classes.cartCont}>
@@ -91,7 +97,7 @@ class TopToolbar extends Component {
                 {/* <i style={{color: 'red', fontSize: '2.0rem'}} className="fas fa-shopping-cart"></i> */}
                 <IconButton aria-label="Cart">
                 {this.props.isAuthenticated
-                ?  <Badge badgeContent={this.props.item_number} color="primary"  >
+                ?  <Badge badgeContent={this.props.item_number} color="primary" >
                         <i style={{color: 'red', fontSize: '1.7rem'}} className="fas fa-shopping-cart"></i>
                     </Badge>
             
@@ -125,10 +131,10 @@ class TopToolbar extends Component {
                                     </div>
                                 )
                             })}  
-                            <div style={{backgroundColor: '#747474'}} >
+                            <div style={{backgroundColor: '#747474', marginBottom: '5px'}} >
                                 {this.props.item_number > 3
                                 ? <button style={{backgroundColor: 'red', color: 'black'}}><NavLink to="/cart">{(this.props.item_number - 3 )} more</NavLink></button>
-                                : <button style={{backgroundColor: 'red', color: 'black'}}><NavLink to="/cart" style={{color: 'black'}}>Go To Cart</NavLink></button> }
+                                : <div style={{backgroundColor: '#AF0707', color: 'black'}}><NavLink to="/cart" style={{color: 'white'}}>Go To Cart</NavLink></div> }
                             </div>
                       </div>
                     

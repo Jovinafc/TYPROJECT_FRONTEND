@@ -164,8 +164,9 @@ class Cart extends Component {
                 ? <div className={classes.checkoutDiv}>
                  <div>
                      <h3>Grand Total</h3>
-                 </div>       
-                 <div>
+                 </div> 
+
+                 <div style={{marginTop: '20px'}}>
                      <p><strong>No of Items:</strong> {this.state.noofItems}</p>
                 </div>
                 <div><p><strong>Grand Total:</strong> &#x20B9;{this.state.totalPrice}</p></div>

@@ -25,23 +25,12 @@ class AccountInfo extends Component {
         .then(res => {
             this.setState({
                 email: res.data.email
-                // old_password: res.data.password
             });         
             
         })
-    }
-
-
-    // emailHandler = (e) => {
-    //     this.setState({
-    //         email: e.target.value
-    //     })
-    // } 
-
-    
+    }    
 
     oldPasswordHandler = (e) => {
-        // let touched = true;
         this.setState({
             old_password: e.target.value
         })
@@ -144,7 +133,7 @@ class AccountInfo extends Component {
                 </div>
 
                 <div className={classes.Main}>
-                    <h3>Account Info</h3>
+                    <h3 style={{textAlign: 'center'}}>Account Info</h3>
                     <div>
                     <form  className="form-horizontal">
                  

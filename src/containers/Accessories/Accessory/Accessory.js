@@ -7,19 +7,7 @@ import * as actions from '../../../store/actions/cart';
 
 class Accessory extends Component {
 
-    state = {
-        // ids: this.props.cartItems.map(a => a.accessory_id)
-    }
-    
-
     render () {
-
-        // let temp_rate;
-        // if(this.props.average_rating.length > 0){
-        //     let temp_rate = this.props.average_rating[0].avg_rating;
-        // }
-        // console.log(temp_rate);
-        // console.log(this.props.cartItems.map(a => a.accessory_id));
         return (
             <div className={classes.CardContainer}>
                 <div className={classes.Card}>
@@ -29,11 +17,11 @@ class Accessory extends Component {
 
                     <div className={classes.content}>
                          <div className={classes.Name}>
-                             <h5 className={classes.na} onClick={() => this.props.onCardClick(this.props.id)}><NavLink to={'/productdetail/:'+this.props.id}>{this.props.name}</NavLink></h5>
+                             <h3 className={classes.na} onClick={() => this.props.onCardClick(this.props.id)}><NavLink to={'/productdetail/:'+this.props.id}>{this.props.name}</NavLink></h3>
                          </div>
 
                          <div className={classes.Price}>
-                             <h6>&#x20B9; {this.props.price}</h6>
+                             <h5>&#x20B9; {this.props.price}</h5>
                          </div>
 
                          <div className={classes.add}>
@@ -42,10 +30,6 @@ class Accessory extends Component {
                                 : <button style={{color: 'white', maxWidth:'100%', fontWeight: 'bold', backgroundColor: '#272727'}} className="btn btn-danger">Add to Cart</button>   
                                 }  
                              
-{/* 
-                             <Alert show={this.props.inCart} variant="dark">
-                                    Item already exists in cart
-                             </Alert> */}
                          </div>
                          <div style={{float:'right'}}>
                             {this.props.average_rating.length > 0

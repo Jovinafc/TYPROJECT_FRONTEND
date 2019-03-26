@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import photo from '../../Images/signupmod.jpg'
 import axios from 'axios';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
-import RBCarousel from "react-bootstrap-carousel";
+// import RBCarousel from "react-bootstrap-carousel";
 
 class HomePage extends Component {
 
@@ -164,7 +164,7 @@ class HomePage extends Component {
 
                     </div>
 
-                    <div style={{marginBottom: '20px'}}>
+                    <div style={{}}>
                         <h2 style={{color: 'white', textAlign: 'center'}}> Top Vehicles </h2>
                         <div className={classes.topVehicles}>
                             {display}

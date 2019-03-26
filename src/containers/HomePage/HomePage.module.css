@@ -1,7 +1,7 @@
 
 .home {
     background-color:#272727;
-    height: 1200px;
+    height: 1000px;
 }
 
 .carousel {
@@ -46,7 +46,7 @@
     /* border: 1px solid yellow; */
     /* background-color:#ff6600; */
     /* background-color: #ffe400; */
-    background-color: rgb(190, 33, 33);
+    background-color: rgb(175, 7, 7);
 
     width: 18%;
     margin-left: 2.5%;
@@ -159,7 +159,7 @@
 }
 
 .topVehiclesDiv:hover {
-    transform:  scale(1.2);    
+    transform:  scale(1.1);    
 }
 
 

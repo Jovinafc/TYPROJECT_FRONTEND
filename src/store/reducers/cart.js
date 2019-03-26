@@ -10,7 +10,8 @@ const initialState = {
     quantity: 1,
     count: 0,
     total: 0,
-    isActive: false
+    isActive: false,
+    alert: false
 };
 
 const addItem = (state, action) => {
@@ -68,6 +69,7 @@ export const startLoading = (state,action) => {
 export const stopLoading = (state,action) => {
     return updateObject(state, {isActive: false})
 }
+
  
 const reducer = (state=initialState, action ) => {
     switch(action.type) {

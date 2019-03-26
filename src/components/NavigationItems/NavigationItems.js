@@ -50,6 +50,10 @@ const navigationItems = (props) =>  {
 
                <NavigationItem link="/accessories" >Accessories 
                 </NavigationItem>
+
+                
+               <NavigationItem link="/aboutus" >About Us 
+                </NavigationItem>
                
 
              <span style={style} className={classes.span1}>

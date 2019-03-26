@@ -111,8 +111,10 @@ class Delete extends Component {
                 <p style={{marginTop: '30px'}}>Are You Sure you want to Delete your account?<b>All your data will be deleted permanently</b></p>
 
                   
+                <div style={{textAlign: 'center'}}>
+                <button className="btn btn-danger"  onClick={this.deletaHandler} >Delete</button>
 
-                <button className="btn btn-danger" onClick={this.deletaHandler} >Delete</button>
+                </div>
                 </div>
             </div>
 

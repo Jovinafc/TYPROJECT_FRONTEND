@@ -103,7 +103,7 @@ class SellVehicle extends Component {
             this.setState({show: true})
         }
 
-        axios.get('/fetch-vehicle-type').then(result => {
+        axios.post('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
             console.log(result);
         })
@@ -203,7 +203,7 @@ class SellVehicle extends Component {
         });
 
         if(this.state.tempType === 'Four-Wheelers'){
-             axios.post('/fetch-fourWheeler-model', {brand: e.target.value})
+             axios.get('/fetch-fourWheeler-model', {brand: e.target.value})
              .then((result) => {
                  this.setState({models: result.data})
              }).catch(e => {
@@ -802,7 +802,8 @@ class SellVehicle extends Component {
                         </button>
                         
                         <ClipLoader
-                  css={override}
+                        style={override}
+                //   css={override}
                   sizeUnit={"px"}
                   size={20}
                   color={'#123abc'}

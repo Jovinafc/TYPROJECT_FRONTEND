@@ -141,15 +141,6 @@ export const authRefresh = (email, user_id) => {
         
     }
 }
-
- // export const auth = (email, password, isSignup) => {
- //     return {
- //         type: actionTypes.AUTH_USER,
- //         email: email,
- //         password: password,
- //         isSignup: isSignup
- //     }
- // };
   
   export const setAuthRedirectPath = (path) => {
       return {

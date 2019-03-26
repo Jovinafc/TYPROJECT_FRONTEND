@@ -34,9 +34,9 @@ import Help from './containers/AboutUs/Help/Help';
 // import Loader from 'react-loader-spinner';
 // import CustomScroll from 'react-custom-scroll';
 // import 'react-custom-scroll/dist/reactCustomScroll';
-
+// import { Scrollbars } from 'react-custom-scrollbars'
 import Alert from 'react-s-alert';
- 
+// import  Scrollbars  from 'react-scrollbars-custom' 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-css-effects/scale.css';
@@ -219,7 +219,10 @@ class App extends Component {
     // }
     
     return (
+
       <Aux>
+              {/* <Scrollbars style={{height: 1000}} >  */}
+
       {layout1}    
       
       {/* <Spinner name="mySpinner">
@@ -240,8 +243,10 @@ class App extends Component {
               <Alert stack={{limit: 3}} />
         
       <ToastContainer />
+            {/* </Scrollbars> */}
+
       </Aux>
-    
+
 
     );
   }

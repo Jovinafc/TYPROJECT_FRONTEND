@@ -333,11 +333,12 @@ class VehicleDetail extends Component {
 
                     <div className={classes.rightdiv}>
                         <div className={classes.price}>
+                        <div style={{marginLeft: '4px'}}> <h4><strong>{this.state.vehicles.brand} {this.state.vehicles.model}</strong></h4> </div>  
+
                             {this.state.vehicles.price ? 
-                            <h6>Price: &#x20B9;{this.state.vehicles.price.toLocaleString('en-IN')}</h6> : <h6>Price per day: &#x20B9;{this.state.vehicles.price_per_day}</h6>} 
-                            <div> <p>{this.state.vehicles.brand} {this.state.vehicles.model}</p> </div>  
-                            <div> Ad Posted On: {this.state.postedOn}</div>    
-                            <div>Owner:{this.state.owner.name}</div>    
+                            <div style={{marginLeft: '4px'}}><strong>Price: &#x20B9;</strong> <span className={classes.valueDetail}>{this.state.vehicles.price.toLocaleString('en-IN')}</span></div> : <div style={{marginLeft: '4px'}}><strong>Price per day:</strong> <span className={classes.valueDetail}>&#x20B9;{this.state.vehicles.price_per_day}</span></div>} 
+                            <div style={{marginLeft: '4px'}}><strong> Ad Posted On: </strong> <span className={classes.valueDetail}>{this.state.postedOn}</span></div>    
+                            <div style={{marginLeft: '4px'}}><strong>Owner: </strong><span className={classes.valueDetail}>{this.state.owner.name}</span></div>    
                             <div> {datepickers} </div>
                             <div className={classes.buttonCont}>
                             {

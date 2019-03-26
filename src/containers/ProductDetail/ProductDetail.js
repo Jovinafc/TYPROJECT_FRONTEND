@@ -292,10 +292,10 @@ class ProductDetail extends Component {
                         <div className={classes.details}>
                             <strong>Details</strong>
                             <div className={classes.innerDetails}>
-                                <div><p><strong>Description:</strong> {this.state.product.accessory_details}</p></div>
+                                <div><p><strong>Description:</strong> <span className={classes.valueDet}>{this.state.product.accessory_details}</span></p></div>
                                 {/* <div><p>Used For:{this.state.product}</p></div> */}
-                                <div><p><strong>Used For:</strong> {this.state.product.accessory_use}</p> </div>
-                                <div><p><strong>Product Type:</strong> {this.state.product.accessory_type}</p> </div>
+                                <div><p><strong>Used For:</strong> <span className={classes.valueDet}>{this.state.product.accessory_use}</span></p> </div>
+                                <div><p><strong>Product Type:</strong> <span className={classes.valueDet}>{this.state.product.accessory_type}</span></p> </div>
 
                             </div>
                         </div>
@@ -303,11 +303,12 @@ class ProductDetail extends Component {
 
                     <div className={classes.rightDiv}>
                         <div className={classes.price}>
-                            <h6>Price: &#x20B9;{this.state.product.accessory_price}</h6>
-                            <div><p><strong>{this.state.product.accessory_name}</strong></p></div>    
+                        <div><h5><strong>{this.state.product.accessory_name}</strong></h5></div>    
+
+                            <h6><strong>Price:</strong> <span className={classes.valueDet}>&#x20B9;{this.state.product.accessory_price}</span></h6>
 
                             <div className={classes.quantity}> 
-                                  <h6>Quantity: &nbsp;&nbsp;&nbsp;
+                                  <h6><strong>Quantity:</strong> &nbsp;&nbsp;&nbsp;
                                      <button onClick={this.decreaseCounter} >
                                          -
                                      </button>
