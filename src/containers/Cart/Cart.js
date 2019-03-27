@@ -39,78 +39,15 @@ class Cart extends Component {
             }, () => {
                 this.props.stopLoading();
             })
-        }
-
-        
-        
+        }       
     }
 
     componentDidMount = () => {
         window.scrollTo(0, 0);
-
-
         this.props.cartAmountQuantity();
-        // axios.post('/checkout-check', {user_id: localStorage.getItem('userId')})
-        // .then(response => {
-        //     console.log(response.data);
-        //     this.setState({
-        //         noofItems: response.data.count,
-        //         totalPrice: response.data.grand_total
-        //     })
-        // })
-        // this.props.getCartItems(localStorage.getItem('userId'))
-        // axios.post('/cartItems', {user_id: localStorage.getItem('userId')})
-        // .then(response => {
-        //     console.log(response);
-        //     console.log(response.data);
-        //     if(response.data.count !== 0){
-        //         this.setState({
-        //             cart: response.data.accessory_details
-                    
-        //         })
-    
-        //     }
-                       // this.state.cart.map(dis => {
-            //     axios.post('/fetch-specific-accessory', {accessory_id: dis.accessory_id})
-            //     .then(response => {
-            //         console.log(response);
-            //         this.setState({
-            //             newcart: response.data
-            //         })
-            //     })
-            // }) 
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
-
-           
-
     }
 
-
-
     render () {
-        console.log(this.state.cart);
-        console.log(this.props.cart_items)
-        // this.state.cart.map(dis => {
-        //    display = <div> 
-        //         <div>
-        //             {dis.accessory_name}
-        //         </div>
-        //         <div>
-        //             {dis.accessory_type}
-        //         </div>
-        //         <div>
-        //             {dis.accessory_use}
-        //         </div>
-        //     </div>
-        // })
-
-        // let no_items = <div>
-        //                     <h3>Your Cart is Empty</h3>
-        //                </div>
-
         let displayCartItems = null;
         if(this.props.cart_items !== undefined ){
              displayCartItems = this.state.cart
@@ -141,15 +78,7 @@ class Cart extends Component {
         return (
             <LoadingOverlay active={this.props.isActive} spinner text="Loading">
             <div className={classes.Container}>
-                    {/* <h2> Cart Page</h2> */}
-                    {/* {this.state.cart.length === 0
-                    ? {no_items}
-                    : {displayCartItems}} */}
-                    {/* {this.state.cart.length === 0
-                    ? <div className={classes.cartpage}> {no_items} </div>
-                    
-                    : <div> {displayCartItems} </div> } */}
-                    {/* {displayCartItems} */}
+                   
                 {this.props.cart_items !== undefined
                 ? <div className={classes.secondCont}>
                 <div className={classes.cartitems}>

@@ -42,22 +42,6 @@ export const deleteLocalStorage = () => {
     }
 }
   
-//   export const logoutSucceed = () => {
-//       return {
-//           type: actionTypes.AUTH_LOGOUT
-//       }
-//   };
-
-
-// export const checkAuthTimeout = (expirationTime) => {
-//     return {
-//         type: actionTypes.AUTH_CHECK_TIMEOUT,
-//         expirationTime: expirationTime  
-//     };
-// };
-
-
-  
   export const checkAuthTimeout = (expirationTime) => {
       return dispatch => {
          setTimeout(() => {

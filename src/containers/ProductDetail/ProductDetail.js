@@ -255,9 +255,11 @@ class ProductDetail extends Component {
                            color2={'#ffd700'} /> 
                          </div>
 
-        let reviewlist = <div>No Reviews To Show For </div>;
+        let reviewlist;
+        console.log(this.state.revArray);
 
         if(this.state.revArray.length > 0){
+            console.log(this.state.revArray);
             reviewlist = this.state.revArray.map(dis => {
                 return (
                 <ReviewDiv 
@@ -268,6 +270,10 @@ class ProductDetail extends Component {
     
             })
     
+        }
+        else {
+             reviewlist = <div>No Reviews To Show For </div>;
+
         }
         
 

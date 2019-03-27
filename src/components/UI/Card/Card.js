@@ -20,29 +20,6 @@ class card extends Component {
         
             <div className={classes.CardContainer}>
                
-                {/* <NavLink className={classes.Card} to={'/vehicledetail/:'+this.props.vehicle_id} >               
-                <span >
-                    <div className={classes.ImageContainer}>
-                        <img className={classes.Image}src={this.props.image} alt="Im"/>
-                    </div>
-                    <div  className={classes.content}>
-                        <h5 onClick={() => this.props.onCardClick(this.props.vehicle_id)}><strong>{this.props.name}</strong> {this.props.model}</h5>
-                        <div className={classes.price}>
-                            <div className={classes.prices}>
-                             <h6 >&#x20B9; {this.props.price === null ? this.props.price_per_day : this.props.price} 
-                                  <span className={classes.divider}></span>  
-                            </h6>
-                            {this.props.price_per_day !== null ? pd : null}
-
-                            </div>
-                            {this.props.price === null ? rent : sell }
-
-                         
-                        </div>
-                    </div>
-                </span>
-
-                </NavLink> */}
 
 <div className={classes.Card}>
                     <div className={classes.ImageContainer}>
@@ -65,11 +42,18 @@ class card extends Component {
                         <div>
                             Year: {this.props.year}
                         </div>
+                        
                         {/* <div style={{float:'right'}}>
+                            {this.props.rate !== null
+                            ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'30px', color: 'white'}}>{this.props.rate}&#9734;</div>
+                            : null}
+                        </div> */}
+
+                        <div style={{float:'right'}}>
                             {this.props.rate.length > 0
                             ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'30px', color: 'white'}}>{this.props.rate[0].avg_rating}&#9734;</div>
                             : null}
-                        </div> */}
+                        </div>
 
                     </div>
                 </div>

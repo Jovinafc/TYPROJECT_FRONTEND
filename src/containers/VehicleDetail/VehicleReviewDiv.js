@@ -59,18 +59,6 @@ class VehicleReviewDiv extends Component {
                 initalnothelpCount: this.state.initialnothelpCount
             })
         }
-        
-        // if(this.state.thumbsup !== prevProps.thumbsup){
-        //     this.setState({
-        //         thumbsup: this.state.thumbsup
-        //     })
-        // }
-
-        // if(this.state.thumbsdown !== prevProps.thumbsdown){
-        //     this.setState({
-        //         thumbsdown: this.state.thumbsdown
-        //     })
-        // }
     }
 
     up = (e) => {
@@ -158,8 +146,7 @@ class VehicleReviewDiv extends Component {
             <div className={classes.mainDiv}>   
                 <div className={classes.topDiv}>
                     <div className={classes.imageContainer}>
-                        {/* {this.props.details.user['image']
-                        ? <img className={classes.image} src={this.props.details.user['image']} alt="pfimage" /> */}
+                       
                          <h2 style={{textAlign: "center", fontSize: '20px', color: "black"}}>{a}</h2>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column'}}>

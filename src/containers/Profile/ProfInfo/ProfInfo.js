@@ -12,6 +12,8 @@ import "react-datepicker/dist/react-datepicker.css";
 // import moment from 'react-moment';
 import ModernDatePicker from 'react-modern-datepicker'
 import Alert from 'react-s-alert';
+import Datetime from 'react-datetime';
+
 
 
 class ProfInfo extends Component {
@@ -421,18 +423,20 @@ class ProfInfo extends Component {
                         </div>
 
                         
-                        <div>
+                        <div className="form-group"> 
                     <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth</label>
                     <div className="col-sm-10">
                     {/* <DatePicker id="dob" dateFormat="yyyy-MM-dd" onChange={this.dobHandler} value={this.state.DOB} /> */}
-                    <ModernDatePicker 
+                    {/* <ModernDatePicker 
                     id="dob"
                     format={'YYYY-MM-DD'} 
                     date = {this.state.DOB}
                     onChange={(date) => this.dobHandler(date)} 
                     showBorder
                     className="form-control"
-                    />
+                    /> */}
+                    <Datetime value={this.state.DOB} style={{width: '60%'}} onChange={this.starth}/>  
+                                
                     </div>
                         </div>
 

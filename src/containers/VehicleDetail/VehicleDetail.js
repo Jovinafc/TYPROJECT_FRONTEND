@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import classes from './VehicleDetail.module.css';
 import { connect} from 'react-redux';
-// import * as actions from '../../store/actions/vehicle_click';
 import axios from '../../axios';
-// import Login from '../Forms/Login/Login';
 import Aux from '../../hoc/Auxilary';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
@@ -40,10 +38,6 @@ class VehicleDetail extends Component {
     buyVehicleHandler = () => {
         if(this.props.user_id === null){
             alert("Kindly Login")
-            // this.setState({
-            //     user: false,
-            //     show: true    
-            // })
         }
         
 
@@ -97,8 +91,6 @@ class VehicleDetail extends Component {
         const {match: {params}} = this.props;
         let a = params.vehicle_id;
         a = a.substring(1);
-
-        //  axios.post(`/fetch-specific-vehicle/${a}', {user_id: this.props.user_id})   
          axios.post(`/fetch-specific-vehicle`, {user_id: localStorage.getItem('userId'), vehicle_id: a})
          .then(response => {
             console.log(response.data);
@@ -156,17 +148,6 @@ class VehicleDetail extends Component {
         this.setState({show: false});
     }
 
-    // startDateHandler = (e) => {
-    //     this.setState({startdatetime: e});
-    //     this.props.startDate(e);
-    // }
-
-    // endDateHandler = e => {
-    //     this.setState({enddatetime: e});
-    //     console.log(e);
-    //     this.props.endDate(e);
-    // }
- 
     proceedHandler = (e) => {
         e.preventDefault();
         axios.post('/rent-now', {user_client_id: this.props.user_id, 
@@ -234,13 +215,6 @@ class VehicleDetail extends Component {
                    days: e - s
                })
             }
-            // let sd = moments(this.state.start);
-            // let ed = moments(this.state.end);
-            // let duration = moments.duration(ed.diff(sd));
-            // let days = duration.asDays();
-            // this.setState({
-            //     days: days
-            // })
         });
 
         this.props.endDate(s);
@@ -254,8 +228,6 @@ class VehicleDetail extends Component {
         let valid = function(current){
             return current.isAfter(yesterday);
         };
-        // console.log(this.state.start);
-        // console.log(this.state.end);
         console.log(this.state.vehicles);
 
         let reviewlist = null;
@@ -284,8 +256,6 @@ class VehicleDetail extends Component {
 
         const enabled = sd.length > 0 && ed.length > 0;
 
-        // let log = null;
-        // log = <Login />
         
         let datepickers = null;
         if(this.state.vehicles.price_per_day){
@@ -299,8 +269,6 @@ class VehicleDetail extends Component {
                           </div>
         }
         
-        // console.log(this.state.vehicles.owner.name);
-               console.log(this.state.owner);
 
         return (
             <Aux>
@@ -325,7 +293,6 @@ class VehicleDetail extends Component {
                                  <div> <p><strong>State:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.registration_state}</span> </p></div>
                                  <div> <p><strong>Fuel Type:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.fuel_type}</span> </p></div> 
                                  <div> <p><strong>Vehicle Number:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.number_plate}</span> </p></div>  
-                                 {/* <div> <p>Posted On: {this.state.vehicles.createdAt} </p></div>  */}
 
                                  </div>
                              </div>
@@ -369,19 +336,14 @@ class VehicleDetail extends Component {
 
                                ? <NavLink to="/Profile"><button className="btn btn-success">Update your Profile</button></NavLink>
 
-                   //            : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
                                : <NavLink to={'/payment/:'+this.props.vehicle_id}>
                                    <button 
                                    disabled={!enabled}
-                                //    onClick={this.lendHandler} 
-                               className="btn btn-success">Rent Vehicle</button></NavLink>
+                                   className="btn btn-success">Rent Vehicle</button></NavLink>
 
                                 }
                             </div> 
                          
-                        //  <NavLink to={'/sellpayment/:'+this.props.vehicle_id}><button className="btn btn-primary">Buy Vehicle</button> </NavLink>
-                         
-                        //  : <NavLink to={'/rentpayment/:'+this.props.vehicle_id}><button onClick={this.lendHandler} className="btn btn-success">Rent Vehicle</button></NavLink>
                          
                      }
                  

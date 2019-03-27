@@ -7,9 +7,6 @@ import * as actions from '../../../store/actions/auth';
 import LoadingOverlay from 'react-loading-overlay';
  
 class Photo extends Component {
-
-    
-
     state = {
         file: '',
         imagePreviewUrl: '',

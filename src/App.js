@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Layout from './containers/Layout/Layout';
 import { Route, Switch, withRouter } from 'react-router-dom';
-// import Cards from './containers/Cards/Cards';
 import Login from './containers/Forms/Login/Login'; 
 import SellVehicle from './containers/SellVehicle/SellVehicle'; 
 import Aux from './hoc/Auxilary';
@@ -31,12 +30,7 @@ import CartPaymentPage from './containers/PaymentPage/CartPaymentPage';
 import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
 import Help from './containers/AboutUs/Help/Help';
-// import Loader from 'react-loader-spinner';
-// import CustomScroll from 'react-custom-scroll';
-// import 'react-custom-scroll/dist/reactCustomScroll';
-// import { Scrollbars } from 'react-custom-scrollbars'
 import Alert from 'react-s-alert';
-// import  Scrollbars  from 'react-scrollbars-custom' 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-css-effects/scale.css';
@@ -94,46 +88,6 @@ class App extends Component {
 
   render() {
 
-
-    // let routes = (
-    //   <Switch>
-    //       <Route path="/" exact component={Homepage} />
-    //       <Route path="/Signup" exact component={SignUp}/>
-    //       <Route path="/display" exact component={Cards} />
-    //       <Route path="/login" exact component={Login} />
-    //       {/* <Route path="/signUp" exact component={SignUpForm} /> */}
-    //       <Route path="/sell/sell" exact component={SellVehicle} />
-    //       <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
-    //       <Route path="/accessories" component={Accessories} />
-    //   </Switch>
-    // );
-
-    // if(this.props.isAuthenticated){
-    //   routes = (
-    //     <Switch>
-    //         <Route path="/" exact component={Homepage} />
-    //         <Route path="/display" exact component={Cards} />
-    //         <Route path="/login" exact component={Login} />
-    //         <Route path="/sell/sell" exact component={SellVehicle} />
-    //         <Route path="/logout" exact component={Logout}/>
-    //         <Route path="/profile" exact component={Profile} />
-    //         <Route path="/myvehicles" exact component={MyVehicle} />
-    //         <Route path="/account" exact component={AccountInfo} />
-    //         <Route path="/sellpayment/:vehicle_id" exact component={SellPaymentPage} />
-    //         <Route path="/rentpayment/:vehicle_id" exact component={RentPaymentPage} />
-    //         <Route path="/photo" exact component={Photo} />
-    //         <Route path="/delete" exact component={Delete} />
-    //         <Route path="/history" exact component={VehicleHistory} />
-    //         <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
-    //         <Route path="/accessories" component={Accessories} />
-    //         <Route path="/sell/lend" component={Lend} />
-    //         <Route path="/otp" component={Otp} />
-    //      </Switch>
-             
-    //   )
-    // }
-
-
     let layout1 = (
         <Switch >
             <Layout>
@@ -142,7 +96,6 @@ class App extends Component {
                 <Route path="/Signup" exact component={SignUp}/>
                 <Route path="/display" exact component={asyncCards} />
                 <Route path="/login" exact component={Login} />
-                {/* <Route path="/signUp" exact component={SignUpForm} /> */}
                 <Route path="/sell/sell" exact component={SellVehicle} />
                 <Route path="/vehicledetail/:vehicle_id"  component={VehicleDetail} />
                 <Route path="/productdetail/:product_id" component={ProductDetail} />
@@ -157,17 +110,6 @@ class App extends Component {
 
     
     if(this.props.isAuthenticated) {
-      // if(this.props.location.pathname === '/otp'){
-      //   layout1 = (
-      //       <Switch>
-      //           <LayoutTwo>
-      //               <Switch>
-      //                   <Route path="/otp" exact component={Otp}/>
-      //               </Switch>
-      //           </LayoutTwo>
-      //       </Switch>
-      //   )
-      // }
       
       layout1 = (
           <Switch>
@@ -175,7 +117,6 @@ class App extends Component {
               <Switch>
             <Route path="/" exact component={Homepage} />
             <Route path="/display" exact component={asyncCards} />
-            {/* <Route path="/display/:filter" */}
             <Route path="/login" exact component={Login} />
             <Route path="/sell/sell" exact component={SellVehicle} />
             <Route path="/logout" exact component={Logout}/>
@@ -183,7 +124,6 @@ class App extends Component {
             <Route path="/myvehicles" exact component={MyVehicle} />
             <Route path="/account" exact component={AccountInfo} />
             <Route path="/payment/:vehicle_id" exact component={SellPaymentPage} />
-            {/* <Route path="/rentpayment/:vehicle_id" exact component={RentPaymentPage} /> */}
             <Route path="/photo" exact component={Photo} />
             <Route path="/delete" exact component={Delete} />
             <Route path="/history" exact component={VehicleHistory} />
@@ -202,49 +142,14 @@ class App extends Component {
           </Switch>  
       )
     }
-
-    // let routes2 = (
-    //       <Switch>
-    //            <Route path="/otp" component={Otp} />
-    //       </Switch>
-    // );
-
-    // const app = <div style={{backgroundColor: 'white'}}> 
-    // <Layout> {routes} </Layout>
-    //   </div>
-
-    
-    // if(<Route path="/otp" component={Otp} /> ){
-    //    app = <div> {routes2} </div>
-    // }
-    
+  
     return (
 
       <Aux>
-              {/* <Scrollbars style={{height: 1000}} >  */}
-
-      {layout1}    
-      
-      {/* <Spinner name="mySpinner">
-                    <div style={{
-                      width: '100%',
-                      height: '100%',
-                      position: 'absolute',
-                      backgroundColor: 'wheat',
-                      opacity: '0.2',
-                      top: 0,
-                      left: 0,
-                      zIndex: '20'  
-                    }}>
-                      Loading...
-                    </div>
-               </Spinner>   */}
-              
-              <Alert stack={{limit: 3}} />
+        {layout1}                  
+        <Alert stack={{limit: 3}} />
         
       <ToastContainer />
-            {/* </Scrollbars> */}
-
       </Aux>
 
 

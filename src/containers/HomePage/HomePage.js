@@ -10,6 +10,13 @@ import photo from '../../Images/signupmod.jpg'
 import axios from 'axios';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 // import RBCarousel from "react-bootstrap-carousel";
+import Vehicle1 from './Vehicle 1.jpg';
+import Vehicle2 from './Vehicle 2.jpg';
+import Vehicle3 from './Vehicle 3.jpg';
+import Vehicle4 from './Vehicle 4.jpg';
+import Vehicle5 from './Vehicle 5.jpg';
+import Vehicle6 from './Vehicle 6.jpg';
+import Vehicle7 from './Vehicle 7.jpg';
 
 class HomePage extends Component {
 
@@ -40,7 +47,6 @@ class HomePage extends Component {
 
     render () {
         let size = 3;
-        console.log(this.state.vehicles);   
         let display = this.state.vehicles.slice(0,size).map(dis => {
             return (
                 <NavLink style={{textDecoration: 'none'}} className={classes.topVehiclesDiv} key={dis.id} to={'/vehicledetail/:'+dis.vehicle_id}>
@@ -62,30 +68,6 @@ class HomePage extends Component {
         })
 
         return (
-
-                // // <div className={classes.container}>
-                // {/* <Carousel className={classes.carousel} autoPlay>
-                //     <div>
-                //         <img src="http://res.cloudinary.com/beast0013/image/upload/v1548216751/geqnk9bclpaqboxkn2fc.jpg" />
-                //     </div>
-                //     <div>
-                //         <img src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg"/>
-                //     </div>
-                //     <div>
-                //         <img src="http://res.cloudinary.com/beast0013/image/upload/v1548243037/tgbmbyzowukhndhfkhfn.jpg"/>
-                //     </div>
-                // </Carousel> */}
-
-                // {/* <img className={classes.img} src={Image} alt="Vehicle"/>
-
-                //     <div className={classes.margin}>
-                //         <button className={classes.b1}>Sell Now</button>
-                //         <button className={classes.b2}>Lend Now</button>
-                //         <br />
-                //         <button className={classes.b3}>Rent Now</button>
-                //         <button className={classes.b4}>Buy Now</button>
-                //     </div>                     */}
-
                      
                 <div className={classes.home}>
 
@@ -102,15 +84,18 @@ class HomePage extends Component {
 
                         </Carousel.Item>
 
-                        <Carousel.Item>
-                        <img className={classes.Im} alt="Vehicle" src="http://res.cloudinary.com/beast0013/image/upload/v1548216854/xt5ed7hm1halodsi8qbm.jpg"/>
-
-                        </Carousel.Item>
 
                         <Carousel.Item>
-                        <img className={classes.Im} alt="Vehicle" src="http://res.cloudinary.com/beast0013/image/upload/v1548243037/tgbmbyzowukhndhfkhfn.jpg"/>
+                        <img className={classes.Im} alt="Vehicle" src={Vehicle5}/>
   
                         </Carousel.Item>
+
+                        <Carousel.Item>
+                        <img className={classes.Im} alt="Vehicle" src={Vehicle1}/>
+  
+                        </Carousel.Item>
+
+
                     </Carousel> 
 
 
@@ -164,7 +149,7 @@ class HomePage extends Component {
 
                     </div>
 
-                    <div style={{}}>
+                    <div >
                         <h2 style={{color: 'white', textAlign: 'center'}}> Top Vehicles </h2>
                         <div className={classes.topVehicles}>
                             {display}

@@ -137,7 +137,6 @@ class AccountInfo extends Component {
                     <div>
                     <form  className="form-horizontal">
                  
-                 {/* className={cx(globalStyles.label, globalStyles['col-sm-2 control-label'], classes.Inp)} */}
  
                          <div className={cx(globalStyles.form, globalStyles['form-group'], classes.con) }>
                      <label htmlFor="fname"  className="col-sm-2 control-label">Email</label>

@@ -3,20 +3,16 @@
 }
 
 .Container {
-     display: flex;
-     /* border: 2px solid black; */
-     
+     display: flex;     
 }
 
 .card {
      width: 60%;
-     
 }
 
 .Menu {
      width: 20%;
      height: 800px;
- 
 }
 
 .Type {
@@ -39,24 +35,6 @@
 .slider {
      margin-bottom: 60px;
 }
-
-/* .accordion {
-     height: 50px;
-
-}
-
-.accordionItem {
-     height: 50px;
-}
-
-.accordionItemTitle {
-     height: 50px;
-     color: red;
-}
-
-.accordionItemBody {
-     height: 50px;
-} */
 
 .u-position-absolute {
      position: absolute;

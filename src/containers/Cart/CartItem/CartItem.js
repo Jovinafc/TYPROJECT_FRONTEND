@@ -7,7 +7,9 @@ import { NavLink} from 'react-router-dom'
 import * as actionp from '../../../store/actions/vehicle_click'
 // import { spinnerService } from '@chevtek/react-spinners';
 import Loader from 'react-loader';
-import Alert from 'react-bootstrap/Alert';
+// import Alert from 'react-bootstrap/Alert';
+import Alert from 'react-s-alert';
+
 
 
 class CartItem extends Component {
@@ -68,9 +70,15 @@ class CartItem extends Component {
             }
             else {
                 this.props.stopLoading();
-                this.setState({
-                    alertShow: true
-                })
+                // this.setState({
+                //     alertShow: true
+                // })
+                Alert.warning('Out of Stock', {
+                    position: 'top',
+                    effect: 'bouncyflip',
+                    timeout: 3000,
+                    html: false
+                });
             }
             // this.setState({
             //     loaded: true
@@ -164,9 +172,9 @@ class CartItem extends Component {
                 </div>
                 
                 <button className={classes.btn} onClick={() => this.updateQuantity(this.props.id)}>Update</button>
-                <Alert show={this.state.alertShow} variant="warning">
+                {/* <Alert show={this.state.alertShow} variant="warning">
                     Out of Stock 
-                </Alert>
+                </Alert> */}
 
                 
                 <div className={classes.priceDiv}>

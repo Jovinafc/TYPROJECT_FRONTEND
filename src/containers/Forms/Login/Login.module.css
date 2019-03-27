@@ -1,4 +1,3 @@
-
 .Container {
     height: 100%;
 }
@@ -6,8 +5,7 @@
 .loginCont {
     background-color: #070407;
     width: 100%;
-    height: 600px;
-    
+    height: 600px;    
 }
 
 .bet {
@@ -23,12 +21,12 @@
     box-shadow: 0 2px 4px rgb(124, 114, 114);
     margin-top: 20px;
 }
+
 .form {
     text-align: center;
 }
+
 .top {
     background-color: #5DA0E7;
-    /* border-bottom-left-radius: 30px; 
-    border-bottom-right-radius: 30px;  */
     padding: 2px;
 }

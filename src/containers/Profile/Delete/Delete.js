@@ -3,7 +3,6 @@ import classes from './Delete.module.css';
 import ProfNav from '../ProfNav/ProfNav';
 import Modal from '../../../components/UI/Modal/Modal';
 import Aux from '../../../hoc/Auxilary';
-// import Spinner from '../../../components/UI/Spinner/Spinner';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { connect} from 'react-redux';

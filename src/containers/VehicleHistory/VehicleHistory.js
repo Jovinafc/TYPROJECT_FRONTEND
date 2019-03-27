@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classes from './VehicleHistory.module.css';
-// import axios from 'axios';
 import VehicleHistoryCard from '../../components/UI/VehicleHistory/VehicleHistoryCard'; 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/vehicle_click';
@@ -42,50 +41,7 @@ class VehicleHistory extends Component {
     }
 
     componentDidMount = () => {
-        // axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
-        // .then(response => {
-        //     console.log(response.data.details);
-        //     console.log(response.data);
-        //     // this.setState({
-        //     //     vehicles: response.data
-        //     // })
-        //     const vehiclesHist = [];
-        //     for(let key in response.data.details){
-        //         vehiclesHist.push({
-        //             ...response.data.details[key],
-        //             id: key
-        //         });
-        //     }
-        //     this.setState({
-        //         vehicles: vehiclesHist
-        //     })
-        //     let vehicleRate = [];
-        //     for(let key in response.data.ratingDetails){
-        //         vehicleRate.push({
-        //             ...response.data.ratingDetails[key],
-        //             id: key
-        //         });
-        //     }
-        //     this.setState({
-        //         vehicleRate: vehicleRate
-        //     })
-    
-        //     let vehicleCom = [];
-        //     for(let key in response.data.commentDetails){
-        //         vehicleCom.push({
-        //             ...response.data.commentDetails[key],
-        //             id: key
-        //         });
-        //     }
-        //     this.setState({
-        //         vehicleComment: vehicleCom
-        //     })
-           
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
-        this.props.fetchVehicleHistory();
+              this.props.fetchVehicleHistory();
     }
 
     render () {

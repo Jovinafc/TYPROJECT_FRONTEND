@@ -16,15 +16,7 @@ import AlertTemplate from 'react-alert-template-oldschool-dark'
 
 
 axios.defaults.baseURL = 'http://localhost:3001';
-// console.log(localStorage.getItem('token'));
-// axios.defaults.headers.get['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
-// axios.defaults.headers.post['x-auth'] = localStorage.getItem('token');   
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
-// axios.defaults.headers.common['Content-Type'] = 'application/json';
-// axios.defaults.headers.get['Content-Type'] = 'application/json';
-
-
 
 axios.interceptors.request.use(request => {
     request.headers.authorization = localStorage.getItem('token');
@@ -68,11 +60,9 @@ function loadFromStorage() {
         return JSON.parse(serializedState);
     }
     catch (e) {
-        // console.log(e);
         return undefined
     }
 } 
-
 
 const persistedState = loadFromStorage()
 
@@ -80,20 +70,12 @@ const store = createStore(rootReducer, persistedState, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-// const store = createStore(rootReducer, composeEnhancers(
-//     applyMiddleware(thunk)
-// ));
-// console.log(store.getState());
-// persistStore(store);
-
 store.subscribe(() => saveToLocalStorage(store.getState()))
 
 const options = {
-    // you can also just use 'bottom center'
     position: positions.BOTTOM_CENTER,
     timeout: 5000,
     offset: '30px',
-    // you can also just use 'scale'
     transition: transitions.SCALE
   }
 
@@ -102,9 +84,6 @@ const app = (
         <BrowserRouter> 
             <AlertProvider {...options} template={AlertTemplate}>
             <App />
-            {/* <ToastContainer />   */}
-            
-            {/* </App> */}
             </AlertProvider>
         </BrowserRouter>
     </Provider>

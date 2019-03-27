@@ -29,7 +29,6 @@ class Accessories extends Component {
 
 
     componentDidMount = () => {
-        // this.myRef.current.scrollTo(0, 0);
         window.scrollTo(0, 0);
 
 
@@ -76,40 +75,7 @@ class Accessories extends Component {
 
             <div>
                 <div className={classes.Container}>
-                    {/* <div className={classes.Menu}>
-                        <h5 style={{color: 'white'}}> Filter </h5>
-
-                        <div className={classes.search}>
-            <form>
-            <input type="text" 
-                    value={this.state.term}
-                    onChange={this.searchHandler}
-            />
-
-            </form>
-
-
-             </div> 
-
-                <Collapse accordion={true} > 
-                        <Panel header="Vehicle Type" headerClass="my-header-class">
-                        <input type="checkbox" name="vehicle_type" value="4-Wheelers" /> 4-Wheelers &nbsp; 
-                         <input type="checkbox" name="vehicle_type" value="2-Wheelers" /> 2-Wheelers < br/>               
-                                     
-                        </Panel>
-
-                        
-                        <Panel header="Price Range" headerClass="my-header-class">
-                        <Range min={0} max={10000} onChange={this.priceRangeHandler} defaultValue={[3, 10]} tipFormatter={value => `${value}Rs`} />
-
-                        </Panel>
-
-
-
-                </Collapse>
-
-                    </div> */}
-                    <div className={classes.Main}>  
+                      <div className={classes.Main}>  
                         {displayProducts}
                     </div>
                 </div>

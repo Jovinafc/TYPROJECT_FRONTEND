@@ -103,7 +103,7 @@ class SellVehicle extends Component {
             this.setState({show: true})
         }
 
-        axios.post('/fetch-vehicle-type').then(result => {
+        axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
             console.log(result);
         })
@@ -796,7 +796,7 @@ class SellVehicle extends Component {
 
                         </div>
                   
-                        <div style={{ marginTop: '10px'}}>
+                        <div style={{ marginTop: '20px'}}>
                         <button data-tip="React-tooltip" disabled={disable}  className="btn btn-primary" onClick={this.formSubmit}>
                             Submit
                         </button>

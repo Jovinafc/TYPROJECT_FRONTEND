@@ -33,7 +33,7 @@ class Accessory extends Component {
                          </div>
                          <div style={{float:'right'}}>
                             {this.props.average_rating.length > 0
-                            ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'35px', color: 'white'}}>{this.props.average_rating[0].avg_rating}&#9734;</div>
+                            ? <div style={{backgroundColor: 'green', textAlign: 'center', width:'35px', color: 'white'}}>{this.props.average_rating[0].avg_rating.toString().substring(0,3)}&#9734;</div>
                             : null}
                         </div>
 

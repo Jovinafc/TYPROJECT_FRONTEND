@@ -127,32 +127,18 @@ class Layout extends Component {
                       </ul>
                     </div>
                </div>
+               <div className={classes.footerBottom}>
+                  <h6>CopyRight &copy; 2019 | All Rights Reserved</h6>  
+               </div>
                
            </div>
-           {/* </LoadingOverlay> */}
            </Aux>         
         )
-
-        // if(this.props.location.pathname === '/otp'){
-        //      abc = (
-        //         <Aux>
-        //                <div style={{backgroundColor: "grey"}}>
-        //                 <main className={classes.Content}>
-        //                     {this.props.children}
-        //                 </main>
-        //                  </div> 
-        //         </Aux>
-        //     )
-        // }    
 
 
         return (
             <Aux>
-               {/* <Scrollbars
-                style={{ height: 1000  }}> */}
                 {abc}
-                
-                {/* </Scrollbars> */}
             </Aux>
     );
     }
