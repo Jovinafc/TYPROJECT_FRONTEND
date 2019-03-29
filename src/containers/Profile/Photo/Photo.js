@@ -10,20 +10,39 @@ class Photo extends Component {
     state = {
         file: '',
         imagePreviewUrl: '',
-        dis: true
+        dis: true,
+        removedis: true
     }
 
-    componentDidMount = () => {
+    fetchUserImage = () => {
         axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
             if(res.data.image){
                 this.setState({
-                    imagePreviewUrl: res.data.image
+                    imagePreviewUrl: res.data.image,
+                    dis: false,
+                    removedis: false
                 })
 
             }
+            else {
+                this.setState({
+                    imagePreviewUrl: ''
+                })
+            }
         })
     }
+    componentDidMount = () => {
+        this.fetchUserImage();
+    }
+
+    // componentDidUpdate = (prevProps) => {
+    //     if(this.state.imagePreviewUrl !== prevProps.imagePreviewUrl){
+    //         this.setState({
+    //             imagePreviewUrl: this.state.imagePreviewUrl
+    //         })
+    //     }
+    // }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -38,6 +57,9 @@ class Photo extends Component {
             .then(res => {
                 console.log('Uploaded Profile Image');
                 this.props.user_data(this.props.user_id);
+                this.setState({
+                    removedis: false
+                })
             });
         }).catch(e=>{
             console.log(e)
@@ -75,9 +97,30 @@ class Photo extends Component {
         
     }
 
+    removeImage = (e) => {
+        e.preventDefault();
+        this.props.photoProcess(this.props.user_id);
+
+        axios.post('/remove-profile-image', {user_id: localStorage.getItem('userId')})
+        .then(res => {
+            console.log(res);
+            this.fetchUserImage();
+            this.props.user_data(this.props.user_id);
+            this.setState({
+                file: '',
+                removedis: true,
+                dis: true
+            })
+        })
+        
+    }
+
     
 
     render () {
+
+        
+
         let styles = {
             scroll: 'no'
         }
@@ -101,18 +144,26 @@ class Photo extends Component {
                 <div className={classes.Main}>
                     <h3>Profile Photo</h3>
 
-                    <div>
+                    <div style={{textAlign: 'center'}}> 
                         <div className={classes.ImageCont}>
                             {this.state.imagePreviewUrl === ''
                             ? preImage
                             : imagePreview } 
                         </div>
 
-                        <form className={classes.Form} onSubmit={this.handleSubmit} >
-                            <input type="file" onChange={this.handleChange} />
+                        <form className={classes.Form}  >
+                            <div className={classes.imageinput}>
+                            <input type="file" className={classes.imageinp} onChange={this.handleChange} />
+                            </div>
                             <br />
-                            <br />
-                            <button disabled={this.state.dis} className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Upload Image</button>
+                            <div className={classes.buttons}>
+                            <button disabled={this.state.dis} className="btn btn-primary" onClick={this.handleSubmit}>Upload Image</button>
+                            
+                            <div style={{width: '30px', color: 'white'}}>J</div> 
+
+                            <button disabled={this.state.removedis} onClick={this.removeImage} className="btn btn-danger">Remove Image</button>                           
+                            </div>
+
                         </form>
                         
 

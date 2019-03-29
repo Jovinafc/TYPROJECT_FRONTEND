@@ -12,8 +12,7 @@ const style = {
     '@media (min-width: 500px)': {
        display: 'none',
        border: '1px solid black',
-       height: '55px',
-       padding: '-5%'
+       height: '55px'
     }
     
  }

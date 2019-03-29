@@ -255,3 +255,4 @@ export const photoProcess = (user_id) => {
         dispatch(userData(user_id));
     }
 }
+

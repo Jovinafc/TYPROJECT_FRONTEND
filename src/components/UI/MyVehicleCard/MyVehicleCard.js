@@ -3,7 +3,10 @@ import classes from './MyVehicleCard.module.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/vehicle_click';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import * as actionp from '../../../store/actions/cart';
+
 class MyVehicleCard extends Component {
 
     removeVehicle = () => {
@@ -18,63 +21,76 @@ class MyVehicleCard extends Component {
         })
     }
 
+    modalsubmit = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                // <div className='custom-ui'>
+                                <div className={classes.mod}>
+
+                  <h1>Are you sure?</h1>
+                  <p><strong>You want to remove this vehicle</strong></p>
+                  
+                  <button
+                    className={classes.pass}
+                    onClick={() => {
+                    //   this.handleClickDelete();
+                      this.removeVehicle();      
+                      onClose();
+                    }}
+                  >
+                    Yes, Remove it!
+                  </button>
+
+                  <button className={classes.reject}onClick={onClose}>No</button>
+
+                </div>
+              );
+            }
+          });
+
+    }
+
+
     render () {
+
+    
+        
         return (
             
         <div className={classes.Container}>
             
         <div className={classes.div1}>
 
-             {/* <div> <strong>{props.details.brand} {props.details.model} </strong></div> */}
              <div className={classes.ImageCon}> <img className={classes.Image} alt="my" src={this.props.details.image}/> </div>
         
         </div>
-        {/* <div className={classes.div2}>
-               <div><p><strong>Details:</strong></p></div>
-               <div><p>Posted On: {props.details.createdAt.substring(0,10)}</p></div>
-               <div><p>Vehicle Number: {props.details.number_plate}</p></div>
-               <div><p>Fuel Type: {props.details.fuel_type}</p></div>
-               <div><p>Registration State: {props.details.registration_state}</p></div>
-               <div><p>Vehicle Type: {props.details.vehicle_type}</p></div>
-               
-               
-        </div>
-        <div>
-        {
-                   props.details.price 
-                   ? <div><p>Price: {props.details.price}</p></div>
-                   : <div><p>Price Per Day: {props.details.price_per_day}</p></div>
-               }
-            <div><p>Vehicle Status : {props.details.status}</p></div>
-            <div><button className="btn btn-danger">Remove Vehicle</button></div>
-        
-        </div> */}
-
+       
         <div className={classes.rightDiv}>
              <div className={classes.topRightDiv}>
-                <div><p><strong>{this.props.details.brand} {this.props.details.model}</strong></p></div>
-                <div><p>Status: {this.props.details.status}</p></div>
+                <div className={classes.head}><h5><strong>{this.props.details.brand} {this.props.details.model}</strong></h5></div>
+                <div><p><strong>Status:</strong> <span className={classes.val}>{this.props.details.status}</span></p></div>
             </div>
             <div className={classes.details}>
-               <div><p>Posted On: {this.props.details.createdAt.substring(0,10)}</p></div>
-               <div><p>Vehicle Number: {this.props.details.number_plate}</p></div>
-               <div><p>Fuel Type: {this.props.details.fuel_type}</p></div>
-               <div><p>Registration State: {this.props.details.registration_state}</p></div>
-               <div><p>Vehicle Type: {this.props.details.vehicle_type}</p></div>
+               <div><p><strong>Posted On:</strong> <span className={classes.val}>{this.props.details.createdAt.substring(0,10)}</span></p></div>
+               <div><p><strong>Vehicle Number:</strong> <span className={classes.val}>{this.props.details.number_plate}</span></p></div>
+               <div><p><strong>Fuel Type:</strong> <span className={classes.val}>{this.props.details.fuel_type}</span></p></div>
+               <div><p><strong>Registration State:</strong> <span className={classes.val}>{this.props.details.registration_state}</span></p></div>
+               <div><p><strong>Vehicle Type:</strong> <span className={classes.val}>{this.props.details.vehicle_type}</span></p></div>
                {
                    this.props.details.price 
-                   ? <div><p>Price: {this.props.details.price}</p></div>
-                   : <div><p>Price Per Day: {this.props.details.price_per_day}</p></div>
+                   ? <div><p><strong>Price:</strong> <span className={classes.val}>{this.props.details.price}</span></p></div>
+                   : <div><p><strong>Price Per Day:</strong> <span className={classes.val}>{this.props.details.price_per_day}</span></p></div>
                }
 
          </div>
          <div className={classes.downRightDiv}>
               {this.props.details.status !== 'SOLD' && this.props.details.status !== 'RENTED' 
-              ? <div><button onClick={this.removeVehicle} className="btn btn-danger">Remove Vehicle</button></div>
+              ? <div><button onClick={this.modalsubmit} className="btn btn-danger">Remove Vehicle</button></div>
               : <div>
                     {this.props.details.status === 'RENTED'
-                    ? <div><p>Your Vehicle is currently rented to {this.props.details.client['name']}</p> </div>
-                    : <div><p>Your Vehicle was sold to {this.props.details.client['name']}</p> </div>}    
+                    ? <div><p><strong>Your Vehicle is currently rented to {this.props.details.client['name']}</strong></p> </div>
+                    : <div><p><strong>Your Vehicle was sold to {this.props.details.client['name']}</strong></p> </div>}    
                 </div>    
             } 
          </div>

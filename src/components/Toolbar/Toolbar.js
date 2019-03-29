@@ -119,7 +119,9 @@ const toolbar = (props) => {
         <nav className={classes.DesktopOnly}>
             <NavigationItems isAuthenticated={props.isAuth} />
         </nav>
+        <div className={classes.phone}>
         <PhoneToolBar />
+        </div>
 
         {/* <div style={style} >
             <div className={classes.phoneDiv}>

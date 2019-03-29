@@ -172,6 +172,7 @@ class ReviewDiv extends Component {
                     : <i  className="fas fa-thumbs-up"></i>}
                     
                     </button>
+                    
                     Helpful
                     <span style={{marginLeft:'4px'}}>{this.state.initalhelpCount}</span>
                     </div>

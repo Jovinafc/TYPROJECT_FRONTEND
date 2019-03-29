@@ -1,6 +1,14 @@
-.Container {
-    /* height: minmax(1500px, auto);   */
-}
+
 .Container {
     margin-bottom: 400px;
+}
+
+@media(max-width: 499px) {
+    
+    .Container {
+        width: 100%;
+        margin-top: 20%;
+        margin-bottom: 50px;
+
+    }
 }

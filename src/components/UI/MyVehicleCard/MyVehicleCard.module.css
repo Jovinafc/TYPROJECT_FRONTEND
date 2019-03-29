@@ -10,27 +10,12 @@
 
 }
 
-.div1 {
-    /* border: 1px solid blue; */
-    /* width: 50%; */
-}
-
-/* .div2 {
-    border: 1px solid yellow;
-    display: flex;
-    flex-direction: column; 
-} */
-
 .rightDiv {
-    /* border: 1px solid black; */
     font-size: 1rem;
-    /* width: 70%; */
 }
 .ImageCon {
     height: 90%;
     width: 90%;
-    /* margin-top: 1%;
-    margin-left:2%;*/
     margin: 5%;
     border: 1px solid grey;
 }
@@ -52,22 +37,88 @@
 }
 
 .details {
-    /* display: flex;
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 10px; */
-
     display: grid;
     grid-template-columns: auto auto auto;
     padding: 2px;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
-    /* border: 1px solid green; */
     height: 50%;
 }
 
 .downRightDiv {
     margin-top: 2%;
+}
+
+.val {
+    color: blue;
+}
+
+.mod {
+    width: 400px;
+    height: 200px;
+    background-color: lightcoral;
+    text-align: center;
+}
+
+.reject {
+    /* background-color: rgb(69, 136, 158); */
+}
+
+.pass {
+    margin-right: 10%;
+    
+}
+
+@media(max-width:499px){
+    .Container {
+        width: 90%;
+        height: 50%;
+        display: flex;
+        margin-left: 5%;
+        flex-direction: column;
+    }    
+
+    .div1 {
+        height: 40%;
+        width: 80%;
+        margin-left: 10%;
+    }    
+
+    
+.ImageCon {
+    height: 150px;
+    width: 90%;
+    margin: 5%;
+    border: 1px solid grey;
+}
+
+.Image {
+    height: 95%;
+    width: 95%;
+    margin: 2.5%;
+}
+
+    .head {
+        text-align: center;
+    }
+
+    .topRightDiv {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .details {
+        display: grid;
+        grid-template-columns: auto;
+        /* text-align: center; */
+        justify-content: space-between;
+    }
+
+    .downRightDiv {
+        text-align: center;
+    }
+
+
+
 }

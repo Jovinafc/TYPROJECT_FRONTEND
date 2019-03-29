@@ -274,13 +274,13 @@ class ProfInfo extends Component {
                 state: this.state.state,
                 city: this.state.city,
                 pincode: this.state.pincode,
-                user_id: this.state.user_id,
+                user_id: localStorage.getItem('userId'),
                 bank_account_no: this.state.bank_no
             }
 
         const fd = new FormData(); 
-        fd.append('clientImage', this.state.documents);   
-        axios.post('/clientImage', fd).then(res => {
+        fd.append('documentImage', this.state.documents);   
+        axios.post('/documentImage', fd).then(res => {
             console.log(res);
 
             axios.post('/update-user-profile', {users: users })
@@ -297,7 +297,7 @@ class ProfInfo extends Component {
             .catch(err => {
                 console.log(err);
             })
-    
+
             
         })
 
@@ -454,7 +454,7 @@ class ProfInfo extends Component {
 
                        
 
-                        <div style={{textAlign: 'center', marginTop: '50px'}}>
+                        <div style={{textAlign: 'center', marginTop: '10px', marginBottom: '20%'}}>
                         <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
                         <br/>
                         <br />

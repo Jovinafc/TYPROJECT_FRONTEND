@@ -93,60 +93,10 @@ class CartItem extends Component {
 
     render () {
         return (
-            // <div className={classes.Container}>
-            //     <div className={classes.imageName}>
-            //     <div className={classes.name}> 
-            //         {this.props.name}    
-            //     </div>
-
-            //     <div className={classes.ImageContainer}>
-            //         <img className={classes.Image} src={this.props.image} />
-            //     </div>
-
-            //     </div>
-
-            //     <div className={classes.quantity}> 
-            //         Quantity:
-            //         <div>
-            //             <button onClick={this.decreaseCounter} >
-            //                 -
-            //             </button>
-            //             {/* <div className="col-xs-1"> */}
-            //             <input readOnly className={classes.inputDiv}  id="count" type="number" value={this.state.counter} />
-            //             {/* </div> */}
-            //             <button onClick={this.increaseCounter}>
-            //                 +
-            //             </button>
-            //         </div>
-            //         <button onClick={() => this.updateQuantity(this.props.id)}>Update Quantity Amount</button>
-            //     </div>
-
-            //     <div className={classes.priceDiv}>
-            //         Price {this.state.price}
-            //     </div>
-
-            //     <div>
-            //         <button onClick={() => this.removeItemHandler(this.props.id)} className="btn btn-danger">Remove from Cart</button>
-            //         <div style={{width:'5px'}}></div>
-            //         <br />
-            //         {/* <NavLink to={'/productpayment/:'+this.props.id}>
-            //         <button className="btn btn-primary">Buy Product</button> </NavLink> */}
-            //         <NavLink to={{
-            //             pathname: '/productpayment/:'+this.props.id,
-            //             data: {
-            //                 qty: this.state.counter
-            //             }}}>
-            //         <button onClick={this.quantityHandler} className="btn btn-primary">Buy Product</button> </NavLink>
-            //     </div>
-            // </div>
-
             <Loader loaded={this.state.loaded} >
               <div className={classes.Container}>
             <div className={classes.imageName}>
-            {/* <div className={classes.name}> 
-                {this.props.name}    
-            </div> */}
-
+            
             <div className={classes.ImageContainer}>
                 <img alt="Im" className={classes.Image} src={this.props.image} />
             </div>

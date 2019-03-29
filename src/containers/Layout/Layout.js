@@ -10,11 +10,6 @@ import { connect } from 'react-redux';
 import TopToolbar from '../../components/TopToolbar/TopToolbar';
 import { NavLink } from 'react-router-dom';
 
-// import Headroom from 'react-headroom';
-// import { Spinner } from '@chevtek/react-spinners';
-// import LoadingOverlay from 'react-loading-overlay';
-
-
 class Layout extends Component {
     state = {
         showSideDrawer: false,
@@ -41,16 +36,16 @@ class Layout extends Component {
         window.removeEventListener("scroll", this.handleScroll);
       }
 
-    handleScroll = () => {
-        let currentScrollPos = window.pageYOffset;
+    // handleScroll = () => {
+    //     let currentScrollPos = window.pageYOffset;
     
-        if (this.state.prevScrollpos > currentScrollPos) {
-          document.getElementById("topnav").style.top = "65px";
-        } else {
-          document.getElementById("topnav").style.top = "-50px";
-        }
-        this.setState({ prevScrollpos: currentScrollPos });
-      };
+    //     if (this.state.prevScrollpos > currentScrollPos) {
+    //       document.getElementById("topnav").style.top = "65px";
+    //     } else {
+    //       document.getElementById("topnav").style.top = "-50px";
+    //     }
+    //     this.setState({ prevScrollpos: currentScrollPos });
+    //   };
 
     render () {
         let abc = (
@@ -82,7 +77,9 @@ class Layout extends Component {
                    {this.props.children}
            </main>
     
-           <div style={{textAlign: 'center', paddingTop: '25px', height: '200px', backgroundColor: '#747474'}}>
+           {/* <div style={{textAlign: 'center', paddingTop: '25px', height: '200px', backgroundColor: '#747474'}}> */}
+           <div className={classes.footerdown} >
+
                {/* <h2>Footer Section </h2> */}
                
                <div className={classes.footerCont}>
@@ -113,8 +110,8 @@ class Layout extends Component {
                       <h5>About</h5>
 
                         <li><NavLink to="/help">Help</NavLink></li>
-                        <li><NavLink to="/contact">Contact Us</NavLink></li>
-                        <li><NavLink to="/about">About Us</NavLink></li>
+                        <li><NavLink to="/contactus">Contact Us</NavLink></li>
+                        <li><NavLink to="/aboutus">About Us</NavLink></li>
                       </ul>
                     </div>
                     <div className={classes.footer4}>

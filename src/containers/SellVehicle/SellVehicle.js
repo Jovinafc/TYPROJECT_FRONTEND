@@ -200,10 +200,10 @@ class SellVehicle extends Component {
                 ...this.state.formdata,
                 brand: e.target.value
             }
-        });
+        }); 
 
         if(this.state.tempType === 'Four-Wheelers'){
-             axios.get('/fetch-fourWheeler-model', {brand: e.target.value})
+             axios.post('/fetch-fourWheeler-model', {brand: e.target.value})
              .then((result) => {
                  this.setState({models: result.data})
              }).catch(e => {
@@ -426,6 +426,70 @@ class SellVehicle extends Component {
         }
       
     }
+
+    
+    // formSubmit = (event) => {
+    //     const error = this.validate();
+    //     if(!error){
+    //         event.preventDefault();
+    //         this.setState({
+    //             loading: true
+    //         })
+    //         const fd = new FormData();
+    //         fd.append('image',this.state.formdata.image);
+    //         axios.post('/image',fd).then(()=>{  
+    //             console.log('Image Sent');
+
+    //                axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
+    //                .then((post) => {
+    //                    console.log("Data Sent", post);
+    //                    Alert.info('Ad Posted', {
+    //                        position: 'top',
+    //                        effect: 'bouncyflip',
+    //                        timeout: 3000,
+    //                        html: false
+    //                    });
+    //                    // this.notify();
+    //                    this.setState({
+    //                        formdata: {
+    //                            type: '',
+    //                            brand: '',
+    //                            model: '',
+    //                            registration_state: '',
+    //                            fuel: '',
+    //                            image: '',
+    //                            documents: '',
+    //                            price: '',
+    //                            year: '',
+    //                            km_driven: '',
+    //                            number_plate: '',
+    //                            user_id: this.props.user_id
+    //                          },
+    //                          imagePrev: '',
+    //                          documentPrev: '',
+    //                          loading: false
+    //                    }) 
+               
+    //                }).catch(e=>{
+    //                    console.log(e)
+    //                    Alert.warning('Some Error Occurred! Please Try Again', {
+    //                     position: 'top',
+    //                     effect: 'bouncyflip',
+    //                     timeout: 3000,
+    //                     html: false
+    //                 });
+    //                    this.setState({
+    //                        loading: false
+    //                    })
+    //                })
+
+    //            }) 
+    //            this.setState({documentPrev: ''})    
+    //            this.setState({imagePrev:''})    
+    //     }
+      
+    // }
+
 
       handleImageChange = (e) => {
         e.preventDefault();

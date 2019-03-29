@@ -33,9 +33,19 @@ class VehicleReviewDiv extends Component {
                     thumbsup: parseInt(res.data[0].helpful)
                 })
             }
+            else {
+                this.setState({
+                    thumbsup: 0
+                })
+            }
             if(res.data[0].not_helpful === '1'){
                 this.setState({
                     thumbsdown: parseInt(res.data[0].not_helpful)
+                })
+            }
+            else {
+                this.setState({
+                    thumbsdown: 0
                 })
             }
         })
@@ -49,16 +59,16 @@ class VehicleReviewDiv extends Component {
     componentDidUpdate = (prevProps) => {
         
 
-        if(this.state.initalhelpCount !== prevProps.initalhelpCount){
-            this.setState({
-                initialhelpCount: this.state.initialhelpCount
-            })
-        }
-        if(this.state.initalnothelpCount !== prevProps.initalnothelpCount){
-            this.setState({
-                initalnothelpCount: this.state.initialnothelpCount
-            })
-        }
+        // if(this.state.initalhelpCount !== prevProps.initalhelpCount){
+        //     this.setState({
+        //         initialhelpCount: this.state.initialhelpCount
+        //     })
+        // }
+        // if(this.state.initalnothelpCount !== prevProps.initalnothelpCount){
+        //     this.setState({
+        //         initalnothelpCount: this.state.initialnothelpCount
+        //     })
+        // }
     }
 
     up = (e) => {

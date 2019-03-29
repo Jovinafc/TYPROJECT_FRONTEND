@@ -678,7 +678,7 @@ dateHandler = (moment) => {
 
                   </div>
 
-                  <div style={{textAlign: 'center' ,marginTop: '30px'}}>
+                  <div className={classes.register}>
                          <button className={classes.save} disabled={disable} type="button" onClick={this.submitHandler} >Register</button>
                          </div>
 

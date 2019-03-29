@@ -31,6 +31,8 @@ import { ToastContainer} from 'react-toastify';
 import asyncComponent from './hoc/asyncComponent/asynComponent';
 import Help from './containers/AboutUs/Help/Help';
 import Alert from 'react-s-alert';
+import About from './containers/AboutUs/About/About';
+import Contact from './containers/AboutUs/Contact/Contact';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-css-effects/scale.css';
@@ -103,6 +105,9 @@ class App extends Component {
                 <Route path="/cart" exact component={Cart} />
                 <Route path="/help" exact component={Help} />
                 <Route path="/accessories" component={Accessories} />
+                <Route path="/contactus" exact component={Contact} />
+            <Route path="/aboutus" exact component={About} />  
+            
                 </Switch>
             </Layout>
         </Switch>
@@ -137,6 +142,8 @@ class App extends Component {
             <Route path="/productpayment/:product_id" exact component={ProductPayment} />
             <Route path="/cart/cartpayment" exact component={CartPaymentPage}/>
             <Route path="/success" exact component={Success} />
+            <Route path="/contactus" exact component={Contact} />
+            <Route path="/aboutus" exact component={About} />  
              </Switch> 
               </Layout> 
           </Switch>  

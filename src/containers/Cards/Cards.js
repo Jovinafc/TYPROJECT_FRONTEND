@@ -313,7 +313,7 @@ class Cards extends Component {
         let displayVehicle;
         if(this.state.filter_vehicles.length > 0){
             
-        displayVehicle = this.state.vehicles
+        displayVehicle = this.state.filter_vehicles
         .filter(searchingFor(this.state.term))
         .map(dis => {
             return (
@@ -321,7 +321,7 @@ class Cards extends Component {
                price={dis.price} 
                image={dis.image}
                year={dis.year}
-               rate={dis.avg_rating_vehicles}
+               rate={dis.avg_rating}
                price_per_day={dis.price_per_day}
                />  )
                });
@@ -380,7 +380,7 @@ class Cards extends Component {
                                  multiple={true}
                                  includeSelectAll={true} />
 
-                        <div style={{height: '400px'}}> </div>
+                        <div style={{height: '300px'}}> </div>
 
                         </Panel>
 
