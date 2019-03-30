@@ -57,6 +57,7 @@
     "react-s-alert": "^1.4.1",
     "react-scripts": "^2.1.8",
     "react-scrollbars-custom": "^4.0.0-alpha.6",
+    "react-sidebar": "^3.0.2",
     "react-slick": "^0.23.2",
     "react-slideshow-image": "^1.1.5",
     "react-spinners": "^0.5.1",

@@ -14,6 +14,8 @@ import "react-picky/dist/picky.css";
 import 'rc-slider/assets/index.css';
 import Collapse, { Panel } from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
+import Sidebar from "react-sidebar";
+
 
 function searchingFor(term) {
     return function(x) {
@@ -27,6 +29,8 @@ class Cards extends Component {
         this.getVehicleDetails = this.getVehicleDetails.bind(this);
         this.selectMultipleKm_Driven = this.selectMultipleKm_Driven.bind(this);
         this.selectMultipleState = this.selectMultipleState.bind(this);
+        this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+        this.onsidebar = this.onsidebar.bind(this);
 
         this.state = {
             value4: {
@@ -34,6 +38,7 @@ class Cards extends Component {
                 max:200000
             },
             display: [],
+            sidebarOpen: false,
             vehicles: [],
             filter_vehicles: [],
             user_id: this.props.user_id,
@@ -63,12 +68,26 @@ class Cards extends Component {
         }
     }
 
+    onSetSidebarOpen(open) {
+        console.log('inside sidebar')
+        if(this.state.sidebarOpen !== open){
+            this.setState({ sidebarOpen: !this.state.sidebarOpen});
+        }
+      }
+
+      onsidebar = (e) => {
+            console.log('jnfi');
+            e.preventDefault();
+            if(this.state.sidebarOpen === true){
+                this.setState({sidebarOpen: false})
+            }else {
+                this.setState({sidebarOpen: true})
+            }
+      }
+
     getVehicleDetails = () => {
         if(localStorage.getItem('userId') === null){
-            localStorage.setItem('userId','1000')
-        }
-        else
-        axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`)
+            axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${1000}`)
         .then(result => {
             console.log(result.data);
             const fetchedFilteredValues = [];
@@ -85,6 +104,47 @@ class Cards extends Component {
         .catch(err => {
             console.log(err);
         })
+
+        }
+        else
+        {
+            axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`)
+        .then(result => {
+            console.log(result.data);
+            const fetchedFilteredValues = [];
+            for(let key in result.data){
+                fetchedFilteredValues.push({
+                    ...result.data[key],
+                    id:key
+                });
+            }
+            this.setState({
+                filter_vehicles: fetchedFilteredValues
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+   
+        }
+
+        // axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`)
+        // .then(result => {
+        //     console.log(result.data);
+        //     const fetchedFilteredValues = [];
+        //     for(let key in result.data){
+        //         fetchedFilteredValues.push({
+        //             ...result.data[key],
+        //             id:key
+        //         });
+        //     }
+        //     this.setState({
+        //         filter_vehicles: fetchedFilteredValues
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
 
         axios.post('/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
             console.log(result.data);
@@ -310,6 +370,7 @@ class Cards extends Component {
       }
       
     render () {
+        console.log(this.state.sidebarOpen);
         let displayVehicle;
         if(this.state.filter_vehicles.length > 0){
             
@@ -334,11 +395,82 @@ class Cards extends Component {
         }
 
         return (
+
             <div>
                 <div className={classes.Container}>
+
                 <div className={classes.Menu}>
-                    <h5 >Filter</h5>
-                         <div className={classes.searchDiv}>
+
+<h5 >Filter</h5>
+     <div className={classes.searchDiv}>
+         <form >
+            <input 
+             type="text" 
+             placeholder="Enter Vehicle Name"   
+             value={this.state.term}
+             onChange={this.searchHandler}/>
+         </form>
+    </div>
+
+<Collapse >
+    <Panel header="Type of Service" headerClass="my-header-class">
+         <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
+         <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
+    </Panel>
+
+    <Panel header="Vehicle Type" headerClass="my-header-class">
+        <input type="checkbox" name="vehicle_type" value="Four-Wheelers" onChange={this.vehicle_typeHandler}/> 4-Wheelers &nbsp; 
+        <input type="checkbox" name="vehicle_type" value="Two-Wheelers" onChange={this.vehicle_typeHandler}/> 2-Wheelers < br/>               
+    </Panel>
+
+    
+    <Panel header="Fuel Type" headerClass="my-header-class">
+        <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Diesel" /> Diesel &nbsp;
+        <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Petrol" /> Petrol &nbsp;
+        <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="CNG" /> CNG
+                 
+    </Panel>
+
+    <Panel header="Select State" headerClass="my-header-class">
+        <Picky 
+             value={this.state.regStateSelected}
+             open={true}
+             options={this.state.reg_state}
+             includeFilter={true}
+             dropdownHeight={600}
+             onChange={this.selectMultipleState}
+             valueKey="id"
+             labelKey="name"
+             multiple={true}
+             includeSelectAll={true} />
+
+    <div style={{height: '300px'}}> </div>
+
+    </Panel>
+
+    <Panel header="Price Range" headerClass="my-header-class">
+        <InputRange
+            maxValue={200000}
+            minValue={0}
+            formatLabel={value => `${value} Rs`}
+            value={this.state.value4}
+            onChange={value => this.setState({ value4: value })}
+            onChangeComplete={value => console.log(value)} />
+    </Panel>
+</Collapse>
+
+</div>
+
+                <div className={classes.sidebarDiv}>
+                <Sidebar 
+                open={this.state.sidebarOpen}
+                transitions={true}
+                onSetOpen={this.onSetSidebarOpen}
+                styles={{ sidebar: { background: "white" } }}
+                sidebar ={
+                    <div className={classes.MenuSide}>
+
+                         {/* <div className={classes.searchDiv}>
                              <form >
                                 <input 
                                  type="text" 
@@ -346,7 +478,7 @@ class Cards extends Component {
                                  value={this.state.term}
                                  onChange={this.searchHandler}/>
                              </form>
-                        </div>
+                        </div> */}
 
                    <Collapse >
                         <Panel header="Type of Service" headerClass="my-header-class">
@@ -396,8 +528,33 @@ class Cards extends Component {
                   </Collapse>
 
                 </div>
+                }
+                >
+                
+                </Sidebar>
+                </div>
+
+{/*                  */}
                 <div className={classes.Main}>  
+                    <div className={classes.filterdiv}>    
+ 
+                     <div className={classes.searchDiv}>
+                              <form >
+                                 <input 
+                                  type="text" 
+                                  placeholder="Enter Vehicle Name"   
+                                  value={this.state.term}
+                                  onChange={this.searchHandler}/>
+                              </form>
+                         </div>
+ 
+                 <button onClick={() => this.onSetSidebarOpen(!this.state.sidebarOpen)} className={classes.filterbar}>
+                         Filter 
+                 </button>
+                
+                </div>
                     {displayVehicle}
+                    
                 </div>
             </div>
 

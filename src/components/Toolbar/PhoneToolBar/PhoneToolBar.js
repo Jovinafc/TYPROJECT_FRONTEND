@@ -31,7 +31,7 @@ class PhoneToolbar extends Component {
             <div style={style} >
                 <div className={classes.phoneDiv}>
                     <div className={classes.cart}>  
-                    <NavLink to="/cart"> 
+                    <NavLink to="/cart" style={{textDecoration: 'none'}}> 
                     <IconButton aria-label="Cart">
                     {this.props.isAuthenticated
                     ?  <Badge badgeContent={this.props.item_number} color="primary"  >
@@ -46,14 +46,24 @@ class PhoneToolbar extends Component {
                     </IconButton>
                     </NavLink>
                     </div>
-                    
-                    <div className={classes.imageCont}>
-                        {this.props.image
-                        ? <img  className={classes.image} src={this.props.image} alt="Im"/> 
-                        : <h2 style={{textAlign: "center",color: "white"}}>{this.props.first_name.charAt(0)}</h2> }
-                        
+
+                    <div>
+                        {
+                            this.props.isAuthenticated 
+                            ? <div className={classes.imageCont}>
+                            {this.props.image
+                            ? <img  className={classes.image} src={this.props.image} alt="Im"/> 
+                            : <h2 style={{textAlign: "center", fontSize: '1.7em', color: "white"}}>{this.props.first_name.charAt(0)}</h2> }
+                            
+                            </div>
+    
+                            : <div>   
+                                {/* <NavLink to="/login"><button style={{fontSize: '1.0em'}} className="btn btn-primary" >Login</button></NavLink> */}
+                                <NavLink style={{ textAlign: 'center', textDecoration: 'none', color: 'white', fontSize: '1.5em'}} to="/login">Login</NavLink>
+                              </div>
+                        }
                     </div>
-                </div>
+               </div>
         </div>
         </StyleRoot >
     
