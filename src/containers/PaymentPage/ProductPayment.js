@@ -155,7 +155,6 @@ class ProductPayment extends Component {
 
         return (
             <div className={classes.Container}>
-            <h3> Payment Page For Accessories </h3>
             <div>
                 
 
@@ -217,6 +216,8 @@ class ProductPayment extends Component {
             placeholder="Valid Thru"
             format={formatExpirationDate}
           />
+          </div>
+          <div>
           <Field
             name="cvc"
             component="input"

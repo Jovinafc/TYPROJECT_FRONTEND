@@ -81,6 +81,7 @@ class Lend extends Component {
     }
 
     componentDidMount () {
+        window.scrollTo(0, 0);
 
         if(this.props.address === null || this.props.pincode === null || this.props.state === null || this.props.city === null || this.props.address === '' || this.props.pincode === '' || this.props.state === '' || this.props.city === ''){
             this.setState({show: true})
@@ -268,6 +269,7 @@ class Lend extends Component {
 
     formSubmit = (event) => {
         event.preventDefault();
+
         this.setState({
             loading: true
         })
@@ -275,22 +277,14 @@ class Lend extends Component {
         fd.append('image',this.state.formdata.image);
         axios.post('/image',fd).then(()=>{
             console.log('Image Sent');
-            // this.setState({
-            //     formdata:{
-            //         image:''
-            //     }
-            // })
+            
+            const sd = new FormData(); 
+            sd.append('documentImage', this.state.formdata.documents) 
+            axios.post('/documentImage', sd).then(res => {
+                console.log(res);
 
-        }).catch(e=>{
-            console.log(e)
-
-        })
-
-
-
-        axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
+                axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
         .then((post) => {
-            //  alert('Data Sent')
             console.log("Data Sent", post);
             Alert.info('Ad Posted', {
                 position: 'top',
@@ -310,25 +304,39 @@ class Lend extends Component {
                     price_per_day: '',
                     year: '',
                     km_driven: '',
-                    number_plate: ''
-                     
+                    number_plate: '',
+                    user_id: localStorage.getItem('userId')
                   },
+                  imagePrev: '',
+                  documentPrev: '',
                   loading: false
             }) 
                 
             
         }).catch(e => {
             console.log(e);
+            Alert.warning('Some Error Occurred! Please Try Again', {
+                position: 'top',
+                effect: 'bouncyflip',
+                timeout: 3000,
+                html: false
+            });
             this.setState({
                 loading: false
-            })
+            })    
+
+        })
+    })
+    this.setState({documentPrev: ''})    
+    this.setState({imagePrev:''});
+
+        }).catch(e=> console.log(e))
+        
             
-        });
+        // });
 
-
-
-
-
+    
+        
     }
 
       handleImageChange = (e) => {
@@ -537,7 +545,7 @@ class Lend extends Component {
 
                         <div className={classes.secondDiv}>
 
-                        <div>
+                        <div className={classes.secdiv} >
                         <label htmlFor="brand"  style={{marginBottom: '-10px'}}className={classes.Label}>Vehicle Brand:</label>
                         
                         <Select 
@@ -553,7 +561,7 @@ class Lend extends Component {
                          {alternate}
                         </div>
 
-                        <div >
+                        <div className={classes.secdiv} >
                         <label htmlFor="model"  style={{marginBottom: '-15px'}}className={classes.Label}>Vehicle Model:</label>
                         <Select 
                             id="model"
@@ -568,7 +576,7 @@ class Lend extends Component {
                         {alternateM}
                         </div>
                         
-                        <div>
+                        <div className={classes.secdiv} >
                         <label htmlFor="year" className={classes.Label}>Vehicle Year:</label>
                         <Select 
                             id="year"
@@ -586,7 +594,7 @@ class Lend extends Component {
                         <div className={classes.thirdDiv}> 
 
 
-                        <div >
+                        <div className={classes.thidiv}>
                         <label htmlFor="fuel" className={classes.Label}>Fuel Type:</label>
                         <Select 
                             id="fuel"
@@ -599,8 +607,8 @@ class Lend extends Component {
                         </Select>
                         </div>
 
-                        <div >
-                        <label htmlFor="reg" className={classes.Label}>Registration State:</label>
+                        <div className={classes.thidiv}>
+                        <label htmlFor="reg" className={classes.Label}>Reg State:</label>
                         <Select 
                             id="reg"
                             name="reg"
@@ -612,7 +620,7 @@ class Lend extends Component {
                         </Select>
                         </div>
 
-                        <div>
+                        <div className={classes.thidiv}>
                         <label htmlFor="km" className={classes.Label}>Km Driven:</label>
                         <Select 
                             id="km"
@@ -630,7 +638,7 @@ class Lend extends Component {
                         <div className={classes.fourthDiv}>
 
 
-                        <table style={{textAlign: 'center', paddingLeft: '30%'}}>
+                        {/* <table style={{textAlign: 'center', paddingLeft: '30%'}}>
                             <tbody>
                             <tr>
                                  <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
@@ -671,8 +679,54 @@ class Lend extends Component {
                          </tbody>
                         
 
-                        </table>
+                        </table> */}
+
+                        
+                        <div className={classes.foudiv}>
+                            
+                            <label htmlFor="number" className={classes.Label}>     Vehicle Number:</label>
+                            <TextField 
+                            label="Vehicle Number" 
+                            className={classes.other} 
+                            placeholder="Enter your vehicle number" 
+                            id="number" 
+                            name="number" 
+                            value={this.state.formdata.number_plate}
+                            onChange={this.selectChangedHandlerName} 
+                           //  error={this.state.formdata.number_plate === ""}
+                           //  helperText={this.state.formdata.number_plate === "" ? 'Empty field!' : ' '}
+                            />
+
+                       </div>
+
+                       <div className={classes.foudiv}>
+                            
+                       <label htmlFor="image" className={classes.Label}>Vehicle Image:</label>
+                       <TextField className={classes.other}  id="image" type="file" onChange={this.handleImageChange} />
+                       <br />
+                       { imagePreview }
+                   
+                       </div>
+
+                       <div className={classes.foudiv}>
+                   <label htmlFor="document" className={classes.Label}>Vehicle Document:</label>
+                   <TextField className={classes.other}  type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} />
+                   <br />
+
+                   { documentPreview }   
+
+                   </div>
+
+                       <div className={classes.foudiv}>
+                   
+                        {/* <label htmlFor="price" className={classes.Label}>Price:</label>
+                        <TextField label="Enter Price" type="number" className={classes.other} value={this.state.formdata.price} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} />
+                    */}
+                        <label htmlFor="price" className={classes.Label}>Price Per Day:</label>
+                       <TextField className={classes.other} value={this.state.formdata.price_per_day} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} />
                      
+                        </div>
+
                         </div>
 
                         <div style={{ marginTop: '10px'}}>

@@ -155,6 +155,9 @@ class VehicleHistoryCard extends Component {
     }
 
     submitHandler = (e) => {
+        
+        e.preventDefault();
+        console.log('post reviews');
         axios.post('/create-comment', {
             user_id: localStorage.getItem('userId'),
             user_name: this.props.fname+ ''+ this.props.lname,
@@ -177,8 +180,13 @@ class VehicleHistoryCard extends Component {
 
     cancelHandler = () =>{
         this.props.startLoading();
-
-        axios.post('/cancel-booking', {owner_name: this.props.details.owner['name'], vehicle_id: this.props.details.vehicle_id, deposit: 5000, amount: this.props.details.amount,user_id:localStorage.getItem('userId'),client_bank_account_no: this.props.account_no})
+        console.log(this.props.details.owner['name']);
+        console.log(this.props.details.vehicle_id);
+        console.log(this.props.details.amount);
+        console.log(this.props.account_no);
+        console.log(this.props.details.owner['owner_id']);
+        console.log(this.props.details.client_id);
+        axios.post('/cancel-booking', {owner_name: this.props.details.owner['name'], owner_id: this.props.details.owner['owner_id'], vehicle_id: this.props.details.vehicle_id,client_id: this.props.details.client_id,   deposit: 5000, amount: this.props.details.amount,user_id:localStorage.getItem('userId'),client_bank_account_no: this.props.account_no})
         .then(res => {
             console.log(res);
             this.props.fetchVehicleHistory();
@@ -209,21 +217,23 @@ class VehicleHistoryCard extends Component {
                         <h5>{this.props.details.vehicle['brand']+ " " +this.props.details.vehicle['model']}</h5>
                     </div>
                     {this.props.details.vehicle['price'] 
-                    ? <div><p><strong>Status:</strong> Purchased From {this.props.details.owner['name']}</p></div>
+                    ? <div><p><strong>Status:</strong><span className={classes.valuedel}> Purchased From {this.props.details.owner['name']} </span></p></div>
                     : <span> {this.props.details.status === "Rent Initiated"
-                            ? <div><p><strong>Status</strong>: To be Rented From {this.props.details.owner['name']}</p></div>
-                            : <div><p><strong>Status</strong>: Rented From {this.props.details.owner['name']} </p></div> }</span>
+                            ? <div><p><strong>Status:</strong><span className={classes.valuedel}> To be Rented From {this.props.details.owner['name']} </span></p></div>
+                            : <div><p><strong>Status:</strong><span className={classes.valuedel}> Rented From {this.props.details.owner['name']}</span> </p></div> }</span>
                     }
-                    <div><p><strong>&#x20B9; Amount</strong> : {this.props.details.amount + 100}</p></div>
+                    <div className={classes.amountdiv}>
+                    <div><p><strong> Amount:</strong><span className={classes.valuedel}> &#x20B9; {this.props.details.amount} </span></p></div>
+                    </div>
                     <div>{
                     this.props.details.rents.length > 0
-                    ? <div><strong>Start Date</strong> : {this.props.details.rents[0].start_date.substring(0,10)}</div>
+                    ? <div><strong>Start Date:</strong> <span className={classes.valuedel}> {this.props.details.rents[0].start_date.substring(0,10)}</span></div>
                     : null
                     } </div>
 
                     <div>{
                     this.props.details.rents.length > 0
-                    ? <div><strong>End Date</strong> : {this.props.details.rents[0].end_date.substring(0,10)}</div>
+                    ? <div><strong>End Date:</strong> <span className={classes.valuedel}> {this.props.details.rents[0].end_date.substring(0,10)} </span></div>
                     : null
                     } </div>
 
@@ -265,21 +275,15 @@ class VehicleHistoryCard extends Component {
                             : <img className={classes.pp} alt="Im" src={this.props.image}/>
                         }
                   </div>
-                  <div><p>{this.props.fname +" "+ this.props.lname}</p></div>      
+                  <div className={classes.flname}><p>{this.props.fname +" "+ this.props.lname}</p></div>      
              </div>      
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h5>Give your review</h5>
           <textarea style={{width: '100%'}}type="text" onChange={this.inputChangeHandler} disabled={this.state.disabled} value={this.state.review} rows="3"/>
-          {/* <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </p> */}
-        </Modal.Body>
+          </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
           <Button onClick={this.submitHandler}>Save</Button>
         </Modal.Footer>
       </Modal>
@@ -304,7 +308,12 @@ class VehicleHistoryCard extends Component {
 
                     {   
                         this.props.details.vehicle['price_per_day'] && this.props.details.status === 'Rent Initiated'
-                        ? <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Booking</button> </div>
+                        ? <div>{
+                            this.props.details.vehicle['status'] === 'AVAILABLE'
+                            ? <div style={{color: 'red'}}><h6>Booking Canceled</h6> </div>
+                            : <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Booking</button> </div>
+
+                        } </div>
                         : null
                     }
                     

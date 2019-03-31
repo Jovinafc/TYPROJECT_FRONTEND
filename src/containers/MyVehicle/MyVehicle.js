@@ -25,6 +25,8 @@ class MyVehicle extends Component {
 
 
     componentDidMount = () => {
+        window.scrollTo(0, 0);
+
     //     axios.post('/fetch-specific-user-vehicles', {user_id: this.props.user_id})
     //     .then(res => {
     //         console.log(res.data);

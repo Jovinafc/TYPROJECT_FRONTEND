@@ -364,7 +364,6 @@ class VehicleDetail extends Component {
                     </div>
                 </div>  
             </div> }
-            <hr />
 
 
             {

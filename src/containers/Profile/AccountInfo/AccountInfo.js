@@ -21,6 +21,8 @@ class AccountInfo extends Component {
     }
 
     componentDidMount = () => {
+        window.scrollTo(0, 0);
+
         axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
             this.setState({

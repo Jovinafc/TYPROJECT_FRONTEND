@@ -81,18 +81,13 @@ class ProductDetail extends Component {
                 });
             }
             console.log(hist[0]['rating'])
-            // console.log(hist[0]['rating'])   
             this.setState({
-                reviewsArray: hist,
-                // rate: hist[0]['rating'],
-                // review: hist[0]['review'],
-            })
+                reviewsArray: hist
+               })
             
             }
         })
         
-        console.log(this.state.product.accessory_id);
-        console.log(localStorage.getItem('userId'))
         axios.post('/fetch-specific-accessory-rating-and-review-based-on-user-accessory', {user_id: localStorage.getItem('userId'), accessory_id: localStorage.getItem('product_id')})
         .then(res => {
             console.log(res.data);
@@ -106,10 +101,15 @@ class ProductDetail extends Component {
 
                 if(res.data[0].rating !== null|| ''){
                     this.setState({
-                        rate: res.data[0].rating,
-                        ratedisable: true
+                        rate: res.data[0].rating
+                    }, () => {
+                        this.setState({
+                            ratedisable: true
+                        })
                     })
                 }
+
+                console.log(this.state.ratedisable);
 
                 if(res.data[0].review !== null||''){
                     this.setState({
@@ -240,7 +240,6 @@ class ProductDetail extends Component {
 
 
 
-        console.log(this.state.product.accessory_id);
         let rateDiv = <div>
 
                         

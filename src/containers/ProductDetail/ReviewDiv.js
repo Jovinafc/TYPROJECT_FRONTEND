@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import classes from './ReviewDiv.module.css';
 import ReactStars from 'react-stars';
 import axios from '../../axios';
+import { connect } from 'react-redux';
+
 
 class ReviewDiv extends Component {
 
@@ -151,9 +153,9 @@ class ReviewDiv extends Component {
                         ? <img className={classes.image} src={this.props.details.user['image']} alt="pfimage" />
                         : <h2 style={{textAlign: "center", fontSize: '20px', color: "black"}}>{a}</h2>}
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div className={classes.namedate}>
                         <p>{this.props.details.user['first_name'] +" "+ this.props.details.user['last_name']}</p>
-                        <span>{this.props.details.createdAt.substring(0,8)}</span>
+                        {/* <span>{this.props.details.createdAt.substring(0,8)}</span> */}
                     </div>      
 
                     <div className={classes.ratingDiv}>
@@ -166,7 +168,7 @@ class ReviewDiv extends Component {
                     
                     <div className={classes.thumbs}>
                     <div className={classes.thumbupdown}>
-                    <button onClick={this.up}>
+                    <button disabled={!this.props.isAuthenticated} onClick={this.up}>
                     {this.state.thumbsup === 1    
                     ? <i style={{color: 'blue'}} className="fas fa-thumbs-up"></i>
                     : <i  className="fas fa-thumbs-up"></i>}
@@ -178,7 +180,7 @@ class ReviewDiv extends Component {
                     </div>
 
                     <div>
-                    <button onClick={this.down}> 
+                    <button disabled={!this.props.isAuthenticated} onClick={this.down}> 
                     {this.state.thumbsdown === 1
                     ?  <i style={{color:'blue'}} className="fas fa-thumbs-down"></i>
 
@@ -196,4 +198,11 @@ class ReviewDiv extends Component {
     }
 }
 
-export default ReviewDiv;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+
+    }
+}
+
+export default connect(mapStateToProps, null)(ReviewDiv);

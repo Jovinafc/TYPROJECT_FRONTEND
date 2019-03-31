@@ -137,11 +137,13 @@ export const authRefresh = (email, user_id) => {
       return dispatch => {
           const token = localStorage.getItem('token');
           if(!token){
+              localStorage.removeItem('state');
               dispatch(logout());
           }else {
               const expirationDate = new Date(localStorage.getItem('expirationDate'));
               if(expirationDate <= new Date()) {
                   dispatch(actions.removeCartItems())
+                  localStorage.removeItem('state');
                   dispatch(logout());
             }else{
                  const userId = localStorage.getItem('userId'); 

@@ -38,6 +38,8 @@ class Cards extends Component {
                 max:200000
             },
             display: [],
+            minError: '',
+            maxError: '',
             sidebarOpen: false,
             vehicles: [],
             filter_vehicles: [],
@@ -69,6 +71,7 @@ class Cards extends Component {
     }
 
     onSetSidebarOpen(open) {
+
         console.log('inside sidebar')
         if(this.state.sidebarOpen !== open){
             this.setState({ sidebarOpen: !this.state.sidebarOpen});
@@ -128,24 +131,6 @@ class Cards extends Component {
    
         }
 
-        // axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`)
-        // .then(result => {
-        //     console.log(result.data);
-        //     const fetchedFilteredValues = [];
-        //     for(let key in result.data){
-        //         fetchedFilteredValues.push({
-        //             ...result.data[key],
-        //             id:key
-        //         });
-        //     }
-        //     this.setState({
-        //         filter_vehicles: fetchedFilteredValues
-        //     })
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
-
         axios.post('/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
             console.log(result.data);
             const fetchedValues = [];
@@ -163,8 +148,7 @@ class Cards extends Component {
     }
 
     componentDidMount = () => {
-        console.log(this.props.user_id);
-        console.log('In cards display');        
+        window.scrollTo(0, 0);
         this.getVehicleDetails();
 
         axios.get('/fetch-registration-state').then(result => {
@@ -368,9 +352,73 @@ class Cards extends Component {
         console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
         this.getVehicleDetails();
       }
+
+      minnum = (e) => {
+          e.preventDefault();
+          this.setState({
+              ...this.state,
+              filterValues: {
+                ...this.state.filterValues,
+                pricemin: e.target.value
+              }
+          })
+
+      }
       
+      maxnum = (e) => {
+        e.preventDefault();
+        this.setState({
+            ...this.state,
+            filterValues: {
+              ...this.state.filterValues,
+              pricemax: e.target.value
+            }
+        })
+    }
+
+    minmaxsub = (e) => {
+        e.preventDefault();
+
+            if(this.state.filterValues.pricemin > this.state.filterValues.pricemax){
+                this.setState({
+                    minError: 'Invalid Prices'
+                })
+            }
+            else {
+                this.setState({
+                    minError: ''
+                })
+                this.getVehicleDetails();
+            }
+
+    }
+
+    minmaxsubsmall = (e) => {
+        e.preventDefault();
+
+            
+            if(this.state.filterValues.pricemin > this.state.filterValues.pricemax){
+                this.setState({
+                    minError: 'Invalid Prices'
+                })
+            }
+            else {
+                this.setState({
+                    minError: ''
+                })
+                this.getVehicleDetails();
+                this.setState({
+                    sidebarOpen: false
+                })
+            }
+
+    }
+
+    
+
     render () {
-        console.log(this.state.sidebarOpen);
+        console.log(this.state.filterValues.pricemin);
+        console.log(this.state.filterValues.pricemax);
         let displayVehicle;
         if(this.state.filter_vehicles.length > 0){
             
@@ -449,13 +497,23 @@ class Cards extends Component {
     </Panel>
 
     <Panel header="Price Range" headerClass="my-header-class">
-        <InputRange
+        {/* <InputRange
             maxValue={200000}
             minValue={0}
             formatLabel={value => `${value} Rs`}
             value={this.state.value4}
             onChange={value => this.setState({ value4: value })}
-            onChangeComplete={value => console.log(value)} />
+            onChangeComplete={value => console.log(value)} /> */}
+            <div>
+            <span style={{fontSize: '0.8em'}}>Select only one of Sale or Rent type</span>
+                <br />
+                 Min: <input onChange={this.minnum} onChange={this.minnum} value={this.state.filterValues.pricemin} type="number"/>
+                 <span>{this.state.minError}</span>
+                 <br />   
+                 <br />
+                 Max: <input onChange={this.maxnum} onChange={this.maxnum} value={this.state.filterValues.pricemax}  type="number" />
+                 <button onClick={this.minmaxsub}>Submit</button>
+             </div>
     </Panel>
 </Collapse>
 
@@ -483,7 +541,9 @@ class Cards extends Component {
                    <Collapse >
                         <Panel header="Type of Service" headerClass="my-header-class">
                              <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
+                             <span style={{width: '20px', color:'white' }}>J</span>   
                              <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
+
                         </Panel>
 
                         <Panel header="Vehicle Type" headerClass="my-header-class">
@@ -517,13 +577,24 @@ class Cards extends Component {
                         </Panel>
 
                         <Panel header="Price Range" headerClass="my-header-class">
-                            <InputRange
+                            {/* <InputRange
                                 maxValue={200000}
                                 minValue={0}
                                 formatLabel={value => `${value} Rs`}
                                 value={this.state.value4}
                                 onChange={value => this.setState({ value4: value })}
-                                onChangeComplete={value => console.log(value)} />
+                                onChangeComplete={value => console.log(value)} /> */}
+                                <div>
+                                    <span style={{fontSize: '0.7em'}}>Select only one of Sale or Rent type</span>
+                                   <br /> 
+                                    Min <input style={{width: '80px'}} onChange={this.minnum} value={this.state.filterValues.pricemin} type="number"/>
+                                    <span>{this.state.minError}</span>
+                                    <br />
+                                    <br />
+                                    Max <input style={{width: '80px'}} onChange={this.maxnum} value={this.state.filterValues.pricemax}  type="number" />
+                                    <br />
+                                    <button onClick={this.minmaxsubsmall} >Submit</button>
+                                </div>
                         </Panel>
                   </Collapse>
 

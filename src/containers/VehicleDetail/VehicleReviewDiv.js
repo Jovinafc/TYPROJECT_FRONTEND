@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classes from './VehicleReviewDiv.module.css';
 import ReactStars from 'react-stars';
 import axios from '../../axios';
+import { connect } from 'react-redux';
 
 class VehicleReviewDiv extends Component {
 
@@ -159,8 +160,8 @@ class VehicleReviewDiv extends Component {
                        
                          <h2 style={{textAlign: "center", fontSize: '20px', color: "black"}}>{a}</h2>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                        <p>{this.props.details.ratings[0].user_name}</p>
+                    <div className={classes.namedate}>
+                        <p style={{marginRight: '10px'}}>{this.props.details.ratings[0].user_name}</p>
                         <span>{this.props.details.feedbacks[0].createdAt.substring(0,10)}</span>
                     </div>      
 
@@ -174,7 +175,7 @@ class VehicleReviewDiv extends Component {
                     
                     <div className={classes.thumbs}>
                     <div className={classes.thumbupdown}>
-                    <button onClick={this.up}> 
+                    <button disabled={!this.props.isAuthenticated} onClick={this.up}> 
                     {this.state.thumbsup === 1
                     ? <i  style={{color: 'blue'}} className="fas fa-thumbs-up"></i>
                     : <i  className="fas fa-thumbs-up"></i>}
@@ -184,7 +185,7 @@ class VehicleReviewDiv extends Component {
                     </div>
 
                     <div>
-                    <button onClick={this.down}>
+                    <button disabled={!this.props.isAuthenticated} onClick={this.down}>
                     {this.state.thumbsdown === 1
                     ? <i  style={{color: 'blue'}} className="fas fa-thumbs-down"></i>
                     : <i className="fas fa-thumbs-down"></i>}       
@@ -200,4 +201,12 @@ class VehicleReviewDiv extends Component {
     }
 }
 
-export default VehicleReviewDiv;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+
+    }
+}
+
+
+export default connect(mapStateToProps, null)(VehicleReviewDiv);

@@ -293,6 +293,8 @@ class SellPaymentPage extends Component {
                 placeholder="Valid Thru"
                 format={formatExpirationDate}
               />
+              </div>
+              <div>
               <Field
                 name="cvc"
                 component="input"

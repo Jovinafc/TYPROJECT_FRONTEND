@@ -1,7 +1,4 @@
 .container {
     display: flex;
-    /* padding: 20px; */
-    /* margin-left: 5px; */
-    padding: 10%;
-    /* border: 1px solid green; */
+    /* padding: 10%; */
 }
