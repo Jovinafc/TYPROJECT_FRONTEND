@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-// import lg from './logo.png'
 // import SloganDesign from './Slogan Design.png';
 // import LogoRW from './LogoRW.png';
 import Slogan from './Slogan design 1.png';
