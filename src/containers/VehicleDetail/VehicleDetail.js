@@ -248,10 +248,10 @@ class VehicleDetail extends Component {
             return current.isAfter(yesterday);
         };
  
-        let prev = this.state.start;
-        let validend = function(current){
-            return current.isAfter(prev)
-        }
+        // let prev = this.state.start;
+        // let validend = function(current){
+        //     return current.isAfter(prev)
+        // }
 
         let reviewlist = null;
 
@@ -284,7 +284,7 @@ class VehicleDetail extends Component {
                                 <Datetime isValidDate={valid}  style={{width: '60%'}} onChange={this.starth}/>  
                                 <span>{this.state.startDateError}</span>
                                 <p style={{marginBottom: '-3px'}}>End Date</p>
-                               <Datetime isValidDate={validend}  onChange={this.endh}/>
+                               <Datetime isValidDate={valid}  onChange={this.endh}/>
                                 <span>{this.state.endDateError}</span>
                           </div>
         }

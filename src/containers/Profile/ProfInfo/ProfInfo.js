@@ -12,6 +12,7 @@ import Alert from 'react-s-alert';
 import Datetime from 'react-datetime';
 import {ClipLoader} from 'react-spinners';
 import { css } from '@emotion/core';
+import * as moments from 'moment';
 
 
 const override = css`
@@ -40,10 +41,14 @@ class ProfInfo extends Component {
         documentPrev: '',
         user_id: this.props.user_id,
         show: false,
+        firstNameError: '',
+        lastNameError: '',
+        phone_numberError: '',
         pin_numberError: '',
         cityError: '',
         stateError: '',
         bank_noError: '',
+        dobError: '',
         uploadspin: false
     }
 
@@ -91,7 +96,61 @@ class ProfInfo extends Component {
     dobHandler = (date) => {
         
         console.log(date);
-        this.setState({DOB: date})
+
+        let s = moments(date).format('YYYY-MM-DD');
+        // console.log(s);
+        let curr = moments().format('YYYY-MM-DD');
+    
+        let difference = moments(curr).diff(s, 'days');
+        // console.log(difference);
+    
+        if(difference > 6570){
+            this.setState({
+                DOB: s,
+                DOBError: ''
+            })
+        }
+        else{
+            this.setState({
+                DOBError: "You should be 18 years old!"
+            })
+        }
+        // console.log(curr);
+        // if(s > )
+        this.setState({
+            DOB: s
+        })
+    
+
+    }
+
+    dateHandler = (moment) => {
+        // console.log(moment._d);
+
+        let s = moments(moment).format('YYYY-MM-DD');
+        // console.log(s);
+        let curr = moments().format('YYYY-MM-DD');
+    
+        let difference = moments(curr).diff(s, 'days');
+        // console.log(difference);
+        
+        if(difference > 6570){
+            this.setState({
+                DOB: s,
+                dobError: ''
+            })
+        }
+        else{
+            this.setState({
+                dobError: "You should be 18 years old!"
+            })
+        }
+        // console.log(curr);
+        // if(s > )
+        this.setState({
+            DOB: s
+        })
+    
     }
 
     stateHandler = (e) => {
@@ -134,6 +193,7 @@ class ProfInfo extends Component {
         let isError = false;
         let errors = {};
 
+        
 //First Name
         if(this.state.first_name === '') {
             isError = true;
@@ -143,6 +203,7 @@ class ProfInfo extends Component {
             })
             errors.firstNameError = "Please Enter First Name"
         }
+        console.log(isError);
 
 
 // Last Name   
@@ -155,6 +216,7 @@ class ProfInfo extends Component {
             errors.lastNameError = "Please Enter Last Name"
 
         }
+        console.log(isError);
 
 //Phone Number
         if(this.state.phone_number === '') {
@@ -166,24 +228,33 @@ class ProfInfo extends Component {
             errors.phone_numberError = "Please Enter Phone Number"
 
         }
+        console.log(isError);
 
-        let pn = false;
+        // let pn = false;
 
-        if(this.state.phone_number !== null || ''){
-            let phoneRegex = /^\d{10}$/;
-            if(this.state.pincode.match(phoneRegex)){
-            pn = true;
-        }
+        // if(this.state.phone_number !== null || ''){
+        //     let phoneno = /^\d{10}$/;
+        //     if((this.state.phone_number.match(phoneno))){
+        //         pn = true;
+        //     }
         
-        }    
-        if(pn === false) {
-            isError = true;
-            this.setState({
-                ...this.state,
-                pin_numberError: 'Please Enter 10 digits'
-            })
-            errors.pin_numberError = 'Enter Valid Number'
-        }
+        // }    
+        // if(pn === false) {
+        //     isError = true;
+        //     this.setState({
+        //         ...this.state,
+        //         phone_numberError: 'Please Enter 10 digits'
+        //     })
+        //     errors.phone_numberError = 'Enter Valid Number'
+        // }
+        // else{
+        //     this.setState({
+        //         ...this.state,
+        //         phone_numberError: ''
+        //     })
+        //     errors.phone_numberError = ''
+        // }
+        // console.log(isError);
 
 
 //Bank Account        
@@ -195,7 +266,7 @@ class ProfInfo extends Component {
             })
             errors.bank_noError = "Please Enter Bank Account Number"
         }
-
+        console.log(isError);
         
 //DOB
 
@@ -203,10 +274,34 @@ class ProfInfo extends Component {
             isError = true;
             this.setState({
                 ...this.state,
-                DOBError: "Please Enter Correct DOB"
+                dobError: "Please Enter Correct DOB"
             })
-            errors.DOBError = "Please Enter Correct DOB"
+            errors.dobError = "Please Enter Correct DOB"
         }
+
+        let s = moments(this.state.DOB).format('YYYY-MM-DD');
+
+        let curr = moments().format('YYYY-MM-DD');
+
+        let difference = moments(curr).diff(s, 'days');
+        // console.log(difference);
+
+         
+            if(difference > 6570){
+                this.setState({
+                    DOB: s,
+                    dobError: ''
+                })
+            }
+            else{
+                isError = true;
+                this.setState({
+                    dobError: "You should be above 18 years old!"
+                })
+                errors.dobError= "You should be above 18 years old"
+            }
+   
+            console.log(isError);
 
 //PinCode
 
@@ -223,7 +318,7 @@ class ProfInfo extends Component {
 
         if(this.state.pincode !== null || ''){
             let pincodeRegex = /^\d{6}$/;
-            if(this.state.pincode.match(pincodeRegex)){
+            if((this.state.pincode.match(pincodeRegex))){
             pi = true;
         }
         
@@ -236,15 +331,16 @@ class ProfInfo extends Component {
             })
             errors.pin_numberError = 'Enter Valid Number'
         }
+        else {
+            this.setState({
+                ...this.state,
+                pin_numberError: ''
+            })
+            errors.pin_numberError = ''
 
+        }
+        console.log(isError);
 //City        
-        if(this.state.city === null || ''){
-
-        }
-
-        if(this.state.city !== null || ''){
-
-        }
 
         let ci = false;
 
@@ -262,15 +358,13 @@ class ProfInfo extends Component {
             errors.cityError = 'Enter Proper City'
         }
         else {
-            isError = false;
-            
             this.setState({
                 ...this.state,
                 cityError: ''
             });
             errors.cityError = ''
         }
-
+        console.log(isError);
         
         let si = false;
         let stateRegex = /^[A-Za-z\s]+$/;
@@ -287,14 +381,13 @@ class ProfInfo extends Component {
             errors.stateError = 'Enter Proper State Name'
         }
         else{
-            isError = false;
             this.setState({
                 ...this.state,
                 stateError: ''
             });
             errors.stateError = ''
         }
-        
+        console.log(isError);
 
         if(isError){
             
@@ -312,6 +405,7 @@ class ProfInfo extends Component {
 
     submitHandler = (e) => {
         const error = this.validate();
+        console.log(error);
         if(!error){
             e.preventDefault();
             this.setState({
@@ -421,6 +515,8 @@ class ProfInfo extends Component {
                     <label htmlFor="fname"  className="col-sm-2 control-label">First Name</label>
                     <div className="col-sm-10">
                     <input type="text" className="form-control" id="fname" onChange={this.fnameHandler} value={this.state.first_name}/>
+                    <span style={{color: 'red'}}>{this.state.firstNameError}</span>   
+
                     </div>
                         </div>
                     
@@ -429,6 +525,8 @@ class ProfInfo extends Component {
                     <label htmlFor="lname" className="col-sm-2 control-label">Last Name</label>
                     <div className="col-sm-10">
                     <input type="text" className="form-control" id="lname" onChange={this.lnameHandler} value={this.state.last_name}/>
+                    <span style={{color: 'red'}}>{this.state.lastNameError}</span>   
+
                     </div>
                         </div>
 
@@ -436,6 +534,8 @@ class ProfInfo extends Component {
                     <label htmlFor="phone" className="col-sm-2 control-label">Phone Number</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="phone" onChange={this.phoneHandler} value={this.state.phone_number}/>        
+                    <span style={{color: 'red'}}>{this.state.phone_numberError}</span>   
+
                     </div>    
                         </div>
 
@@ -498,8 +598,9 @@ class ProfInfo extends Component {
                     showBorder
                     className="form-control"
                     /> */}
-                    <Datetime value={this.state.DOB} style={{width: '60%'}} onChange={this.starth}/>  
-                                
+                    <Datetime value={this.state.DOB} style={{width: '60%'}} onChange={this.dateHandler}/>  
+                    <span style={{color: 'red'}}>{this.state.dobError}</span>   
+            
                     </div>
                         </div>
 

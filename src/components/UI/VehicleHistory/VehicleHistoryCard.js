@@ -209,6 +209,7 @@ class VehicleHistoryCard extends Component {
 
 
     render () {
+        // console.log(this.props.details);
         let modalClose = () => this.setState({ modalShow: false });
        
         return (
@@ -229,7 +230,10 @@ class VehicleHistoryCard extends Component {
                             : <div><p><strong>Status:</strong><span className={classes.valuedel}> Rented From {this.props.details.owner['name']}</span> </p></div> }</span>
                     }
                     <div className={classes.amountdiv}>
-                    <div><p><strong> Amount:</strong><span className={classes.valuedel}> &#x20B9; {this.props.details.amount} </span></p></div>
+                    {this.props.details.status === 'RENTED'
+                    ? <div><p><strong> Amount:</strong><span className={classes.valuedel}> &#x20B9; {this.props.details.amount + 100} </span></p></div>
+                    : <div><p><strong> Amount:</strong><span className={classes.valuedel}> &#x20B9; {this.props.details.amount} </span></p></div>
+                }
                     </div>
                     <div>{
                     this.props.details.rents.length > 0

@@ -138,7 +138,7 @@ dateHandler = (moment) => {
     }
     else{
         this.setState({
-            DOBError: "You should be 18 years old!"
+            DOBError: "You should be above 18 years old!"
         })
     }
     // console.log(curr);
@@ -396,7 +396,7 @@ dateHandler = (moment) => {
             else{
                 isError = true;
                 this.setState({
-                    DOBError: "You should be 18 years old!"
+                    DOBError: "You should be above 18 years old!"
                 })
             }
    
@@ -446,7 +446,7 @@ dateHandler = (moment) => {
 
         let p = false;
         // let pattern1 = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        let pattern1 = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        let pattern1 = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
         if(this.state.old_password.match(pattern1)){
             p = true;
             this.setState({
@@ -460,7 +460,7 @@ dateHandler = (moment) => {
             isError = true;
             this.setState({
              ...this.state,
-            old_passwordError: 'Please Enter Correct ID'
+            old_passwordError: 'Please Valid Password'
 
             })
             errors.old_passwordError = "Enter Valid Password"
@@ -619,7 +619,7 @@ dateHandler = (moment) => {
                          <div>
                      <label htmlFor="dob" >Date of Birth<span style={{color: 'red'}}>*</span></label>
                    
-                     <div style={{width: '100ps'}}>
+                     <div className={classes.moddivCont}>
                     {/* <DatePicker id="dob" onChange={this.dobHandler} value={this.state.DOB} /> */}
                     <ModernDatePicker 
                     id="dob"

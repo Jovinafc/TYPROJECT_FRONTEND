@@ -19,15 +19,22 @@
     padding-left: 35%;
 }
 
+.moddivCont {
+    width: 50%;
+    outline: none;
+    border-radius: 20px;
+    border-color: black;
+    background-color: white;
+}
 .modernDiv {
     padding-left: 10px;
     outline: none;
     border-radius: 10px;
     border-color: black;
     background-color: white;
-    color: black;
-    width: 50%;
-    opacity: 10%;
+    /* color: black; */
+    /* width: 50%; */
+    opacity: 10%;   
 }
 
 
@@ -93,8 +100,16 @@
     border-color: black;
     background-color: white;
     color: black;
-    width: 80%;
+    
     opacity: 10%;
+}
+
+.moddivCont {
+    width: 80%;
+    outline: none;
+    border-radius: 20px;
+    border-color: black;
+    background-color: white;
 }
 
 
