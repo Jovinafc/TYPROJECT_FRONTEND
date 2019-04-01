@@ -9,6 +9,8 @@ import axios from 'axios';
 import ReactStars from 'react-stars'
 import * as actions from '../../../store/actions/vehicle_click';
 import * as actionp from '../../../store/actions/cart';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 class VehicleHistoryCard extends Component {
@@ -190,6 +192,8 @@ class VehicleHistoryCard extends Component {
         .then(res => {
             console.log(res);
             this.props.fetchVehicleHistory();
+            this.props.stopLoading();
+
         })
         .catch(err => {
             console.log(err);
@@ -197,6 +201,38 @@ class VehicleHistoryCard extends Component {
 
         })
     }
+
+    modalsubmit = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                // <div className='custom-ui'>
+                                <div className={classes.mod}>
+
+                  <h1>Are you sure?</h1>
+                  <p><strong>You want to cancel your booking</strong></p>
+                  
+                  <button
+                    className={classes.pass}
+                    onClick={() => {
+                    //   this.handleClickDelete();
+                    //   this.removeVehicle();      
+                        this.cancelHandler();
+                      onClose();
+                    }}
+                  >
+                    Yes, Cancel
+                  </button>
+
+                  <button className={classes.reject}onClick={onClose}>No</button>
+
+                </div>
+              );
+            }
+          });
+
+    }
+
 
     render () {
         let modalClose = () => this.setState({ modalShow: false });
@@ -311,7 +347,7 @@ class VehicleHistoryCard extends Component {
                         ? <div>{
                             this.props.details.vehicle['status'] === 'AVAILABLE'
                             ? <div style={{color: 'red'}}><h6>Booking Canceled</h6> </div>
-                            : <div className={classes.cancelDiv} onClick={this.cancelHandler}><button>Cancel Booking</button> </div>
+                            : <div className={classes.cancelDiv} ><button onClick={this.modalsubmit}>Cancel Booking</button> </div>
 
                         } </div>
                         : null

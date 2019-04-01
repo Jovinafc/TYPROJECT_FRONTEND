@@ -15,7 +15,7 @@ import { connect} from 'react-redux';
 // import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
-// import moment, * as moments from 'moment';
+import moment, * as moments from 'moment';
 import Alert from 'react-s-alert';
 
 
@@ -40,6 +40,12 @@ class SellPaymentPage extends Component {
         loading: '',
         days: ''
     }
+
+    date_diff_indays = function(date1, date2) {
+      let dt1 = new Date(date1);
+      let dt2 = new Date(date2);
+      return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+   }
     componentDidMount() {
         window.scrollTo(0,0);
 
@@ -73,30 +79,24 @@ class SellPaymentPage extends Component {
             this.setState({Invalid: true})
         });   
 
-        // console.log(this.props.start);
-        // console.log(this.props.end);
-
-        // let startDate = moment(this.props.start);
-        // let endDate = moment(this.props.end);
-        // // let days = moment().diff(startDate,endDate);
-        // // console.log(days);
-
-        // let duration = moment.duration(endDate.diff(startDate));
-        // console.log(duration);
-        // let days = duration.asDays();
-        // console.log(days);
-        // this.setState({
-        //   days: days
-        // })
         let sd = this.props.start;
         let ed = this.props.end;
         
-        let s = sd.substring(8,10);
-        console.log(s)
-        let e = ed.substring(8,10);
-        console.log(e);
-        console.log(e-s);
-        if(e-s === 0){
+        // let s = sd.substring(8,10);
+        // console.log(s)
+        // let e = ed.substring(8,10);
+        // console.log(e);
+        // console.log(e-s);
+
+       let sdd = moments(sd).format('MM/DD/YYYY');
+       console.log(sdd);
+       let edd = moments(ed).format('MM/DD/YYYY');
+       console.log(edd);
+       let diff = this.date_diff_indays(sdd,edd);
+       console.log(diff);
+       
+
+        if(diff === 0){
             this.setState({
                 days: 1
             })
@@ -104,9 +104,9 @@ class SellPaymentPage extends Component {
         }
         else {
         this.setState({
-            days: e - s
+            days: diff
         })
-        this.props.price_on_days(e-s);
+        this.props.price_on_days(diff);
 
      }       
 

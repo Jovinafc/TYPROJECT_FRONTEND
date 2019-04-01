@@ -38,6 +38,8 @@
 
    .Main {
      width: 100%;
+     border: 1px solid white;
+
      margin-top: 40px;
      font-size: 1.2em;
      padding-bottom: 30%;
@@ -61,7 +63,7 @@
 
 .Main {
   width: 75%;
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 2%;
   font-size: 1.2em;
 

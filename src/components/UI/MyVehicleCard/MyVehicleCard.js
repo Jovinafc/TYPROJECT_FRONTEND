@@ -15,6 +15,8 @@ class MyVehicleCard extends Component {
         .then(res => {
             console.log(res.data);
             this.props.my_vehicle_store();
+            this.props.stopLoading();
+
         })
         .catch(err => {
             this.props.stopLoading();

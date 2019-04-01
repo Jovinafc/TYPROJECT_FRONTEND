@@ -13,6 +13,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import ModernDatePicker from 'react-modern-datepicker'
 import Alert from 'react-s-alert';
 import Datetime from 'react-datetime';
+import LoadingOverlay from 'react-loading-overlay';
+import {ClipLoader} from 'react-spinners';
+import { css } from '@emotion/core';
+
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: yellow;
+`;
 
 
 
@@ -36,7 +46,9 @@ class ProfInfo extends Component {
         show: false,
         pin_numberError: '',
         cityError: '',
-        stateError: ''
+        stateError: '',
+        bank_noError: '',
+        uploadspin: false
     }
 
     componentDidMount() {
@@ -112,6 +124,11 @@ class ProfInfo extends Component {
                 pin_numberError: 'Please Enter 6 digits'
             })
         }
+        else {
+            this.setState({
+                pin_numberError: ''
+            })
+        }
         
     }
 
@@ -156,6 +173,38 @@ class ProfInfo extends Component {
 
         }
 
+        let pn = false;
+
+        if(this.state.phone_number !== null || ''){
+            let phoneRegex = /^\d{10}$/;
+            if(this.state.pincode.match(phoneRegex)){
+            pn = true;
+        }
+        
+        }    
+        if(pi === false) {
+            isError = true;
+            this.setState({
+                ...this.state,
+                pin_numberError: 'Please Enter 10 digits'
+            })
+            errors.pin_numberError = 'Enter Valid Number'
+        }
+
+
+        // let v = false;
+        
+        // if(v === false) {
+        //     isError = true;
+        //     this.setState({
+        //         ...this.state,
+        //         phone_numberError: 'Please Enter Valid Number(10 digits)'
+        //     })
+        //     errors.phone_numberError = 'Enter Valid Number'
+        // }
+
+
+//Bank Account        
         if(this.state.bank_no === '') {
             isError = true;
             this.setState({
@@ -165,21 +214,7 @@ class ProfInfo extends Component {
             errors.bank_noError = "Please Enter Bank Account Number"
         }
 
-        let v = false;
-        // let phoneno = /^\d{10}$/;
-        // if((this.state.phone_number.match(phoneno))){
-        //     v = true;
-        // }
         
-        if(v === false) {
-            isError = true;
-            this.setState({
-                ...this.state,
-                phone_numberError: 'Please Enter Valid Number(10 digits)'
-            })
-            errors.phone_numberError = 'Enter Valid Number'
-        }
-
 //DOB
 
         if(this.state.DOB === '') {
@@ -191,7 +226,9 @@ class ProfInfo extends Component {
             errors.DOBError = "Please Enter Correct DOB"
         }
 
-        if(this.state.pincode === ''){
+//PinCode
+
+        if(this.state.pincode === null || ''){
             isError = true;
             this.setState({
                 ...this.state,
@@ -201,11 +238,14 @@ class ProfInfo extends Component {
         }
 
         let pi = false;
-        let pincodeRegex = /^\d{10}$/;
-        if((this.state.pincode.match(pincodeRegex))){
+
+        if(this.state.pincode !== null || ''){
+            let pincodeRegex = /^\d{6}$/;
+            if(this.state.pincode.match(pincodeRegex)){
             pi = true;
         }
         
+        }    
         if(pi === false) {
             isError = true;
             this.setState({
@@ -215,7 +255,17 @@ class ProfInfo extends Component {
             errors.pin_numberError = 'Enter Valid Number'
         }
 
+//City        
+        if(this.state.city === null || ''){
+
+        }
+
+        if(this.state.city !== null || ''){
+
+        }
+
         let ci = false;
+
         let cityRegex = /^[A-Za-z\s]+$/;
         if((this.state.city.match(cityRegex))){
             ci = true;
@@ -229,12 +279,21 @@ class ProfInfo extends Component {
             });
             errors.cityError = 'Enter Proper City'
         }
+        else {
+            isError = false;
+            
+            this.setState({
+                ...this.state,
+                cityError: ''
+            });
+            errors.cityError = ''
+        }
 
         
         let si = false;
         let stateRegex = /^[A-Za-z\s]+$/;
         if((this.state.state.match(stateRegex))){
-            ci = true;
+            si = true;
         }
 
         if(si === false) {
@@ -244,6 +303,14 @@ class ProfInfo extends Component {
                 stateError: 'Enter Proper State Name'
             });
             errors.stateError = 'Enter Proper State Name'
+        }
+        else{
+            isError = false;
+            this.setState({
+                ...this.state,
+                stateError: ''
+            });
+            errors.stateError = ''
         }
         
 
@@ -263,8 +330,11 @@ class ProfInfo extends Component {
 
     submitHandler = (e) => {
         const error = this.validate();
-        if(error){
+        if(!error){
             e.preventDefault();
+            this.setState({
+                uploadspin: true
+            })
             const users = {
                 first_name: this.state.first_name,
                 last_name: this.state.last_name,
@@ -286,6 +356,9 @@ class ProfInfo extends Component {
             axios.post('/update-user-profile', {users: users })
             .then( res => {
                 console.log(res);
+                this.setState({
+                    uploadspin: false
+                })
                 Alert.success('Profile Updated', {
                     position: 'top',
                     effect: 'bouncyflip',
@@ -296,14 +369,14 @@ class ProfInfo extends Component {
             })
             .catch(err => {
                 console.log(err);
+                this.setState({
+                    uploadspin: false
+                })
             })
 
             
         })
 
-        }
-        else {
-            console.log('Declined');
         }
         
               
@@ -340,14 +413,25 @@ class ProfInfo extends Component {
    
     
     render () {
-
+        
         let {documentPrev} = this.state;
         let documentPreview = null;
         if(documentPrev) {
             documentPreview = (<img alt="document" className={classes.Image} src={documentPrev} />);
         }
+
+        let dis = false;
+
+        if(this.state.first_name === '' || this.state.last_name === '' || this.state.phone_number === '' ||
+           this.state.bank_no === '' || this.state.address === '' || this.state.state === '' || this.state.city === ''
+           || this.state.pincode === '' || this.state.documents === ''){
+               dis = true
+           }
+
+           console.log(this.state);
     
         return (
+
             <div className={classes.Cont}>
                 <h3 style={{textAlign: "center"}}>Basic Information</h3>
                 <br />
@@ -383,6 +467,8 @@ class ProfInfo extends Component {
                     <label htmlFor="bank_no" className="col-sm-4 control-label">Bank Account No</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no || ''}/>        
+                    <span style={{color: 'red'}}>{this.state.bank_noError}</span>   
+
                     </div>    
                         </div>
 
@@ -399,7 +485,7 @@ class ProfInfo extends Component {
                     <label htmlFor="state" className="col-sm-2 control-label">State</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.stateHandler} type="text" id="state" value={this.state.state || ''} />   
-                    {/* <span style={{color: 'red'}}>{this.state.stateError}</span>    */}
+                    <span style={{color: 'red'}}>{this.state.stateError}</span>   
 
                         </div>    
                         </div>
@@ -408,7 +494,7 @@ class ProfInfo extends Component {
                     <label htmlFor="city" className="col-sm-2 control-label">City</label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.cityHandler} type="text" id="city" value={this.state.city || ''} />    
-                    {/* <span style={{color: 'red'}}>{this.state.cityError}</span>    */}
+                    <span style={{color: 'red'}}>{this.state.cityError}</span>   
     
                         </div>    
                         </div>
@@ -417,7 +503,7 @@ class ProfInfo extends Component {
                     <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code</label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="pincode" onChange={this.pincodeHandler} value={this.state.pincode || ''}/>        
-                    {/* <span style={{color: 'red'}}>{this.state.pin_numberError}</span>    */}
+                    <span style={{color: 'red'}}>{this.state.pin_numberError}</span>   
 
                     </div>    
                         </div>
@@ -444,8 +530,8 @@ class ProfInfo extends Component {
                         <div className="form-group">
                             <label htmlFor="documents" className="col-sm-4 control-label">Document</label>
                             <div className="col-sm-10">
-                    <input type="file" className="form-control" id="documents" onChange={this.handleDocumentChange} />        
-                    {/* <span style={{color: 'red'}}>{this.state.pin_numberError}</span>    */}
+                    <input accept="image/*" type="file" className="form-control" id="documents" onChange={this.handleDocumentChange} />        
+                    <span style={{color: 'red'}}>{this.state.documentError}</span>   
 
                     </div>    
                     {documentPreview}
@@ -455,7 +541,16 @@ class ProfInfo extends Component {
                        
 
                         <div style={{textAlign: 'center', marginTop: '10px', marginBottom: '20%'}}>
-                        <button type="button" onClick={this.submitHandler} className="btn btn-success">Save</button>
+                        <button type="button" disabled={dis} onClick={this.submitHandler} className="btn btn-success">Save</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <ClipLoader
+                        style={override}
+                //   css={override}
+                  sizeUnit={"px"}
+                  size={25}
+                  color={'#123abc'}
+                  loading={this.state.uploadspin}
+               />
                         <br/>
                         <br />
                         {/* <button onSubmit={this.alertHandler} >Notify!</button> */}
@@ -468,6 +563,7 @@ class ProfInfo extends Component {
                 </Alert>
 
             </div>
+
         );
     }
 }

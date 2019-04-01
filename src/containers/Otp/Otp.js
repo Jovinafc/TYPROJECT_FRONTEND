@@ -135,7 +135,7 @@ class Otp extends Component {
 
                             <div className="form-group">
                             <label htmlFor="otp" className="col-sm-8 control-label">Enter OTP<p>(Sent on your registered Email)</p></label>
-                             <div style={{textAlign: "center", paddingLeft: "15%"}}>   
+                             <div className={classes.Label}>   
                              <div className="col-sm-10" style={{textAlign: "center"}}>
                              <input type="number" id="otp" className="form-control" onChange={this.otpcodeHandler} value={this.state.otp}/>
                             </div>

@@ -19,11 +19,21 @@
     margin-left: -78%;
 }
 
+.spanmyvehicles {
+    
+    display: block;
+    margin-left: -62%;
+}
+
+.spanhistory {
+    display: block;
+    margin-left: -52%;
+}
+
 
 @media (min-width: 500px){
     .NavigationItems {
         flex-flow: row;
-        
     }
 
 

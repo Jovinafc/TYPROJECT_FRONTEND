@@ -86,6 +86,74 @@ class AccountInfo extends Component {
         errors.old_passwordError = "Enter Valid Password"
     }
 
+    let newpass = false;
+    if(this.state.new_password.match(pattern1)){
+        newpass = true;
+        this.setState({
+            ...this.state,
+            new_passwordError: ''
+        })
+        errors.new_passwordError = ""
+
+    }
+    if(newpass === false){
+        isError = true;
+        this.setState({
+            ...this.state,
+            new_passwordError: 'Enter Valid Password'
+        })
+        errors.new_passwordError = "Enter Valid Password"
+
+    }
+    else {
+        isError = false;
+        this.setState({
+            ...this.state,
+            new_passwordError: ''
+        })
+        errors.new_passwordError = ''
+
+    }
+
+    
+    let confirmpass = false;
+    if(this.state.confirm_password.match(pattern1)){
+        confirmpass = true;
+        this.setState({
+            ...this.state,
+            confirm_passwordError: ''
+        })
+        errors.confirm_passwordError = ''
+
+    }
+    if(confirmpass === false){
+        isError = true;
+        this.setState({
+            ...this.state,
+            confirm_passwordError: 'Enter Valid Password'
+        })
+        errors.confirm_passwordError = 'Enter Valid Password'
+
+    }
+    else {
+        isError = false;
+        this.setState({
+            ...this.state,
+            confirm_passwordError: ''
+        })
+        errors.confirm_passwordError = ''
+
+    }
+
+    if(this.state.new_password !== this.state.confirm_password){
+        isError = true;
+        this.setState({
+            ...this.state,
+            confirm_passwordError: 'Password does not match'
+        })
+        errors.confirm_passwordError = 'Password does not match'
+
+    }
 
 
     if(isError){
@@ -109,7 +177,7 @@ class AccountInfo extends Component {
             axios.post('/update-password', {email: this.state.email, old_password: this.state.old_password, password: this.state.confirm_password})
             .then( response => {
                 console.log(response);    
-                Alert.info('Password Updated', {
+                Alert.info('Password Changed', {
                     position: 'top',
                     effect: 'bouncyflip',
                     timeout: 3000,
@@ -117,6 +185,9 @@ class AccountInfo extends Component {
                 });
             })
         }
+        }
+        else {
+            console.log('incorrect');
         }     
     }
  

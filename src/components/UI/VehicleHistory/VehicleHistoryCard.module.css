@@ -125,6 +125,24 @@ visibility: hidden;
     color: yellow;
 }
 
+
+.mod {
+    width: 400px;
+    height: 200px;
+    background-color: lightcoral;
+    text-align: center;
+}
+
+.reject {
+    /* background-color: rgb(69, 136, 158); */
+}
+
+.pass {
+    margin-right: 10%;
+    
+}
+
+
 @media(max-width:500px){
     .bigDiv {
         width: 80%;

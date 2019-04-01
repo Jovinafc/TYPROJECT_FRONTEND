@@ -52,8 +52,31 @@ const navigationItems = (props) =>  {
                 </NavigationItem>
 
                 
-               <NavigationItem link="/aboutus" >About Us 
+               {/* <NavigationItem link="/aboutus" >About Us 
                 </NavigationItem>
+                */}
+
+              
+             <span style={style} className={classes.spanmyvehicles}>
+             {props.isAuthenticated 
+                ? <NavigationItem link="/myvehicles">My Vehicles</NavigationItem> 
+                : null}
+             
+             
+             </span>    
+
+             
+             <span style={style} className={classes.spanhistory}>
+             {props.isAuthenticated 
+                ? <NavigationItem link="/history">Vehicle History</NavigationItem> 
+                : null}
+             
+             
+             </span> 
+
+             <NavigationItem link="/aboutus" >About Us 
+                </NavigationItem>
+               
                
 
              <span style={style} className={classes.span1}>

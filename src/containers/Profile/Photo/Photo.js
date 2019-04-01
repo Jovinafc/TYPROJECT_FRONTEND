@@ -121,6 +121,11 @@ class Photo extends Component {
 
     render () {
 
+        let disableButton = false;
+
+        if(this.state.file === ''){
+            disableButton = true
+        }
         
 
         let styles = {
@@ -155,11 +160,11 @@ class Photo extends Component {
 
                         <form className={classes.Form}  >
                             <div className={classes.imageinput}>
-                            <input type="file" className={classes.imageinp} onChange={this.handleChange} />
+                            <input type="file" accept="image/*" className={classes.imageinp} onChange={this.handleChange} />
                             </div>
                             <br />
                             <div className={classes.buttons}>
-                            <button disabled={this.state.dis} className="btn btn-primary" onClick={this.handleSubmit}>Upload Image</button>
+                            <button disabled={disableButton} className="btn btn-primary" onClick={this.handleSubmit}>Upload Image</button>
                             
                             <div style={{width: '30px', color: 'white'}}>J</div> 
 

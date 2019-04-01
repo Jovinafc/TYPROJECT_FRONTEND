@@ -10,6 +10,9 @@ import Datetime from 'react-datetime';
 import moment, * as moments from 'moment';
 import './react-date.css';
 import VehicleReviewDiv from './VehicleReviewDiv';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 
 class VehicleDetail extends Component {
 
@@ -31,7 +34,10 @@ class VehicleDetail extends Component {
         noReviews: false,
         startDateError: '',
         endDateError: '',
-        depositAmount: 5000
+        depositAmount: 5000,
+        modalShow:false,
+        modalShowDoc: false
+
     }
 
 
@@ -102,8 +108,9 @@ class VehicleDetail extends Component {
            {
             this.setState({
                 vehicles: response.data[0],
-                owner: response.data[0].owner
+                owner: response.data[0].owner,
             });
+            
             console.log(response.data[0].owner.name);
             this.setState({postedOn: response.data[0].createdAt.substring(0,10)})
             this.props.save_bank_account_no(response.data[1])
@@ -111,8 +118,6 @@ class VehicleDetail extends Component {
            }
          })
          .catch(err => {
-             console.log(err);
-             console.log(err.response.data)
              this.setState({Invalid: true})
          });
 
@@ -176,6 +181,15 @@ class VehicleDetail extends Component {
     dateHandler = () => {
 
     }
+
+     date_diff_indays = function(date1, date2) {
+        let dt1 = new Date(date1);
+        let dt2 = new Date(date2);
+        return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+     }
+        // }
+        // console.log(date_diff_indays('04/02/2014', '11/04/2014'));
+        // console.log(date_diff_indays('12/02/2014', '11/04/2014'));
  
     starth = (moment) => {
         console.log(moment);
@@ -190,36 +204,63 @@ class VehicleDetail extends Component {
 
     endh = (moment) => {
         console.log(moment);
+        
+
         let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
         console.log(s);
+
+
         this.setState({
             end: s
         }, () => {
-               let sd = this.state.start;
-               let ed = this.state.end;
-               console.log(sd);
-               console.log(ed); 
+            //    let sd = this.state.start;
+            //    let ed = this.state.end;
+            
+            //    let s = sd.substring(8,10);
+            //    console.log(s)
+            //    let e = ed.substring(8,10);
+            //    console.log(e);
 
-               let s = sd.substring(8,10);
-               console.log(s)
-               let e = ed.substring(8,10);
-               console.log(e);
-               console.log(e-s);
-               if(e-s === 0){
+       
+               let a = moments(this.state.start).format('MM/DD/YYYY');
+               console.log(a);
+               let b = moments(moment._d).format('MM/DD/YYYY');
+               console.log(b);
+       
+               let diff = this.date_diff_indays(a,b);
+               console.log(diff);
+       
+               if(diff === 0){
                    this.setState({
                        days: 1
                    })
                }
                else {
                this.setState({
-                   days: e - s
+                   days: diff
                })
             }
         });
 
+
+
         this.props.endDate(s);
 
     }
+
+    submitHandler = (e) => {
+            this.setState({
+                modalShow: false
+            })
+        
+    }
+
+    submitHandlerDoc = (e) => {
+        this.setState({
+            modalShowDoc: false
+        })
+    
+}
 
     
     render () {
@@ -229,6 +270,8 @@ class VehicleDetail extends Component {
             return current.isAfter(yesterday);
         };
         console.log(this.state.vehicles);
+        console.log(this.state.owner.name);
+        // console.log(this.state.vehicles.owner);
 
         let reviewlist = null;
 
@@ -269,6 +312,9 @@ class VehicleDetail extends Component {
                           </div>
         }
         
+        let modalClose = () => this.setState({ modalShow: false });
+
+        let modalCloseDoc = () => this.setState({ modalShowDoc: false });
 
         return (
             <Aux>
@@ -293,7 +339,34 @@ class VehicleDetail extends Component {
                                  <div> <p><strong>State:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.registration_state}</span> </p></div>
                                  <div> <p><strong>Fuel Type:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.fuel_type}</span> </p></div> 
                                  <div> <p><strong>Vehicle Number:</strong>  <span className={classes.valueDetail}>{this.state.vehicles.number_plate}</span> </p></div>  
+                                 
+                                 <Modal
+        show={this.state.modalShowDoc}
+        onHide={modalCloseDoc}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+                 <div className={classes.modalHeader}>
+                     Vehicle Document
+                </div>      
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                <div className={classes.documentViewer}>
+                    <a href={this.state.vehicles.documents} download="myimage"><img alt="Document Image" className={classes.vehicledocument} src={this.state.vehicles.documents} /></a>
 
+                     {/* <img src={this.state.vehicles.documents} alt="Vehicle Document" className={classes.vehicledocument}/>       */}
+                </div>                    
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.submitHandler}>Close</Button>
+        </Modal.Footer>
+      </Modal>    
+                                 <div> <button onClick={() => this.setState({ modalShowDoc: true })} className={classes.valueDetail}>Vehicle Document</button> </div>  
+                                       
                                  </div>
                              </div>
                     </div>
@@ -305,7 +378,72 @@ class VehicleDetail extends Component {
                             {this.state.vehicles.price ? 
                             <div style={{marginLeft: '4px'}}><strong>Price: &#x20B9;</strong> <span className={classes.valueDetail}>{this.state.vehicles.price.toLocaleString('en-IN')}</span></div> : <div style={{marginLeft: '4px'}}><strong>Price per day:</strong> <span className={classes.valueDetail}>&#x20B9;{this.state.vehicles.price_per_day}</span></div>} 
                             <div style={{marginLeft: '4px'}}><strong> Ad Posted On: </strong> <span className={classes.valueDetail}>{this.state.postedOn}</span></div>    
-                            <div style={{marginLeft: '4px'}}><strong>Owner: </strong><span className={classes.valueDetail}>{this.state.owner.name}</span></div>    
+                            <div style={{marginLeft: '4px'}}><strong>Owner: </strong><span className={classes.valueDetail}>{this.state.owner.name}</span></div>
+
+                            <Modal
+        show={this.state.modalShow}
+        onHide={modalClose}
+        size="sg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+                 <div className={classes.modalHeader}>
+                     Owner Details
+                </div>      
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                <div className={classes.modalDetails}>
+                     <table>           
+                     {/* <div><p><strong>Phone Number:</strong><span>{this.state.owner.mobile_no}</span></p></div>  
+                     <div><p><strong>Address:</strong><span>{this.state.owner.address}</span></p></div>  
+                     <div><p><strong>State:</strong><span>{this.state.owner.state}</span></p></div>  
+                     <div><p><strong>City:</strong><span>{this.state.owner.city}</span></p></div>  
+                     <div><p><strong>Pincode:</strong><span>{this.state.owner.pincode}</span></p></div>   */}
+
+                    <tr>
+                         <td><strong>Name:</strong></td>
+                         <td>{this.state.owner.name}</td>
+                     </tr>   
+
+                     <tr>
+                         <td><strong>Phone Number:</strong></td>
+                         <td>{this.state.owner.mobile_no}</td>
+                     </tr>
+
+                     
+                     <tr>
+                         <td><strong>Address:</strong></td>
+                         <td>{this.state.owner.address}</td>
+                     </tr>
+                     
+                     <tr>
+                         <td><strong>State:</strong></td>
+                         <td>{this.state.owner.state}</td>
+                     </tr>
+
+                     
+                     <tr>
+                         <td><strong>City:</strong></td>
+                         <td>{this.state.owner.city}</td>
+                     </tr>
+
+                     
+                     <tr>
+                         <td><strong>Pincode:</strong></td>
+                         <td>{this.state.owner.pincode}</td>
+                     </tr>
+                     </table>           
+                </div>                    
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.submitHandler}>Close</Button>
+        </Modal.Footer>
+      </Modal>    
+
+                            <div style={{marginLeft: '4px'}}><button className={classes.ownerdet} onClick={() => this.setState({ modalShow: true })}>Owner Details</button></div>
                             <div> {datepickers} </div>
                             <div className={classes.buttonCont}>
                             {
