@@ -11,12 +11,12 @@ import axios from 'axios';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 // import RBCarousel from "react-bootstrap-carousel";
 import Vehicle1 from './Vehicle 1.jpg';
-import Vehicle2 from './Vehicle 2.jpg';
-import Vehicle3 from './Vehicle 3.jpg';
-import Vehicle4 from './Vehicle 4.jpg';
+// import Vehicle2 from './Vehicle 2.jpg';
+// import Vehicle3 from './Vehicle 3.jpg';
+// import Vehicle4 from './Vehicle 4.jpg';
 import Vehicle5 from './Vehicle 5.jpg';
-import Vehicle6 from './Vehicle 6.jpg';
-import Vehicle7 from './Vehicle 7.jpg';
+// import Vehicle6 from './Vehicle 6.jpg';
+// import Vehicle7 from './Vehicle 7.jpg';
 
 class HomePage extends Component {
 
@@ -29,7 +29,6 @@ class HomePage extends Component {
         window.scrollTo(0, 0);
 
         axios.post('/fetch-vehicles-except-current-user', {user_id: localStorage.getItem('userId')}).then(result => {
-            console.log(result.data);
             const fetchedValues = [];
             for(let key in result.data){
                 fetchedValues.push({
@@ -40,7 +39,6 @@ class HomePage extends Component {
             this.setState({vehicles: fetchedValues})
         })
         .catch(err => {
-            console.log(err);
         })
     }
 

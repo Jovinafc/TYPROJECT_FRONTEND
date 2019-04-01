@@ -7,11 +7,14 @@ class About extends Component  {
             <div className={classes.Container}>
                 <h2 style={{textAlign: 'center'}}>About Us</h2>
                 <div className={classes.content}>
-                    <p>
-                        RideWheelz is a website about 
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
+                    <p className={classes.con}>                
+                    Ride Wheelz is a website where a user can sell or lend his vehicle which can then be made available to other users who can then buy or rent a vehicle respectively.
+Along with this users can also buy vehicle accessories. Users have an option to add accessories in his Cart which can then later be purchased from his cart. RideWheelz follows its own payment gateway. Users can also rate and give a feedback about any vehicle which they have rented from our website which can then be viewed by other users. Users can rate a feedback has helpful and not helpful. Most of the other websites offer 4-Wheelers for rents but here at Ride Wheelz we offer users the opportunity to rent 2-Wheelers as well. The website is develped using ReactJs has a frontend and Node.js has a backend. 
+     
+                      </p>
+                    <div>
+                        <p><strong>Developers :</strong> Jovin Dsouza and Lionel Dsouza</p>
+                    </div>
                 </div>
             </div>
         )

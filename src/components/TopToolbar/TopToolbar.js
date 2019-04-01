@@ -12,14 +12,14 @@ import Slogan from './Slogan design 1.png';
 // import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import RW from './RW.png';
 
-const style = {
+// const style = {
     // height: '95%',
     // width: '5%',
     // marginRight: '2%',
     // textAlign: 'center',
     // maxWidth: '100%',
 
-}
+// }
 
 class TopToolbar extends Component {
 

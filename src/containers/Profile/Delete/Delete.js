@@ -9,21 +9,15 @@ import { connect} from 'react-redux';
 import * as actions from '../../../store/actions/auth';
 import {Redirect} from 'react-router-dom';
 
-
-
 class Delete extends Component {
 
-        
         state = {
             show: false,
             email: '',
             password: '',
             user_id: this.props.user_id,
             
-        }
-    
-
-   
+        }  
 
     deletaHandler = (e) => {
         e.preventDefault();
@@ -49,11 +43,9 @@ class Delete extends Component {
         e.preventDefault();
         axios.post('/delete-account', {email: this.state.email, password: this.state.password, user_id: this.state.user_id})
         .then(res =>{
-            console.log(res);
             this.props.onLogout();
         })
         .catch(err => {
-            console.log(err);
         });
 
         this.setState({

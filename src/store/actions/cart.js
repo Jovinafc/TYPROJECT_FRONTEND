@@ -33,8 +33,8 @@ export const getNoOfItems = (user_id) => {
     return dispatch => {
         axios.post('', {user_id: user_id})
         .then(response => {
-            console.log(response);
-            console.log(response.data.details);
+            // console.log(response);
+            // console.log(response.data.details);
             dispatch(update_items(response.data.number));
             dispatch(cartDetails(response.data.details))
         })
@@ -57,7 +57,7 @@ export const addToCart = (user_id,accessory_id,quantity) => {
     return dispatch => {
         axios.post('/addCart', {user_id: user_id, accessory_id: accessory_id, quantity: quantity})
         .then(response => {
-            console.log(response);
+            // console.log(response);
             if(response.data === 'Item Exist')
             {
                 dispatch(alertControl())
@@ -74,7 +74,7 @@ export const addToCart = (user_id,accessory_id,quantity) => {
             dispatch(cartItems(user_id))
         })
         .catch(err=> {
-            console.log(err.response.data);
+            // console.log(err.response.data);
         })
     }
 }
@@ -137,7 +137,7 @@ export const cartAmountQunatity = () => {
     return dispatch => {
         axios.post('/checkout-check', {user_id: localStorage.getItem('userId')})
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             dispatch(cartAmount(response.data.count, response.data.grand_total))
             
         })

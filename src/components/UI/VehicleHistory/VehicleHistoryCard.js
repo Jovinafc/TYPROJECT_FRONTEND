@@ -21,32 +21,9 @@ class VehicleHistoryCard extends Component {
         rating: 0,
         edit: true,
         disabled: false
-        // review: '' || this.props.details.feedback['feedback_comment'] ,
-        // rating: '' || this.props.details.rating['rating_number']     
     }
 
-    componentDidMount = () => {
-        // if(this.props.details.feedback['feedback_comment'] === null){
-        //     this.setState({
-        //         review: ''
-        //     })
-        // }
-
-        // if( 'feedback' in this.props.details ){
-        //     this.setState({
-        //       review: this.props.details.feedback['feedback_comment']  
-        //     })
-        // }
-
-        // if(this.props.details.has('feedback')){
-        //     console.log('true');
-        // }
-        // console.log(this.props.details.vehicle_id);
-        // if(this.props.details.rents.length > 0 ){
-        //     console.log(this.props.details.rents[0].start_date);
-        // }
-
-
+    componentDidMount = () => {  
         axios.get(`/get-vehicles?vehicle_id=${this.props.details.vehicle_id}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
 
@@ -148,10 +125,8 @@ class VehicleHistoryCard extends Component {
                 rating_number: newRating
             })
             .then(res => {
-                console.log(res);
             })
             .catch(err => {
-                console.log(err);
             })
         })
     }
@@ -159,7 +134,7 @@ class VehicleHistoryCard extends Component {
     submitHandler = (e) => {
         
         e.preventDefault();
-        console.log('post reviews');
+        // console.log('post reviews');
         axios.post('/create-comment', {
             user_id: localStorage.getItem('userId'),
             user_name: this.props.fname+ ''+ this.props.lname,
@@ -177,26 +152,25 @@ class VehicleHistoryCard extends Component {
 
 
     rateHandler = (value) => {
-        console.log(value.rating);
+        // console.log(value.rating);
     }
 
     cancelHandler = () =>{
         this.props.startLoading();
-        console.log(this.props.details.owner['name']);
-        console.log(this.props.details.vehicle_id);
-        console.log(this.props.details.amount);
-        console.log(this.props.account_no);
-        console.log(this.props.details.owner['owner_id']);
-        console.log(this.props.details.client_id);
+        // console.log(this.props.details.owner['name']);
+        // console.log(this.props.details.vehicle_id);
+        // console.log(this.props.details.amount);
+        // console.log(this.props.account_no);
+        // console.log(this.props.details.owner['owner_id']);
+        // console.log(this.props.details.client_id);
         axios.post('/cancel-booking', {owner_name: this.props.details.owner['name'], owner_id: this.props.details.owner['owner_id'], vehicle_id: this.props.details.vehicle_id,client_id: this.props.details.client_id,   deposit: 5000, amount: this.props.details.amount,user_id:localStorage.getItem('userId'),client_bank_account_no: this.props.account_no})
         .then(res => {
-            console.log(res);
+            
             this.props.fetchVehicleHistory();
             this.props.stopLoading();
 
         })
         .catch(err => {
-            console.log(err);
             this.props.stopLoading();
 
         })
@@ -236,11 +210,7 @@ class VehicleHistoryCard extends Component {
 
     render () {
         let modalClose = () => this.setState({ modalShow: false });
-        // console.log(this.props.details.rents[0].start_date);
-        // console.log(this.props.ratingDetails);
-        // console.log(this.props.commentDetails);
-        // console.log(this.props.details.owner['name']);
-
+       
         return (
 
             <div className={classes.bigDiv}>

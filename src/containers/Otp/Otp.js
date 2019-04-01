@@ -21,10 +21,8 @@ class Otp extends Component {
 
     otpsender = (e) => {
         e.preventDefault();
-        console.log(this.props.email+" "+this.state.otp);
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
-          console.log(response);
           Alert.success('Payment Successful', {
             position: 'top',
             effect: 'bouncyflip',
@@ -42,18 +40,16 @@ class Otp extends Component {
                 client_bank_account: this.props.client_bank_account,
                 amount: this.props.price
             } 
-            console.log(vehicles);
             axios.post('/buy-now', {vehicles: vehicles})
             .then(response => {
-                console.log(response);
                 this.setState({success: true})
 
             })
 
           }
           else if(this.props.payment_type === 'Rent'){
-            console.log(this.props.enddatetime);
-              console.log(this.props.vehicle_id+ " "+localStorage.getItem('userId')+ " "+(this.props.price_per_day*this.props.days))
+            // console.log(this.props.enddatetime);
+            //   console.log(this.props.vehicle_id+ " "+localStorage.getItem('userId')+ " "+(this.props.price_per_day*this.props.days))
                 axios.post('/rent-now', {
                     user_client_id: localStorage.getItem('userId'), 
                          vehicle_id: this.props.vehicle_id,
@@ -65,13 +61,12 @@ class Otp extends Component {
                          deposit: 5000
             })
             .then(response =>{
-                console.log(response);
                 this.setState({success: true})
 
             })
           }
           else if(this.props.payment_type === 'Single Item') {
-                console.log(this.props.accessory_id+ ''+this.props.quantity+ ''+ this.props.single_item.accessory_price+ '' +this.props.quantity);
+                // console.log(this.props.accessory_id+ ''+this.props.quantity+ ''+ this.props.single_item.accessory_price+ '' +this.props.quantity);
                 
               axios.post('/direct-buy', {
                   user_id: localStorage.getItem('userId'),
@@ -80,7 +75,6 @@ class Otp extends Component {
                   quantity: this.props.quantity,
                   amount: this.props.single_item.accessory_price * this.props.quantity 
             }).then(response => {
-              console.log(response);
               this.setState({success: true})
 
             })
@@ -88,7 +82,6 @@ class Otp extends Component {
           else {
               axios.post('/checkout', {user_id: localStorage.getItem('userId')})
               .then(response => {
-                  console.log(response);
                   this.setState({success: true})
                   this.props.cartItems(localStorage.getItem('userId'));
               })
@@ -97,7 +90,6 @@ class Otp extends Component {
 
         })
         .catch(err => {
-          console.log(err.response.data);
           Alert.warning('Incorrect OTP', {
             position: 'top',
             effect: 'bouncyflip',

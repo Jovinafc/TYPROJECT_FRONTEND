@@ -13,7 +13,6 @@ import {
     formatExpirationDate
   } from './cardUtils'
 import { connect} from 'react-redux';
-// import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
 import Alert from 'react-s-alert';
@@ -39,50 +38,18 @@ class ProductPayment extends Component {
         spin: false,
         loading:false
     }
-
-    // componentDidMount = () => {
-    //   axios.post('/fetch-specific-accessory', {accessory_id: this.props.product_id})
-    //   .then(response => {
-    //     console.log(response.data);
-    //     this.setState({product: response.data})
-    //     this.props.singleItemDetails(response.data)
-    //   })
-
-
-      
-    // }
-
-    //   otpsender = (e) => {
-    //     e.preventDefault();
-        
-    //     axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
-    //     .then(response => {
-    //       console.log(response.data);
-    //       alert("Success");
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     })
-    //   }
-  
   
     render() {
-        const { data } = this.props.location;
-        console.log(data);
-        console.log(this.props);
-        console.log(this.state.product)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 
      const onSubmit = async values => {
 
        this.setState({loading: true})
-       console.log(values);
         await sleep(300)
         let expiry = values.expiry;
         if(expiry.length > 5){
           expiry = expiry.substring(0,5);
-          console.log(expiry);
         }
 
         let cardNum = values.number;
@@ -90,12 +57,9 @@ class ProductPayment extends Component {
           cardNum = cardNum.substring(0,19);
         }
         else{
-          console.log('Enter a value')
         }
-        console.log(expiry);
         
 
-        console.log(cardNum);
         const cardDetails = {
           name: values.name,
           card_no: cardNum,
@@ -105,12 +69,9 @@ class ProductPayment extends Component {
         }
         axios.post('/pay-now', {card_details: cardDetails})
         .then(response => {
-          console.log(response.data);
           if(response.data === 'VALID'){
-            console.log(this.props.email);
             axios.post('/request-otp', {email: this.props.email})
             .then(res=> {
-                console.log(res);
                 this.setState({
                   loading: false,
                   otpdisplay: true
@@ -129,7 +90,6 @@ class ProductPayment extends Component {
 
         })
         .catch(err => {
-          console.log(err.response.data);
           Alert.warning('Invalid Card Details', {
             position: 'top',
             effect: 'bouncyflip',
@@ -165,9 +125,7 @@ class ProductPayment extends Component {
     active,
     disable = true
   }) => {
-    console.log(values);
      disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
-     console.log(disable);
     return (
       <form onSubmit={handleSubmit}>
          <Card
@@ -205,6 +163,8 @@ class ProductPayment extends Component {
             placeholder="Valid Thru"
             format={formatExpirationDate}
           />
+          </div>
+          <div>
           <Field
             name="cvc"
             component="input"

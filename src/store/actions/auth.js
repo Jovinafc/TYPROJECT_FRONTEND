@@ -89,7 +89,7 @@ export const deleteLocalStorage = () => {
       
       axios.post('/sign-in', {users: users})
       .then(response => {
-          console.log(response.data);
+        //   console.log(response.data);
           const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('expirationDate', expirationDate);
@@ -103,15 +103,15 @@ export const deleteLocalStorage = () => {
           dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(err => {
-           console.log(err.response.data);
-           console.log(err.message.toString());
+        //    console.log(err.response.data);
+        //    console.log(err.message.toString());
           dispatch(authFail(err.response.data));
       });
     };
 }
 
 export const authRefresh = (email, user_id) => {
-    console.log(user_id +" "+email )
+    // console.log(user_id +" "+email )
     return dispatch => {
         axios.get(`/getToken/${user_id}/${email}`)
         .then(response => {
@@ -217,7 +217,7 @@ export const userData = (user_id) => {
     return dispatch => {
         axios.post('/fetch-user', {user_id: user_id})
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(saveUserData(res.data.first_name,
                 res.data.last_name,
                 res.data.phone_number,
@@ -232,7 +232,7 @@ export const userData = (user_id) => {
 
         })
         .catch(err => {
-            console.log(err.response.data);
+            // console.log(err.response.data);
         })
     }
 }

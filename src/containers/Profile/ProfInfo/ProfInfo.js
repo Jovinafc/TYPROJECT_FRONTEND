@@ -2,18 +2,14 @@ import React, {Component} from 'react';
 import classes from './ProfInfo.module.css';
 import cx from 'classnames';
 import globalStyles from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-// import { DatePicker} from 'shineout';
 import axios from 'axios';
 import * as actions from '../../../store/actions/auth';
 import { connect } from 'react-redux';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-datepicker/dist/react-datepicker.css";
-// import moment from 'react-moment';
-import ModernDatePicker from 'react-modern-datepicker'
 import Alert from 'react-s-alert';
 import Datetime from 'react-datetime';
-import LoadingOverlay from 'react-loading-overlay';
 import {ClipLoader} from 'react-spinners';
 import { css } from '@emotion/core';
 
@@ -56,7 +52,6 @@ class ProfInfo extends Component {
 
         axios.post('/fetch-user', {user_id: this.props.user_id})
         .then(res => {
-            console.log(res.data);
             this.setState({
                 first_name: res.data.first_name,
                 last_name: res.data.last_name,
@@ -97,7 +92,6 @@ class ProfInfo extends Component {
         
         console.log(date);
         this.setState({DOB: date})
-        // this.setState({DOB: e.target.value});
     }
 
     stateHandler = (e) => {
@@ -182,7 +176,7 @@ class ProfInfo extends Component {
         }
         
         }    
-        if(pi === false) {
+        if(pn === false) {
             isError = true;
             this.setState({
                 ...this.state,
@@ -190,18 +184,6 @@ class ProfInfo extends Component {
             })
             errors.pin_numberError = 'Enter Valid Number'
         }
-
-
-        // let v = false;
-        
-        // if(v === false) {
-        //     isError = true;
-        //     this.setState({
-        //         ...this.state,
-        //         phone_numberError: 'Please Enter Valid Number(10 digits)'
-        //     })
-        //     errors.phone_numberError = 'Enter Valid Number'
-        // }
 
 
 //Bank Account        
@@ -351,11 +333,9 @@ class ProfInfo extends Component {
         const fd = new FormData(); 
         fd.append('documentImage', this.state.documents);   
         axios.post('/documentImage', fd).then(res => {
-            console.log(res);
 
             axios.post('/update-user-profile', {users: users })
             .then( res => {
-                console.log(res);
                 this.setState({
                     uploadspin: false
                 })
@@ -368,7 +348,6 @@ class ProfInfo extends Component {
                 this.props.fetchUser(this.state.user_id);
             })
             .catch(err => {
-                console.log(err);
                 this.setState({
                     uploadspin: false
                 })
@@ -428,8 +407,6 @@ class ProfInfo extends Component {
                dis = true
            }
 
-           console.log(this.state);
-    
         return (
 
             <div className={classes.Cont}>

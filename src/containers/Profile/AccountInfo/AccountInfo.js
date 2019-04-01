@@ -176,7 +176,6 @@ class AccountInfo extends Component {
         if(this.state.new_password === this.state.confirm_password){
             axios.post('/update-password', {email: this.state.email, old_password: this.state.old_password, password: this.state.confirm_password})
             .then( response => {
-                console.log(response);    
                 Alert.info('Password Changed', {
                     position: 'top',
                     effect: 'bouncyflip',
@@ -187,7 +186,6 @@ class AccountInfo extends Component {
         }
         }
         else {
-            console.log('incorrect');
         }     
     }
  

@@ -10,11 +10,7 @@ import Button from 'react-bootstrap/Button';
 import ReactStars from 'react-stars'
 import ReviewDiv from './ReviewDiv';
 
-
-
 class ProductDetail extends Component {
-
-    
 
     state = {
         product: [],
@@ -39,20 +35,16 @@ class ProductDetail extends Component {
         a = a.substring(1);
         this.props.type_payment('Single Item')
 
-        console.log('cafafhuhuhj')
         axios.post('/fetch-specific-accessory', {accessory_id: a})
         .then(response => {
-            console.log(response);
             this.setState({
                 product: response.data
             })
 
-            console.log(this.state.product);
         })
 
         axios.get(`/get-accessory?accessory_id=${localStorage.getItem('product_id')}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
-            console.log(res.data);
             if(res.data !== 'No Reviews'){
                 const hist = [];
 
@@ -70,7 +62,6 @@ class ProductDetail extends Component {
         
         axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: a})
         .then(response => {
-            console.log(response.data);
             if(response.data.length > 0 ){
             
             const hist = [];
@@ -80,7 +71,6 @@ class ProductDetail extends Component {
                     iddd: key
                 });
             }
-            console.log(hist[0]['rating'])
             this.setState({
                 reviewsArray: hist
                })
@@ -90,7 +80,6 @@ class ProductDetail extends Component {
         
         axios.post('/fetch-specific-accessory-rating-and-review-based-on-user-accessory', {user_id: localStorage.getItem('userId'), accessory_id: localStorage.getItem('product_id')})
         .then(res => {
-            console.log(res.data);
             if(res.data.length > 0){
                 
                 if(res.data[0].review !== null||''){
@@ -108,8 +97,6 @@ class ProductDetail extends Component {
                         })
                     })
                 }
-
-                console.log(this.state.ratedisable);
 
                 if(res.data[0].review !== null||''){
                     this.setState({
@@ -148,10 +135,8 @@ class ProductDetail extends Component {
     }
 
     updateQuantity = () => {
-        console.log(this.state.counter);
         axios.post('/direct-buy-check', {user_id: localStorage.getItem('userId'), accessory_id: this.state.product.accessory_id, quantity: this.state.counter} )
         .then(response => {
-            console.log(response)
             alert(response.data);
             // if(response.data === 'Insuffiecient')
             if(response.data === 'Insufficient Stock'){
@@ -170,7 +155,6 @@ class ProductDetail extends Component {
     buyProduct = () => {
         axios.post('/direct-buy-check', {user_id: localStorage.getItem('userId'), accessory_id: this.state.product.accessory_id, quantity: this.state.counter})
         .then(response => {
-            console.log(response);
             if(response.data === 'Insufficient Stock'){
                 alert("Insufficient Data")
                 this.setState({
@@ -199,10 +183,8 @@ class ProductDetail extends Component {
                 rating: newRating
             })
             .then(res => {
-                console.log(res);
             })
             .catch(err => {
-                console.log(err);
             })
         })
     }
@@ -228,7 +210,6 @@ class ProductDetail extends Component {
             review: this.state.review
         })
         .then(res => {
-            console.log(res);
             this.setState({
                 modalShow: false
             })
@@ -237,9 +218,6 @@ class ProductDetail extends Component {
 
 
     render () {
-
-
-
         let rateDiv = <div>
 
                         
@@ -255,10 +233,8 @@ class ProductDetail extends Component {
                          </div>
 
         let reviewlist;
-        console.log(this.state.revArray);
-
+    
         if(this.state.revArray.length > 0){
-            console.log(this.state.revArray);
             reviewlist = this.state.revArray.map(dis => {
                 return (
                 <ReviewDiv 

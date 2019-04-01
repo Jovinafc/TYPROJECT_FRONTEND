@@ -42,12 +42,6 @@ class Accessories extends Component {
         this.setState({term: e.target.value})
     }
 
-    priceRangeHandler = (e) => {
-        // console.log(e);
-        // this.setState({
-        //     price: { min: min, max: max }
-        // })
-    }
     render () {
 
         let displayProducts = this.state.products

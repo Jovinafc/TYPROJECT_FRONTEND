@@ -11,8 +11,8 @@ import authReducer from './store/reducers/auth';
 import cartReducer from './store/reducers/cart'; 
 import vehicleReducer from './store/reducers/vehicle_click';
 import axios from 'axios';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-oldschool-dark'
+// import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+// import AlertTemplate from 'react-alert-template-oldschool-dark'
 
 
 axios.defaults.baseURL = 'http://localhost:3001';
@@ -23,7 +23,7 @@ axios.interceptors.request.use(request => {
     // console.log(request);
     return request;
 }, error => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject(error);
 });
 
@@ -31,7 +31,7 @@ axios.interceptors.response.use(response => {
     // console.log(response);
     return response;
 }, error => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject(error);
 })
 
@@ -72,19 +72,17 @@ const store = createStore(rootReducer, persistedState, composeEnhancers(
 
 store.subscribe(() => saveToLocalStorage(store.getState()))
 
-const options = {
-    position: positions.BOTTOM_CENTER,
-    timeout: 5000,
-    offset: '30px',
-    transition: transitions.SCALE
-  }
+// const options = {
+//     position: positions.BOTTOM_CENTER,
+//     timeout: 5000,
+//     offset: '30px',
+//     transition: transitions.SCALE
+//   }
 
 const app = (
     <Provider store={store}>
         <BrowserRouter> 
-            <AlertProvider {...options} template={AlertTemplate}>
             <App />
-            </AlertProvider>
         </BrowserRouter>
     </Provider>
 );

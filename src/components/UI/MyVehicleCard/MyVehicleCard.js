@@ -13,7 +13,6 @@ class MyVehicleCard extends Component {
         this.props.startLoading();
         axios.post('/remove-vehicle', {user_id: localStorage.getItem('userId'), vehicle_id: this.props.details.vehicle_id})
         .then(res => {
-            console.log(res.data);
             this.props.my_vehicle_store();
             this.props.stopLoading();
 

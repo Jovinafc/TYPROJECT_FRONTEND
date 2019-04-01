@@ -110,8 +110,8 @@ export const save_owner_bank_account_no = (bank_account_no) => {
 
 export const no_of_days = (start, end) => {
     return dispatch => {
-        console.log(start);
-        console.log(end);
+        // console.log(start);
+        // console.log(end);
    }
 }
 
@@ -133,7 +133,7 @@ export const my_vehicles_store = () => {
     return dispatch => {
         axios.post('/fetch-specific-user-vehicles', {user_id: localStorage.getItem('userId')})
     .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         const vehicles = [];
         for(let key in res.data){
             vehicles.push({
@@ -160,8 +160,8 @@ export const fetchVehiclesHistory = () => {
         
     axios.post('/vehicle-history', {user_id: localStorage.getItem('userId')})
     .then(response => {
-        console.log(response.data.details);
-        console.log(response.data);
+        // console.log(response.data.details);
+        // console.log(response.data);
         // this.setState({
         //     vehicles: response.data
         // })
@@ -193,7 +193,7 @@ export const fetchVehiclesHistory = () => {
        
     })
     .catch(err => {
-        console.log(err);
+        // console.log(err);
     })
     }
 }

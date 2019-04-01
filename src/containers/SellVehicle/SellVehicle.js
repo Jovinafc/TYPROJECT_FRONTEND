@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classes from './SellVehicle.module.css';
-// import { Form } from 'shineout';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -69,8 +68,6 @@ class SellVehicle extends Component {
         window.addEventListener('resize', this.handleWindowSizeChange);
       }
       
-      // make sure to remove the listener
-      // when the component is not mounted anymore
       componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowSizeChange);
       }
@@ -106,10 +103,8 @@ class SellVehicle extends Component {
 
         axios.get('/fetch-vehicle-type').then(result => {
             this.setState({types: result.data})
-            console.log(result);
         })
         .catch(err => {
-            console.log(err.response.data);
         });
 
         this.details(); 
@@ -208,7 +203,6 @@ class SellVehicle extends Component {
              .then((result) => {
                  this.setState({models: result.data})
              }).catch(e => {
-                 console.log(e);
              })
         }
         else if(this.state.tempType === 'Two-Wheelers'){
@@ -216,7 +210,6 @@ class SellVehicle extends Component {
             .then((result) => {
                 this.setState({models: result.data})
             }).catch(e => {
-                console.log(e);
             })
        }
     }
@@ -366,16 +359,13 @@ class SellVehicle extends Component {
             const fd = new FormData();
             fd.append('image',this.state.formdata.image);
             axios.post('/image',fd).then(()=>{  
-                console.log('Image Sent');
 
                const sd = new FormData(); 
                sd.append('documentImage', this.state.formdata.documents) 
                axios.post('/documentImage', sd).then(res => {
-                   console.log(res);
 
                    axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
                    .then((post) => {
-                       console.log("Data Sent", post);
                        Alert.info('Ad Posted', {
                            position: 'top',
                            effect: 'bouncyflip',
@@ -404,7 +394,6 @@ class SellVehicle extends Component {
                        }) 
                
                    }).catch(e=>{
-                       console.log(e)
                        Alert.warning('Some Error Occurred! Please Try Again', {
                         position: 'top',
                         effect: 'bouncyflip',
@@ -495,7 +484,6 @@ class SellVehicle extends Component {
 
         let reader = new FileReader();
         let file = e.target.files[0];
-        console.log(file)
         if(file===undefined)
         {
             this.setState({imagePrev:null,})
@@ -512,7 +500,6 @@ class SellVehicle extends Component {
             }
            
           });
-          console.log(this.state.formdata.image)
         }
         if(e.target.files[0]){
             reader.readAsDataURL(e.target.files[0]);
@@ -573,12 +560,8 @@ class SellVehicle extends Component {
 
   render () {
 
-    // const { width } = this.state;
-    // const isMobile = width <= 500;
-
       let redirect = null;
 
-        console.log(this.props.isAuthenticated);
       if(!this.props.isAuthenticated){
          redirect = <Redirect to="/login"/>
       }
@@ -596,9 +579,6 @@ class SellVehicle extends Component {
         this.state.formdata.price !== ''){
             disable = false;
         }
-
-      console.log(this.state);
-      console.log(this.state.imagePrev + "image preview");
     let {imagePrev} = this.state;
     let imagePreview = null;
     if (imagePrev) {
@@ -659,23 +639,7 @@ class SellVehicle extends Component {
         <MenuItem value={item} key={i} >{item}</MenuItem>
     );
 
-    console.log(this.state.formdata);
 
-    // if(isMobile){
-    //     return (
-    //         <div>
-    //             Phone Layout
-    //             <div  className={classes.Box} >
-
-    //         <Tabs />
-
-    //     </div>
-    //         </div>
-    //     )
-    // }
-    // else {
-
-    
     return (
         <Aux>
             {redirect}

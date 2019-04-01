@@ -32,26 +32,6 @@ class Profile extends Component {
     render () {
         let main= <ProfInfo />
 
-        // let main = (
-        //     <Switch>
-        //         <Route path="/profile" exact component={ProfInfo} />
-        //         <Route path="/photo" exact component={Photo} />
-        //         <Route path="/account" exact component={AccountInfo} />
-        //         <Route path="/delete" exact component={Delete} /> 
-        //     </Switch>
-        // )
-
-        // if(this.state.photo === true) {
-        //     main = <Photo />
-        // }
-
-        // if(this.state.account) {
-        //     main = <AccountInfo />
-        // }
-        // if(this.state.close) {
-        //     main = <Delete />
-        // }
-
         return (
             <Aux>
                 <div className={classes.Container}>
@@ -59,47 +39,7 @@ class Profile extends Component {
                     <div className={classes.Menu}>  
 
                         <ProfNav />
-
-                          {/* <ul className={classes.ul}>
-                             {this.state.profile
-                             ? <li className={classes.list}><a onClick={this.profileHandler}>Profile</a></li>
-                             : <li className={classes.li}><a onClick={this.profileHandler}>Profile</a></li>
-
-                            }
-
-                             {this.state.photo 
-                              ? <li className={classes.list}><a onClick={this.photoHandler}>Photo</a></li>
-                              : <li className={classes.li}><a onClick={this.photoHandler}>Photo</a></li>
-                              }   
-
-                              {this.state.account
-                                ? <li className={classes.list}><a onClick={this.accountHandler}>Account Info</a></li>
-                                : <li className={classes.li}><a onClick={this.accountHandler}>Account Info</a></li>
-                                }
-                              
-                              {this.state.close
-                              ? <li className={classes.list}><a onClick={this.close}>Delete Account</a></li>
-                              : <li className={classes.li}><a onClick={this.close}>Delete Account</a></li>
-                              } */}
-
-                              {/* <li className={classes.li}><a onClick={this.profileHandler}>Profile</a></li>
-                              <li className={classes.li}><a onClick={this.photoHandler}>Photo</a></li>
-                              <li className={classes.li}><a onClick={this.accountHandler}>Account Info</a></li>
-                              <li className={classes.li}><a onClick={this.close}>Delete Account</a></li> */}
-                         {/* </ul> */}
-
                     </div>  
-
-                      {/* <div className={classes.Menu}>  
-                          <ul className={classes.ul}>
-                              <li className={classes.li}><NavLink to="/profile">Profile</NavLink></li>
-                              <li className={classes.li}><NavLink to="/photo">Photo</NavLink></li>
-                              <li className={classes.li}><NavLink to="/account">Account Info</NavLink></li>
-                              <li className={classes.li}><NavLink to="/delete">Delete Account</NavLink></li>
-                         </ul>
-
-                    </div>  
-     */}
 
                     <div className={classes.Main}>
                         {main}

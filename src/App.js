@@ -66,17 +66,15 @@ class App extends Component {
     //305000
     if(d5<3405000)
     {
-        console.log("LogOut")
-        console.log(localStorage.getItem('userId'));
         this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('userId'))
         // setTimeout(this.props.getTokens(localStorage.getItem('email'), localStorage.getItem('token')), 0)
         // this.props.getTokens(this.props.email, this.props.user_id);
     }
 
-    console.log(d3);
-    console.log(d4);
-    console.log(d5);    
-  console.log(d2.getHours());
+  //   console.log(d3);
+  //   console.log(d4);
+  //   console.log(d5);    
+  // console.log(d2.getHours());
 
 
 

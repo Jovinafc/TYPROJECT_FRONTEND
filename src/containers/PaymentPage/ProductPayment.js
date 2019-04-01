@@ -45,11 +45,9 @@ class ProductPayment extends Component {
       const {match: {params}} = this.props
       let a = params.product_id;
       a = a.substring(1);
-      console.log(a);
       
       axios.post('/fetch-specific-accessory', {accessory_id: a})
       .then(response => {
-        console.log(response.data);
         this.setState({product: response.data})
         this.props.singleItemDetails(response.data)
       })
@@ -63,32 +61,24 @@ class ProductPayment extends Component {
         
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
-          console.log(response.data);
           alert("Success");
         })
         .catch(err => {
-          console.log(err);
         })
       }
   
   
     render() {
-        const { data } = this.props.location;
-        console.log(data);
-        console.log(this.props);
-        console.log(this.state.product)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 
      const onSubmit = async values => {
 
        this.setState({loading: true})
-       console.log(values);
         await sleep(300)
         let expiry = values.expiry;
         if(expiry.length > 5){
           expiry = expiry.substring(0,5);
-          console.log(expiry);
         }
 
         let cardNum = values.number;
@@ -96,12 +86,9 @@ class ProductPayment extends Component {
           cardNum = cardNum.substring(0,19);
         }
         else{
-          console.log('Enter a value')
         }
-        console.log(expiry);
         
 
-        console.log(cardNum);
         const cardDetails = {
           name: values.name,
           card_no: cardNum,
@@ -111,12 +98,9 @@ class ProductPayment extends Component {
         }
         axios.post('/pay-now', {card_details: cardDetails})
         .then(response => {
-          console.log(response.data);
           if(response.data === 'VALID'){
-            console.log(this.props.email);
             axios.post('/request-otp', {email: this.props.email})
             .then(res=> {
-                console.log(res);
                 this.setState({
                   loading: false,
                   otpdisplay: true
@@ -135,7 +119,6 @@ class ProductPayment extends Component {
 
         })
         .catch(err => {
-          console.log(err.response.data);
           Alert.warning('Invalid Card Details', {
             position: 'top',
             effect: 'bouncyflip',
@@ -173,12 +156,11 @@ class ProductPayment extends Component {
     active,
     disable = true
   }) => {
-    console.log(values);
      disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
-     console.log(disable);
-     console.log(this.state.product.accessory_price);
-     console.log(this.props.quantity);
-     console.log((this.state.product.accessory_price*this.props.quantity))
+    //  console.log(disable);
+    //  console.log(this.state.product.accessory_price);
+    //  console.log(this.props.quantity);
+    //  console.log((this.state.product.accessory_price*this.props.quantity))
     return (
       <form onSubmit={handleSubmit}>
          <Card

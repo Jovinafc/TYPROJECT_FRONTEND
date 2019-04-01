@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classes from './Lend.module.css';
-// import { Form } from 'shineout';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -174,7 +173,6 @@ class Lend extends Component {
              .then((result) => {
                  this.setState({models: result.data})
              }).catch(e => {
-                 console.log(e);
              })
         }
         else if(this.state.tempType === 'Two-Wheelers'){
@@ -182,7 +180,6 @@ class Lend extends Component {
             .then((result) => {
                 this.setState({models: result.data})
             }).catch(e => {
-                console.log(e);
             })
        }
     }
@@ -276,16 +273,13 @@ class Lend extends Component {
         const fd = new FormData();
         fd.append('image',this.state.formdata.image);
         axios.post('/image',fd).then(()=>{
-            console.log('Image Sent');
             
             const sd = new FormData(); 
             sd.append('documentImage', this.state.formdata.documents) 
             axios.post('/documentImage', sd).then(res => {
-                console.log(res);
 
                 axios.post('/store-vehicle-details',{vehicles:this.state.formdata})
         .then((post) => {
-            console.log("Data Sent", post);
             Alert.info('Ad Posted', {
                 position: 'top',
                 effect: 'bouncyflip',
@@ -332,11 +326,6 @@ class Lend extends Component {
 
         }).catch(e=> console.log(e))
         
-            
-        // });
-
-    
-        
     }
 
       handleImageChange = (e) => {
@@ -348,7 +337,6 @@ class Lend extends Component {
             this.setState({imagePrev: null})
         }
         reader.onload = (e) => {
-            console.log('Img Data',e.target.result);
           this.setState({
             file: file,
             sample: e.target.result,
@@ -359,7 +347,6 @@ class Lend extends Component {
             }
            
           });
-          console.log(this.state.formdata.image)
         }
         if(e.target.files[0]){
             reader.readAsDataURL(e.target.files[0]);
@@ -418,7 +405,6 @@ class Lend extends Component {
         })
       }
   render () {
-    console.log(this.state.formdata);  
     let {imagePrev} = this.state;
     let imagePreview = null;
     if (imagePrev) {
@@ -481,7 +467,6 @@ class Lend extends Component {
     
     let redirect = null;
 
-    console.log(this.props.isAuthenticated);
       if(!this.props.isAuthenticated){
           redirect = <Redirect to="/login"/>
          }
@@ -636,51 +621,6 @@ class Lend extends Component {
                         </div>
 
                         <div className={classes.fourthDiv}>
-
-
-                        {/* <table style={{textAlign: 'center', paddingLeft: '30%'}}>
-                            <tbody>
-                            <tr>
-                                 <td><label htmlFor="number" className={classes.Label}> Vehicle Number:</label></td>
-                                 <td><TextField 
-                                 label="Vehicle Number" 
-                                 className={classes.other}
-                                 placeholder="Enter your vehicle number" 
-                                 id="number" 
-                                 value={this.state.formdata.number_plate}
-                                 name="number" onChange={this.selectChangedHandlerName} /></td>
-                        
-                            </tr>
-                        
-                            </tbody>
-                            <tbody>
-                        <tr>
-                            <td><label htmlFor="image" className={classes.Label}>Vehicle Image:</label></td>
-                            <td><TextField className={classes.other} id="image" type="file" onChange={this.handleImageChange} /></td> 
-                            { imagePreview }
-                        
-                        </tr>
-                        </tbody>
-                     
-                        <tbody>
-                        <tr>
-                            
-                        <td><label htmlFor="document" className={classes.Label}>Vehicle Document:</label></td>
-                        <td><TextField className={classes.other} type="file" accept="application/pdf,application/vnd.ms-excel" id="document" onChange={this.handleDocumentChange} /></td>    
-                        {documentPreview}
-                        </tr>         
-                        </tbody>
-                        
-                        <tbody>
-                        <tr>
-                             <td><label htmlFor="price" className={classes.Label}>Price Per Day:</label></td>
-                             <td><TextField className={classes.other} value={this.state.formdata.price_per_day} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} /></td>
-                         </tr>
-                         </tbody>
-                        
-
-                        </table> */}
-
                         
                         <div className={classes.foudiv}>
                             
@@ -693,8 +633,6 @@ class Lend extends Component {
                             name="number" 
                             value={this.state.formdata.number_plate}
                             onChange={this.selectChangedHandlerName} 
-                           //  error={this.state.formdata.number_plate === ""}
-                           //  helperText={this.state.formdata.number_plate === "" ? 'Empty field!' : ' '}
                             />
 
                        </div>
@@ -719,9 +657,6 @@ class Lend extends Component {
 
                        <div className={classes.foudiv}>
                    
-                        {/* <label htmlFor="price" className={classes.Label}>Price:</label>
-                        <TextField label="Enter Price" type="number" className={classes.other} value={this.state.formdata.price} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} />
-                    */}
                         <label htmlFor="price" className={classes.Label}>Price Per Day:</label>
                        <TextField className={classes.other} value={this.state.formdata.price_per_day} placeholder="Enter the price" id="price" name="number" onChange={this.selectChangedHandlerPrice} />
                      
@@ -735,7 +670,8 @@ class Lend extends Component {
                         </button>
 
                         <ClipLoader
-                  css={override}
+                //   css={override}
+                  style={override}
                   sizeUnit={"px"}
                   size={20}
                   color={'#123abc'}

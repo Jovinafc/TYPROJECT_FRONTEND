@@ -17,7 +17,6 @@ class ReviewDiv extends Component {
     counterMethod = () => {
         axios.get(`/helpful-accessory-count?accessory_id=${localStorage.getItem('product_id')}&feedback_id=${this.props.details.id}`)
         .then(res => {
-            console.log(res.data);
             this.setState({
                 initalhelpCount: res.data.countHelpful,
                 initialnothelpCount: res.data.countNotHelpful
@@ -29,7 +28,6 @@ class ReviewDiv extends Component {
     getLikedDetails = () => {
         axios.get(`/accessory-helpful?accessory_id=${this.props.details.accessory_id}&feedback_id=${this.props.details.id}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
-            console.log(res.data);
             if(res.data[0].helpful === '1'){
                 this.setState({
                     thumbsup: parseInt(res.data[0].helpful)
@@ -59,29 +57,11 @@ class ReviewDiv extends Component {
         this.getLikedDetails();
            }
 
-    
-    componentDidUpdate = (prevProps) => {
-        
-
-        // if(this.state.initalhelpCount !== prevProps.initalhelpCount){
-        //     this.setState({
-        //         initialhelpCount: this.state.initialhelpCount
-        //     })
-        // }
-        // if(this.state.initalnothelpCount !== prevProps.initalnothelpCount){
-        //     this.setState({
-        //         initalnothelpCount: this.state.initialnothelpCount
-        //     })
-        // }
-    }
-
 
     up = (e) => {
         this.setState({
             up: this.state.up + 1
         })
-        console.log(this.props.details.id);
-        console.log(this.props.details.accessory_id);
         axios.post('/helpful-not-helpful', {type: 'accessory',
         helpful: 'set',
         user_id: localStorage.getItem('userId'),
@@ -89,12 +69,10 @@ class ReviewDiv extends Component {
         accessory_id: this.props.details.accessory_id 
         })
         .then(res => {
-            console.log(res.data);
             this.counterMethod();
             this.getLikedDetails();
         })
         .catch(err => {
-            console.log(err);
             this.counterMethod();
             this.getLikedDetails();
         })
@@ -112,12 +90,10 @@ class ReviewDiv extends Component {
         accessory_id: this.props.details.accessory_id 
     })
     .then(res => {
-        console.log(res.data);
         this.counterMethod();
         this.getLikedDetails();
     })
     .catch(err => {
-        console.log(err);
         this.counterMethod();
         this.getLikedDetails();
     })
@@ -137,11 +113,6 @@ class ReviewDiv extends Component {
                         }
                          
                          </div>
-
-
-
-        console.log(this.props.details);
-        // console.log(this.props.details.user['first_name'].charAt(0));
 
         let a = this.props.details.user['first_name'].charAt(0);
 

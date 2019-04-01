@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/cart'
 import { NavLink} from 'react-router-dom'
 import * as actionp from '../../../store/actions/vehicle_click'
-// import { spinnerService } from '@chevtek/react-spinners';
 import Loader from 'react-loader';
-// import Alert from 'react-bootstrap/Alert';
 import Alert from 'react-s-alert';
 
 
@@ -46,7 +44,6 @@ class CartItem extends Component {
         this.props.startLoading();
         axios.post('/removeCart', {user_id: localStorage.getItem('userId'), accessory_id: id, quantity: 1})
         .then(response => {
-            console.log(response);
             this.props.cartItems(localStorage.getItem('userId'));
             this.props.cartAmountQuantity();
             // spinnerService.hide('mySpinner');
@@ -56,10 +53,8 @@ class CartItem extends Component {
 
     updateQuantity = (id) => {
         this.props.startLoading();
-        console.log(this.state.counter);
         axios.post('/updateCart', {user_id: localStorage.getItem('userId'), accessory_id: id, quantity: this.state.counter} )
         .then(response => {
-            console.log(response.data)
             if(response.data === 'Added To Cart'){
                 this.props.cartItems(localStorage.getItem('userId'))
                 this.props.quantityNum(this.state.counter);

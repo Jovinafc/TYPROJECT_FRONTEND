@@ -1,16 +1,16 @@
-import React from 'react';
-import { useAlert } from 'react-alert';
+// import React from 'react';
+// import { useAlert } from 'react-alert';
 
-const alertComp = () => {
-    const alert = useAlert();
+// const alertComp = () => {
+//     const alert = useAlert();
 
-return (
-    <div>
+// return (
+//     <div>
         
-    </div>
-)
+//     </div>
+// )
 
-} 
+// } 
 
 
 

@@ -32,6 +32,33 @@ class Help extends Component {
                             </ul>
                         </div>
                     </div>
+
+                    <div className={classes.helpone}>
+                        <h4 className={classes.header}>Accessories</h4>
+                        <div>
+                            <ul>
+                                <li> Make sure you have logged in before you proceed to add any accessory to your cart </li>
+                                <li> An item cannot be added twice into your cart </li>
+                                <li> You can purchase an accessory either by directly buying it or by adding it to the cart and then buying it from there</li>
+                                <li> You can increase or decrease the amount of quantity that you want for any accessory or accessories provided they are in stock </li>
+                                <li> You can also rate and give your feedback for any accessory </li>
+                                <li> You can read feedbacks of other customers before you buy a product in the review section of any accessory </li>    
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className={classes.helpone}>
+                        <h4 className={classes.header}>Profile</h4>
+                        <div>
+                            <ul>
+                                <li> Before proceeding to buy/rent or sell/lend make sure that your profile is updated </li>
+                                <li> You have the option to put your profile photo </li>
+                                <li> You can also change your current password over here by using the account info tab</li>
+                                <li> You can also delete your account from here </li>
+                                <li> For Profile make sure that you upload a user document everytime you want to update the profile </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>    
 
             </div>

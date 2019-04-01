@@ -17,10 +17,10 @@
 }
 
 .inputDiv {
-    font-size: 16px;
+    font-size: 12px;
     margin: 0px 5px;
+    width: 40px;
     text-align: center;
-    width: 50px;
 } 
 
 .name {
@@ -56,12 +56,13 @@
     width: 2px;
     size: 5;
 }
-.inputDiv {
+
+/* .inputDiv {
     width: 30px;
     margin-left: 5px;
 
-    /* text-align: center; */
-}
+    text-align: center;
+} */
 
 .btn {
     margin-top: 10%;
@@ -108,7 +109,7 @@
 
     
     .inputDiv {
-        font-size: 16px;
+        font-size: 12px;
         margin: 0px 5px;
         text-align: center;
         width: 50px;

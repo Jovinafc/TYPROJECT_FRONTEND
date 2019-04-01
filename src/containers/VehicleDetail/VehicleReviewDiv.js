@@ -16,7 +16,6 @@ class VehicleReviewDiv extends Component {
     counterMethod = () => {
         axios.get(`/helpful-vehicle-count?vehicle_id=${this.props.details.vehicle_id}&feedback_id=${this.props.details.feedbacks[0].feedback_id}`)
         .then(res => {
-            console.log(res.data);
             this.setState({
                 initialhelpCount: res.data.countHelpful,
                 initialnothelpCount: res.data.countNotHelpful
@@ -28,7 +27,6 @@ class VehicleReviewDiv extends Component {
     getLikedDetails = () => {
         axios.get(`vehicle-helpful?vehicle_id=${this.props.details.vehicle_id}&feedback_id=${this.props.details.feedbacks[0].feedback_id}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
-            console.log(res.data[0]);
             if(res.data[0].helpful === '1'){
                 this.setState({
                     thumbsup: parseInt(res.data[0].helpful)
@@ -57,21 +55,6 @@ class VehicleReviewDiv extends Component {
         this.getLikedDetails();
     }
 
-    componentDidUpdate = (prevProps) => {
-        
-
-        // if(this.state.initalhelpCount !== prevProps.initalhelpCount){
-        //     this.setState({
-        //         initialhelpCount: this.state.initialhelpCount
-        //     })
-        // }
-        // if(this.state.initalnothelpCount !== prevProps.initalnothelpCount){
-        //     this.setState({
-        //         initalnothelpCount: this.state.initialnothelpCount
-        //     })
-        // }
-    }
-
     up = (e) => {
         e.preventDefault();
         
@@ -87,13 +70,11 @@ class VehicleReviewDiv extends Component {
             vehicle_id: this.props.details.vehicle_id
         })
         .then(res => {
-            console.log(res.data);
             this.counterMethod();
             this.getLikedDetails();
 
         })
         .catch(err => {
-            console.log(err);
             this.counterMethod();
         })
         
@@ -114,13 +95,11 @@ class VehicleReviewDiv extends Component {
             vehicle_id: this.props.details.vehicle_id
         })
         .then(res => {
-            console.log(res.data);
             this.counterMethod();
             this.getLikedDetails();
 
         })
         .catch(err => {
-            console.log(err);
             this.counterMethod();
         })
     }
@@ -128,9 +107,6 @@ class VehicleReviewDiv extends Component {
 
 
     render () {
-        console.log(this.props.details);    
-
-      
        
         let rateDiv = <div>{this.props.details.ratings[0].rating_number 
                         ?   <ReactStars
@@ -145,11 +121,6 @@ class VehicleReviewDiv extends Component {
                          
                          </div>
 
-
-
-        console.log(this.props.details);
-        console.log(this.props.details.ratings[0].rating_number);
-        
 
         let a = this.props.details.ratings[0].user_name.charAt(0);
 

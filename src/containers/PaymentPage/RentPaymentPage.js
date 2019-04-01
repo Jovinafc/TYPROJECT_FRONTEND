@@ -27,32 +27,14 @@ class RentPaymentPage extends Component {
         otpdisplay: false
 
     }
-    // proceedHandler = (e) => {
-    //     e.preventDefault();
-    //     axios.post('/rent-now', {user_client_id: this.props.user_id, 
-    //                     vehicle_id: this.state.vehicles.vehicle_id,
-    //                     start_date: this.state.startdatetime,
-    //                     end_date: this.state.enddatetime})
-    //     .then(response => {
-            
-    //         console.log(response);
-    //         alert("Rented")
-    //         this.setState({
-    //             startdatetime : '',
-    //             enddatetime: ''
-    //         })
-    //     })
-    // }
     componentDidMount() {
         window.scrollTo(0,0);
         const {match: {params}} = this.props
         let a = params.vehicle_id;
         a = a.substring(1);
-        console.log(a);
-
+     
         axios.post(`/fetch-specific-vehicle/${a}`, {user_id: localStorage.getItem('userId')})
         .then(response => {
-           console.log(response);
           if(response===null)
           {
 
@@ -60,11 +42,9 @@ class RentPaymentPage extends Component {
           else
           {
            this.setState({vehicles: response.data});
-           console.log(this.state.vehicles)
           }
         })
         .catch(err => {
-            console.log(err);
             this.setState({Invalid: true})
         });   
     }
@@ -76,8 +56,7 @@ class RentPaymentPage extends Component {
 
     cardnumHandler = (e) => {
         this.setState({cardNumber: e.target.value});
-        console.log(e.target.value);
-
+     
     }
 
     setOtp = (e) => {
@@ -92,14 +71,12 @@ class RentPaymentPage extends Component {
   
         axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
         .then(response => {
-          console.log(response);
           axios.post('/rent-now', {user_client_id: this.props.user_id, 
             vehicle_id: this.state.vehicles.vehicle_id,
             start_date: this.state.startdatetime,
             end_date: this.state.enddatetime})
             .then(response => {
             
-            console.log(response);
             alert("Rented")
             this.setState({
                 startdatetime : '',
@@ -109,7 +86,6 @@ class RentPaymentPage extends Component {
           alert("Success");
         })
         .catch(err => {
-          console.log(err);
         })
       }
   
@@ -119,13 +95,11 @@ class RentPaymentPage extends Component {
 
 
      const onSubmit = async values => {
-       console.log(values);
         await sleep(300)
 
         let expiry = values.expiry;
         if(expiry.length > 5){
           expiry = expiry.substring(0,5);
-          console.log(expiry);
         }
 
         let cardNum = values.number;
@@ -133,9 +107,7 @@ class RentPaymentPage extends Component {
           cardNum = cardNum.substring(0,17);
         }
         else{
-          console.log('Enter a value')
         }
-        console.log(expiry);
         
        
         const cardDetails = {
@@ -147,9 +119,7 @@ class RentPaymentPage extends Component {
           }
           axios.post('/pay-now', {card_details: cardDetails})
           .then(response => {
-            console.log(response.data);
             if(response.data === 'VALID'){
-              console.log(this.props.email);
               axios.post('/request-otp', {email: this.props.email})
               this.setState({
                 otpdisplay: true
@@ -158,7 +128,6 @@ class RentPaymentPage extends Component {
   
           })
           .catch(err => {
-            console.log(err.response.data);
           })
           
         
@@ -175,18 +144,6 @@ class RentPaymentPage extends Component {
             <DatePicker id="end" placeholder="End Date" format="yyyy-M-d HH:mm" type="datetime" value={this.state.enddatetime} onChange={this.endDateHandler}/>
             </div>                    
             <br /> <br /> 
-{/* 
-            <MomentInput
-              max={moment().add(5,'days')}
-              min={moment()}  
-              format="YYYY-MM-DD HH:mm"
-              options={true}
-              className="col-sm-4"
-              readOnly={false}
-              icon={false}
-              defaultValue={this.state.newdate}
-              onSave={(newdate) => {this.setState({newdate})}}
-               /> */}
 
             <button onClick={this.proceedHandler} className="btn btn-danger">Proceed To Payment</button>
         </form>
@@ -211,18 +168,6 @@ class RentPaymentPage extends Component {
                     {this.state.Invalid === true
                     ? <h4> Error 404 </h4>
                     : 
-                    // <div>   
-                    //     {this.state.vehicles.price
-                    //     ? <h4>Buy 
-                    //         <p>{this.state.vehicles.brand}</p>    
-                    //       </h4>
-                    //     : <h4>Rent</h4>}
-
-                    //      {this.state.vehicles.price
-                    //      ? <h4>Buy </h4>
-                    //      : <div> {dc} </div>
-                    //      }    
-                    // </div>
                     <div>
 
                         
@@ -240,9 +185,7 @@ class RentPaymentPage extends Component {
         active,
         disable = true
       }) => {
-        console.log(values);
          disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
-         console.log(disable);
         return (
           <form onSubmit={handleSubmit}>
              <Card
@@ -301,48 +244,6 @@ class RentPaymentPage extends Component {
   </Styles>
 
 
-
-                       {/* <div className={classes.formContainer}> 
-                        <form  className="form-horizontal">
-                 
-                         <div className="form-group">
-                     <label htmlFor="cardnumber"  className="col-sm-4 control-label">Card Number<span style={{color: 'red'}}>*</span> 
-                     &nbsp;&nbsp;&nbsp;
-                     <span>Visa</span></label>
-                     <div className="col-sm-8">
-                     <input type="number" className="form-control" id="cardnumber" onChange={this.cardnumHandler} value={this.state.cardNumber}/>
-                     <span style={{color: 'red'}}>{this.state.cardNumError}</span>   
-                     </div>
-                         </div>
-
-                         <div className="form-group">
-                     <label htmlFor="cardname"  className="col-sm-4 control-label">Name on Card<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-4">
-                     <input type="text" className="form-control" id="cardname" onChange={this.cardnameHandler} value={this.state.cardName}/>
-                     <span style={{color: 'red'}}>{this.state.cardNameError}</span>   
-                     </div>
-                         </div>
-
-                         <div className="form-group">
-                     <label htmlFor="expiry"  className="col-sm-4 control-label">Expiry<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-4">
-                     <input type="date"  className="form-control" id="expiry" onChange={this.expiryHandler} value={this.state.expiry}/>
-                     <span style={{color: 'red'}}>{this.state.expiryError}</span>   
-                     </div>
-                         </div>
-
-                         <div className="form-group">
-                     <label htmlFor="cvc"  className="col-sm-4 control-label">CVC<span style={{color: 'red'}}>*</span></label>
-                     <div className="col-sm-4">
-                     <input type="number"  className="form-control" id="cvc" onChange={this.cvcHandler} value={this.state.cvc}/>
-                     <span style={{color: 'red'}}>{this.state.cvcError}</span>   
-                     </div>
-                         </div>
-
- 
-                        </form>
-
-                        </div> */}
                     </div>
                     
                     }

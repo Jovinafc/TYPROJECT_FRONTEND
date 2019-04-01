@@ -27,33 +27,11 @@ class MyVehicle extends Component {
     componentDidMount = () => {
         window.scrollTo(0, 0);
 
-    //     axios.post('/fetch-specific-user-vehicles', {user_id: this.props.user_id})
-    //     .then(res => {
-    //         console.log(res.data);
-    //         const vehicles = [];
-    //         for(let key in res.data){
-    //           vehicles.push({
-    //               ...res.data[key],
-    //               id: key
-    //           });  
-    //         }
-    //         this.setState({myvehicle: vehicles})
-    //     });
-    // }
-
         this.props.my_vehicle_store();
         
-    // componentDidUpdate = (prevProps) => {
-    //     if(this.state.myvehicle !== prevProps.myvehicle){
-    //         this.setState({
-    //             myvehicle: this.state.myvehicle
-    //         })
-    //     }
-    // }
     }
     render () {
         let display; 
-        // console.log(this.props.myvehicle.length)
         if(this.state.myvehicle.length === 0) {
             display =  <h4 style={{textAlign: 'center'}}>Nothing to Show! You haven't added any vehicles to add a Vehicle go to <NavLink style={{textDecoration: 'none'}} to="/sell/sell">Sell</NavLink> or <NavLink style={{textDecoration: 'none'}} to="/sell/lend">Lend</NavLink> Vehicle Page </h4>
         }else{

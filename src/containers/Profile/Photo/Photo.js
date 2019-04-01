@@ -38,38 +38,23 @@ class Photo extends Component {
         this.fetchUserImage();
     }
 
-    // componentDidUpdate = (prevProps) => {
-    //     if(this.state.imagePreviewUrl !== prevProps.imagePreviewUrl){
-    //         this.setState({
-    //             imagePreviewUrl: this.state.imagePreviewUrl
-    //         })
-    //     }
-    // }
-
     handleSubmit = e => {
         e.preventDefault();
         this.props.photoProcess(this.props.user_id);
         const fd = new FormData();
         fd.append('profileImage',this.state.file);
         axios.post('/profileImage',fd).then(()=>{
-            console.log('Image Sent');
             
-
             axios.post('/update-profile-image', {user_id:this.props.user_id})
             .then(res => {
-                console.log('Uploaded Profile Image');
                 this.props.user_data(this.props.user_id);
                 this.setState({
                     removedis: false
                 })
             });
         }).catch(e=>{
-            console.log(e)
-
+            
         })
-
-
-
     }
 
     handleChange = (e) => {
@@ -105,7 +90,6 @@ class Photo extends Component {
 
         axios.post('/remove-profile-image', {user_id: localStorage.getItem('userId')})
         .then(res => {
-            console.log(res);
             this.fetchUserImage();
             this.props.user_data(this.props.user_id);
             this.setState({

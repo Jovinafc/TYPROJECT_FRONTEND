@@ -12,10 +12,9 @@ import {
     formatExpirationDate
   } from './cardUtils'
 import { connect} from 'react-redux';
-// import Spinner from '../../components/UI/Spinner/Spinner';
 import { css } from '@emotion/core';
 import {ClipLoader} from 'react-spinners';
-import moment, * as moments from 'moment';
+import  * as moments from 'moment';
 import Alert from 'react-s-alert';
 
 
@@ -53,11 +52,9 @@ class SellPaymentPage extends Component {
         const {match: {params}} = this.props
         let a = params.vehicle_id;
         a = a.substring(1);
-        console.log(a);
 
         axios.post(`/fetch-specific-vehicle`, {user_id: localStorage.getItem('userId'), vehicle_id: a})
         .then(response => {
-           console.log(response);
           if(response===null)
           {
               
@@ -65,7 +62,6 @@ class SellPaymentPage extends Component {
           else
           {
            this.setState({vehicles: response.data[0]});
-           console.log(response.data)
            if(response.data[0].price === null){
                 this.props.type_payment('Rent');
            }
@@ -75,25 +71,16 @@ class SellPaymentPage extends Component {
           }
         })
         .catch(err => {
-            console.log(err);
             this.setState({Invalid: true})
         });   
 
         let sd = this.props.start;
         let ed = this.props.end;
         
-        // let s = sd.substring(8,10);
-        // console.log(s)
-        // let e = ed.substring(8,10);
-        // console.log(e);
-        // console.log(e-s);
 
        let sdd = moments(sd).format('MM/DD/YYYY');
-       console.log(sdd);
        let edd = moments(ed).format('MM/DD/YYYY');
-       console.log(edd);
        let diff = this.date_diff_indays(sdd,edd);
-       console.log(diff);
        
 
         if(diff === 0){
@@ -125,47 +112,23 @@ class SellPaymentPage extends Component {
 
       axios.post('/confirm-payment', {email: this.props.email, token: this.state.otp})
       .then(response => {
-        console.log(response);
         alert("Success");
       })
       .catch(err => {
-        console.log(err);
       })
     }
 
     render () {
-        console.log(this.state)
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-    // const onCardFormat = async value => {
-    //   var v = ''
-    //   var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
-    //   var matches = v.match(/\d{4,16}/g);
-    //   var match = matches && matches[0] || ''
-    //   var parts = []
-    //   let len;
-      
-    //   for (let i=0, len=match.length; i<len; i+=4) {
-    //     parts.push(match.substring(i, i+4))
-    //   }
-    //   if (parts.length) {
-    //     return parts.join(' ')
-    //   } else {
-    //   return value
-    // }
-    //   }
-
 
      const onSubmit = async values => {
 
        this.setState({loading: true})
-       console.log(values);
         await sleep(300)
 
         let expiry = values.expiry;
         if(expiry.length > 5){
           expiry = expiry.substring(0,5);
-          console.log(expiry);
         }
 
         let cardNum = values.number;
@@ -173,12 +136,9 @@ class SellPaymentPage extends Component {
           cardNum = cardNum.substring(0,19);
         }
         else{
-          console.log('Enter a value')
         }
-        console.log(expiry);
         
 
-        console.log(cardNum);
 
         
         const cardDetails = {
@@ -190,12 +150,9 @@ class SellPaymentPage extends Component {
         }
         axios.post('/pay-now', {card_details: cardDetails})
         .then(response => {
-          console.log(response.data);
           if(response.data === 'VALID'){
-            console.log(this.props.email);
             axios.post('/request-otp', {email: this.props.email})
             .then(res=> {
-                console.log(res);
                 this.setState({
                   loading: false,
                   otpdisplay: true
@@ -214,7 +171,6 @@ class SellPaymentPage extends Component {
 
         })
         .catch(err => {
-          console.log(err.response.data);
           Alert.warning('Invalid Card Details', {
             position: 'top',
             effect: 'bouncyflip',
@@ -236,9 +192,6 @@ class SellPaymentPage extends Component {
             <div className={classes.Container}>
                 <div>
                     
-
-
-
   <Styles>
     <Form
       onSubmit={onSubmit}
@@ -253,9 +206,7 @@ class SellPaymentPage extends Component {
         disable = true
 
       }) => {
-        console.log(values);
          disable = values.number > 0 && values.name > 0 && values.expiry > 0 && values.cvc > 0;
-         console.log(disable);
         return (
           <form onSubmit={handleSubmit}>
              <Card

@@ -122,13 +122,13 @@ class SignUp extends Component {
     }
     
 dateHandler = (moment) => {
-    console.log(moment);
+    // console.log(moment);
     let s = moments(moment).format('YYYY-MM-DD');
-    console.log(s);
+    // console.log(s);
     let curr = moments().format('YYYY-MM-DD');
 
     let difference = moments(curr).diff(s, 'days');
-    console.log(difference);
+    // console.log(difference);
     
     if(difference > 6570){
         this.setState({
@@ -141,7 +141,7 @@ dateHandler = (moment) => {
             DOBError: "You should be 18 years old!"
         })
     }
-    console.log(curr);
+    // console.log(curr);
     // if(s > )
     this.setState({
         DOB: s
@@ -190,11 +190,11 @@ dateHandler = (moment) => {
     dobHandler = (e) => {
 
         let s = moments(e).format('YYYY-MM-DD');
-    console.log(s);
+    // console.log(s);
     let curr = moments().format('YYYY-MM-DD');
 
     let difference = moments(curr).diff(s, 'days');
-    console.log(difference);
+    // console.log(difference);
 
     if(difference > 6570){
         this.setState({
@@ -207,7 +207,7 @@ dateHandler = (moment) => {
             DOBError: "You should be 18 years old!"
         })
     }
-    console.log(curr);
+    // console.log(curr);
     // if(s > )
     this.setState({
         DOB: s
@@ -384,7 +384,7 @@ dateHandler = (moment) => {
         let curr = moments().format('YYYY-MM-DD');
 
         let difference = moments(curr).diff(s, 'days');
-        console.log(difference);
+        // console.log(difference);
 
          
             if(difference > 6570){
@@ -495,7 +495,7 @@ dateHandler = (moment) => {
       
       axios.post('/sign-up', {users: user})
       .then(res => {
-          console.log(res);
+        //   console.log(res);
           Alert.info('Sign Up Complete', {
             position: 'top',
             effect: 'bouncyflip',
@@ -512,7 +512,7 @@ dateHandler = (moment) => {
           })
       })
       .catch(err => {
-          console.log(err);
+        //   console.log(err);
           Alert.warning('Server Under Maintenance, Please try again later', {
             position: 'top',
             effect: 'bouncyflip',
@@ -532,7 +532,7 @@ dateHandler = (moment) => {
 
     }
     else {
-        console.log("data not sufficient")
+        // console.log("data not sufficient")
     }
 
 }
@@ -549,7 +549,7 @@ dateHandler = (moment) => {
                 disable = false;
             }
 
-        console.log(this.state);
+        // console.log(this.state);
         return (
             <Aux>
             <div className={classes.Container}>

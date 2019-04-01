@@ -54,7 +54,6 @@ class VehicleDetail extends Component {
 
         axios.post('/buy-now' , {vehicles: vehicles})
         .then(res => {
-            console.log(res);
             alert("Sold")
         });
     }
@@ -99,7 +98,6 @@ class VehicleDetail extends Component {
         a = a.substring(1);
          axios.post(`/fetch-specific-vehicle`, {user_id: localStorage.getItem('userId'), vehicle_id: a})
          .then(response => {
-            console.log(response.data);
            if(response===null)
            {
 
@@ -111,7 +109,6 @@ class VehicleDetail extends Component {
                 owner: response.data[0].owner,
             });
             
-            console.log(response.data[0].owner.name);
             this.setState({postedOn: response.data[0].createdAt.substring(0,10)})
             this.props.save_bank_account_no(response.data[1])
             this.props.fetch_selected_vehicle(response.data)
@@ -124,7 +121,6 @@ class VehicleDetail extends Component {
 
          axios.get(`/fetch-vehicle-comments-and-ratings/${a}`)
          .then(res => {
-             console.log(res.data);
                 if(res.data === 'No reviews'){
                     this.setState({
                         noReviews: true
@@ -139,7 +135,6 @@ class VehicleDetail extends Component {
                      });
                  }
 
-                 console.log(hist);
                  this.setState({
                     reviewsArray: hist
                  })
@@ -161,7 +156,6 @@ class VehicleDetail extends Component {
                         end_date: this.state.enddatetime})
         .then(response => {
             
-            console.log(response);
             alert("Rented")
             this.setState({
                 startdatetime : '',
@@ -187,48 +181,32 @@ class VehicleDetail extends Component {
         let dt2 = new Date(date2);
         return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
      }
-        // }
-        // console.log(date_diff_indays('04/02/2014', '11/04/2014'));
-        // console.log(date_diff_indays('12/02/2014', '11/04/2014'));
  
     starth = (moment) => {
-        console.log(moment);
         let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
-        console.log(s);
         this.setState({
             start: s
         })
         this.props.startDate(s);
-        // moment(e._d).format()
     }
 
     endh = (moment) => {
-        console.log(moment);
         
-
         let s = moments(moment._d).format('YYYY-MM-DD HH:mm');
-        console.log(s);
+        // console.log(s);
 
 
         this.setState({
             end: s
         }, () => {
-            //    let sd = this.state.start;
-            //    let ed = this.state.end;
-            
-            //    let s = sd.substring(8,10);
-            //    console.log(s)
-            //    let e = ed.substring(8,10);
-            //    console.log(e);
-
        
                let a = moments(this.state.start).format('MM/DD/YYYY');
-               console.log(a);
+            //    console.log(a);
                let b = moments(moment._d).format('MM/DD/YYYY');
-               console.log(b);
+            //    console.log(b);
        
                let diff = this.date_diff_indays(a,b);
-               console.log(diff);
+            //    console.log(diff);
        
                if(diff === 0){
                    this.setState({
@@ -269,14 +247,13 @@ class VehicleDetail extends Component {
         let valid = function(current){
             return current.isAfter(yesterday);
         };
-        console.log(this.state.vehicles);
-        console.log(this.state.owner.name);
-        // console.log(this.state.vehicles.owner);
+ 
+        let prev = this.state.start;
+        let validend = function(current){
+            return current.isAfter(prev)
+        }
 
         let reviewlist = null;
-
-        console.log(this.state.reviewsArray);
-
 
         if(this.state.noReviews === false){
             
@@ -307,11 +284,11 @@ class VehicleDetail extends Component {
                                 <Datetime isValidDate={valid}  style={{width: '60%'}} onChange={this.starth}/>  
                                 <span>{this.state.startDateError}</span>
                                 <p style={{marginBottom: '-3px'}}>End Date</p>
-                               <Datetime isValidDate={valid}  onChange={this.endh}/>
+                               <Datetime isValidDate={validend}  onChange={this.endh}/>
                                 <span>{this.state.endDateError}</span>
                           </div>
         }
-        
+
         let modalClose = () => this.setState({ modalShow: false });
 
         let modalCloseDoc = () => this.setState({ modalShowDoc: false });
@@ -356,7 +333,7 @@ class VehicleDetail extends Component {
         </Modal.Header>
         <Modal.Body>
                 <div className={classes.documentViewer}>
-                    <a href={this.state.vehicles.documents} download="myimage"><img alt="Document Image" className={classes.vehicledocument} src={this.state.vehicles.documents} /></a>
+                    <a href={this.state.vehicles.documents} download="myimage"><img alt="Document" className={classes.vehicledocument} src={this.state.vehicles.documents} /></a>
 
                      {/* <img src={this.state.vehicles.documents} alt="Vehicle Document" className={classes.vehicledocument}/>       */}
                 </div>                    
@@ -397,11 +374,6 @@ class VehicleDetail extends Component {
         <Modal.Body>
                 <div className={classes.modalDetails}>
                      <table>           
-                     {/* <div><p><strong>Phone Number:</strong><span>{this.state.owner.mobile_no}</span></p></div>  
-                     <div><p><strong>Address:</strong><span>{this.state.owner.address}</span></p></div>  
-                     <div><p><strong>State:</strong><span>{this.state.owner.state}</span></p></div>  
-                     <div><p><strong>City:</strong><span>{this.state.owner.city}</span></p></div>  
-                     <div><p><strong>Pincode:</strong><span>{this.state.owner.pincode}</span></p></div>   */}
 
                     <tr>
                          <td><strong>Name:</strong></td>

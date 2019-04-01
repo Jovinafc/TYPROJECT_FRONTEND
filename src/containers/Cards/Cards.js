@@ -7,7 +7,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import 'react-accessible-accordion/dist/minimal-example.css';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import axios from 'axios';
-import InputRange from 'react-input-range';
+// import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
 import Picky from 'react-picky';
 import "react-picky/dist/picky.css";
@@ -71,15 +71,12 @@ class Cards extends Component {
     }
 
     onSetSidebarOpen(open) {
-
-        console.log('inside sidebar')
         if(this.state.sidebarOpen !== open){
             this.setState({ sidebarOpen: !this.state.sidebarOpen});
         }
       }
 
       onsidebar = (e) => {
-            console.log('jnfi');
             e.preventDefault();
             if(this.state.sidebarOpen === true){
                 this.setState({sidebarOpen: false})
@@ -92,7 +89,6 @@ class Cards extends Component {
         if(localStorage.getItem('userId') === null){
             axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${1000}`)
         .then(result => {
-            console.log(result.data);
             const fetchedFilteredValues = [];
             for(let key in result.data){
                 fetchedFilteredValues.push({
@@ -113,7 +109,6 @@ class Cards extends Component {
         {
             axios.get(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`)
         .then(result => {
-            console.log(result.data);
             const fetchedFilteredValues = [];
             for(let key in result.data){
                 fetchedFilteredValues.push({
@@ -132,7 +127,6 @@ class Cards extends Component {
         }
 
         axios.post('/fetch-vehicles-except-current-user', {user_id: this.props.user_id}).then(result => {
-            console.log(result.data);
             const fetchedValues = [];
             for(let key in result.data){
                 fetchedValues.push({
@@ -169,8 +163,7 @@ class Cards extends Component {
 
     //Price Handler and Builder
     priceRangeHandler = (e) => {
-        console.log(e[0]);
-        console.log(e[1])
+       
         this.setState({
             price_range: e,
             pricemin: e[0],
@@ -181,7 +174,6 @@ class Cards extends Component {
                 pricemax: e[1]   
             }
         }, () => {
-            console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
             this.getVehicleDetails();
         })
         
@@ -202,12 +194,7 @@ class Cards extends Component {
         }
 
         state_Builder = () => {
-            let arr = this.state.regStateSelected;
-            let str = arr.join();
-            console.log('state_type='+str);
-            console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
             this.getVehicleDetails();
-
         }
   
         //KM Driven Handler and Builder
@@ -224,10 +211,6 @@ class Cards extends Component {
       }
 
       km_drivenBuilder = () => {
-        let arr = this.state.kmDrivenSelected;
-        let str = arr.join();
-        console.log('km_driven='+str);
-        console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
         this.getVehicleDetails();
 
     }   
@@ -252,7 +235,6 @@ class Cards extends Component {
               
           }
           else {
-              console.log('unchecked')
               this.setState({
                   filterValues: {
                       ...this.state.filterValues,
@@ -266,10 +248,6 @@ class Cards extends Component {
       }
 
       service_typeBuilder = () => {
-          let arr = this.state.filterValues.service_type;
-          let str = arr.join();
-          console.log('service_type='+str);
-        console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
         this.getVehicleDetails();
 
         }
@@ -291,7 +269,6 @@ class Cards extends Component {
             
         }
         else {
-            console.log('unchecked')
             this.setState({
                 filterValues: {
                     ...this.state.filterValues,
@@ -307,10 +284,7 @@ class Cards extends Component {
       }
 
       vehicle_typeBuilder = () => {
-        let arr = this.state.filterValues.vehicle_type;
-        let str = arr.join();
-        console.log('vehicle_type='+str);
-        console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
+        // let arr = this.state.filterValues.vehicle_type;
         this.getVehicleDetails();
 
     }
@@ -332,7 +306,6 @@ class Cards extends Component {
             
         }
         else {
-            console.log('unchecked')
             this.setState({
                 filterValues : {
                     ...this.state.filterValues,
@@ -346,10 +319,7 @@ class Cards extends Component {
         }
 
       fuel_typeBuilder = () => {
-          let arr = this.state.filterValues.fuel_type;
-          let str = arr.join();
-          console.log('fuel_type'+str);
-        console.log(`/filter1?type_of_service=${this.state.filterValues.service_type.join()}&vehicle_type=${this.state.filterValues.vehicle_type.join()}&fuel_type=${this.state.filterValues.fuel_type.join()}&select_state=${this.state.filterValues.regStateSelected.join()}&pricemin=${this.state.filterValues.pricemin}&pricemax=${this.state.filterValues.pricemax}&user_id=${localStorage.getItem('userId')}`);
+        //   let arr = this.state.filterValues.fuel_type;
         this.getVehicleDetails();
       }
 
@@ -417,8 +387,72 @@ class Cards extends Component {
     
 
     render () {
-        console.log(this.state.filterValues.pricemin);
-        console.log(this.state.filterValues.pricemax);
+
+        let phonefilter = (
+            <div className={classes.MenuSide}>
+                   <Collapse >
+                        <Panel header="Type of Service" headerClass="my-header-class">
+                             <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
+                             <span style={{width: '20px', color:'white' }}>J</span>   
+                             <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
+
+                        </Panel>
+
+                        <Panel header="Vehicle Type" headerClass="my-header-class">
+                            <input type="checkbox" name="vehicle_type" value="Four-Wheelers" onChange={this.vehicle_typeHandler}/> 4-Wheelers &nbsp; 
+                            <input type="checkbox" name="vehicle_type" value="Two-Wheelers" onChange={this.vehicle_typeHandler}/> 2-Wheelers < br/>               
+                        </Panel>
+
+                        
+                        <Panel header="Fuel Type" headerClass="my-header-class">
+                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Diesel" /> Diesel &nbsp;
+                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Petrol" /> Petrol &nbsp;
+                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="CNG" /> CNG
+                                     
+                        </Panel>
+
+                        <Panel header="Select State" headerClass="my-header-class">
+                            <Picky 
+                                 value={this.state.regStateSelected}
+                                 open={true}
+                                 options={this.state.reg_state}
+                                 includeFilter={true}
+                                 dropdownHeight={600}
+                                 onChange={this.selectMultipleState}
+                                 valueKey="id"
+                                 labelKey="name"
+                                 multiple={true}
+                                 includeSelectAll={true} />
+
+                        <div style={{height: '300px'}}> </div>
+
+                        </Panel>
+
+                        <Panel header="Price Range" headerClass="my-header-class">
+                            {/* <InputRange
+                                maxValue={200000}
+                                minValue={0}
+                                formatLabel={value => `${value} Rs`}
+                                value={this.state.value4}
+                                onChange={value => this.setState({ value4: value })}
+                                onChangeComplete={value => console.log(value)} /> */}
+                                <div>
+                                    <span style={{fontSize: '0.7em'}}>Select only one of Sale or Rent type</span>
+                                   <br /> 
+                                    Min <input style={{width: '80px'}} onChange={this.minnum} value={this.state.filterValues.pricemin} type="number"/>
+                                    <span>{this.state.minError}</span>
+                                    <br />
+                                    <br />
+                                    Max <input style={{width: '80px'}} onChange={this.maxnum} value={this.state.filterValues.pricemax}  type="number" />
+                                    <br />
+                                    <button onClick={this.minmaxsubsmall} >Submit</button>
+                                </div>
+                        </Panel>
+                  </Collapse>
+
+                </div>
+        )
+
         let displayVehicle;
         if(this.state.filter_vehicles.length > 0){
             
@@ -507,11 +541,11 @@ class Cards extends Component {
             <div>
             <span style={{fontSize: '0.8em'}}>Select only one of Sale or Rent type</span>
                 <br />
-                 Min: <input onChange={this.minnum} onChange={this.minnum} value={this.state.filterValues.pricemin} type="number"/>
+                 Min: <input onChange={this.minnum}  value={this.state.filterValues.pricemin} type="number"/>
                  <span>{this.state.minError}</span>
                  <br />   
                  <br />
-                 Max: <input onChange={this.maxnum} onChange={this.maxnum} value={this.state.filterValues.pricemax}  type="number" />
+                 Max: <input onChange={this.maxnum}  value={this.state.filterValues.pricemax}  type="number" />
                  <button onClick={this.minmaxsub}>Submit</button>
              </div>
     </Panel>
@@ -520,86 +554,13 @@ class Cards extends Component {
 </div>
 
                 <div className={classes.sidebarDiv}>
-                <Sidebar 
+                <Sidebar
+                 
                 open={this.state.sidebarOpen}
                 transitions={true}
                 onSetOpen={this.onSetSidebarOpen}
                 styles={{ sidebar: { background: "white" } }}
-                sidebar ={
-                    <div className={classes.MenuSide}>
-
-                         {/* <div className={classes.searchDiv}>
-                             <form >
-                                <input 
-                                 type="text" 
-                                 placeholder="Enter Vehicle Name"   
-                                 value={this.state.term}
-                                 onChange={this.searchHandler}/>
-                             </form>
-                        </div> */}
-
-                   <Collapse >
-                        <Panel header="Type of Service" headerClass="my-header-class">
-                             <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Sale" /> Sale &nbsp; 
-                             <span style={{width: '20px', color:'white' }}>J</span>   
-                             <input type="checkbox" name="vehicle_type" onChange={this.serviceHandler} value="Rent" /> Rent < br/>               
-
-                        </Panel>
-
-                        <Panel header="Vehicle Type" headerClass="my-header-class">
-                            <input type="checkbox" name="vehicle_type" value="Four-Wheelers" onChange={this.vehicle_typeHandler}/> 4-Wheelers &nbsp; 
-                            <input type="checkbox" name="vehicle_type" value="Two-Wheelers" onChange={this.vehicle_typeHandler}/> 2-Wheelers < br/>               
-                        </Panel>
-
-                        
-                        <Panel header="Fuel Type" headerClass="my-header-class">
-                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Diesel" /> Diesel &nbsp;
-                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="Petrol" /> Petrol &nbsp;
-                            <input type="checkbox" name="fuel_type" onChange={this.fuel_typeHandler} value="CNG" /> CNG
-                                     
-                        </Panel>
-
-                        <Panel header="Select State" headerClass="my-header-class">
-                            <Picky 
-                                 value={this.state.regStateSelected}
-                                 open={true}
-                                 options={this.state.reg_state}
-                                 includeFilter={true}
-                                 dropdownHeight={600}
-                                 onChange={this.selectMultipleState}
-                                 valueKey="id"
-                                 labelKey="name"
-                                 multiple={true}
-                                 includeSelectAll={true} />
-
-                        <div style={{height: '300px'}}> </div>
-
-                        </Panel>
-
-                        <Panel header="Price Range" headerClass="my-header-class">
-                            {/* <InputRange
-                                maxValue={200000}
-                                minValue={0}
-                                formatLabel={value => `${value} Rs`}
-                                value={this.state.value4}
-                                onChange={value => this.setState({ value4: value })}
-                                onChangeComplete={value => console.log(value)} /> */}
-                                <div>
-                                    <span style={{fontSize: '0.7em'}}>Select only one of Sale or Rent type</span>
-                                   <br /> 
-                                    Min <input style={{width: '80px'}} onChange={this.minnum} value={this.state.filterValues.pricemin} type="number"/>
-                                    <span>{this.state.minError}</span>
-                                    <br />
-                                    <br />
-                                    Max <input style={{width: '80px'}} onChange={this.maxnum} value={this.state.filterValues.pricemax}  type="number" />
-                                    <br />
-                                    <button onClick={this.minmaxsubsmall} >Submit</button>
-                                </div>
-                        </Panel>
-                  </Collapse>
-
-                </div>
-                }
+                sidebar={phonefilter}
                 >
                 
                 </Sidebar>
