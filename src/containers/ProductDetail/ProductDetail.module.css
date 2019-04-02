@@ -67,10 +67,10 @@
 }
 
 .details {
-    height: 35%;
+    height: 40%;
     width: 90%;
     margin-top: 2%;
-
+    padding: 2%;
     margin-left: 5%;
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
@@ -90,6 +90,7 @@
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin-top: 5%;
     padding-top: 3%;
+    padding: 2%;
 }
 
 .downRightDiv {
@@ -99,6 +100,7 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     margin-top: 10%;    
+    padding: 2%;
 }
 
 .quantity {

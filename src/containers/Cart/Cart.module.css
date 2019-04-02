@@ -2,7 +2,8 @@
     padding-top: 40px;
     height: auto;
     padding-bottom: 40px;
-    max-height: auto;
+    margin-bottom: 100px;
+    /* max-height: auto; */
 }
 
 .cartitems {

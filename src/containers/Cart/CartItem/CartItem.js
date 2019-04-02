@@ -117,10 +117,7 @@ class CartItem extends Component {
                 </div>
                 
                 <button className={classes.btn} onClick={() => this.updateQuantity(this.props.id)}>Update</button>
-                {/* <Alert show={this.state.alertShow} variant="warning">
-                    Out of Stock 
-                </Alert> */}
-
+            
                 
                 <div className={classes.priceDiv}>
                 <strong>Price:</strong> &#x20B9;{this.state.price}

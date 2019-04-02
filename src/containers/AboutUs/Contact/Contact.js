@@ -14,7 +14,7 @@ class Contact extends Component {
 
                         <strong><p style={{color: 'red'}}>ridewheelz@mailinator.com</p></strong>
                         <strong><p style={{color: 'red'}}>dsouza.jovin65@gmail.com</p></strong>
-                        <strong><p style={{color: 'red'}}>dsouzalionel51@gmail.com</p></strong>
+                        <strong><p style={{color: 'red'}}>lioneldsouza51@gmail.com</p></strong>
 
                     </div>
 

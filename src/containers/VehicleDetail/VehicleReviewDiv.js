@@ -142,7 +142,7 @@ class VehicleReviewDiv extends Component {
                         
                 </div>
                 <div className={classes.downDiv}>
-                    <textarea value={this.props.details.feedbacks[0].feedback_comment || ''} style={{width: '100%', height: 'auto'}}type="text" disabled={true}/>
+                    <textarea value={this.props.details.feedbacks[0].feedback_comment || ''} style={{width: '100%', paddingLeft: '1%', height: 'auto'}}type="text" disabled={true}/>
                     
                     <div className={classes.thumbs}>
                     <div className={classes.thumbupdown}>

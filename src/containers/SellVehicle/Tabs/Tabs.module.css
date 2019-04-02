@@ -45,7 +45,9 @@
     color: white;}
 
 .lefttab a.active {
-    background-color: lightblue;
+    /* background-color: lightblue; */
+    background-color: #E24B4B;
+
     color: white;
    }
 

@@ -205,6 +205,8 @@ class AccountInfo extends Component {
 
                 <div className={classes.Main}>
                     <h3 style={{textAlign: 'center'}}>Account Info</h3>
+                    <hr style={{border: '1px solid black'}}/>
+
                     <div>
                     <form  className="form-horizontal">
                  

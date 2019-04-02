@@ -580,7 +580,9 @@ class Cards extends Component {
                               </form>
                          </div>
  
-                 <button onClick={() => this.onSetSidebarOpen(!this.state.sidebarOpen)} className={classes.filterbar}>
+                 <button className="btn btn-danger btn-xs" onClick={() => this.onSetSidebarOpen(!this.state.sidebarOpen)} 
+                //  className={classes.filterbar}
+                 >
                          Filter 
                  </button>
                 

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import classes from './VehicleDetail.module.css';
 import { connect} from 'react-redux';
-import axios from '../../axios';
+import axios from 'axios';
 import Aux from '../../hoc/Auxilary';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions/auth';
@@ -308,6 +308,7 @@ class VehicleDetail extends Component {
                              </div>
                              <div className={classes.details}>
                                   <h4>Details</h4>
+                                  <hr style={{border: '0.5px solid grey'}}/>
                                   <div className={classes.innerdetails}>
                                  <div> <p><strong>Brand:</strong> <span className={classes.valueDetail}>{this.state.vehicles.brand}</span></p> </div> 
                                  <div> <p><strong>Model:</strong> <span className={classes.valueDetail}>{this.state.vehicles.model}</span> </p> </div>
@@ -320,7 +321,7 @@ class VehicleDetail extends Component {
                                  <Modal
         show={this.state.modalShowDoc}
         onHide={modalCloseDoc}
-        size="lg"
+        size="sg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -351,7 +352,7 @@ class VehicleDetail extends Component {
                     <div className={classes.rightdiv}>
                         <div className={classes.price}>
                         <div style={{marginLeft: '4px'}}> <h4><strong>{this.state.vehicles.brand} {this.state.vehicles.model}</strong></h4> </div>  
-
+                            <hr style={{border: '0.5px solid grey'}}/>
                             {this.state.vehicles.price ? 
                             <div style={{marginLeft: '4px'}}><strong>Price: &#x20B9;</strong> <span className={classes.valueDetail}>{this.state.vehicles.price.toLocaleString('en-IN')}</span></div> : <div style={{marginLeft: '4px'}}><strong>Price per day:</strong> <span className={classes.valueDetail}>&#x20B9;{this.state.vehicles.price_per_day}</span></div>} 
                             <div style={{marginLeft: '4px'}}><strong> Ad Posted On: </strong> <span className={classes.valueDetail}>{this.state.postedOn}</span></div>    
@@ -415,14 +416,20 @@ class VehicleDetail extends Component {
         </Modal.Footer>
       </Modal>    
 
-                            <div style={{marginLeft: '4px'}}><button className={classes.ownerdet} onClick={() => this.setState({ modalShow: true })}>Owner Details</button></div>
+                            <div style={{marginLeft: '4px'}}>
+                            <button 
+                            // className={classes.ownerdet}
+                            class="btn btn-primary btn-sm"
+                             onClick={() => this.setState({ modalShow: true })}>
+                                Owner Details
+                            </button></div>
                             <div> {datepickers} </div>
                             <div className={classes.buttonCont}>
                             {
                     localStorage.getItem('token') === null
                  
                  ? <div className={classes.but}>
-                     <NavLink to="/login"><button className="btn btn-primary">Kindly Sign In</button></NavLink>
+                     <NavLink to="/login"><button className="btn btn-info">Kindly Sign In</button></NavLink>
                    </div>  
                
                  : <div className={classes.but}>

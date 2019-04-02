@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios';
+import axios1 from 'axios';
 import * as actions from './cart'
 import * as actionp from './vehicle_click';
 
@@ -215,7 +216,7 @@ export const deleteUserData = () => {
 
 export const userData = (user_id) => {
     return dispatch => {
-        axios.post('/fetch-user', {user_id: user_id})
+        axios1.post('/fetch-user', {user_id: user_id})
         .then(res => {
             // console.log(res.data);
             dispatch(saveUserData(res.data.first_name,

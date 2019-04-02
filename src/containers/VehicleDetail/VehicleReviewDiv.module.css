@@ -1,11 +1,12 @@
 .mainDiv {
     width: 80%;
-    height: 150px;
+    height: auto;
     margin-left: 10%;
     border: 1px solid black;
     display: flex;
     margin-bottom: 10px;
     flex-direction: column;
+    padding: 0.5%;
 }
 
 .topDiv {
@@ -17,7 +18,7 @@
     border-radius:  50%;
     border: 1px solid black;
     width: 5%;
-    height:60%;
+    height:90%;
     margin-right: 10px;
 
 }

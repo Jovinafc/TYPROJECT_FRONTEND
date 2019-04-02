@@ -31,6 +31,7 @@
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     width: 80%;
     font-size: 1.5em;
+    padding: 5%;
 }
 
 
@@ -101,6 +102,8 @@
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
     font-size: 1.2em;
+    padding: 1.5%;
+
 }
 
 .innerdetails {
@@ -132,7 +135,7 @@
     /* border: 1px solid orange; */
     border: 2px solid #eee;
     box-shadow: 0 2px 3px rgb(124, 114, 114);
-       
+    padding: 1.5%;   
 }
 
 .buttonCont {

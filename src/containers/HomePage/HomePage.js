@@ -1,22 +1,11 @@
 import React, { Component} from 'react';
 import classes from './HomePage.module.css';
-// import Image from './Vehicle.v1.jpg';
-// import ImageSlider from '../../components/ImageSlider/ImageSlider';
-// import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Carousel from 'react-bootstrap/Carousel'
 import { NavLink } from 'react-router-dom';
-import photo from '../../Images/signupmod.jpg'
 import axios from 'axios';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
-// import RBCarousel from "react-bootstrap-carousel";
-import Vehicle1 from './Vehicle 1.jpg';
-// import Vehicle2 from './Vehicle 2.jpg';
-// import Vehicle3 from './Vehicle 3.jpg';
-// import Vehicle4 from './Vehicle 4.jpg';
-import Vehicle5 from './Vehicle 5.jpg';
-// import Vehicle6 from './Vehicle 6.jpg';
-// import Vehicle7 from './Vehicle 7.jpg';
+
 
 class HomePage extends Component {
 
@@ -78,18 +67,18 @@ class HomePage extends Component {
                     <Carousel className={classes.carousel}>
                         <Carousel.Item>
                         {/* <img className={classes.Image} src="http://res.cloudinary.com/beast0013/image/upload/v1548216751/geqnk9bclpaqboxkn2fc.jpg" /> */}
-                        <img className={classes.Im} src={photo} alt="Vehicle " />
+                        <img className={classes.Im} src="http://res.cloudinary.com/beast0013/image/upload/v1554221846/sfczdr0intvx1vx297aj.jpg   " alt="Vehicle " />
 
                         </Carousel.Item>
 
 
                         <Carousel.Item>
-                        <img className={classes.Im} alt="Vehicle" src={Vehicle5}/>
+                        <img className={classes.Im} alt="Vehicle" src="http://res.cloudinary.com/beast0013/image/upload/v1554221918/vrqdrgtvks0af3ufl0j8.jpg"/>
   
                         </Carousel.Item>
 
                         <Carousel.Item>
-                        <img className={classes.Im} alt="Vehicle" src={Vehicle1}/>
+                        <img className={classes.Im} alt="Vehicle" src="http://res.cloudinary.com/beast0013/image/upload/v1554221992/lhvdajmwflz3febxrtli.jpg"/>
   
                         </Carousel.Item>
 

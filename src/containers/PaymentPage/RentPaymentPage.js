@@ -226,7 +226,7 @@ class RentPaymentPage extends Component {
               <Field
                 name="cvc"
                 component="input"
-                type="text"
+                type="password"
                 pattern="\d{3,4}"
                 placeholder="CVC"
                 format={formatCVC}

@@ -104,7 +104,7 @@ class Login extends Component {
                          <br />
                  </div>
                 <button disabled={!enabled} className="btn btn-primary" > Login</button>
-                        <p>Not Registered?<NavLink to="/SignUp">Sign Up Here</NavLink></p>
+                        <p>Not Registered?  <NavLink to="/SignUp">Sign Up Here</NavLink></p>
             </div>
     );
 

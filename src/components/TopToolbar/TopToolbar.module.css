@@ -100,7 +100,8 @@
 }
 
 .afterlogin {
-    height: 100%;
+    height: 90%;
+    margin-top: 5%;
     width: 100%;
     border: 2px solid white;
     border-radius: 50%;

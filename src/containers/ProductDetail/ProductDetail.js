@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './ProductDetail.module.css';
-import axios from '../../axios';
+import axios from 'axios';
 import { NavLink, Redirect} from 'react-router-dom'
 import * as actions from '../../store/actions/vehicle_click';
 import { connect} from 'react-redux';
@@ -28,21 +28,7 @@ class ProductDetail extends Component {
         disabled: false
     }
 
-    componentDidMount () {
-        window.scrollTo(0,0);
-        const {match: {params}} = this.props;
-        let a = params.product_id
-        a = a.substring(1);
-        this.props.type_payment('Single Item')
-
-        axios.post('/fetch-specific-accessory', {accessory_id: a})
-        .then(response => {
-            this.setState({
-                product: response.data
-            })
-
-        })
-
+    getReviews = () => {
         axios.get(`/get-accessory?accessory_id=${localStorage.getItem('product_id')}&user_id=${localStorage.getItem('userId')}`)
         .then(res => {
             if(res.data !== 'No Reviews'){
@@ -59,6 +45,26 @@ class ProductDetail extends Component {
                 })
             }
         })
+
+    }
+
+    componentDidMount () {
+        window.scrollTo(0,0);
+        const {match: {params}} = this.props;
+        let a = params.product_id
+        a = a.substring(1);
+        this.props.type_payment('Single Item')
+
+        axios.post('/fetch-specific-accessory', {accessory_id: a})
+        .then(response => {
+            this.setState({
+                product: response.data
+            })
+
+        })
+
+        this.getReviews();
+
         
         axios.post('/fetch-specific-accessory-rating-and-review', {accessory_id: a})
         .then(response => {
@@ -212,7 +218,9 @@ class ProductDetail extends Component {
         .then(res => {
             this.setState({
                 modalShow: false
+                
             })
+            this.getReviews();
         })
     }
 
@@ -271,7 +279,8 @@ class ProductDetail extends Component {
                         </div>
 
                         <div className={classes.details}>
-                            <strong>Details</strong>
+                            <h5><strong>Details</strong></h5>
+                            <hr style={{border: '0.5px solid black'}}/>
                             <div className={classes.innerDetails}>
                                 <div><p><strong>Description:</strong> <span className={classes.valueDet}>{this.state.product.accessory_details}</span></p></div>
                                 {/* <div><p>Used For:{this.state.product}</p></div> */}
@@ -285,6 +294,7 @@ class ProductDetail extends Component {
                     <div className={classes.rightDiv}>
                         <div className={classes.price}>
                         <div><h5><strong>{this.state.product.accessory_name}</strong></h5></div>    
+                        <hr style={{border: '0.5px solid black'}}/>
 
                             <h6><strong>Price:</strong> <span className={classes.valueDet}>&#x20B9;{this.state.product.accessory_price}</span></h6>
 
@@ -390,7 +400,7 @@ class ProductDetail extends Component {
                 </div>    
 
                 <div className={classes.reviewsCont}>
-                    <strong>Reviews</strong> 
+                    <strong >Reviews</strong> 
                     {reviewlist}
                </div>
 

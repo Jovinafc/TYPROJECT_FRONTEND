@@ -1,8 +1,9 @@
 .Container {
   width: 100%;
   height: auto;
-  border: 1px solid black;
-  
+  /* border: 1px solid black; */
+  margin-bottom: 150px;
+  /* padding-bottom: 150px; */
   display: flex;
 }
 
@@ -13,9 +14,10 @@
 
 .Main {
   width: 80%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 2%;   
    font-size: 1.2em;
+   height: 100%;
 
 }
 

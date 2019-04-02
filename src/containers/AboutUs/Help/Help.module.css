@@ -1,15 +1,13 @@
 .main {
-    background-color: aquamarine;
+    /* background-color: rgb(197, 218, 211); */
     padding-top: 2%;
     padding-bottom: 5%;
 }
 
-.header {
-    background-color: grey;
-}
 
 .helpone {
     width: 90%;
     margin-left: 5%;
-    background-color: azure;
+    padding: 1.5%;
+    background-color: aquamarine;
 }

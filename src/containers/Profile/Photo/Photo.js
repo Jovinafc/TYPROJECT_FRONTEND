@@ -134,6 +134,8 @@ class Photo extends Component {
 
                 <div className={classes.Main}>
                     <h3>Profile Photo</h3>
+                    <hr style={{border: '1px solid black'}}/>
+
 
                     <div style={{textAlign: 'center'}}> 
                         <div className={classes.ImageCont}>

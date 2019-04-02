@@ -3,7 +3,8 @@
     width: 100%;
     /* margin-bottom: 10%; */
     padding-bottom: 10%;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
+    background-color: white;
     font-size: 1.0em;
 }
 
@@ -17,6 +18,7 @@
 .email {
     width: 30%;
     margin-right: 10%;
+    background-color: aquamarine;
     border: 1px solid black;
     border-radius: 10%;
     padding: 5%;
@@ -25,6 +27,8 @@
 .phone {
     width: 30%;
     border: 1px solid black;
+    background-color: aquamarine;
+
     border-radius: 10%; 
     padding: 5%;
    

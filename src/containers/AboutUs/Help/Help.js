@@ -9,6 +9,7 @@ class Help extends Component {
                 <div className={classes.main}>
                     <div className={classes.helpone}>
                         <h4 className={classes.header}>Buy/Rent Process</h4>
+                        <hr style={{border: '1px solid black'}}/>
                         <div>
                             <ul>
                                 <li> Make sure you have logged in before you proceed to buy or rent a vehicle  </li>
@@ -19,9 +20,14 @@ class Help extends Component {
                             </ul>
                         </div>
                     </div>
+
+                    <hr style={{border: '1px solid white'}}/>
+
                 
                     <div className={classes.helpone}>
                         <h4 className={classes.header}>Sell/Lend Process</h4>
+                        <hr style={{border: '1px solid black'}}/>
+
                         <div>
                             <ul>
                                 <li> Make sure you have logged in before you proceed to rent or lend a vehicle  </li>
@@ -33,8 +39,13 @@ class Help extends Component {
                         </div>
                     </div>
 
+                    <hr style={{border: '1px solid white'}}/>
+
+
                     <div className={classes.helpone}>
                         <h4 className={classes.header}>Accessories</h4>
+                        <hr style={{border: '1px solid black'}}/>
+
                         <div>
                             <ul>
                                 <li> Make sure you have logged in before you proceed to add any accessory to your cart </li>
@@ -47,8 +58,12 @@ class Help extends Component {
                         </div>
                     </div>
 
+                    <hr style={{border: '1px solid white'}}/>
+
                     <div className={classes.helpone}>
                         <h4 className={classes.header}>Profile</h4>
+                        <hr style={{border: '1px solid black'}}/>
+
                         <div>
                             <ul>
                                 <li> Before proceeding to buy/rent or sell/lend make sure that your profile is updated </li>

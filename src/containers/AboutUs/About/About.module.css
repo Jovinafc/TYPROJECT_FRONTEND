@@ -3,13 +3,17 @@
     width: 100%;
     /* margin-bottom: 10%; */
     padding-bottom: 10%;
-    background-color: aquamarine;
+    background-color: white;
+    /* background-color: aquamarine; */
+
     font-size: 1.0em;
 }
 
 .content {
     width: 60%;
     border: 1px solid black;
+    background-color: aquamarine;
+    /* background-color: white; */
     border-radius: 10%;
     margin-left: 20%;
     padding: 5%;

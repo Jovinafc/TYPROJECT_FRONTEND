@@ -15,7 +15,11 @@ import axios from 'axios';
 // import AlertTemplate from 'react-alert-template-oldschool-dark'
 
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'http://localhost:3001/api';
+// axios.defaults.baseURL = 'http://localhost:3001';
+// axios.defaults.baseURL = 'http://192.168.43.247:3001/api'
+
+
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 
 axios.interceptors.request.use(request => {

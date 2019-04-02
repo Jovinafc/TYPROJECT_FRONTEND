@@ -109,7 +109,7 @@ class ReviewDiv extends Component {
                         half={false}
                         edit={false}
                         color2={'#ffd700'} />
-                        : <div>Not Rated by user</div>
+                        : null
                         }
                          
                          </div>

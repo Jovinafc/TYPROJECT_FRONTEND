@@ -55,8 +55,8 @@ class VehicleHistory extends Component {
         }
         display = this.state.vehicles.map(dis => (
             <VehicleHistoryCard 
-            ratingDetails={this.state.vehicleRate}
-            commentDetails={this.state.vehicleComment}
+            // ratingDetails={this.state.vehicleRate}
+            // commentDetails={this.state.vehicleComment}
             key={dis.id}
             details={dis}
            

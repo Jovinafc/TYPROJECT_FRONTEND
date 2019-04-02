@@ -160,6 +160,8 @@ class Delete extends Component {
 
             <div className="form-group">
             <h3 style={{textAlign: 'center'}}> Delete Account </h3>
+            <hr style={{border: '1px solid black'}}/>
+
             <br/><br/>
             <TextField                         
             error = {this.props.emailError}
@@ -208,8 +210,10 @@ class Delete extends Component {
             <div className={classes.Main}>
                 <div>
                 <h2 style={{textAlign: 'center'}}>Delete Your Account</h2>
+                <hr style={{border: '1px solid black'}}/>
+
                 
-                <p style={{marginTop: '30px'}}>Are You Sure you want to Delete your account?<b>All your data will be deleted permanently</b></p>
+                <p style={{marginTop: '30px'}}>Are You Sure you want to Delete your account?<b>     All your data will be deleted permanently</b></p>
 
                   
                 <div style={{textAlign: 'center'}}>

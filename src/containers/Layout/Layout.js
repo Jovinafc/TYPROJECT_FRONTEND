@@ -118,9 +118,9 @@ class Layout extends Component {
                       <ul className={classes.ul}> 
                       <h5>Social</h5>
 
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
+                        <li><a href="https://www.facebook.com/RideWheelz-283553915895193/?modal=admin_todo_tour">Facebook</a></li>
+                        <li><a href="https://twitter.com/">Twitter</a></li>
+                        <li><a href="https://www.instagram.com/ridewheelz65/?hl=en">Instagram</a></li>
                       </ul>
                     </div>
                </div>

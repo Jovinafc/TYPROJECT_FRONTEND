@@ -661,9 +661,12 @@ class SellVehicle extends Component {
         <div>
         
             <h2 style={{textAlign:'center', paddingBottom:'15px'}}>Sell your Vehicle</h2>
+
+            <hr style={{border: '1px solid black'}}/>
+
             <form className={classes.Sell}>
 
-                        <span><p style={{fontSize: '0.8em', textAlign: 'left', marginBottom: '-3px'}}>(*Start with the Vehicle Type field)</p></span>
+                        <span><p style={{fontSize: '0.8em', textAlign: 'left', marginBottom: '2px'}}>(*Start with the Vehicle Type field)</p></span>
                         <div className={classes.firstDiv}>
                        <div className={classes.divs}> 
                       <label htmlFor="type" className={classes.Label}>Vehicle Type:</label>  

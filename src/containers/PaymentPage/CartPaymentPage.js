@@ -109,7 +109,6 @@ class ProductPayment extends Component {
 
         return (
             <div className={classes.Container}>
-            <h3>Cart Payment Page </h3>
             <div>
 
 <Styles>

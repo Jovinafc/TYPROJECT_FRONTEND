@@ -203,7 +203,7 @@ class ProfInfo extends Component {
             })
             errors.firstNameError = "Please Enter First Name"
         }
-        console.log(isError);
+        // console.log(isError);
 
 
 // Last Name   
@@ -216,7 +216,7 @@ class ProfInfo extends Component {
             errors.lastNameError = "Please Enter Last Name"
 
         }
-        console.log(isError);
+        // console.log(isError);
 
 //Phone Number
         if(this.state.phone_number === '') {
@@ -228,7 +228,7 @@ class ProfInfo extends Component {
             errors.phone_numberError = "Please Enter Phone Number"
 
         }
-        console.log(isError);
+        // console.log(isError);
 
         // let pn = false;
 
@@ -266,7 +266,7 @@ class ProfInfo extends Component {
             })
             errors.bank_noError = "Please Enter Bank Account Number"
         }
-        console.log(isError);
+        // console.log(isError);
         
 //DOB
 
@@ -301,7 +301,7 @@ class ProfInfo extends Component {
                 errors.dobError= "You should be above 18 years old"
             }
    
-            console.log(isError);
+            // console.log(isError);
 
 //PinCode
 
@@ -339,7 +339,7 @@ class ProfInfo extends Component {
             errors.pin_numberError = ''
 
         }
-        console.log(isError);
+        // console.log(isError);
 //City        
 
         let ci = false;
@@ -364,7 +364,7 @@ class ProfInfo extends Component {
             });
             errors.cityError = ''
         }
-        console.log(isError);
+        // console.log(isError);
         
         let si = false;
         let stateRegex = /^[A-Za-z\s]+$/;
@@ -387,7 +387,7 @@ class ProfInfo extends Component {
             });
             errors.stateError = ''
         }
-        console.log(isError);
+        // console.log(isError);
 
         if(isError){
             
@@ -405,7 +405,7 @@ class ProfInfo extends Component {
 
     submitHandler = (e) => {
         const error = this.validate();
-        console.log(error);
+        // console.log(error);
         if(!error){
             e.preventDefault();
             this.setState({
@@ -505,6 +505,7 @@ class ProfInfo extends Component {
 
             <div className={classes.Cont}>
                 <h3 style={{textAlign: "center"}}>Basic Information</h3>
+                <hr style={{border: '1px solid black'}}/>
                 <br />
                 <div className={classes.formCont}>
                 <form  className="form-horizontal">
@@ -512,7 +513,7 @@ class ProfInfo extends Component {
                 {/* className={cx(globalStyles.label, globalStyles['col-sm-2 control-label'], classes.Inp)} */}
 
                         <div className={cx(globalStyles.form, globalStyles['form-group'], classes.con) }>
-                    <label htmlFor="fname"  className="col-sm-2 control-label">First Name</label>
+                    <label htmlFor="fname"  className="col-sm-2 control-label">First Name<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input type="text" className="form-control" id="fname" onChange={this.fnameHandler} value={this.state.first_name}/>
                     <span style={{color: 'red'}}>{this.state.firstNameError}</span>   
@@ -522,7 +523,7 @@ class ProfInfo extends Component {
                     
 
                         <div className="form-group">
-                    <label htmlFor="lname" className="col-sm-2 control-label">Last Name</label>
+                    <label htmlFor="lname" className="col-sm-2 control-label">Last Name<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input type="text" className="form-control" id="lname" onChange={this.lnameHandler} value={this.state.last_name}/>
                     <span style={{color: 'red'}}>{this.state.lastNameError}</span>   
@@ -531,7 +532,7 @@ class ProfInfo extends Component {
                         </div>
 
                         <div className="form-group">
-                    <label htmlFor="phone" className="col-sm-2 control-label">Phone Number</label>
+                    <label htmlFor="phone" className="col-sm-2 control-label">Phone Number<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="phone" onChange={this.phoneHandler} value={this.state.phone_number}/>        
                     <span style={{color: 'red'}}>{this.state.phone_numberError}</span>   
@@ -541,7 +542,7 @@ class ProfInfo extends Component {
 
                         
                         <div className="form-group">
-                    <label htmlFor="bank_no" className="col-sm-4 control-label">Bank Account No</label>
+                    <label htmlFor="bank_no" className="col-sm-4 control-label">Bank Account No<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="bank_no" onChange={this.bankHandler} value={this.state.bank_no || ''}/>        
                     <span style={{color: 'red'}}>{this.state.bank_noError}</span>   
@@ -552,14 +553,14 @@ class ProfInfo extends Component {
 
 
                         <div className="form-group">
-                    <label htmlFor="address" className="col-sm-2 control-label">Address</label>
+                    <label htmlFor="address" className="col-sm-2 control-label">Address<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <textarea className="form-control" type="text" rows="3" id="address" onChange={this.addressHandler} value={this.state.address || ''}/>    
                         </div>    
                         </div>
 
                         <div className="form-group">
-                    <label htmlFor="state" className="col-sm-2 control-label">State</label>
+                    <label htmlFor="state" className="col-sm-2 control-label">State<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.stateHandler} type="text" id="state" value={this.state.state || ''} />   
                     <span style={{color: 'red'}}>{this.state.stateError}</span>   
@@ -568,7 +569,7 @@ class ProfInfo extends Component {
                         </div>
 
                         <div className="form-group">
-                    <label htmlFor="city" className="col-sm-2 control-label">City</label>
+                    <label htmlFor="city" className="col-sm-2 control-label">City<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input className="form-control" onChange={this.cityHandler} type="text" id="city" value={this.state.city || ''} />    
                     <span style={{color: 'red'}}>{this.state.cityError}</span>   
@@ -577,7 +578,7 @@ class ProfInfo extends Component {
                         </div>
 
                         <div className="form-group">
-                    <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code</label>
+                    <label htmlFor="pincode" className="col-sm-2 control-label">Pin Code<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     <input type="number" className="form-control" id="pincode" onChange={this.pincodeHandler} value={this.state.pincode || ''}/>        
                     <span style={{color: 'red'}}>{this.state.pin_numberError}</span>   
@@ -587,7 +588,7 @@ class ProfInfo extends Component {
 
                         
                         <div className="form-group"> 
-                    <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth</label>
+                    <label htmlFor="dob" className="col-sm-2 control-label">Date of Birth<span style={{color: 'red'}}>*</span></label>
                     <div className="col-sm-10">
                     {/* <DatePicker id="dob" dateFormat="yyyy-MM-dd" onChange={this.dobHandler} value={this.state.DOB} /> */}
                     {/* <ModernDatePicker 
@@ -606,7 +607,8 @@ class ProfInfo extends Component {
 
 
                         <div className="form-group">
-                            <label htmlFor="documents" className="col-sm-4 control-label">Document</label>
+                            <label htmlFor="documents" className="col-sm-4 control-label">Document<span style={{color: 'red'}}>*</span><span style={{fontSize: '0.7em'}}>(Upload Driving License)</span></label>
+                            
                             <div className="col-sm-10">
                     <input accept="image/*" type="file" className="form-control" id="documents" onChange={this.handleDocumentChange} />        
                     <span style={{color: 'red'}}>{this.state.documentError}</span>   
